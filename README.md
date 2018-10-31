@@ -1,4 +1,4 @@
-# Bit of War, an mass
+# Bit of War, online massive multiplayer war game, over BTC blockchain.
 
 Ladies and gentleman, here, it's my pleasure to announce the version of Bit of War. A real time massive multiplayer war game fully connected to the blockchain!
 
