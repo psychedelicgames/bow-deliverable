@@ -8,7 +8,7 @@ Try the last version of the game at: https://www.bitofwar.com
 
 You'll need a few BTC in order to play it!
 
-###Rules are quite simple!
+#Rules are quite simple!
 
 - Each time you kill an enemy, you'll earn 100 bits.
 - Each time an enemy kills you, you'll lose 100 bits.
@@ -17,7 +17,7 @@ At that point you'll need to respawn, but no worry!
 Respawns are cheap, and come with a limit of 5 powerups that you can use during the battle.
 Use them wisely will certainly give you gains!
 
-###Gambling Warning
+#Gambling Warning
 
 - Bit of war can be illegal in certain countries.
 - Bit of War is considered a Game of skill, not a Game of chance, hence we believe it's not gambling.
@@ -30,7 +30,7 @@ Bit of War has been evaluated several times proving that better players (which h
 
 A multiplayer real time action challenge connected to the bitcoin network. No luck involved, the better you aim, the faster you move, the more chances you have!
 
-###Uses Segwit
+#Uses Segwit
 
 Thanks to the speed and efficiency provided by bitcoin switness and Green Addresses, the whole action is recorded for ever on the blockchain, as it happens. Bit of war is an online real time strategy game, connected to the bitcoin network.
 
