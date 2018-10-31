@@ -1,0 +1,85 @@
+<!-- Modal New User -->
+<div class="modal fade modal-new-user" id="modal-new-user" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					<span id="modal-new-user-resume">Resume</span>
+					<span id="modal-new-user-register" class="unselected">Create New Profile</span>
+				</h5>
+			</div>
+			<div id="resume-container" class="modal-info">
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-6">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+									</div>
+									<input id="name-input" type="text" class="form-control" placeholder="Username" aria-label="Username">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-key"></i></span>
+									</div>
+									<input id="pass-input" type="password" class="form-control" placeholder="Password" aria-label="Password">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">2FA</span>
+									</div>
+									<input id="mfa-code-input" type="text" class="form-control" placeholder="2FA (if enabled)" aria-label="2FA (if enabled)">
+								</div>
+								<span id="alert-message-resume" class="text-alert font-small"></span>					
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="name-submit" type="button" class="btn btn-custom-one">log in</button>
+				</div>
+				<span class="oil oil-t-l"><img src="/img/oil1.png" style="width:90%;"></span>
+			</div>
+			<div id="register-container" class="modal-info">
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-6">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+									</div>
+									<input id="user-new-username" type="text" class="form-control" placeholder="Username" aria-label="Username">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-key"></i></span>
+									</div>
+									<input id="user-new-password" type="text" class="form-control" placeholder="Password" aria-label="Password">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+									</div>
+									<input id="user-new-email" type="text" class="form-control" placeholder="Email" aria-label="Email">
+								</div>
+								<span id="alert-message-register" class="text-alert font-small"></span>
+							</div>
+							<div class="col-6">
+								<p>
+									Email is optional: you don't need to assosiate an email to create a new account. However, accounts withour email don’t have any password recovery options.
+								</p>
+							</div>
+						</div>
+					</div>					
+				</div>
+				<div class="modal-footer">
+					<button id="name-create" type="button" class="btn btn-custom-one">confirm</button>
+				</div>
+				<span class="oil oil-t-l"><img src="/img/oil1.png" style="width:90%;"></span>
+			</div>
+			<span class="red-line"><img src="/img/red-line.png"></span>
+		</div>
+	</div>
+</div>

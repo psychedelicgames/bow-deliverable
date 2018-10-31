@@ -1,0 +1,157 @@
+/* ======================================
+  Font-family
+
+====================================== */
+html, body {
+  font-family: 'Questrial', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'BigNoodleTooOblique';
+  src: url('/img/fonts/BigNoodleTooOblique.eot');
+  src: url('/img/fonts/BigNoodleTooOblique.eot?#iefix') format('embedded-opentype'),
+  url('/img/fonts/BigNoodleTooOblique.woff2') format('woff2'),
+  url('/img/fonts/BigNoodleTooOblique.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/* ======================================
+  Texts
+
+====================================== */
+h1, h2, h3, h4, h5, h6 {
+  // font-family: 'Roboto Slab', serif !important;
+}
+// h1 {  /* H1 */
+//   font-size: 62px;
+//   line-height: 72px;
+//   font-weight:600;
+//   font-family: 'Roboto Slab', serif !important;
+//   @include only-tablet {
+//     font-size: 52px;
+//     line-height: 62px;
+//   }
+//   @include only-mobile {
+//     font-size: 72px;
+//     line-height: 86px;
+//   }
+// }
+// h2 {  /* H2 */
+//   font-size: 46px;
+//   line-height: 56px;
+//   font-weight:600;
+//   font-family: 'Roboto Slab', serif !important;
+//   @include only-tablet {
+//     font-size: 36px;
+//     line-height: 44px;
+//   }
+//   @include only-mobile {
+//     font-size: 64px;
+//     line-height: 76px;
+//   }
+// }
+// h3 {  /* H3 */
+//   font-size: 34px;
+//   line-height: 46px;
+//   font-weight:600;
+//   font-family: 'Roboto Slab', serif !important;
+//   @include only-tablet {
+//     font-size: 26px;
+//     line-height: 32px;
+//   }
+//   @include only-mobile {
+//     font-size: 56px;
+//     line-height: 66px;
+//   }
+// }
+// h4 {  /* H4 */
+//   font-size: 30px;
+//   line-height: 38px;
+//   font-weight:600;
+//   font-family: 'Roboto Slab', serif !important;
+//   @include only-tablet {
+//     font-size: 20px;
+//     line-height: 28px;
+//   }
+//   @include only-mobile {
+//     font-size: 50px;
+//     line-height: 60px;
+//   }
+// }
+// h5 {  /* H5 */
+//   font-size: 24px;
+//   line-height: 32px;
+//   font-weight:600;
+//   font-family: 'Roboto Slab', serif !important;
+//   @include only-tablet {
+//     font-size: 18px;
+//     line-height: 24px;
+//   }
+//   @include only-mobile {
+//     font-size: 42px;
+//     line-height: 50px;
+//   }
+// }
+// h6 {  /* H6 */
+//   font-size: 20px;
+//   line-height: 24px;
+//   font-weight:600;
+//   font-family: 'Roboto Slab', serif !important;
+//   @include only-tablet {
+//     font-size: 16px;
+//     line-height: 20px;
+//   }
+//   @include only-mobile {
+//     font-size: 42px;
+//     line-height: 50px;
+//   }
+// }
+.c-paragraph-1,.c-paragraph-2 {
+  font-weight: 400;
+  padding: 0 0 25px 0;
+}
+.c-paragraph-3,.c-paragraph-4 {
+  font-weight: 400;
+  padding: 0 0 20px 0;
+}
+.c-paragraph-5,.c-paragraph-6 {
+  font-weight: 400;
+  padding: 0 0 18px 0;
+}
+
+/* ======================================
+  already defaults mwf texts'styles
+  .x-type-center
+  .x-type-right
+  .x-type-left
+  .x-weight-light
+  .x-weight-normal
+  .x-weight-semibold
+====================================== */
+
+/* ======================================
+  Texts Colors
+
+====================================== */
+.x-color-black {
+  color: $color-black !important;
+}
+
+.x-color-white {
+  color: $color-white !important;
+}
+
+.x-color-grey {
+  color: $color-grey-dark !important;
+}
+
+.x-color-one {
+  color: $color-one !important;
+}
+.x-color-two {
+  color: $color-two !important;
+}
+
+

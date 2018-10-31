@@ -1,0 +1,19 @@
+$media-only-mobile: "screen and (max-width: 750px)";
+$media-only-tablet-portrait: "screen and (min-width: 751px) and (max-width: 1280px) and (orientation: portrait)";
+$media-only-tablet: "screen and (min-width: 750px) and (max-width: 1280px)";
+$media-tablet: "screen and (min-width: 750px)";
+$media-desktop: "screen and (min-width: 1050px) and (max-width: 1440px)";
+$media-desktop-large: "screen and (min-width: 1441px)";
+
+
+$color-black: #000;
+$color-white: #fff;
+$color-grey-dark: #2d2d2d;
+$color-one: #ff3939;
+$color-two: #ff6d00;
+
+// @fadeIn
+@f-animated-fadeIn-name: ani-fadeIn;
+@f-animated-fadeIn-opacity-start: 0;
+@f-animated-fadeIn-opacity-end: 1;
+@animated-fadeIn-label: "Fade In";

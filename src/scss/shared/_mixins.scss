@@ -1,0 +1,66 @@
+@import "variables";
+
+@mixin only-mobile {
+  @media #{$media-only-mobile} {
+    @content;
+  }
+}
+
+@mixin only-tablet {
+  @media #{$media-only-tablet} {
+    @content;
+  }
+}
+
+@mixin only-tablet-portrait {
+  @media #{$media-only-tablet-portrait} {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media #{$media-tablet} {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media #{$media-desktop} {
+    @content;
+  }
+}
+
+@mixin desktop-mdpi {
+  @media #{$media-desktop-mdpi} {
+    @content;
+  }
+}
+
+@mixin desktop-hdpi {
+  @media #{$media-desktop-hdpi} {
+    @content;
+  }
+}
+
+@mixin desktop-large {
+  @media #{$media-desktop-large} {
+    @content;
+  }
+}
+
+
+@mixin fullscreen($offset: 100px) {
+  width: 100%;
+  min-height: 680px;
+  height: calc(100vh - #{$offset});
+}
+
+@mixin rotate($degrees) {
+    -webkit-transform: rotate($degrees);
+    -moz-transform: rotate($degrees);
+    -ms-transform: rotate($degrees);
+    -o-transform: rotate($degrees);
+    transform: rotate($degrees);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=#{-1*sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
+    filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=#{-1*sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
+}

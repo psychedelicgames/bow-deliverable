@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="70px" viewBox="0 0 24 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>slide-tab</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="slide-tab">
+            <path d="M4.92307692,7.94871795 L24,0 L24,70 L4.92307692,62.0512821 C1.94190141,60.8091256 -1.49074522e-14,57.8962735 -1.24344979e-14,54.6666667 L5.32907052e-15,15.3333333 C6.36779129e-15,12.1037265 1.94190141,9.19087441 4.92307692,7.94871795 Z" id="Rectangle-11-Copy-2" fill="#FF4949"></path>
+            <path d="M8.32142857,31.5 L16.6785714,31.5" id="Line" stroke="#000000" stroke-linecap="square"></path>
+            <path d="M8.32142857,35.5 L16.6785714,35.5" id="Line" stroke="#000000" stroke-linecap="square"></path>
+            <path d="M8.32142857,39.5 L16.6785714,39.5" id="Line" stroke="#000000" stroke-linecap="square"></path>
+        </g>
+    </g>
+</svg>

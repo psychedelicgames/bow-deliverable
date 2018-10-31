@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="/js/socket.io.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="">
+
+        <title>Bit of War</title>
+
+        <link rel="stylesheet" href="./css/main.css">
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
+
+    </head>
+    <body>
+        {{!-- header include --}}
+        
+
+        {{!-- modals include --}}
+        {{> includes/_modals/new-user }}
+        {{> includes/_modals/disconnect }}
+        {{> includes/_modals/online-players }}
+        {{> includes/_modals/rooms }}
+        {{> includes/_modals/settings }}
+        {{> includes/_modals/user-balance }}
+
+        {{!-- interface include --}}
+        {{> includes/_layout/ui }}
+
+        {{!-- home page --}}
+        <div  id="home" class="home">
+            {{> includes/_layout/menu }}
+            <div id="leaderboard"></div>
+        </div>
+        
+        <div id="chat-input"></div>
+        <div id="canvas-container" class="canvas-container">
+            {{> includes/_layout/header }}
+            <canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none;"></canvas>
+            <canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
+        </div>
+        {{!-- {{#> page-block}} {{/page-block}} --}}
+         {{!-- {{> includes/_layout/footer }} --}}
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+        <script src="/js/shared/Constants.js"></script>
+        <script src="/js/shared/Util.js"></script>
+        <script src="/js/shared/base.js"></script>
+        <script src="/js/game/AFK_Kicker.js"></script>
+        <script src="/js/game/Chat.js"></script>
+        <script src="/js/game/Drawing.js"></script>
+        <script src="/js/game/Game.js"></script>
+        <script src="/js/game/Input.js"></script>
+        <script src="/js/game/Leaderboard.js"></script>
+        <script src="/js/game/ViewPort.js"></script>
+        <script src="/js/cookies.min.js"></script>
+        <script src="/js/sound.js"></script>
+
+        <script src="./js/jquery-3.3.1.slim.min.js" integrity="" crossorigin="anonymous"></script>
+        <script src="/js/qrcode.js"></script>
+        <script src="/js/client.js"></script>
+        <script src="./js/popper.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/main.js"></script>
+    </body>
+</html>
