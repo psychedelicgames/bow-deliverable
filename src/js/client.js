@@ -9,7 +9,7 @@ $(document).ready(function() {
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
 	// var socket = io();
-	var socket = io('https://research.bitofwar.com');
+	var socket = io('wss://54.67.15.38');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
