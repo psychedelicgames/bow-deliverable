@@ -216,17 +216,17 @@ Game.prototype.update = function() {
         }
         //reproducimos el sonido de la munición .
         if(feedback.player_main_ammo == "common") {
-          sounds['../public/audio/ammo/common.mp3'].play();
+          sounds['./audio/ammo/common.mp3'].play();
           // $('#canvas').addClass('shake shake-slow');
         }
         else if(feedback.player_main_ammo == "Assassin MK1") {
-          sounds['../public/audio/ammo/quick.mp3'].play();
+          sounds['./audio/ammo/quick.mp3'].play();
         }
         else if(feedback.player_main_ammo == "Vladof relics 1.0") {
-          sounds['../public/audio/ammo/fork.mp3'].play();
+          sounds['./audio/ammo/fork.mp3'].play();
         }
         else {
-          sounds['../public/audio/ammo/common.mp3'].play();
+          sounds['./audio/ammo/common.mp3'].play();
         }
       }
     })
