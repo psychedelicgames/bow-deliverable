@@ -20,7 +20,29 @@
 
     </head>
     <body>
+        <!-- inicializamos sequencer acá -->
+        <script type="module">
 
+            //usamos ES6 para incluir la clase
+            import Sequencer from './js/sequencer/sequencer.js';
+
+            //considerar remplazar el nombre en caso de que haya más.
+            const av_fire = Sequencer.make({
+                    canvas           : document.getElementById('av_fire'),
+                    from             : './img/canvas/avs/av_fire/focus_av_final_000.png',
+                    to               : './img/canvas/avs/av_fire/focus_av_final_029.png',
+                    playMode         : "auto",
+                    //direction        : "-x",
+                    //scaleMode        : "cover",
+                    //showLoadedImages : false,
+                    //hiDPI            : true,
+                    //imageLoad        : function(e){ console.log("[id: " + e.id + "] " + e.count + "/" + e.total); },
+                    //queueComplete    : function(e){ console.log(e); }
+                });
+
+                av_fire.size(500, 300);
+
+        </script>
 
         <!-- Modal New User -->
         <div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
