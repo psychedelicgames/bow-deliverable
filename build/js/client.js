@@ -390,7 +390,7 @@ $(document).ready(function() {
 
 	//sonido de fondo, debería de correr solo cuando is playin'
 	var sound_bg = document.createElement("audio");
-	sound_bg.src = "../audio/full.mp3";
+	sound_bg.src = "./audio/full.mp3";
 	sound_bg.volume = 0.2;
 	sound_bg.autoPlay = false;
 	sound_bg.preLoad = true;
@@ -422,53 +422,53 @@ $(document).ready(function() {
 		socket.emit('preload', function(feedback) {
 
 			//los predefinidos
-			sounds.load(['../audio/coins.mp3']);
-			sounds.load(['../audio/cardio.mp3']);
-			sounds.load(['../audio/buzz.mp3']);
+			sounds.load(['./audio/coins.mp3']);
+			sounds.load(['./audio/cardio.mp3']);
+			sounds.load(['./audio/buzz.mp3']);
 			//sonidos de munición
-			sounds.load(['../audio/ammo/common.mp3']);
-			sounds.load(['../audio/ammo/quick.mp3']);
-			sounds.load(['../audio/ammo/fork.mp3']);
+			sounds.load(['./audio/ammo/common.mp3']);
+			sounds.load(['./audio/ammo/quick.mp3']);
+			sounds.load(['./audio/ammo/fork.mp3']);
 
 			//sound preloader harm
 			feedback.harm.forEach( function(file) {
-				sounds.load([ '../audio/harm/' + file ]);
-				sounds_harm.push('../audio/harm/' + file);
+				sounds.load([ './audio/harm/' + file ]);
+				sounds_harm.push('./audio/harm/' + file);
 			});
 			//sound preloader dies
 			feedback.dies.forEach( function(file) {
-				sounds.load([ '../audio/dies/' + file ]);
-				sounds_dies.push('../audio/dies/' + file);
+				sounds.load([ './audio/dies/' + file ]);
+				sounds_dies.push('./audio/dies/' + file);
 			});
 			//sound preloader dies
 			feedback.eliminacion.forEach( function(file) {
-				sounds.load([ '../audio/eliminacion/' + file ]);
-				sounds_eliminacion.push('../audio/eliminacion/' + file);
+				sounds.load([ './audio/eliminacion/' + file ]);
+				sounds_eliminacion.push('./audio/eliminacion/' + file);
 			});
 			//sound preloader powers 1
 			feedback.order_1.forEach( function(file) {
-				sounds.load([ '../audio/powers/1/' + file ]);
-				sounds_order_1.push('../audio/powers/1/' + file);
+				sounds.load([ './audio/powers/1/' + file ]);
+				sounds_order_1.push('./audio/powers/1/' + file);
 			});
 			//sound preloader powers 2
 			feedback.order_2.forEach( function(file) {
-				sounds.load([ '../audio/powers/2/' + file ]);
-				sounds_order_2.push('../audio/powers/2/' + file);
+				sounds.load([ './audio/powers/2/' + file ]);
+				sounds_order_2.push('./audio/powers/2/' + file);
 			});
 			//sound preloader powers 3
 			feedback.order_3.forEach( function(file) {
-				sounds.load([ '../audio/powers/3/' + file ]);
-				sounds_order_3.push('../audio/powers/3/' + file);
+				sounds.load([ './audio/powers/3/' + file ]);
+				sounds_order_3.push('./audio/powers/3/' + file);
 			});
 			//sound preloader powers 4
 			feedback.order_4.forEach( function(file) {
-				sounds.load([ '../audio/powers/4/' + file ]);
-				sounds_order_4.push('../audio/powers/4/' + file);
+				sounds.load([ './audio/powers/4/' + file ]);
+				sounds_order_4.push('./audio/powers/4/' + file);
 			});
 			//sound preloader powers 5
 			feedback.order_5.forEach( function(file) {
-				sounds.load([ '../audio/powers/5/' + file ]);
-				sounds_order_5.push('../audio/powers/5/' + file);
+				sounds.load([ './audio/powers/5/' + file ]);
+				sounds_order_5.push('./audio/powers/5/' + file);
 			});
 			//inicializados
 			sounds.whenLoaded = alinear_sonido;
@@ -543,51 +543,51 @@ $(document).ready(function() {
 		if (pack.user_cardio == '1') {
 			console.log('Cardio: 1');
 			//cardio
-			sounds['../audio/cardio.mp3'].pause();
-			sounds['../audio/cardio.mp3'].playbackRate = 1;
-			sounds['../audio/cardio.mp3'].loop = true;
-			sounds['../audio/cardio.mp3'].play();
+			sounds['./audio/cardio.mp3'].pause();
+			sounds['./audio/cardio.mp3'].playbackRate = 1;
+			sounds['./audio/cardio.mp3'].loop = true;
+			sounds['./audio/cardio.mp3'].play();
 			//buzz
-			sounds['../audio/buzz.mp3'].pause();
-			sounds['../audio/buzz.mp3'].volume = 0.3;
-			sounds['../audio/buzz.mp3'].loop = true;
-			sounds['../audio/buzz.mp3'].play();
+			sounds['./audio/buzz.mp3'].pause();
+			sounds['./audio/buzz.mp3'].volume = 0.3;
+			sounds['./audio/buzz.mp3'].loop = true;
+			sounds['./audio/buzz.mp3'].play();
 		}
 		if (pack.user_cardio == '2') {
 			console.log('Cardio: 2');
 			//cardio
-			sounds['../audio/cardio.mp3'].pause();
-			sounds['../audio/cardio.mp3'].playbackRate = 1.2;
-			sounds['../audio/cardio.mp3'].loop = true;
-			sounds['../audio/cardio.mp3'].play();
+			sounds['./audio/cardio.mp3'].pause();
+			sounds['./audio/cardio.mp3'].playbackRate = 1.2;
+			sounds['./audio/cardio.mp3'].loop = true;
+			sounds['./audio/cardio.mp3'].play();
 			//buzz
-			sounds['../audio/buzz.mp3'].pause();
-			sounds['../audio/buzz.mp3'].volume = 0.6;
-			sounds['../audio/buzz.mp3'].loop = true;
-			sounds['../audio/buzz.mp3'].play();
+			sounds['./audio/buzz.mp3'].pause();
+			sounds['./audio/buzz.mp3'].volume = 0.6;
+			sounds['./audio/buzz.mp3'].loop = true;
+			sounds['./audio/buzz.mp3'].play();
 		}
 		if (pack.user_cardio == '3') {
 			console.log('Cardio: 3');
 			//cardio
-			sounds['../audio/cardio.mp3'].pause();
-			sounds['../audio/cardio.mp3'].playbackRate = 1.6;
-			sounds['../audio/cardio.mp3'].loop = true;
-			sounds['../audio/cardio.mp3'].play();
+			sounds['./audio/cardio.mp3'].pause();
+			sounds['./audio/cardio.mp3'].playbackRate = 1.6;
+			sounds['./audio/cardio.mp3'].loop = true;
+			sounds['./audio/cardio.mp3'].play();
 			//buzz
-			sounds['../audio/buzz.mp3'].pause();
-			sounds['../audio/buzz.mp3'].volume = 0.9;
-			sounds['../audio/buzz.mp3'].loop = true;
-			sounds['../audio/buzz.mp3'].play();
+			sounds['./audio/buzz.mp3'].pause();
+			sounds['./audio/buzz.mp3'].volume = 0.9;
+			sounds['./audio/buzz.mp3'].loop = true;
+			sounds['./audio/buzz.mp3'].play();
 		}
 		if (pack.user_cardio == '0') {
 			console.log('Cardio: 0');
 			//fadeoff a los sonidos de cardio;
-			sounds['../audio/cardio.mp3'].pause();
-			sounds['../audio/buzz.mp3'].pause();
+			sounds['./audio/cardio.mp3'].pause();
+			sounds['./audio/buzz.mp3'].pause();
 		}
 		if (pack.user_dead == '1') {
-			sounds['../audio/cardio.mp3'].pause();
-			sounds['../audio/buzz.mp3'].pause();
+			sounds['./audio/cardio.mp3'].pause();
+			sounds['./audio/buzz.mp3'].pause();
 			sound_bg.pause();
 			rand = sounds_eliminacion.rand(); sounds[rand].play();
 		}
@@ -1413,8 +1413,8 @@ $('#music-switch').click(function() {
 		//asumo que la función de fadein será así...
 		// $('.respawn-container').fadeIn(500);
 		//sacamos los sonidos
-		sounds['../audio/cardio.mp3'].pause();
-		sounds['../audio/buzz.mp3'].pause();
+		sounds['./audio/cardio.mp3'].pause();
+		sounds['./audio/buzz.mp3'].pause();
 		//la musica
 		sound_bg.pause();
 		//desenchufamos al usuario,
@@ -1762,7 +1762,7 @@ $('#switch-fullscreen-off').click(function() {
 
 	//dinero
 	function sound_coins() {
-		sounds['../audio/coins.mp3'].play()
+		sounds['./audio/coins.mp3'].play()
 	}
 //finalizamos
 });
