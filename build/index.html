@@ -23,16 +23,16 @@
 
 
         <!-- Modal New User -->
-        <div class="modal fade modal-new-user" id="modal-new-user" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         	<div class="modal-dialog modal-dialog-centered" role="document">
         		<div class="modal-content">
         			<div class="modal-header">
         				<h5 class="modal-title">
-        					<span id="modal-new-user-resume">Resume</span>
-        					<span id="modal-new-user-register" class="unselected">Create New Profile</span>
+        					<span id="modal-new-user-resume" class="unselected">Resume</span>
+        					<span id="modal-new-user-register">Create New Profile</span>
         				</h5>
         			</div>
-        			<div id="resume-container" class="modal-info">
+        			<div id="resume-container" class="modal-info f-fadeIn">
         				<div class="modal-body">
         					<div class="container">
         						<div class="row">
@@ -65,7 +65,7 @@
         				</div>
         				<span class="oil oil-t-l"><img src="/img/oil1.png" style="width:90%;"></span>
         			</div>
-        			<div id="register-container" class="modal-info">
+        			<div id="register-container" class="modal-info f-fadeIn">
         				<div class="modal-body">
         					<div class="container">
         						<div class="row">
@@ -81,6 +81,9 @@
         										<span class="input-group-text"><i class="fas fa-key"></i></span>
         									</div>
         									<input id="user-new-password" type="text" class="form-control" placeholder="Password" aria-label="Password">
+        									<div class="input-group-append">
+        										<span class="input-group-text" id="refresh-password"><i class="fas fa-sync"></i></span>
+        									</div>
         								</div>
         								<div class="input-group mb-3">
         									<div class="input-group-prepend">
@@ -139,7 +142,7 @@
         		</div>
         	</div>
         </div>        <!-- Modal Online Players -->
-        <div class="modal fade modal-online-players" id="modal-online-players" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal fade modal-online-players" id="modal-online-players" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -343,63 +346,169 @@
                 </div>
             </div>
         </div>        <!-- Modal Settings -->
-        <div class="modal fade modal-settings" id="modal-settings" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div id="modal-settings" class="modal fade modal-settings" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         	<div class="modal-dialog modal-dialog-centered" role="document">
         		<div class="modal-content">
         			<div class="modal-header">
         				<h5 class="modal-title">Settings</h5>
+        				<h5 class="modal-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="1">Balance</span><span data-tab-link="2">2FA</span><span data-tab-link="3">Settings</span></h5>
         			</div>
         			<div class="modal-info">
+        
+        				
         				<div class="modal-body">
         					<div class="container">
-        						<div class="row">
-        							<div class="col-12 mb-4">
-                                        <h5 class="modal-subtitle">Multifactor Authentication</h5>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="row mb-4">
-        								<img src="/img/code.png">
-                                        </div>
-                                        <div class="row">
-                                        <h5 class="modal-subtitle">Having Issues? <span class="color-accent">ZOTV6AW7FHSWCWRO</span></h5>
-                                        </div>
+        						<div class="custom-tabs">
+        
+        							<div id="modal-settings-overview" class="active" data-tab="1">
+        								<div class="row">
+        									<div class="col-12">
+        										<p class="mb-4">
+        											<b>Hey <span id="username_text"><span>!</b> This is your personal user panel, from this section you can view your user information, change your email address and password.
+        										</p>
+        										<div class="input-group mb-3">
+        											<div class="input-group-prepend">
+        												<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+        											</div>
+        											<input id="user_overview_email" type="text" class="form-control" aria-label="username" disabled>
+        											<div class="input-group-append">
+        												<span id="user_overview_email_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
+        											</div>										
+        										</div>
+        										<div class="input-group mb-3">
+        											<div class="input-group-prepend">
+        												<span class="input-group-text"><i class="fas fa-key"></i></span>
+        											</div>
+        											<input id="user_overview_email_edit" type="password" class="form-control" placeholder="password" aria-label="password" disabled>
+        											<div class="input-group-append">
+        												<span id="user_overview_password_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
+        											</div>
+        										</div>
+        										<table class="table table-striped">
+        											<tbody id="user_statistics">
+        												<!-- user overview -->
+        											</tbody>
+        										</table>
+        									</div>
+        								</div>
+        							</div>								
+        
+        							<div id="modal-settings-balance" data-tab="2">
+        								<div class="row">						
+        									<div class="col-6">
+        										<p class="mb-4">
+        											<b>Your balance</b> info will be here
+        										</p>
+        										<div class="drawlines" style="width: 100%; height: 200px;"></div>
+        										<table class="table table-striped">
+        											<thead>
+        												<th style="width: 7%">id</th>
+        												<th style="width: 15%">reason</th>
+        												<th style="width: 10%">value</th>
+        												<th style="width: 10%">profits</th>
+        												<th style="width: 33%">xid</th>
+        												<th style="width: 15%">status</th>
+        												<th style="width: 17%">date</th>
+        											</thead>
+        											<tbody id="user_balance">
+        												<!-- user_balance -->
+        											</tbody>
+        										</table>
+        									</div>
+        								</div>
         							</div>
-        							<div class="col-6">
-                                        <div class="row mb-4">
-                                            <p>
-                                                Scan the QR code with your authenticator app, we recommend Authenticator. In case you have any problem with the code, you can manually enter the secret shown.
-                                            </p>
-                                            <p>
-                                                Once your phone is syncronized, please complete the form with your username, password and the provided time based token.
-                                            </p>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user-plus"></i></span>
-                                                </div>
-                                                <input id="username" type="text" class="form-control" placeholder="username" aria-label="username">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                                </div>
-                                                <input id="password" type="password" class="form-control" placeholder="password" aria-label="password">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                                </div>
-                                                <input id="multifactor" type="text" class="form-control" placeholder="multifactor" aria-label="multifactor">
-                                            </div>
-                                        </div>
+        
+        							<div id="modal-settings-2fa" data-tab="3">
+        								<div class="row">						
+        									<div class="col-6">
+        										<div class="row mb-4">
+        											<div id="qrcode_mfa"></div>
+        										</div>
+        										<div class="row">
+        											<h5 class="modal-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
+        										</div>
+        									</div>
+        									<div class="col-6">
+        										<div class="row mb-4">
+        											<p>
+        												Scan the QR code with your authenticator app, we recommend Authenticator. In case you have any problem with the code, you can manually enter the secret shown.
+        											</p>
+        											<p>
+        												Once your phone is syncronized, please complete the form with your username, password and the provided time based token.
+        											</p>
+        										</div>
+        										<div class="row mb-4">
+        											<div class="input-group mb-3">
+        												<div class="input-group-prepend">
+        													<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+        												</div>
+        												<input id="2fa-username" type="text" class="form-control" placeholder="username" aria-label="username">
+        											</div>
+        											<div class="input-group mb-3">
+        												<div class="input-group-prepend">
+        													<span class="input-group-text"><i class="fas fa-key"></i></span>
+        												</div>
+        												<input id="2fa-password" type="password" class="form-control" placeholder="password" aria-label="password">
+        											</div>
+        											<div class="input-group mb-3">
+        												<div class="input-group-prepend">
+        													<span class="input-group-text"><i class="fas fa-lock"></i></span>
+        												</div>
+        												<input id="user-mfa-code" type="text" class="form-control" placeholder="multifactor" aria-label="multifactor">
+        											</div>
+        										</div>
+        									</div>
+        									<div class="modal-footer">
+        										<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
+        									</div>
+        								</div>
         							</div>
+        
+        							<div id="modal-settings-ux" data-tab="4">
+        								<div class="row">
+        									<div class="col-12">
+        										<table class="table table-striped">
+        											<tbody>
+        												<tr>
+        													<td>Clean interface</td>
+        													<td>
+        														<div class="switch">
+        															<i id="interface-switch" class="fal fa-square"></i>
+        														</div>
+        													</td>
+        												</tr>
+        												<tr>
+        													<td>Activate developer's info</td>
+        													<td>
+        														<div class="switch">
+        															<i id="developer-switch" class="fal fa-square"></i>
+        														</div>
+        													</td>
+        												</tr>
+        												<tr>
+        													<td>Rain</td>
+        													<td>
+        														<div class="switch">
+        															<i id="rain-switch" class="fal fa-check-square"></i>
+        														</div>
+        													</td>
+        												</tr>
+        												<tr>
+        													<td>Music</td>
+        													<td>
+        														<div class="switch">
+        															<i id="music-switch" class="fal fa-check-square"></i>
+        														</div>
+        													</td>
+        												</tr>
+        											</tbody>
+        										</table>										
+        									</div>
+        								</div>
+        							</div>								
+        
         						</div>
         					</div>
-        				</div>
-        				<div class="modal-footer">
-        					<button type="button" class="btn btn-custom-one"><i class="fas fa-unlock mr-2"></i>disable</button>
-                            <button type="button" class="btn btn-custom-one"><i class="fas fa-lock mr-2"></i>enable</button>
         				</div>
         				<span class="oil oil-t-l"><img src="/img/oil2.png"></span>
         			</div>
@@ -532,7 +641,7 @@
             	<ul>
             		<li class="user-online"><a id="btn-respawn-home" href="#" class="active">spawn now!</a></li>
             		<li class="user-offline"><a id="header-login" href="#" class="active">login</a></li>
-            		<li class="user-online"><a id="header-settings" href="#">profile settings</a></li>
+            		<li class="user-online"><a id="header-settings" href="#">settings</a></li>
             		<li class="user-online"><a id="header-cashier" href="#">cashier</a></li>
             		<li><a id="header-online-players" href="#">online players</a></li>
             		<li><a id="header-rooms" href="#">rooms</a></li>

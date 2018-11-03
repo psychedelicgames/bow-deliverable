@@ -1,14 +1,14 @@
 <!-- Modal New User -->
-<div class="modal fade modal-new-user" id="modal-new-user" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+<div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">
-					<span id="modal-new-user-resume">Resume</span>
-					<span id="modal-new-user-register" class="unselected">Create New Profile</span>
+					<span id="modal-new-user-resume" class="unselected">Resume</span>
+					<span id="modal-new-user-register">Create New Profile</span>
 				</h5>
 			</div>
-			<div id="resume-container" class="modal-info">
+			<div id="resume-container" class="modal-info f-fadeIn">
 				<div class="modal-body">
 					<div class="container">
 						<div class="row">
@@ -41,7 +41,7 @@
 				</div>
 				<span class="oil oil-t-l"><img src="/img/oil1.png" style="width:90%;"></span>
 			</div>
-			<div id="register-container" class="modal-info">
+			<div id="register-container" class="modal-info f-fadeIn">
 				<div class="modal-body">
 					<div class="container">
 						<div class="row">
@@ -57,6 +57,9 @@
 										<span class="input-group-text"><i class="fas fa-key"></i></span>
 									</div>
 									<input id="user-new-password" type="text" class="form-control" placeholder="Password" aria-label="Password">
+									<div class="input-group-append">
+										<span class="input-group-text" id="refresh-password"><i class="fas fa-sync"></i></span>
+									</div>
 								</div>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">

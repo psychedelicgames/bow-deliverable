@@ -16,6 +16,12 @@ body {
 #alert-message {
 	color: $color-one;
 }
+[data-tab] {
+	display: none;
+	&.active {
+		display: block;
+	}
+}
 section.header {
 	background-color: #080708;
 	height: 50px;
@@ -52,7 +58,7 @@ section.header {
 }
 section.menu {
 	position: absolute;
-	top: 50px;
+	top: 0px;
 	left: 0px;
 	z-index: 200;
 	.logo {
@@ -146,8 +152,9 @@ section.menu {
 }
 .modal {
 	z-index: 400 !important;
-	font-size: 12px;
+	font-size: 13px;
 	pointer-events:none;
+	overflow: hidden !important;
 	@include desktop {
 		left: 20% !important;
 	}
@@ -183,22 +190,71 @@ section.menu {
 				}
 			}
 		}
+		.modal-subtitle-navigation {
+			font-family: 'BigNoodleTooOblique';
+			font-size: 24px;
+			text-transform: uppercase;
+			color: $color-white;
+			position: absolute;
+			margin-bottom: 0px !important;
+			left: 130px;
+			top: 12px;
+			.color-accent{
+				color: $color-one
+			}
+			span {
+				color: $color-white;
+				filter: blur(0.7px);
+				opacity: 0.8;
+				margin-right: 15px;
+			}
+			span:before  {
+				content: ">";
+				color: $color-one;
+				font-family: 'BigNoodleTooOblique';
+				font-size: 24px;
+				margin-right: 4px;
+				opacity: 0;
+			}
+			span.active:before  {
+				opacity: 1;
+			}
+			span.active {
+				color: $color-one;
+				filter: blur(0);
+			}					
+		}		
 		.modal-info {
 			background-color: rgba(0,0,0,0.7);
-			padding: 25px;
+			padding: 25px 35px;
 			z-index: 401;
 			.modal-body {
 				color: $color-white;
 				z-index: 403;
 				padding: 0px;
+				.custom-tabs {
+					.col-12 {
+						// padding-left: 0px;
+					}
+				}
 				.modal-subtitle {
 					font-family: 'BigNoodleTooOblique';
-					font-size: 22px;
+					font-size: 24px;
 					text-transform: uppercase;
 					color: $color-white;
 					.color-accent{
 						color: $color-one
 					}
+					span {
+						color: $color-white;
+						filter: blur(0.7px);
+						opacity: 0.8;
+						margin-right: 15px;
+					}
+					span.active {
+						color: $color-one;
+						filter: blur(0);
+					}					
 				}
 				ul.user-stats{
 					display: table;
@@ -231,6 +287,7 @@ section.menu {
 				border-radius: 0px;
 				z-index: 403;
 				padding: 5px 0 0 0;
+				width: 100%;
 			}
 			.oil {
 				position: absolute;
@@ -273,5 +330,15 @@ section.menu {
 		p {
 			margin-top: 30px;
 		}
+	}
+}
+/* ======================================
+  Forms and inputs
+
+====================================== */
+.switch {
+	font-size: 15px;
+	.fa-check-square {
+		color: $color-one;
 	}
 }

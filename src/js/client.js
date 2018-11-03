@@ -49,17 +49,17 @@ $(document).ready(function() {
 	for (var b = 0; b < maxParts; b++) { particles[b] = init[b]; }
 
 	//creamos la lluvia
-function draw() {
-	ctx.clearRect(0, 0, w, h);
-	for (var c = 0; c < particles.length; c++) {
-		var p = particles[c];
-		ctx.beginPath();
-		ctx.moveTo(p.x, p.y);
-		ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
-		ctx.stroke();
+	function draw() {
+		ctx.clearRect(0, 0, w, h);
+		for (var c = 0; c < particles.length; c++) {
+			var p = particles[c];
+			ctx.beginPath();
+			ctx.moveTo(p.x, p.y);
+			ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+			ctx.stroke();
+		}
+		move();
 	}
-	move();
-}
 
 	//movemos la lluvia
 	function move() {
@@ -70,8 +70,254 @@ function draw() {
 			if (p.x > w || p.y > h) { p.x = Math.random() * w; p.y = -20; }
 		}
 	}
-
 	setInterval(draw, 30);
+
+
+
+
+	/************************************************************/
+	/* New user register ****************************************/
+
+	function user_new() {
+		//buscamos las variables que queremos del dom
+		var email = $('#user-new-email').val();
+		var username = $('#user-new-username').val();
+		var password = $('#user-new-password').val();
+		var nonce = (new Date()).getTime();
+		//envamos las variables para node
+		socket.emit('user-new', { email: email, username: username, password: password }, function(feedback) {
+			//hacer cosas con la información? o no hacer nada...
+			//si el usuario no es válido
+			if(feedback.advice != 'Welcome.') {
+				clear_modal_login()
+				$('#alert-message-register').text(feedback.advice);
+			}
+			if(feedback.advice == 'Welcome.') {
+				//enviamos la información al server
+				socket.emit('user-login', { name: username, pass: password, nonce: nonce }, function(feedback) {
+					//revision, acá ya poseemos la info del usuario en el browser
+					//si el usuario no es válido
+					if(feedback.advice == 'Invalid username or password.') {
+						clear_modal_login()
+						$('#alert-message-resume').text('User or password invalid');
+					}
+					//si el usuario es válido
+					else {	
+						showAlert('Welcome ' + username, 'yellow');
+						clear_modal_login();
+						//armamos las cookies
+						Cookies.set('user_id', feedback.user.id);
+						Cookies.set('user_email', feedback.user.email);
+						Cookies.set('user_username', feedback.user.username);
+						Cookies.set('user_password', feedback.user.password);
+						Cookies.set('user_balance', feedback.user.available_balance);
+						//Cookies.set('user_balance_usd', feedback.user.balance_usd);
+						Cookies.set('user_address', feedback.user.address);
+						Cookies.set('user_online', 'True');
+						//escondemos el modal
+						$('*').modal('hide');
+						$('#modal-online-players').modal('show');
+						//marcamos al usuario online
+						is_user_online();
+					}
+				})
+			};
+		})
+	}
+
+	/************************************************************/
+	/* creacion de password *************************************/
+
+	//función muy simple para crear un password digno
+	function cookpassword() {
+		var chars = "abcdefhklmnopqrsuvwxyz!ABCDEFGHJKMNOP23457890";
+		var pass = "";
+		for (var x = 0; x < 12; x++) { var i = Math.floor(Math.random() * chars.length); pass += chars.charAt(i); }
+		$('#user-new-password').val(pass);
+		return pass;
+	}
+	// corremos la funcional del password cuando se abre el modal
+	$("#modal-new-user").on('shown.bs.modal', function ()  { cookpassword(); });
+
+
+	/************************************************************/
+	/* Acceso de usuario ****************************************/
+
+	function user_login() {
+		//revisamos
+		//leemos la información del form.
+		var name = $('#name-input').val();
+		var pass = $('#pass-input').val();
+		var mfa_code = $('#mfa-code-input').val();
+		var nonce = (new Date()).getTime();
+		$('#name-prompt-container').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
+		//enviamos la información al server
+		socket.emit('user-login', { name: name, pass: pass, mfa_code: mfa_code, nonce: nonce }, function(feedback) {
+			//revision, acá ya poseemos la info del usuario en el browser
+			//si el usuario no es válido
+			if(feedback.advice == 'Invalid username or password.') {
+				clear_modal_login()
+				$('#alert-message-resume').text('User or password invalid');
+				//console.log(feedback.advice);
+			}
+			//en caso de que haya MFA y sea inválido
+			else if(feedback.advice == 'Invalid MFA.') {
+				clear_modal_login()
+				$('#alert-message-resume').text('Invalid MFA.');
+				// console.log(feedback.advice);
+			}
+			//si el usuario es válido
+			else {
+				//escondemos el modal
+				$('#modal-new-user').modal('hide');
+
+				clear_modal_login();
+				//calculamos la coma en 2
+				//feedback.user.balance_usd = feedback.user.balance_usd.toFixed(2);
+				//armamos las cookies
+				Cookies.set('user_id', feedback.user.id);
+				Cookies.set('user_email', feedback.user.email);
+				Cookies.set('user_username', feedback.user.username);
+				Cookies.set('user_password', feedback.user.password);
+				Cookies.set('user_balance', feedback.user.available_balance);
+				//Cookies.set('user_balance_usd', feedback.user.balance_usd);
+				Cookies.set('user_address', feedback.user.address);
+				Cookies.set('user_online', 'True');
+				//marcamos al usuario online
+				$('#modal-online-players').modal('show');
+				is_user_online();
+
+			}
+		})
+		return false;
+	};
+
+
+	/************************************************************/
+	/* Reordenar el modal ***************************************/
+
+	function clear_modal_login() {
+		$('#alert-message').empty();
+		$('#resume-container :input').val('');
+		$('#register-container :input').val('');
+		$('#name-prompt-container .fa-spinner').remove();
+	};
+	// $('#close-login').click(clear_modal_login);
+	//$('#name-form').submit(user_login);
+	
+
+	/******************************************************/
+	/* Ingame respawn *************************************/
+
+	function ingame_respawn() {
+
+		player_id = game['self']['id'];
+		console.log(player_id);
+
+		socket.emit('ingame-respawn', {player_id : player_id}, function(feedback) {
+		//hacer cosas con la información? o no hacer nada... siempre dice done.
+		console.log(feedback);
+		//leemos feedback para salir del asyn
+		if(feedback == 'respawn_ok') {
+			KilledSequence(null, 'respawn');
+			$('#canvas').css({ 'filter': 'inherit'});
+			//completamos el grafico de forma cabeza
+			user_balance_view();
+		}
+		//prevención de doble respawn desde server.
+		if(feedback == 'respawn_fail') { alert(feedback); }
+	});
+
+	}
+
+	/******************************************************/
+	/* Función de respawn *********************************/
+
+	function respawn() {
+		//buscamos las variables de cookies
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+		//revisamos
+		//hacemos el respawn
+		socket.emit('user-spawn', { name: username, pass: password}, function(feedback) {
+			//revision, acá ya poseemos la info del usuario en el browser
+			//revisamos si el usuario es inválido:
+			if(feedback.advice == 'Invalid username or password.') {
+				showAlert(feedback.advice, 'red');
+				console.log(feedback.advice);
+				// alert(feedback.advice);
+			}
+			//revisamos si el usuario ya anda online:
+			if(feedback.advice == 'You are online already.') {
+				showAlert(feedback.advice, 'yellow');
+				console.log(feedback.advice);
+				// alert(feedback.advice);
+			}
+			//revisamos si el usuario dispone de dinero
+			if(feedback.advice == 'Low funds.') {
+					//Have a drone.
+					showAlert('Low founds for a tank! Have a drone.', 'red');
+					console.log('Low founds! Have a drone');
+					// alert('Low founds! Have a drone');
+					//cerramos el modal y realizamos operaciones gráficas.
+					$('.respawn-container').fadeOut(500);
+					//focus sobre el canvas
+					$('#canvas').focus();
+					//comienza el game
+					game.animate();
+					//marcamos al usuario online
+					is_user_online();
+					//lanzamos música de fondo
+					sound_bg.play();
+				}
+			//si no hizo cosas raras
+			if(feedback.advice == 'Welcome.') {
+				//cerramos el modal y realizamos operaciones gráficas.
+				$('*').modal('hide');
+				$('#canvas').focus();
+				$('#canvas-container').css({'display': 'block'});
+				$('#home').css({'display': 'none'});
+				// cargamos el hub
+				player_hub();
+				//completamos el grafico de forma cabeza
+				user_balance_view();
+				//comienza el game
+				game.animate();
+				//marcamos al usuario online
+				is_user_online();
+				//lanzamos música de fondo
+				sound_bg.play();
+			}
+		});
+	};
+
+
+	/************************************************************/
+	/* Usuario online & offline *********************************/
+
+	function is_user_online() {
+		if (Cookies('user_online') == "True") {
+			//mandamos la información a la UI.
+			$('.user_username').text(Cookies('user_username'));
+			$('.user_balance').text(Cookies('user_balance'));
+			//$('.user_balance_usd').text(Cookies('user_balance_usd'));
+			$('.user_address').val(Cookies('user_address'));
+			//cambiamos el view
+			$(".user-online").css({ "display": "inherit" });
+			$(".user-offline").css({ "display": "none" });
+			$('*').modal('hide');
+			$('#modal-online-players').modal('show');
+			//armamos el QR con su dirección
+			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
+			// user_log();
+		}
+		else {
+			$(".user-online").css({ "display": "none" });
+			$(".user-offline").css({ "display": "inherit" });
+			$('#modal-new-user').modal('show');
+		};
+	};
+
 
 	/************************************************************/
 	/* función compra de powerups *******************************/
@@ -108,24 +354,6 @@ function draw() {
 			force3D: true
 		});
 	}
-
-	/************************************************************/
-	/* creacion de password *************************************/
-
-	//función muy simple para crear un password digno
-	function cookpassword() {
-		var chars = "abcdefhklmnopqrsuvwxyz!ABCDEFGHJKMNOP23457890";
-		var pass = "";
-		for (var x = 0; x < 12; x++) { var i = Math.floor(Math.random() * chars.length); pass += chars.charAt(i); }
-			$('#user-new-password').val(pass);
-		return pass;
-	}
-
-	// corremos la funcional del password cuando se abre el modal
-	$("#modal-new-user").on('shown.bs.modal', function ()  { cookpassword(); });
-
-	// corremos la funcion cuando click en el refresh btn
-	$('#refresh-password').click(cookpassword);
 
 	/************************************************************/
 	/* advices **************************************************/
@@ -516,15 +744,15 @@ function draw() {
 /* settings funciones ***************************************/
 $('#interface-switch').click(function() {
 	// interface mode
-	if ($('#interface-switch').hasClass('fa-toggle-off')) {
-		$('#interface-switch').removeClass('fa-toggle-off');
-		$('#interface-switch').addClass('fa-toggle-on');
+	if ($('#interface-switch').hasClass('fal fa-square')) {
+		$('#interface-switch').removeClass('fal fa-square');
+		$('#interface-switch').addClass('fal fa-check-square');
 		$('.player-battle-info .sidebar-log').css({'display': 'none'});
 		$('.player-hub').css({'background-position-y': '-500px'});
 	}
 	else {
-		$('#interface-switch').addClass('fa-toggle-off');
-		$('#interface-switch').removeClass('fa-toggle-on');
+		$('#interface-switch').removeClass('fal fa-check-square');
+		$('#interface-switch').addClass('fal fa-square');
 		$('.player-battle-info .sidebar-log').css({'display': 'block'});
 		$('.player-hub').css({'background-position-y': '20px'});
 	};
@@ -533,42 +761,42 @@ $('#interface-switch').click(function() {
 
 $('#developer-switch').click(function() {
 	// developer mode
-	if ($('#developer-switch').hasClass('fa-toggle-off')) {
-		$('#developer-switch').removeClass('fa-toggle-off');
-		$('#developer-switch').addClass('fa-toggle-on');
+	if ($('#developer-switch').hasClass('fal fa-square')) {
+		$('#developer-switch').removeClass('fal fa-square');
+		$('#developer-switch').addClass('fal fa-check-square');
 		$('#developer-mode').css({display: 'block'});
 	}
 	else {
-		$('#developer-switch').addClass('fa-toggle-off');
-		$('#developer-switch').removeClass('fa-toggle-on');
+		$('#developer-switch').removeClass('fal fa-check-square');
+		$('#developer-switch').addClass('fal fa-square');
 		$('#developer-mode').css({display: 'none'});
 	};
 });
 
 $('#rain-switch').click(function() {
 	// show rain
-	if ($('#rain-switch').hasClass('fa-toggle-off')) {
-		$('#rain-switch').removeClass('fa-toggle-off');
-		$('#rain-switch').addClass('fa-toggle-on');
+	if ($('#rain-switch').hasClass('fal fa-square')) {
+		$('#rain-switch').removeClass('fal fa-square');
+		$('#rain-switch').addClass('fal fa-check-square');
 		$('#canvas_02').css({display: 'block'});
 	}
 	else {
-		$('#rain-switch').addClass('fa-toggle-off');
-		$('#rain-switch').removeClass('fa-toggle-on');
+		$('#rain-switch').removeClass('fal fa-check-square');
+		$('#rain-switch').addClass('fal fa-square');
 		$('#canvas_02').css({display: 'none'});
 	};
 });
 
 $('#music-switch').click(function() {
 	// play - pause music
-	if ($('#music-switch').hasClass('fa-toggle-off')) {
-		$('#music-switch').removeClass('fa-toggle-off');
-		$('#music-switch').addClass('fa-toggle-on');
+	if ($('#music-switch').hasClass('fal fa-square')) {
+		$('#music-switch').removeClass('fal fa-square');
+		$('#music-switch').addClass('fal fa-check-square');
 		sound_bg.play();
 	}
 	else {
-		$('#music-switch').addClass('fa-toggle-off');
-		$('#music-switch').removeClass('fa-toggle-on');
+		$('#music-switch').removeClass('fal fa-check-square');
+		$('#music-switch').addClass('fal fa-square');
 		sound_bg.pause();
 	};
 });
@@ -666,91 +894,6 @@ $('#music-switch').click(function() {
 		}
 
 	}
-
-	/******************************************************/
-	/* Ingame respawn *************************************/
-
-	function ingame_respawn() {
-
-		player_id = game['self']['id'];
-		console.log(player_id);
-
-		socket.emit('ingame-respawn', {player_id : player_id}, function(feedback) {
-		//hacer cosas con la información? o no hacer nada... siempre dice done.
-		console.log(feedback);
-		//leemos feedback para salir del asyn
-		if(feedback == 'respawn_ok') {
-			KilledSequence(null, 'respawn');
-			$('#canvas').css({ 'filter': 'inherit'});
-			//completamos el grafico de forma cabeza
-			user_balance_view();
-		}
-		//prevención de doble respawn desde server.
-		if(feedback == 'respawn_fail') { alert(feedback); }
-	});
-
-	}
-
-	/******************************************************/
-	/* Función de respawn *********************************/
-
-	function respawn() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		//revisamos
-		//hacemos el respawn
-		socket.emit('user-spawn', { name: username, pass: password}, function(feedback) {
-			//revision, acá ya poseemos la info del usuario en el browser
-			//revisamos si el usuario es inválido:
-			if(feedback.advice == 'Invalid username or password.') {
-				showAlert(feedback.advice, 'red');
-				console.log(feedback.advice);
-				// alert(feedback.advice);
-			}
-			//revisamos si el usuario ya anda online:
-			if(feedback.advice == 'You are online already.') {
-				showAlert(feedback.advice, 'yellow');
-				console.log(feedback.advice);
-				// alert(feedback.advice);
-			}
-			//revisamos si el usuario dispone de dinero
-			if(feedback.advice == 'Low funds.') {
-					//Have a drone.
-					showAlert('Low founds for a tank! Have a drone.', 'red');
-					console.log('Low founds! Have a drone');
-					// alert('Low founds! Have a drone');
-					//cerramos el modal y realizamos operaciones gráficas.
-					$('.respawn-container').fadeOut(500);
-					//focus sobre el canvas
-					$('#canvas').focus();
-					//comienza el game
-					game.animate();
-					//marcamos al usuario online
-					is_user_online();
-					//lanzamos música de fondo
-					sound_bg.play();
-				}
-			//si no hizo cosas raras
-			if(feedback.advice == 'Welcome.') {
-				//cerramos el modal y realizamos operaciones gráficas.
-				$('*').modal('hide');
-				$('#canvas').focus();
-				$('#canvas-container').css({'display': 'block'});
-				$('#home').css({'display': 'none'});
-				// cargamos el hub
-				player_hub();
-				//completamos el grafico de forma cabeza
-				user_balance_view();
-				//comienza el game
-				game.animate();
-				//marcamos al usuario online
-				is_user_online();
-				//lanzamos música de fondo
-				sound_bg.play();
-			}
-		});
-	};
 
 	/************************************************************/
 	/* Anuncios *************************************************/
@@ -963,7 +1106,7 @@ $('#music-switch').click(function() {
 				$('#user_overview_password').attr('disabled', 'disabled');
 			});
 
-			// populamos
+			// populamos el nombre en el parrafo
 			$('#username_text').text(feedback.user.username + '!');
 
 			var row = '';
@@ -1009,6 +1152,19 @@ $('#music-switch').click(function() {
 			$('#user-overview .fa-spinner').remove();
 		})
 	}
+
+	$("[data-tab-link]").click(function() {
+		var tab = $(this).attr('data-tab-link');
+		var parents = $(this).parents().find('.custom-tabs').find($('[data-tab]'));
+		var parent = $(this).parents().find('.custom-tabs').find($('[data-tab]')[tab]);
+
+		$("[data-tab-link]").removeClass('active');
+		$(this).addClass('active');
+		
+		parents.removeClass('active');
+		parent.addClass('active');
+
+	});
 
 	/************************************************************/
 	/* Visualización del balance del propio usuario *************/
@@ -1116,9 +1272,6 @@ $('#music-switch').click(function() {
 	/* Procesa la información necesaria para crear el MFA *******/
 
 	function user_mfa_show() {
-		//clear a los previos si los hay, no me funciona... revisar.
-		//$('#qrcode_mfa:first-child').remove();
-		//$('#user-mfa-recover').val();
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
 		var password = Cookies('user_password');
@@ -1128,9 +1281,11 @@ $('#music-switch').click(function() {
 			//armamos la información para el QR
 			var informacion = 'otpauth://totp/' + username + '?secret=' + feedback.mfa.recover + '&issuer=www.bitofwar.com';
 			//creamos el QR
+			$('#qrcode_mfa').text('');
 			$('#qrcode_mfa').qrcode(informacion);
 			//informamos el recover_code
-			$('#user-mfa-recover').val(feedback.mfa.recover);
+			$('#user-mfa-recover').text('');
+			$('#user-mfa-recover').text(feedback.mfa.recover);
 		})
 	}
 
@@ -1211,179 +1366,54 @@ $('#music-switch').click(function() {
 	/************************************************************/
 	/* User log (top of the sidebar) ****************************/
 
-	function user_log() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
+	// function user_log() {
+	// 	//buscamos las variables de cookies
+	// 	var username = Cookies('user_username');
+	// 	var password = Cookies('user_password');
 
-		socket.emit('user-overview', { username: username, password: password }, function(feedback) {
+	// 	socket.emit('user-overview', { username: username, password: password }, function(feedback) {
 
-			// populamos
-			$('#username_log').text('@' + username);
+	// 		// populamos
+	// 		$('#username_log').text('@' + username);
 
-			var row = '';
-			row += '<tr>';
-			row += '<td>you have killed: ' + feedback.user.won + '</td>';
-			row += '</tr>';
-			row += '<tr>';
-			row += '<td>you have been killed: ' + feedback.user.lose + '</td>';
-			row += '</tr>';
-			row += '<tr>';
-			row += '<td>balance is: ' + feedback.user.available_balance + '</td>';
-			row += '</tr>';
-			//row += '<tr>';
-			//row += '<td>balance in dollars: ' + feedback.user.balance_usd + '</td>';
-			//row += '</tr>';
+	// 		var row = '';
+	// 		row += '<tr>';
+	// 		row += '<td>you have killed: ' + feedback.user.won + '</td>';
+	// 		row += '</tr>';
+	// 		row += '<tr>';
+	// 		row += '<td>you have been killed: ' + feedback.user.lose + '</td>';
+	// 		row += '</tr>';
+	// 		row += '<tr>';
+	// 		row += '<td>balance is: ' + feedback.user.available_balance + '</td>';
+	// 		row += '</tr>';
+	// 		//row += '<tr>';
+	// 		//row += '<td>balance in dollars: ' + feedback.user.balance_usd + '</td>';
+	// 		//row += '</tr>';
 
-			//enviamos la información hacia la tabla user overview
-			$('#user-log').html(row);
-			$('#user-log-playing').html(row);
-			$('*').modal('hide');
-			$('#modal-online-players').modal('show');
-		})
-	}
+	// 		//enviamos la información hacia la tabla user overview
+	// 		$('#user-log').html(row);
+	// 		$('#user-log-playing').html(row);
+	// 		// $('*').modal('hide');
+	// 	})
+	// }
 
-	/************************************************************/
-	/* Recuperacion de password *********************************/
-
-	function user_new() {
-		//buscamos las variables que queremos del dom
-		var email = $('#user-new-email').val();
-		var username = $('#user-new-username').val();
-		var password = $('#user-new-password').val();
-		var nonce = (new Date()).getTime();
-		//envamos las variables para node
-		socket.emit('user-new', { email: email, username: username, password: password }, function(feedback) {
-		//hacer cosas con la información? o no hacer nada...
-		//si el usuario no es válido
-		if(feedback.advice != 'Welcome.') {
-			clear_modal_login()
-			$('#alert-message-register').text(feedback.advice);
-		}
-		//console.log('primero');
-		if(feedback.advice == 'Welcome.') {
-			//enviamos la información al server
-			socket.emit('user-login', { name: username, pass: password, nonce: nonce }, function(feedback) {
-				//revision, acá ya poseemos la info del usuario en el browser
-				//console.log(feedback);
-				//console.log('segundo');
-				//si el usuario no es válido
-				if(feedback.advice == 'Invalid username or password.') {
-					clear_modal_login()
-					$('#alert-message-resume').text('User or password invalid');
-				}
-				//si el usuario es válido
-				else {
-					//escondemos el modal
-					$('#modal-new-user').modal('hide');
-					showAlert('Welcome', 'yellow');
-					clear_modal_login();
-					//calculamos la coma en 2
-					//feedback.user.balance_usd = feedback.user.balance_usd.toFixed(2);
-					//armamos las cookies
-					Cookies.set('user_id', feedback.user.id);
-					Cookies.set('user_email', feedback.user.email);
-					Cookies.set('user_username', feedback.user.username);
-					Cookies.set('user_password', feedback.user.password);
-					Cookies.set('user_balance', feedback.user.available_balance);
-					//Cookies.set('user_balance_usd', feedback.user.balance_usd);
-					Cookies.set('user_address', feedback.user.address);
-					Cookies.set('user_online', 'True');
-					//marcamos al usuario online
-					is_user_online();
-				}
-			})
-		};
-			//la unica razon de poner la linea acá, es para marcar el cierre del primer sock
-			//feedback vuelve con información del node, muchas veces no debería de verse.
-			// if(feedback.advice) { showAlert(feedback.advice, 'yellow'); }
-		})
-	}
-
-	/************************************************************/
-	/* Acceso de usuario ****************************************/
-
-	function user_login() {
-		//revisamos
-		//leemos la información del form.
-		var name = $('#name-input').val();
-		var pass = $('#pass-input').val();
-		var mfa_code = $('#mfa-code-input').val();
-		var nonce = (new Date()).getTime();
-		$('#name-prompt-container').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
-		//enviamos la información al server
-		socket.emit('user-login', { name: name, pass: pass, mfa_code: mfa_code, nonce: nonce }, function(feedback) {
-			//revision, acá ya poseemos la info del usuario en el browser
-			//si el usuario no es válido
-			if(feedback.advice == 'Invalid username or password.') {
-				clear_modal_login()
-				$('#alert-message-resume').text('User or password invalid');
-				//console.log(feedback.advice);
-			}
-			//en caso de que haya MFA y sea inválido
-			else if(feedback.advice == 'Invalid MFA.') {
-				clear_modal_login()
-				$('#alert-message-resume').text('Invalid MFA.');
-				// console.log(feedback.advice);
-			}
-			//si el usuario es válido
-			else {
-				//escondemos el modal
-				$('#modal-new-user').modal('hide');
-
-				clear_modal_login();
-				//calculamos la coma en 2
-				//feedback.user.balance_usd = feedback.user.balance_usd.toFixed(2);
-				//armamos las cookies
-				Cookies.set('user_id', feedback.user.id);
-				Cookies.set('user_email', feedback.user.email);
-				Cookies.set('user_username', feedback.user.username);
-				Cookies.set('user_password', feedback.user.password);
-				Cookies.set('user_balance', feedback.user.available_balance);
-				//Cookies.set('user_balance_usd', feedback.user.balance_usd);
-				Cookies.set('user_address', feedback.user.address);
-				Cookies.set('user_online', 'True');
-				//marcamos al usuario online
-				is_user_online();
-
-			}
-		})
-		return false;
-	};
-
-	/************************************************************/
-	/* Reordenar el modal ***************************************/
-
-	function clear_modal_login() {
-		$('#alert-message').empty();
-		$('#name-input').val('');
-		$('#pass-input').val('');
-		$('#user-new-username').val('');
-		$('#user-new-password').val('');
-		$('#user-new-email').val('');
-		$('#name-prompt-container .fa-spinner').remove();
-	};
-
-	$('#close-login').click(clear_modal_login);
-	//$('#name-form').submit(user_login);
-	$('#name-submit').click(user_login);
 
 	/************************************************************/
 	/* Slide tab ************************************************/
 
 	// funcion para ocultar o mostar el slide tab
-	function show_sidebar() { $('#sidebar').toggleClass('slide-open'); };
-	//calculamos windowsW
-	var windowsW = $(window).width();
-	//condicionales dependiendo de windowsW
-	if (windowsW > 750) {
-		$('#sidebar').addClass('slide-open');
-		$('#slide-tab').addClass('slide-open');
-	}
-	else {
-		$('#sidebar').removeClass('slide-open');
-		$('#slide-tab').removeClass('slide-open');
-	}
+	// function show_sidebar() { $('#sidebar').toggleClass('slide-open'); };
+	// //calculamos windowsW
+	// var windowsW = $(window).width();
+	// //condicionales dependiendo de windowsW
+	// if (windowsW > 750) {
+	// 	$('#sidebar').addClass('slide-open');
+	// 	$('#slide-tab').addClass('slide-open');
+	// }
+	// else {
+	// 	$('#sidebar').removeClass('slide-open');
+	// 	$('#slide-tab').removeClass('slide-open');
+	// }
 
 	/************************************************************/
 	/* Cerramos la sesión ***************************************/
@@ -1436,6 +1466,13 @@ $('#music-switch').click(function() {
 	$('#modal-new-user').on('hidden.bs.modal', function (e) {
 		clear_modal_login();
 	});
+	$('#modal-settings').on('show.bs.modal', function (e) {
+		user_overview();
+		user_mfa_show();
+		// no anda para popular el balance xxx
+		// user_balance_view();
+		$('#modal-settings .modal-info').height(530);
+	});	
 
 	$('#header-disconnect').click(function() {
 		$('*').modal('hide');
@@ -1461,29 +1498,6 @@ $('#music-switch').click(function() {
 		$('#modal-online-players').modal('toggle');
 	});
 
-
-	/************************************************************/
-	/* Usuario online & offline *********************************/
-
-	function is_user_online() {
-		if (Cookies('user_online') == "True") {
-			//mandamos la información a la UI.
-			$('.user_username').text(Cookies('user_username'));
-			$('.user_balance').text(Cookies('user_balance'));
-			//$('.user_balance_usd').text(Cookies('user_balance_usd'));
-			$('.user_address').val(Cookies('user_address'));
-			//cambiamos el view
-			$(".user-online").css({ "display": "inherit" });
-			$(".user-offline").css({ "display": "none" });
-			//armamos el QR con su dirección
-			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
-			user_log();
-		}
-		else {
-			$(".user-online").css({ "display": "none" });
-			$(".user-offline").css({ "display": "inherit" });
-		};
-	};
 
 	/************************************************************/
 	/* price up! ************************************************/
@@ -1675,10 +1689,17 @@ $('#switch-fullscreen-off').click(function() {
 	//click para cosas que aun el dom no posee
 	$(document).on('change', '.user_balance', function() { alert( "Handler for .change() called." ); });
 	$(document).on('click', '.view_usermame', function() { user_view($(this).html()); });
-	//clicks normales.
+	
+	// click actions
+	// refresh password on modal new user
+	$('#refresh-password').click(cookpassword);
+
 	$('#close_session').click(session_close);
 	$('#recover-password').click(recover_pass);
+	
+	$('#name-submit').click(user_login);
 	$('#name-create').click(user_new);
+	
 	$('#cashier_send').click(cashier_send);
 	$('#cashier_wire').click(cashier_wire);
 	$('#rescan_blockchain').click(cashier_search);
@@ -1691,7 +1712,7 @@ $('#switch-fullscreen-off').click(function() {
 	//$('#show_user_overview').click(user_del);
 	$('#del-user').click(user_del);
 	$('#btn-respawn').click(respawn);
-	$('#btn-respawn-home').click(respawn);
+	// $('#btn-respawn-home').click(respawn);
 	$('#ingame_respawn').click(ingame_respawn);
 	$('#send-feedback').click(send_feedback);
 
