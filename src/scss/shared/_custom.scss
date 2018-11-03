@@ -295,6 +295,7 @@ section.menu {
 			.oil {
 				position: absolute;
 				z-index: 402;
+				pointer-events: none;
 				&.oil-t-l {
 					top: -150px;
 					left: -160px;

@@ -1710,7 +1710,7 @@ $('#switch-fullscreen-off').click(function() {
 		if (Cookies('user_online') == "True") { cashier_search(); }
 		//game is running
 		if (game['self']) { player_hub(); }
-	}, 10000);
+	}, 100);
 
 	/************************************************************/
 	/* clicks ***************************************************/

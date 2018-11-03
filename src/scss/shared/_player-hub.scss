@@ -104,7 +104,9 @@
 		z-index: 200;
 		bottom: -5px;
 		left: 130px;
+		pointer-events: none;
 		img {
+			pointer-events: none;
 			opacity: 0;
 			-webkit-transition: opacity 0.5s;
 			transition: opacity 0.5s;
