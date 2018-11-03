@@ -159,7 +159,7 @@ section.menu {
 		left: 20% !important;
 	}
 	.modal-dialog {
-		max-width: 600px;
+		min-width: 600px;
 	}
 	.btn {
 		z-index: 405;
@@ -265,7 +265,10 @@ section.menu {
 				}
 				table{
 					border-bottom: 1px solid $color-grey-dark;
-					margin: 20px 0px 40px;
+					// margin: 20px 0px 40px;
+					thead {
+
+					}
 					td, th {
 						border-color: $color-grey-dark;
 						a{
@@ -331,7 +334,33 @@ section.menu {
 			margin-top: 30px;
 		}
 	}
+	&.modal-leaderboard {
+		.leaderboard-content {
+			display: block;
+			max-height: 65vh;
+			overflow-y: auto;
+		}
+		thead {
+			display: block;
+		}
+		tr td:nth-child(1) {
+			width: 15%;
+		}
+		tr td:nth-child(2) {
+			width: 27%;
+		}
+		tr td:nth-child(3) {
+			width: 18%;
+		}
+		tr td:nth-child(4) {
+			width: 18%;
+		}
+		tr td:nth-child(5) {
+			width: 30%;
+		}		
+	}
 }
+
 /* ======================================
   Forms and inputs
 

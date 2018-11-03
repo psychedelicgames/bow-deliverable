@@ -1153,18 +1153,6 @@ $('#music-switch').click(function() {
 		})
 	}
 
-	$("[data-tab-link]").click(function() {
-		var tab = $(this).attr('data-tab-link');
-		var parents = $(this).parents().find('.custom-tabs').find($('[data-tab]'));
-		var parent = $(this).parents().find('.custom-tabs').find($('[data-tab]')[tab]);
-
-		$("[data-tab-link]").removeClass('active');
-		$(this).addClass('active');
-		
-		parents.removeClass('active');
-		parent.addClass('active');
-
-	});
 
 	/************************************************************/
 	/* Visualización del balance del propio usuario *************/
@@ -1504,8 +1492,29 @@ $('#music-switch').click(function() {
 	});
 	$('#modal-leaderboard').on('show.bs.modal', function (e) {
 		leaderboard_view();
-	});	
+	});
 
+	$('#header-cashier').click(function() {
+		$('*').modal('hide');
+		$('#modal-cashier').modal('toggle');
+	});
+
+
+	/************************************************************/
+	/* custom tabs ***********************************************/
+
+	$("[data-tab-link]").click(function() {
+		var tab = $(this).attr('data-tab-link');
+		var parents = $(this).parents().find('.custom-tabs').find($('[data-tab]'));
+		var parent = $(this).parents().find('.custom-tabs').find($('[data-tab]')[tab]);
+
+		$("[data-tab-link]").removeClass('active');
+		$(this).addClass('active');
+		
+		parents.removeClass('active');
+		parent.addClass('active');
+		console.log(parents);
+	});
 
 	/************************************************************/
 	/* price up! ************************************************/
