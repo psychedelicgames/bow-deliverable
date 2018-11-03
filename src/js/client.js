@@ -1624,23 +1624,13 @@ $('#order_power_6').click(function() {
 /************************************************************/
 /* Cambio de estilos ****************************************/
 $('#switch-fullscreen-on').click(function() {
-	$('.navbar').css({'display': 'none'});
-	$('body').css({'padding-top': '0px'});
-	$('.player-battle-info .sidebar-log').css({'display': 'none'});
-	$('.player-hub').css({'transform': 'scale(0.7)', 'bottom': '-25px', 'left': '-140px'})
+	document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen()
 	$('#switch-fullscreen-on').css({'display': 'none'});
-	$('.playing-leaderboard').css({'height': '100px'});
-	$('.playing-leaderboard thead').css({'display': 'none'});
-	$('#switch-fullscreen-off').css({'display': 'block'});
+	$('#switch-fullscreen-off').css({'display': 'block'});	
 });
 
 $('#switch-fullscreen-off').click(function() {
-	$('.navbar').css({'display': 'block'});
-	$('body').css({'padding-top': '50px'});
-	$('.playing-leaderboard').css({'height': '200px'});
-	$('.playing-leaderboard thead').css({'display': 'table-header-group'});
-	$('.player-battle-info .sidebar-log').css({'display': 'block'});
-	$('.player-hub').css({'transform': 'scale(1)', 'bottom': '0px', 'left': '-100px'})
+	document.fullScreenElement && null == document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen()
 	$('#switch-fullscreen-on').css({'display': 'block'});
 	$('#switch-fullscreen-off').css({'display': 'none'});
 });
