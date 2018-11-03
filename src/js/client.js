@@ -256,19 +256,21 @@ $(document).ready(function() {
 			//revisamos si el usuario dispone de dinero
 			if(feedback.advice == 'Low funds.') {
 					//Have a drone.
-					showAlert('Low founds for a tank! Have a drone.', 'red');
-					console.log('Low founds! Have a drone');
+					$('*').modal('hide');
+					$('#modal-low-funds').modal('show');
+					// showAlert('Low founds for a tank! Have a drone.', 'red');
+					// console.log('Low founds! Have a drone');
 					// alert('Low founds! Have a drone');
 					//cerramos el modal y realizamos operaciones gráficas.
-					$('.respawn-container').fadeOut(500);
+					// $('.respawn-container').fadeOut(500);
 					//focus sobre el canvas
-					$('#canvas').focus();
+					// $('#canvas').focus();
 					//comienza el game
-					game.animate();
+					// game.animate();
 					//marcamos al usuario online
-					is_user_online();
+					// is_user_online();
 					//lanzamos música de fondo
-					sound_bg.play();
+					// sound_bg.play();
 				}
 			//si no hizo cosas raras
 			if(feedback.advice == 'Welcome.') {
@@ -287,6 +289,7 @@ $(document).ready(function() {
 				is_user_online();
 				//lanzamos música de fondo
 				sound_bg.play();
+				$('*').modal('hide');
 			}
 		});
 	};
@@ -1208,41 +1211,41 @@ $('#music-switch').click(function() {
 			//console.log(construccion);
 
 			//armamos las Lineas
-			$('.drawlines').each(function(){
-				var chart = new Highcharts.Chart({
-					chart: {
-						renderTo: this,
-					//borderWidth: 1,
-					backgroundColor: null
-				},
-				title: {
-					text: '',
-					x: -20
-				},
-				xAxis: {
-					categories: bbb
-				},
-				yAxis: {
-					title: '',
-					plotLines: [{value: 0, width: 1 }]
-				},
-				tooltip: {
-					headerFormat: ccc
-				},
-				legend: {
-					layout: 'vertical',
-					align: 'right',
-					verticalAlign: 'middle',
-					borderWidth: 0
-				},
-				series: [{
-					type: 'coloredline',
-					showInLegend: false, 
-					name: ' ',
-					data: aaa
-				}]
-			});
-			});
+			// $('.drawlines').each(function(){
+			// 	var chart = new Highcharts.Chart({
+			// 		chart: {
+			// 			renderTo: this,
+			// 		//borderWidth: 1,
+			// 		backgroundColor: null
+			// 	},
+			// 	title: {
+			// 		text: '',
+			// 		x: -20
+			// 	},
+			// 	xAxis: {
+			// 		categories: bbb
+			// 	},
+			// 	yAxis: {
+			// 		title: '',
+			// 		plotLines: [{value: 0, width: 1 }]
+			// 	},
+			// 	tooltip: {
+			// 		headerFormat: ccc
+			// 	},
+			// 	legend: {
+			// 		layout: 'vertical',
+			// 		align: 'right',
+			// 		verticalAlign: 'middle',
+			// 		borderWidth: 0
+			// 	},
+			// 	series: [{
+			// 		type: 'coloredline',
+			// 		showInLegend: false, 
+			// 		name: ' ',
+			// 		data: aaa
+			// 	}]
+			// });
+			// });
 			//ocultamos el highchart credits
 			$('.highcharts-credits').css({'display': 'none'});
 			//enviamos la información hacia la tabla user balance
@@ -1455,7 +1458,7 @@ $('#music-switch').click(function() {
 		clear_modal_login();
 	});
 
-	$('#header-settings').click(function() {
+	$('.show-modal-settings').click(function() {
 		$('*').modal('hide');
 		$('#modal-settings').modal('toggle');
 	});	
@@ -1466,29 +1469,27 @@ $('#music-switch').click(function() {
 		$('#modal-settings .modal-info').height(530);
 	});
 
-	$('#header-disconnect').click(function() {
+	$('.show-modal-disconnect').click(function() {
 		$('*').modal('hide');
 		$('#modal-disconnect').modal('toggle');
-		var par = $('#modal-disconnect').parents();
-		console.log(par);
 	});
 
-	$('#header-rooms').click(function() {
+	$('.show-modal-rooms').click(function() {
 		$('*').modal('hide');
 		$('#modal-rooms').modal('toggle');
 	});
 
-	$('#header-login').click(function() {
+	$('.show-modal-login').click(function() {
 		$('*').modal('hide');
 		$('#modal-new-user').modal('toggle');
 	});
 
-	$('#header-online-players').click(function() {
+	$('.show-modal-online-players').click(function() {
 		$('*').modal('hide');
 		$('#modal-online-players').modal('toggle');
 	});
 
-	$('#header-leaderboard').click(function() {
+	$('.show-modal-leaderboard').click(function() {
 		$('*').modal('hide');
 		$('#modal-leaderboard').modal('toggle');
 	});
@@ -1496,11 +1497,20 @@ $('#music-switch').click(function() {
 		leaderboard_view();
 	});
 
-	$('#header-cashier').click(function() {
+	$('.show-modal-cashier').click(function() {
 		$('*').modal('hide');
 		$('#modal-cashier').modal('toggle');
 	});
+	$('.open-cashier-btn').click(function() {
+		$('*').modal('hide');
+		$('#modal-cashier').modal('show');
+	});
 
+	// open modals ingame
+	$('.show-modal-back-home').click(function() {
+		$('*').modal('hide');
+		$('#modal-back-home').modal('toggle');
+	});	
 
 	/************************************************************/
 	/* custom tabs ***********************************************/
@@ -1713,7 +1723,7 @@ $('#switch-fullscreen-off').click(function() {
 	// refresh password on modal new user
 	$('#refresh-password').click(cookpassword);
 
-	$('#close_session').click(session_close);
+	$('#close-session-modal-btn').click(session_close);
 	$('#recover-password').click(recover_pass);
 	
 	$('#name-submit').click(user_login);
@@ -1730,8 +1740,7 @@ $('#switch-fullscreen-off').click(function() {
 	$('.show_user_balance').click(user_balance_view);
 	//$('#show_user_overview').click(user_del);
 	$('#del-user').click(user_del);
-	$('#btn-respawn').click(respawn);
-	// $('#btn-respawn-home').click(respawn);
+	$('.btn-respawn').click(respawn);
 	$('#ingame_respawn').click(ingame_respawn);
 	$('#send-feedback').click(send_feedback);
 

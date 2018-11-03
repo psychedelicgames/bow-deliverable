@@ -1,0 +1,130 @@
+.player-battle-info {
+	pointer-events: none;
+	position: absolute;
+	top: 10px;
+	left: 20px;
+	width: 430px;
+	z-index: 200;
+	color: #fff;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+	transition-timing-function: ease;
+	ul {
+		border-bottom: 1px solid rgba(255,255,255,0.1);
+		border-top: 1px solid rgba(255,255,255,0.1);
+		font-family: 'BigNoodleTooOblique';
+		font-size: 20px;
+		height: 40px;
+		line-height: 40px;
+		margin-bottom: 0px !important;
+		padding-left: 15px;
+	}
+	li {
+		display: inline-block;
+		list-style: none;
+		margin-right: 20px;
+		height: 30px;
+	}
+}
+
+.switch-fullscreen {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	color: #fff;
+	font-size: 2vw;
+	z-index: 200;
+	cursor: pointer;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+	transition-timing-function: ease;
+	.fa-compress {
+		display: none;
+	}
+}
+
+.action-container {
+	pointer-events: none;
+	opacity: 0;
+	top: 1vw;
+	position: absolute;
+	left: 0px !important;
+	right: 0px !important;
+	text-align: center;
+	margin: 0 auto;
+	color: #fff;
+	font-size: 2.7vw !important;
+	font-family: 'BigNoodleTooOblique', serif;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+	transition-timing-function: ease;
+	z-index: 210;
+	span.line {
+		display: block;
+	}
+	.fas {
+		opacity: 0;
+		color: red;
+		top: -67px !important;
+		display: block;
+		position: absolute;
+		text-align: center;
+		margin: 0 auto;
+		left: 0px !important;
+		right: 0px !important;
+		font-size: 4.5vw !important;
+	}
+	button.dead {
+		opacity: 0;
+		cursor: pointer;
+		pointer-events: all;
+	}
+	img.dead {
+		opacity: 0;
+		top: -11vw!important;
+		max-width: 7vw;
+		position: absolute;
+		left: 0px !important;
+		right: 0px !important;
+		text-align: center;
+		margin: 0 auto;
+	}
+	&.active {
+		display: block;
+		opacity: 1;
+		-webkit-transition: opacity 0.5s;
+		transition: opacity 0.5s;
+		transition-timing-function: ease;
+		&.die {
+			top: inherit;
+			bottom: 40%;
+			height: 210px;
+		}
+	}
+	span.text-green {
+		color: #67E361;
+	}
+	span.text-red {
+		color: $color-one;
+	}
+}
+
+.developer-mode {
+	position: fixed;
+	top: 50px;
+	left: 20px;
+	z-index: 4;
+	color: #fff;
+	font-size: 12px;
+	display: none;
+	pointer-events: none;
+	table {
+		float: left;
+		tr {
+			border-bottom: 1px solid #555;
+			td {
+				padding: 3px;
+			}
+		}
+	}
+}

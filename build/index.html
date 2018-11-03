@@ -120,8 +120,8 @@
         				<div class="modal-body">
         					<div class="container">
         						<div class="row">
-        							<div class="col-6">
-        								<img src="/img/disconnect.png" alt="disconnect" class="mt-4" />
+        							<div class="col-6 text-center">
+        								<i class="fal fa-sign-out-alt" style="font-size:90px;"></i>
         							</div>
         							<div class="col-6">
         								<p>
@@ -132,9 +132,39 @@
         					</div>
         				</div>
         				<div class="modal-footer">
-        					<button type="button" class="btn btn-custom-one" data-dismiss="modal">cancel</button>
-                            <button id="go-home" type="button" class="btn color-one">home</button>
-                            <button id="close_session" type="button" class="btn btn-custom-one">disconnect</button>
+        					<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
+                            <button id="close-session-modal-btn" type="button" class="btn">disconnect</button>
+        				</div>
+        				<span class="oil oil-t-l"><img src="/img/oil1.png" style="width:90%;"></span>
+        			</div>
+        			<span class="red-line"><img src="/img/red-line.png"></span>
+        		</div>
+        	</div>
+        </div>        <!-- Modal Disconnect -->
+        <div class="modal fade modal-back-home" id="modal-back-home" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        	<div class="modal-dialog modal-dialog-centered" role="document">
+        		<div class="modal-content">
+        			<div class="modal-header">
+        				<h5 class="modal-title">Exit to Home</h5>
+        			</div>
+        			<div class="modal-info">
+        				<div class="modal-body">
+        					<div class="container">
+        						<div class="row">
+        							<div class="col-6 text-center">
+        								<i class="far fa-home" style="font-size:90px;"></i>
+        							</div>
+        							<div class="col-6">
+        								<p>
+        									Are you sure you want to go back to main menu?
+        								</p>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        				<div class="modal-footer">
+        					<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
+                            <button id="go-home-modal-btn" type="button" class="btn">home</button>
         				</div>
         				<span class="oil oil-t-l"><img src="/img/oil1.png" style="width:90%;"></span>
         			</div>
@@ -271,7 +301,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="btn-respawn" type="button" class="btn btn-custom-one">spawn</button>
+                            <button type="button" class="btn-respawn btn btn-custom-one">spawn</button>
                         </div>
                         <span class="oil oil-t-l"><img src="/img/oil2.png"></span>
                     </div>
@@ -786,67 +816,191 @@
         			<span class="red-line"><img src="/img/red-line.png"></span>
         		</div>
         	</div>
-        </div>
-        <div id="alert-container" class="alerta alert-info" role="alert"></div>
-        
-        <!-- player hub -->
-        <div class="player-hub">
-        	<div class="bitcoin-goal">
-        		<span id="user_balance_hub"></span>
-        		<b class="red">/ </b> bitcoin
-        	</div>
-        	<div class="bitcoin-line">
-        		<div class="progress">
-        			<div id="progress-bar-bitcoin" class="progress-bar progress-bar-bitcoin" role="progressbar" aria-valuenow="40"
-        			aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        </div>        <!-- Modal Disconnect -->
+        <div class="modal fade modal-low-funds" id="modal-low-funds" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        	<div class="modal-dialog modal-dialog-centered" role="document">
+        		<div class="modal-content">
+        			<div class="modal-header">
+        				<h5 class="modal-title">You don't have funds!</h5>
         			</div>
+        			<div class="modal-info">
+        				<div class="modal-body">
+        					<div class="container">
+        						<div class="row">
+        							<div class="col-6 text-center">
+        								<i class="fab fa-bitcoin x-fadeIn" style="font-size:90px;"></i>
+        							</div>
+        							<div class="col-6">
+        								<p>
+        									You need at least 50 bits to respawn. Each respawn comes with 4 free powerups to use during the battle. You feel ready? 
+        								</p>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        				<div class="modal-footer">
+        					<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
+                            <button type="button" class="btn btn-custom-one open-cashier-btn">go to cashier</button>
+        				</div>
+        				<span class="oil oil-t-l"><img src="/img/oil1.png" style="width:90%;"></span>
+        			</div>
+        			<span class="red-line"><img src="/img/red-line.png"></span>
         		</div>
         	</div>
-        	<div class="status-field">
-        		<ul id="health-bar" class="health-bar">
-        		</ul>
-        		<ul id="shield-bar" class="shield-bar">
-        		</ul>
-        	</div>
-        	<div class="av-container">
-        		<img id="av_plain" src="/img/canvas/av_plain.png">
-        		<canvas id="av_fire" style="pointer-events: none;"></canvas>
-        	</div>
         </div>
-        <div  id="home" class="home">
+        <div id="alert-container" class="alerta alert-info" role="alert"></div>
+        <div id="home" class="home">
             <section id="section-menu" class="menu x-fadeIn">
             	<div class="logo"><img src="/img/logo-intro.png"></div>
             	<div class="logo-bkg"><img src="/img/logo-bkg.png"></div>
             	<ul>
-            		<li class="user-online"><a id="btn-respawn-home" href="#" class="active">spawn now!</a></li>
-            		<li class="user-offline"><a id="header-login" href="#" class="active">login</a></li>
-            		<li class="user-online"><a id="header-settings" href="#">settings</a></li>
-            		<li class="user-online"><a id="header-cashier" href="#">cashier</a></li>
-            		<li><a id="header-online-players" href="#">online players</a></li>
-            		<li><a id="header-rooms" href="#">rooms</a></li>
-            		<li><a id="header-leaderboard" href="#">leaderboard</a></li>
-            		<li><a id="header-credits" href="#">game credits</a></li>
-            		<li class="user-online"><a id="header-disconnect" href="#">disconnect</a></li>
+            		<li class="user-online"><a class="btn-respawn active" href="#">spawn now!</a></li>
+            		<li class="user-offline"><a class="show-modal-login" href="#" class="active">login</a></li>
+            		<li class="user-online"><a class="show-modal-settings" href="#">settings</a></li>
+            		<li class="user-online"><a class="show-modal-cashier" href="#">cashier</a></li>
+            		<li><a class="show-modal-online-players" href="#">online players</a></li>
+            		<li><a class="show-modal-rooms" href="#">rooms</a></li>
+            		<li><a class="show-modal-leaderboard" href="#">leaderboard</a></li>
+            		<li><a class="show-modal-credits" href="#">game credits</a></li>
+            		<li class="user-online"><a class="show-modal-disconnect" href="#">disconnect</a></li>
             	</ul>
             </section>            <div id="leaderboard"></div>
+            <div id="chat-input"></div>
         </div>
 
-        <div id="chat-input"></div>
         <div id="canvas-container" class="canvas-container">
             <section id="section-header" class="header">
             <ul>
-            	<li class="user-online"><a id="header-cashier" href="#" class="x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="cashier"><i class="far fa-exchange"></i></a></li>
-            	<li><a id="header-rooms" href="#" class="x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="rooms"><i class="fas fa-globe-americas"></i></a></li>
-            	<li><a id="header-leaderboard" href="#" class="x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="leaderboard"><i class="fas fa-trophy"></i></a></li>
-            	<li class="user-online"><a id="header-profile" href="#" class="x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="profile"><i class="fas fa-user"></i></a></li>
-            	<li class="user-online"><a id="header-balance" href="#" class="x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="balance"><i class="fab fa-bitcoin"></i></a></li>
-            	<li class="user-online"><a id="header-settings" href="#" class="x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-cog"></i></a></li>
-            	<li class="user-online"><a id="header-disconnect" href="#" class="x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="log out"><i class="fas fa-power-off"></i></a></li>
-            	<li class="user-offline"><a id="header-login" href="#">Login</a></li>
+            	<li class="user-online"><a class="x-fadeIn show-modal-cashier" href="#" data-toggle="tooltip" data-placement="bottom" title="cashier"><i class="far fa-exchange"></i></a></li>
+            	<li><a class="x-fadeIn show-modal-rooms" href="#" data-toggle="tooltip" data-placement="bottom" title="rooms"><i class="fas fa-globe-americas"></i></a></li>
+            	<li><a href="#" class="show-modal-leaderboard x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="leaderboard"><i class="fas fa-trophy"></i></a></li>
+            	<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-user"></i></a></li>
+            	<li class="user-online"><a class="x-fadeIn show-modal-balance" href="#" data-toggle="tooltip" data-placement="bottom" title="balance"><i class="fab fa-bitcoin"></i></a></li>
+            	<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-cog"></i></a></li>
+            	<li class="user-online"><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="Exit"><i class="fas fa-power-off"></i></a></li>
             </ul>
-            </section>            <canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none;"></canvas>
+            </section>            <!-- player hub -->
+            <div class="player-hub">
+            	<div class="bitcoin-goal">
+            		<span id="user_balance_hub"></span>
+            		<b class="red">/ </b> bitcoin
+            	</div>
+            	<div class="bitcoin-line">
+            		<div class="progress">
+            			<div id="progress-bar-bitcoin" class="progress-bar progress-bar-bitcoin" role="progressbar" aria-valuenow="40"
+            			aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            			</div>
+            		</div>
+            	</div>
+            	<div class="status-field">
+            		<ul id="health-bar" class="health-bar">
+            		</ul>
+            		<ul id="shield-bar" class="shield-bar">
+            		</ul>
+            	</div>
+            	<div class="av-container">
+            		<img id="av_plain" src="/img/canvas/av_plain.png">
+            		<canvas id="av_fire" style="pointer-events: none;"></canvas>
+            	</div>
+            </div>            <!-- powerups -->
+            <div class="powerups-container">
+            	<div class="title">Get 5 free powerup to incress your skills!</div>
+            	<div id="order_power_1" class="powerup shield">
+            		<div class="price">
+            			<span>25 bits</span>
+            		</div>
+            		<span>1</span>
+            		<img src="./img/canvas/game/order_powers/power-1.png" />
+            		<div class="price-pop">-25 bits</div>
+            	</div>
+            	<div id="order_power_2" class="powerup rapidfire">
+            		<div class="price">
+            			<span>25 bits</span>
+            		</div>
+            		<span>2</span>
+            		<img src="./img/canvas/game/order_powers/power-2.png" />
+            		<div class="price-pop">-25 bits</div>
+            	</div>
+            	<div id="order_power_3" class="powerup peacemaker">
+            		<div class="price">
+            			<span>25 bits</span>
+            		</div>
+            		<span>3</span>
+            		<img src="./img/canvas/game/order_powers/power-3.png" />
+            		<div class="price-pop">-25 bits</div>
+            	</div>
+            	<div id="order_power_4" class="powerup">
+            		<div class="price">
+            			<span>25 bits</span>
+            		</div>
+            		<span>4</span>
+            		<img src="./img/canvas/game/order_powers/power-4.png" />
+            		<div class="price-pop">-25 bits</div>
+            	</div>
+            	<div id="order_power_5" class="powerup">
+            		<div class="price">
+            			<span>25 bits</span>
+            		</div>
+            		<span>5</span>
+            		<img src="./img/canvas/game/order_powers/power-5.png" />
+            		<div class="price-pop">-25 bits</div>
+            	</div>
+            	<div id="order_power_6" class="powerup">
+            		<div class="price">
+            			<span>25 bits</span>
+            		</div>
+            		<span>6</span>
+            		<img src="./img/canvas/game/order_powers/power-6.png" />
+            		<div class="price-pop">-25 bits</div>
+            	</div>
+            	<div class="powerup locked">
+            		<span>7</span>
+            		<img src="./img/canvas/power-locked.png" />
+            	</div>
+            	<div class="powerup locked">
+            		<span>8</span>
+            		<img src="./img/canvas/power-locked.png" />
+            	</div>
+            	<div class="powerup locked">
+            		<span>9</span>
+            		<img src="./img/canvas/power-locked.png" />
+            	</div>
+            </div>            <!-- player info -->
+            <div class="player-battle-info">
+            	<ul id="player-battle-info">
+            	</ul>
+            </div>
+            
+            <!-- switch full screen -->
+            <div class="switch-fullscreen">
+            	<i id="switch-fullscreen-on" class="far fa-expand-wide" title="Switch to full screen"></i>
+            	<i id="switch-fullscreen-off" class="far fa-compress" title="Switch to default screen"></i>
+            </div>
+            
+            <!-- action container -->
+            <div id="action-container" class="action-container" role="alert">
+            	<img class="dead" src="./img/canvas/skull.png" />
+            	<span class="line"></span>
+            	<button id="btn-exit" class="btn btn-colored dead">exit</button>
+            	<button id="ingame_respawn" class="btn btn-colored dead">respawn</button>
+            </div>
+            
+            <!-- developer mode -->
+            <div id="developer-mode" class="developer-mode">
+            	<table>
+            		<caption style="visibility:hidden;">game['self']</caption>
+            		<tbody id="developer_self">
+            		</tbody>
+            	</table>
+            	<table>
+            		<caption style="visibility:hidden;">game['self']['powerups']</caption>
+            		<tbody id="developer_powerups">
+            		</tbody>
+            	</table>
+            </div>            <canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none;"></canvas>
             <canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
         </div>
+
 
         <!-- Bootstrap core JavaScript
         ================================================== -->

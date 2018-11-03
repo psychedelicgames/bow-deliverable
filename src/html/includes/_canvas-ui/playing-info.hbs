@@ -1,0 +1,33 @@
+<!-- player info -->
+<div class="player-battle-info">
+	<ul id="player-battle-info">
+	</ul>
+</div>
+
+<!-- switch full screen -->
+<div class="switch-fullscreen">
+	<i id="switch-fullscreen-on" class="far fa-expand-wide" title="Switch to full screen"></i>
+	<i id="switch-fullscreen-off" class="far fa-compress" title="Switch to default screen"></i>
+</div>
+
+<!-- action container -->
+<div id="action-container" class="action-container" role="alert">
+	<img class="dead" src="./img/canvas/skull.png" />
+	<span class="line"></span>
+	<button id="btn-exit" class="btn btn-colored dead">exit</button>
+	<button id="ingame_respawn" class="btn btn-colored dead">respawn</button>
+</div>
+
+<!-- developer mode -->
+<div id="developer-mode" class="developer-mode">
+	<table>
+		<caption style="visibility:hidden;">game['self']</caption>
+		<tbody id="developer_self">
+		</tbody>
+	</table>
+	<table>
+		<caption style="visibility:hidden;">game['self']['powerups']</caption>
+		<tbody id="developer_powerups">
+		</tbody>
+	</table>
+</div>

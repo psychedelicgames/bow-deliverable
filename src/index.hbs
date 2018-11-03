@@ -26,29 +26,35 @@
         {{!-- modals include --}}
         {{> includes/_modals/new-user }}
         {{> includes/_modals/disconnect }}
+        {{> includes/_modals/back-home }}
         {{> includes/_modals/online-players }}
         {{> includes/_modals/rooms }}
         {{> includes/_modals/settings }}
         {{> includes/_modals/user-balance }}
         {{> includes/_modals/leaderboard }}
         {{> includes/_modals/cashier }}
+        {{> includes/_modals/template }}
 
         {{!-- interface include --}}
         {{> includes/_layout/ui }}
 
         {{!-- home page --}}
-        <div  id="home" class="home">
+        <div id="home" class="home">
             {{> includes/_layout/menu }}
             <div id="leaderboard"></div>
+            <div id="chat-input"></div>
         </div>
 
-        <div id="chat-input"></div>
+        {{!-- game itself --}}
         <div id="canvas-container" class="canvas-container">
             {{> includes/_layout/header }}
+            {{> includes/_canvas-ui/player-hub }}
+            {{> includes/_canvas-ui/powerups-container }}
+            {{> includes/_canvas-ui/playing-info }}
             <canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none;"></canvas>
             <canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
         </div>
-        {{!-- {{#> page-block}} {{/page-block}} --}}
+
          {{!-- {{> includes/_layout/footer }} --}}
 
         <!-- Bootstrap core JavaScript
