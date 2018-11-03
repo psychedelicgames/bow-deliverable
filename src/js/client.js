@@ -9,7 +9,8 @@ $(document).ready(function() {
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
 	// var socket = io();
-	var socket = io('wss://54.67.15.38');
+	//var socket = io('wss://54.67.15.38');
+	var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -102,7 +103,7 @@ $(document).ready(function() {
 						$('#alert-message-resume').text('User or password invalid');
 					}
 					//si el usuario es válido
-					else {	
+					else {
 						showAlert('Welcome ' + username, 'yellow');
 						clear_modal_login();
 						//armamos las cookies
@@ -204,7 +205,7 @@ $(document).ready(function() {
 	};
 	// $('#close-login').click(clear_modal_login);
 	//$('#name-form').submit(user_login);
-	
+
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
@@ -1435,6 +1436,34 @@ $('#music-switch').click(function() {
 		$('#modal-new-user').modal('show');
 	}
 
+	/************************************************************/
+	/* Volver a casa ********************************************/
+
+	function go_home() {
+		//asumo que la función de fadein será así...
+		// $('.respawn-container').fadeIn(500);
+		//sacamos los sonidos
+		sounds['./audio/cardio.mp3'].pause();
+		sounds['./audio/buzz.mp3'].pause();
+		//la musica
+		sound_bg.pause();
+		//desenchufamos al usuario,
+		var previa = socket.disconnect();
+		//console.log(previa);
+		previa.open();
+		//eliminamos las cookies que creamos con el login
+		//Cookies.expire('user_id');
+		//Cookies.expire('user_email');
+		//Cookies.expire('user_username');
+		//Cookies.expire('user_password');
+		//Cookies.expire('user_balance');
+		//Cookies.expire('user_balance_usd');
+		//Cookies.expire('user_online');
+		//Cookies.expire('user_address');
+		is_user_online();
+		$('*').modal('hide');
+		$('#modal-new-user').modal('show');
+	}
 
 	/************************************************************/
 	/* Modals open & close **************************************/
@@ -1461,7 +1490,7 @@ $('#music-switch').click(function() {
 	$('.show-modal-settings').click(function() {
 		$('*').modal('hide');
 		$('#modal-settings').modal('toggle');
-	});	
+	});
 	$('#modal-settings').on('show.bs.modal', function (e) {
 		user_overview();
 		user_mfa_show();
@@ -1510,7 +1539,7 @@ $('#music-switch').click(function() {
 	$('.show-modal-back-home').click(function() {
 		$('*').modal('hide');
 		$('#modal-back-home').modal('toggle');
-	});	
+	});
 
 	/************************************************************/
 	/* custom tabs ***********************************************/
@@ -1522,7 +1551,7 @@ $('#music-switch').click(function() {
 
 		$("[data-tab-link]").removeClass('active');
 		$(this).addClass('active');
-		
+
 		parents.removeClass('active');
 		parent.addClass('active');
 		console.log(parents);
@@ -1708,17 +1737,17 @@ $('#switch-fullscreen-off').click(function() {
 	//click para cosas que aun el dom no posee
 	$(document).on('change', '.user_balance', function() { alert( "Handler for .change() called." ); });
 	$(document).on('click', '.view_usermame', function() { user_view($(this).html()); });
-	
+
 	// click actions
 	// refresh password on modal new user
 	$('#refresh-password').click(cookpassword);
 
 	$('#close-session-modal-btn').click(session_close);
 	$('#recover-password').click(recover_pass);
-	
+
 	$('#name-submit').click(user_login);
 	$('#name-create').click(user_new);
-	
+
 	$('#cashier_send').click(cashier_send);
 	$('#cashier_wire').click(cashier_wire);
 	$('#rescan_blockchain').click(cashier_search);
