@@ -611,8 +611,8 @@ $(document).ready(function() {
 					row += '</tr>';
 				}
 				//enviamos la información hacia ambos leaderboards
-				$('#history_leaderboard').html(row);
-				$('#leaderboard').html(row);
+				$('.leaderboard-content').html(row);
+				// $('#leaderboard').html(row);
 				var row2 = '';
 				for (var i = 0; i < feedback.leaderboard.length; ++i) {
 					row2 += '<tr>';
@@ -1466,13 +1466,17 @@ $('#music-switch').click(function() {
 	$('#modal-new-user').on('hidden.bs.modal', function (e) {
 		clear_modal_login();
 	});
+
+	$('#header-settings').click(function() {
+		$('*').modal('hide');
+		$('#modal-settings').modal('toggle');
+	});	
 	$('#modal-settings').on('show.bs.modal', function (e) {
 		user_overview();
 		user_mfa_show();
-		// no anda para popular el balance xxx
-		// user_balance_view();
+		// user_balance_view(); <-- no anda para popular el balance
 		$('#modal-settings .modal-info').height(530);
-	});	
+	});
 
 	$('#header-disconnect').click(function() {
 		$('*').modal('hide');
@@ -1489,14 +1493,18 @@ $('#music-switch').click(function() {
 		$('#modal-new-user').modal('toggle');
 	});
 
-	$('#header-settings').click(function() {
-		$('*').modal('hide');
-		$('#modal-settings').modal('toggle');
-	});
 	$('#header-online-players').click(function() {
 		$('*').modal('hide');
 		$('#modal-online-players').modal('toggle');
 	});
+
+	$('#header-leaderboard').click(function() {
+		$('*').modal('hide');
+		$('#modal-leaderboard').modal('toggle');
+	});
+	$('#modal-leaderboard').on('show.bs.modal', function (e) {
+		leaderboard_view();
+	});	
 
 
 	/************************************************************/
