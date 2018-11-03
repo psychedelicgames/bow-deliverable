@@ -1460,9 +1460,12 @@ $('#music-switch').click(function() {
 		//Cookies.expire('user_balance_usd');
 		//Cookies.expire('user_online');
 		//Cookies.expire('user_address');
+		$('#home').focus();
+		$('#canvas-container').css({'display': 'none'});
+		$('#home').css({'display': 'block'});		
 		is_user_online();
 		$('*').modal('hide');
-		$('#modal-new-user').modal('show');
+		// $('#modal-new-user').modal('show');
 	}
 
 	/************************************************************/
@@ -1584,32 +1587,32 @@ $('#music-switch').click(function() {
 				if(keydown == '49') {
 					rand = sounds_order_1.rand(); sounds[rand].play();
 					show_upper_message('A good shield when is needed.');
-					push_price_up('order_power_1');
+					// push_price_up('order_power_1');
 				}
 				if(keydown == '50') {
 					rand = sounds_order_2.rand(); sounds[rand].play();
 					show_upper_message('There’s nothing faster than Assassin MK1!');
-					push_price_up('order_power_2');
+					// push_price_up('order_power_2');
 				}
 				if(keydown == '51') {
 					rand = sounds_order_3.rand(); sounds[rand].play();
 					show_upper_message('Vladof relics 1.0  more bullets, more kills!');
-					push_price_up('order_power_3');
+					// push_price_up('order_power_3');
 				}
 				if(keydown == '52') {
 					rand = sounds_order_4.rand(); sounds[rand].play();
 					show_upper_message('You are 1.666 times lighter with Moonwalk!');
-					push_price_up('order_power_4');
+					// push_price_up('order_power_4');
 				}
 				if(keydown == '53') {
 					rand = sounds_order_5.rand(); sounds[rand].play();
 					show_upper_message('The Slow company loves you.');
-					push_price_up('order_power_5');
+					// push_price_up('order_power_5');
 				}
 				if(keydown == '54') {
 					//rand = messagess_order_6.rand(); sounds[rand].play();
 					show_upper_message("Providing healing. We're killing you slowly");
-					push_price_up('order_power_6');
+					// push_price_up('order_power_6');
 				}
 			}
 		});
@@ -1744,6 +1747,7 @@ $('#switch-fullscreen-off').click(function() {
 
 	$('#close-session-modal-btn').click(session_close);
 	$('#recover-password').click(recover_pass);
+	$('.go-home-modal-btn').click(go_home);
 
 	$('#name-submit').click(user_login);
 	$('#name-create').click(user_new);
