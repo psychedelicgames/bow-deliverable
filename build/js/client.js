@@ -699,7 +699,7 @@ $(document).ready(function() {
 
 	//asumo que si lo ponemos en un if vamos a alivianar la carga del cpu y ram.
 	//no considero necesario correr los foreach ni armar el cuadro si el usuario no lo ve.
-	if ($('#developer-switch').hasClass('fa-toggle-on')) {
+	if ($('#developer-switch').hasClass('fa-check-square')) {
 
 		// populamos
 		var developer_self = '';
@@ -746,22 +746,6 @@ $(document).ready(function() {
 
 /************************************************************/
 /* settings funciones ***************************************/
-$('#interface-switch').click(function() {
-	// interface mode
-	if ($('#interface-switch').hasClass('fal fa-square')) {
-		$('#interface-switch').removeClass('fal fa-square');
-		$('#interface-switch').addClass('fal fa-check-square');
-		$('.player-battle-info .sidebar-log').css({'display': 'none'});
-		$('.player-hub').css({'background-position-y': '-500px'});
-	}
-	else {
-		$('#interface-switch').removeClass('fal fa-check-square');
-		$('#interface-switch').addClass('fal fa-square');
-		$('.player-battle-info .sidebar-log').css({'display': 'block'});
-		$('.player-hub').css({'background-position-y': '20px'});
-	};
-});
-
 
 $('#developer-switch').click(function() {
 	// developer mode
