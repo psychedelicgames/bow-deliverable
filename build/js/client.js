@@ -1469,6 +1469,8 @@ $('#music-switch').click(function() {
 	$('#header-disconnect').click(function() {
 		$('*').modal('hide');
 		$('#modal-disconnect').modal('toggle');
+		var par = $('#modal-disconnect').parents();
+		console.log(par);
 	});
 
 	$('#header-rooms').click(function() {
