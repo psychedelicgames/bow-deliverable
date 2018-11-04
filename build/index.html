@@ -755,23 +755,15 @@
         								<div class="row">						
         									<div class="col-6">
         										<p class="mb-4">
-        											<b>Your balance</b> info will be here
+        											<b>Important:</b> your withdrawal will be sent from your personal game wallet, so you can send it to any address you may want. Your current balance is: <a class="user_balance"></a>. All your available balance will be sent.
         										</p>
-        										<div class="drawlines" style="width: 100%; height: 200px;"></div>
-        										<table class="table table-striped">
-        											<thead>
-        												<th style="width: 7%">id</th>
-        												<th style="width: 15%">reason</th>
-        												<th style="width: 10%">value</th>
-        												<th style="width: 10%">profits</th>
-        												<th style="width: 33%">xid</th>
-        												<th style="width: 15%">status</th>
-        												<th style="width: 17%">date</th>
-        											</thead>
-        											<tbody id="user_balance">
-        												<!-- user_balance -->
-        											</tbody>
-        										</table>
+        										<div class="input-group mb-3">
+        											<div class="input-group-prepend">
+        												<span class="input-group-text">Destination address</span>
+        											</div>
+        											<input id="address_b" type="text" class="form-control" placeholder="" aria-label="address">
+        										</div>
+        										<button id="cashier_send" class="btn mb-3">Submit</button>
         									</div>
         								</div>
         							</div>
@@ -779,45 +771,28 @@
         							<div id="modal-cashier-send" data-tab="3">
         								<div class="row">						
         									<div class="col-6">
-        										<div class="row mb-4">
-        											<div id="qrcode_mfa"></div>
-        										</div>
-        										<div class="row">
-        											<h5 class="modal-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
-        										</div>
-        									</div>
-        									<div class="col-6">
-        										<div class="row mb-4">
-        											<p>
-        												Scan the QR code with your authenticator app, we recommend Authenticator. In case you have any problem with the code, you can manually enter the secret shown.
-        											</p>
-        											<p>
-        												Once your phone is syncronized, please complete the form with your username, password and the provided time based token.
-        											</p>
-        										</div>
-        										<div class="row mb-4">
-        											<div class="input-group mb-3">
-        												<div class="input-group-prepend">
-        													<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
-        												</div>
-        												<input id="2fa-username-cashier" type="text" class="form-control" placeholder="username" aria-label="username">
+        										<p class="mb-4">
+        											<b>Send money to another player!</b> You can use this function to send money to another player by it's username, it could be a friend, part of your team, or used to send any kind of in game payments. <b>The legend says</b> a wise man called Merovingian may craft special weaponery for offers.
+        										</p>
+        										<div class="input-group mb-3">
+        											<div class="input-group-prepend">
+        												<span class="input-group-text">Username</span>
         											</div>
-        											<div class="input-group mb-3">
-        												<div class="input-group-prepend">
-        													<span class="input-group-text"><i class="fas fa-key"></i></span>
-        												</div>
-        												<input id="2fa-password-cashier" type="password" class="form-control" placeholder="password" aria-label="password">
-        											</div>
-        											<div class="input-group mb-3">
-        												<div class="input-group-prepend">
-        													<span class="input-group-text"><i class="fas fa-lock"></i></span>
-        												</div>
-        												<input id="user-mfa-code-cashier" type="text" class="form-control" placeholder="multifactor" aria-label="multifactor">
-        											</div>
+        											<input id="wire_user_b" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
         										</div>
-        									</div>
-        									<div class="modal-footer">
-        										<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
+        										<div class="input-group mb-3">
+        											<div class="input-group-prepend">
+        												<span class="input-group-text">Amount</span>
+        											</div>
+        											<input id="wire_value" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
+        										</div>
+        										<div class="input-group mb-3">
+        											<div class="input-group-prepend">
+        												<span class="input-group-text">Information</span>
+        											</div>
+        											<input id="wire_message" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
+        										</div>
+        										<button id="cashier_wire" class="btn mb-3">Send</button>
         									</div>
         								</div>
         							</div>
