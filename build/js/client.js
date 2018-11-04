@@ -419,7 +419,7 @@ $(document).ready(function() {
 
 	function preload() {
 		//preload sounds
-		console.log('corriendo preloader...');
+		// console.log('corriendo preloader...');
 		//envamos las variables para node
 		socket.emit('preload', function(feedback) {
 

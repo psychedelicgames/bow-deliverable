@@ -4,7 +4,7 @@ function Drawing(context, images) {
   this.context = context;
   //this.context.imageSmoothingEnabled = false;
   this.images = images;
-  console.log('once');
+  // console.log('once');
 }
 
 //show names

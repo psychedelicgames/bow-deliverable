@@ -218,7 +218,7 @@ var sounds = {
   //`assets.load(["images/anyImage.png", "fonts/anyFont.otf"]);`.
 
   load: function(sources) {
-    console.log("Loading sounds..");
+    // console.log("Loading sounds..");
 
     //Get a reference to this asset object so we can
     //refer to it in the `forEach` loop ahead.
