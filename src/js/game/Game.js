@@ -4,6 +4,14 @@
  * @author alvin.lin.dev@gmail.com (Alvin Lin)
  */
 
+ //calculamos dimensiones del usuario, usando dimensiones del div canvas-container
+ //debería de usarse una id, en vez de una clase
+ //correr función para acomodar acá on resize.
+ const canvas_hold       = document.getElementById('canvas-container');
+ const canvas_hold_info  = canvas_hold.getBoundingClientRect();
+ const canvas_hold_w     = canvas_hold_info.width;
+ const canvas_hold_h     = canvas_hold_info.height;
+
 /**
  * Creates a game on the client side to manage and render the players,
  * projectiles, and powerups.
@@ -26,6 +34,7 @@ function Game(socket, leaderboard, drawing, viewPort) {
   this.explosions = [];
   this.latency = 0;
   this.animationFrameId = 0;
+  this.background_ready = 0;
 }
 
 /**
@@ -81,6 +90,7 @@ Game.prototype.receiveGameState = function(state) {
  */
 Game.prototype.animate = function() {
   this.animationFrameId = window.requestAnimationFrame( bind(this, this.run))
+  //console.log(this.animationFrameId);
 };
 
 /**
@@ -107,6 +117,8 @@ Game.prototype.update = function() {
 
   if (this.self) {
 
+    console.time("framer");
+
     //armamos camera con la posición de la camera
     camera_x = this.self['x'];
     camera_y = this.self['y'];
@@ -121,13 +133,6 @@ Game.prototype.update = function() {
     //var aim_x = Input.MOUSE[0] - Constants.CANVAS_WIDTH / 2;
     //var aim_y = Input.MOUSE[1] - Constants.CANVAS_HEIGHT / 2;
     //aim = {x: aim_x, y: aim_y};
-
-    //calculamos dimensiones del usuario, usando dimensiones del div canvas-container
-    //debería de usarse una id, en vez de una clase
-    canvas_hold       = document.getElementById('canvas-container');
-    canvas_hold_info  = canvas_hold.getBoundingClientRect();
-    canvas_hold_w     = canvas_hold_info.width;
-    canvas_hold_h     = canvas_hold_info.height;
 
     //calculamos el medio
     var usuario_x = (canvas_hold_w / 2);
@@ -216,21 +221,23 @@ Game.prototype.update = function() {
         }
         //reproducimos el sonido de la munición .
         if(feedback.player_main_ammo == "common") {
-          sounds['./audio/ammo/common.mp3'].play();
+          sounds['../public/audio/ammo/common.mp3'].play();
           // $('#canvas').addClass('shake shake-slow');
         }
         else if(feedback.player_main_ammo == "Assassin MK1") {
-          sounds['./audio/ammo/quick.mp3'].play();
+          sounds['../public/audio/ammo/quick.mp3'].play();
         }
         else if(feedback.player_main_ammo == "Vladof relics 1.0") {
-          sounds['./audio/ammo/fork.mp3'].play();
+          sounds['../public/audio/ammo/fork.mp3'].play();
         }
         else {
-          sounds['./audio/ammo/common.mp3'].play();
+          sounds['../public/audio/ammo/common.mp3'].play();
         }
       }
     })
   }
+
+  //console.timeEnd("framer_posiciones");
 };
 
 function canvas_shake() {
@@ -321,34 +328,37 @@ function canvas_shake() {
 Game.prototype.draw = function() {
   if (this.self) {
 
+    //console.time("framer_draw");
+
     // Clear the canvas.
     this.drawing.clear();
 
-    /**
-     * Draw the background first behind the other entities, we calculate the
-     * closest top-left coordinate outside of the ViewPort. We use that
-     * coordinate to draw background tiles from left to right, top to bottom,
-     * so that the entire ViewPort is appropriately filled.
-     */
-    var center = this.viewPort.selfCoords;
-    var leftX = this.self['x'] - Constants.CANVAS_WIDTH / 2;
-    var topY = this.self['y'] - Constants.CANVAS_HEIGHT / 2;
-    var drawStartX = Math.max( leftX - (leftX % Drawing.TILE_SIZE), Constants.WORLD_MIN);
-    var drawStartY = Math.max( topY - (topY % Drawing.TILE_SIZE), Constants.WORLD_MIN);
-    /**
-     * drawEndX and drawEndY have an extra Drawing.TILE_SIZE added to account
-     * for the edge case where we are at the bottom rightmost part of the
-     * world.
-     */
-    var drawEndX = Math.min( drawStartX + Constants.CANVAS_WIDTH + Drawing.TILE_SIZE, Constants.WORLD_MAX);
-    var drawEndY = Math.min( drawStartY + Constants.CANVAS_HEIGHT + Drawing.TILE_SIZE, Constants.WORLD_MAX);
-    this.drawing.drawTiles(
-        this.viewPort.toCanvasX(drawStartX),
-        this.viewPort.toCanvasY(drawStartY),
-        this.viewPort.toCanvasX(drawEndX),
-        this.viewPort.toCanvasY(drawEndY),
-        this.self['health']
-    );
+    //revisamos la condición de background,
+    if (this.background_ready == 0) {
+      //console.log('armando background, solo una vez');
+      //background
+      var center = this.viewPort.selfCoords;
+      var leftX = this.self['x'] - Constants.CANVAS_WIDTH / 2;
+      var topY = this.self['y'] - Constants.CANVAS_HEIGHT / 2;
+      var drawStartX = Math.max( leftX - (leftX % Drawing.TILE_SIZE), Constants.WORLD_MIN);
+      var drawStartY = Math.max( topY - (topY % Drawing.TILE_SIZE), Constants.WORLD_MIN);
+      var drawEndX = Math.min( drawStartX + Constants.CANVAS_WIDTH + Drawing.TILE_SIZE, Constants.WORLD_MAX);
+      var drawEndY = Math.min( drawStartY + Constants.CANVAS_HEIGHT + Drawing.TILE_SIZE, Constants.WORLD_MAX);
+      posiciones = {};
+      posiciones.x_minima = this.viewPort.toCanvasX(drawStartX),
+      posiciones.y_minima = this.viewPort.toCanvasY(drawStartY),
+      posiciones.x_maxima = this.viewPort.toCanvasX(drawEndX),
+      posiciones.y_maxima = this.viewPort.toCanvasY(drawEndY),
+      this.drawing.drawTiles(
+          posiciones.x_minima,
+          posiciones.y_minima,
+          posiciones.x_maxima,
+          posiciones.y_maxima,
+          this.self['health']
+      );
+      console.log(posiciones);
+      //this.background_ready = 1;
+    };
 
     // Draw the projectiles next.
     for (var i = 0; i < this.projectiles.length; ++i) {
@@ -431,4 +441,6 @@ Game.prototype.draw = function() {
           this.players[i]['powerups']['shield_powerup']);
     }
   }
+
+  console.timeEnd("framer");
 };

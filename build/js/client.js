@@ -312,7 +312,6 @@ $(document).ready(function() {
 			$('*').modal('hide');
 			$('#modal-online-players').modal('show');
 			//armamos el QR con su dirección
-			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
 			// user_log();
 		}
@@ -1447,7 +1446,7 @@ $('#music-switch').click(function() {
 		//Cookies.expire('user_address');
 		$('#home').focus();
 		$('#canvas-container').css({'display': 'none'});
-		$('#home').css({'display': 'block'});		
+		$('#home').css({'display': 'block'});
 		is_user_online();
 		$('*').modal('hide');
 		// $('#modal-new-user').modal('show');
@@ -1643,7 +1642,7 @@ $('#order_power_6').click(function() {
 $('#switch-fullscreen-on').click(function() {
 	document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen()
 	$('#switch-fullscreen-on').css({'display': 'none'});
-	$('#switch-fullscreen-off').css({'display': 'block'});	
+	$('#switch-fullscreen-off').css({'display': 'block'});
 });
 
 $('#switch-fullscreen-off').click(function() {
@@ -1709,7 +1708,7 @@ $('#switch-fullscreen-off').click(function() {
 		//información
 		// console.log(socket.connected);
 		//para cualquier usuario
-		leaderboard_view();
+		//leaderboard_view();
 		//developer info
 		developer_info();
 

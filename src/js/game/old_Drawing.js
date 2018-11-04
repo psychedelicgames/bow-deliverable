@@ -4,50 +4,47 @@ function Drawing(context, images) {
   this.context = context;
   //this.context.imageSmoothingEnabled = false;
   this.images = images;
-  console.log('once');
+  // console.log('once');
 }
-
-//show names
-var show_names = '1';
 
 /************************************************************/
 /* Definiciones generales ***********************************/
 
-Drawing.NAME_FONT             = '14px Questrial';
-Drawing.NAME_COLOR            = '#FFF';
-Drawing.HP_COLOR              = '#89D926';
-Drawing.HP_MISSING_COLOR      = '#FF0000';
-Drawing.SHIELD_COLOR          = '#26C6D9';
-Drawing.SHIELD_MISSING_COLOR  = '#BEF8FF';
-Drawing.BASE_IMG_URL          = '/public/img/';
-Drawing.TILE_SIZE             = 2500;
+Drawing.NAME_FONT = '14px Questrial';
+Drawing.NAME_COLOR = '#FFF';
+Drawing.HP_COLOR = '#89D926';
+Drawing.HP_MISSING_COLOR = '#FF0000';
+Drawing.SHIELD_COLOR = '#26C6D9';
+Drawing.SHIELD_MISSING_COLOR = '#BEF8FF';
+Drawing.BASE_IMG_URL = '/img/canvas/';
+Drawing.TILE_SIZE = 2500;
 
 /************************************************************/
 /* Localizamos las imágenes a usar **************************/
 
 Drawing.IMG_SRCS = {
-  'explosion':              '/public/img/explosion.png',
-  'smoke':                  '/public/img/smoke.svg',
-  'panzer':                 '/public/img/panzer.png',
-  'self_turret':            '/public/img/self_turret.png',
-  'other_tank':             '/public/img/other_tank.png',
-  'other_turret':           '/public/img/other_turret.png',
-  'drone':                  '/public/img/drone.png',
-  'shadow':                 '/public/img/broken_panzer.png',
-  'nada':                   '/public/img/nada.png',
-  'shield':                 '/public/img/shield.png',
-  'ammo_regular':           '/public/img/game/ammo/regular.png',
-  'ammo_healco_care':       '/public/img/game/ammo/healco_care.png',
-  'ammo_slowco_frozen':     '/public/img/game/ammo/slowco_frozen.png',
-  'tile':                   '/public/img/full_map_02.png',
-  'shotgun_powerup':        '/public/img/shotgun_powerup.png',
-  'speedboost_powerup':     '/public/img/speedboost_powerup.png',
-  'rapidfire_powerup':      '/public/img/rapidfire_powerup.png',
-  'shield_powerup':         '/public/img/shield_powerup.png',
-  'healthpack_powerup':     '/public/img/healthpack_powerup.png',
-  'explosion_media':        '/public/img/explosion.png',
-  'zombie':                 '/public/img/boxes.png',
-  'people':                 '/public/img/boxes.png',
+  'explosion':              '/img/canvas/explosion.png',
+  'smoke':                  '/img/canvas/smoke.svg',
+  'panzer':                 '/img/canvas/panzer.png',
+  'self_turret':            '/img/canvas/self_turret.png',
+  'other_tank':             '/img/canvas/other_tank.png',
+  'other_turret':           '/img/canvas/other_turret.png',
+  'drone':                  '/img/canvas/drone.png',
+  'shadow':                 '/img/canvas/broken_panzer.png',
+  'nada':                   '/img/canvas/nada.png',
+  'shield':                 '/img/canvas/shield.png',
+  'ammo_regular':           '/img/canvas/game/ammo/regular.png',
+  'ammo_healco_care':       '/img/canvas/game/ammo/healco_care.png',
+  'ammo_slowco_frozen':     '/img/canvas/game/ammo/slowco_frozen.png',
+  'tile':                   '/img/canvas/full_map_02.png',
+  'shotgun_powerup':        '/img/canvas/shotgun_powerup.png',
+  'speedboost_powerup':     '/img/canvas/speedboost_powerup.png',
+  'rapidfire_powerup':      '/img/canvas/rapidfire_powerup.png',
+  'shield_powerup':         '/img/canvas/shield_powerup.png',
+  'healthpack_powerup':     '/img/canvas/healthpack_powerup.png',
+  'explosion_media':        '/img/canvas/explosion.png',
+  'zombie':                 '/img/canvas/boxes.png',
+  'people':                 '/img/canvas/boxes.png',
 };
 
 /************************************************************/
@@ -73,53 +70,50 @@ Drawing.prototype.clear = function() {
 /* Crea las unidades en el mapa *****************************/
 
 Drawing.prototype.drawTank = function(isSelf, coords, orientation, turretAngle, name, kind, health, hasShield, shieldsize) {
-  if (show_names == 1) {
-    this.context.save();
-    //presición pixelar
-    coords[0] = (0.5 + coords[0]) | 0;
-    coords[1] = (0.5 + coords[1]) | 0;
-    //ahora si
-    this.context.translate(coords[0], coords[1]);
-    this.context.textAlign = 'center';
-    this.context.font = Drawing.NAME_FONT;
-    this.context.fillStyle = Drawing.NAME_COLOR;
-    this.context.fillText(name, 0, -50);
-    this.context.restore();
-    this.context.save();
-    //presición pixelar
-    coords[0] = (0.5 + coords[0]) | 0;
-    coords[1] = (0.5 + coords[1]) | 0;
-    //ahora si
-    this.context.translate(coords[0], coords[1]);
-    //los pixeles que ocupa cada unidad
-    var unidad_w = 3;
-    //barra de escude
-    if (hasShield != null && hasShield != undefined) {
-      //console.log('shield size: ' + shieldsize);
-      for (var s = 0; s < 20; s++) {
-        //escude
-        if (s < shieldsize) {
-          this.context.fillStyle = Drawing.SHIELD_COLOR;
-          this.context.fillRect((s * unidad_w) + (unidad_w * 10), -42, unidad_w, 5);
-        }
-      }
-    }
-    //barra de vida
-    for (var i = 0; i < 20; i++) {
-      //salud
-      if (i < health) {
-        this.context.fillStyle = Drawing.HP_COLOR;
-        this.context.fillRect((i * unidad_w) - (unidad_w * 10), -42, unidad_w, 5);
-      }
-      //salud perdida
-      else {
-        this.context.fillStyle = Drawing.HP_MISSING_COLOR;
-        this.context.fillRect((i * unidad_w) - (unidad_w * 10), -42, unidad_w, 5);
-        }
-    }
-    //c-c-coom-bo breaker!
-    this.context.restore();
+  this.context.save();
+  //presición pixelar
+  coords[0] = (0.5 + coords[0]) | 0;
+  coords[1] = (0.5 + coords[1]) | 0;
+  //ahora si
+  this.context.translate(coords[0], coords[1]);
+  this.context.textAlign = 'center';
+  this.context.font = Drawing.NAME_FONT;
+  this.context.fillStyle = Drawing.NAME_COLOR;
+  this.context.fillText(name, 0, -50);
+  this.context.restore();
+  this.context.save();
+  //presición pixelar
+  coords[0] = (0.5 + coords[0]) | 0;
+  coords[1] = (0.5 + coords[1]) | 0;
+  //ahora si
+  this.context.translate(coords[0], coords[1]);
+  //los pixeles que ocupa cada unidad
+  var unidad_w = 3;
+  //barra de escude
+  if (hasShield != null && hasShield != undefined) {
+  //console.log('shield size: ' + shieldsize);
+  for (var s = 0; s < 20; s++) {
+  //escude
+  if (s < shieldsize) {
+  this.context.fillStyle = Drawing.SHIELD_COLOR;
+  this.context.fillRect((s * unidad_w) + (unidad_w * 10), -42, unidad_w, 5);
   }
+  }
+  }
+  //barra de vida
+  for (var i = 0; i < 20; i++) {
+  //salud
+  if (i < health) {
+  this.context.fillStyle = Drawing.HP_COLOR;
+  this.context.fillRect((i * unidad_w) - (unidad_w * 10), -42, unidad_w, 5);
+  //salud perdida
+  } else {
+  this.context.fillStyle = Drawing.HP_MISSING_COLOR;
+  this.context.fillRect((i * unidad_w) - (unidad_w * 10), -42, unidad_w, 5);
+  }
+  }
+  //c-c-coom-bo breaker!
+  this.context.restore();
   this.context.save();
   //presición pixelar
   coords[0] = (0.5 + coords[0]) | 0;
@@ -274,6 +268,10 @@ Drawing.prototype.drawExplosion = function(coords) {
 
 Drawing.prototype.drawTiles = function(minX, minY, maxX, maxY, salud) {
   this.context.save();
+  // a = (20 / salud) * 100;
+  // b = a - 100;
+  // c = (20 - salud + 100);
+  // console.log(a, b);
   var tile = this.images['tile'];
   for (var x = minX; x < maxX; x += Drawing.TILE_SIZE) {
     for (var y = minY; y < maxY; y += Drawing.TILE_SIZE) {
@@ -281,4 +279,8 @@ Drawing.prototype.drawTiles = function(minX, minY, maxX, maxY, salud) {
     }
   }
   this.context.restore();
+  //si las funciones se aplican despues de recuperar se vuelven globales.
+  //queda muy bueno pero consume mucho hardware
+  // this.context.filter = 'grayscale(' + b + '%) contrast(' + c + '%)';
+
 };
