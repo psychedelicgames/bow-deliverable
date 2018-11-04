@@ -19,35 +19,35 @@ Drawing.HP_COLOR              = '#89D926';
 Drawing.HP_MISSING_COLOR      = '#FF0000';
 Drawing.SHIELD_COLOR          = '#26C6D9';
 Drawing.SHIELD_MISSING_COLOR  = '#BEF8FF';
-Drawing.BASE_IMG_URL          = '/public/img/';
+Drawing.BASE_IMG_URL          = '/img/canvas/';
 Drawing.TILE_SIZE             = 2500;
 
 /************************************************************/
 /* Localizamos las imágenes a usar **************************/
 
 Drawing.IMG_SRCS = {
-  'explosion':              '/public/img/explosion.png',
-  'smoke':                  '/public/img/smoke.svg',
-  'panzer':                 '/public/img/panzer.png',
-  'self_turret':            '/public/img/self_turret.png',
-  'other_tank':             '/public/img/other_tank.png',
-  'other_turret':           '/public/img/other_turret.png',
-  'drone':                  '/public/img/drone.png',
-  'shadow':                 '/public/img/broken_panzer.png',
-  'nada':                   '/public/img/nada.png',
-  'shield':                 '/public/img/shield.png',
-  'ammo_regular':           '/public/img/game/ammo/regular.png',
-  'ammo_healco_care':       '/public/img/game/ammo/healco_care.png',
-  'ammo_slowco_frozen':     '/public/img/game/ammo/slowco_frozen.png',
-  'tile':                   '/public/img/full_map_02.png',
-  'shotgun_powerup':        '/public/img/shotgun_powerup.png',
-  'speedboost_powerup':     '/public/img/speedboost_powerup.png',
-  'rapidfire_powerup':      '/public/img/rapidfire_powerup.png',
-  'shield_powerup':         '/public/img/shield_powerup.png',
-  'healthpack_powerup':     '/public/img/healthpack_powerup.png',
-  'explosion_media':        '/public/img/explosion.png',
-  'zombie':                 '/public/img/boxes.png',
-  'people':                 '/public/img/boxes.png',
+  'explosion':              '/img/canvas/explosion.png',
+  'smoke':                  '/img/canvas/smoke.svg',
+  'panzer':                 '/img/canvas/panzer.png',
+  'self_turret':            '/img/canvas/self_turret.png',
+  'other_tank':             '/img/canvas/other_tank.png',
+  'other_turret':           '/img/canvas/other_turret.png',
+  'drone':                  '/img/canvas/drone.png',
+  'shadow':                 '/img/canvas/broken_panzer.png',
+  'nada':                   '/img/canvas/nada.png',
+  'shield':                 '/img/canvas/shield.png',
+  'ammo_regular':           '/img/canvas/game/ammo/regular.png',
+  'ammo_healco_care':       '/img/canvas/game/ammo/healco_care.png',
+  'ammo_slowco_frozen':     '/img/canvas/game/ammo/slowco_frozen.png',
+  'tile':                   '/img/canvas/full_map_02.png',
+  'shotgun_powerup':        '/img/canvas/shotgun_powerup.png',
+  'speedboost_powerup':     '/img/canvas/speedboost_powerup.png',
+  'rapidfire_powerup':      '/img/canvas/rapidfire_powerup.png',
+  'shield_powerup':         '/img/canvas/shield_powerup.png',
+  'healthpack_powerup':     '/img/canvas/healthpack_powerup.png',
+  'explosion_media':        '/img/canvas/explosion.png',
+  'zombie':                 '/img/canvas/boxes.png',
+  'people':                 '/img/canvas/boxes.png',
 };
 
 /************************************************************/
