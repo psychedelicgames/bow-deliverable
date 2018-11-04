@@ -1532,17 +1532,16 @@ $('#music-switch').click(function() {
 	/************************************************************/
 	/* custom tabs ***********************************************/
 
-	$("[data-tab-link]").click(function() {
+	$('[data-tab-link]').click(function() {
 		var tab = $(this).attr('data-tab-link');
-		var parents = $(this).parents().find('.custom-tabs').find($('[data-tab]'));
-		var parent = $(this).parents().find('.custom-tabs').find($('[data-tab]')[tab]);
+		var parents = $(this).closest('.modal-content').find('[data-tab]');
+		var contentId = parents[tab].id;
 
-		$("[data-tab-link]").removeClass('active');
+		$('[data-tab-link]').removeClass('active');
 		$(this).addClass('active');
 
 		parents.removeClass('active');
-		parent.addClass('active');
-		console.log(parents);
+		$('#'+ contentId).addClass('active');
 	});
 
 	/************************************************************/
