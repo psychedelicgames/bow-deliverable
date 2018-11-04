@@ -170,6 +170,15 @@ section.menu {
 		&.col-7 .modal-header{
 			padding:0;
 		}
+		.modal-close {
+			position: absolute;
+			color: $color-white;
+			font-size: 24px;
+			right: 0px;
+			top: 5px;
+			cursor: pointer;
+			opacity: 0.5;
+		}
 		.modal-header {
 			border: 0px;
 			border-radius: 0px;
