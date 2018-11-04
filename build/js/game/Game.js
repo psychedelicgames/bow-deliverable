@@ -7,10 +7,6 @@
  //calculamos dimensiones del usuario, usando dimensiones del div canvas-container
  //debería de usarse una id, en vez de una clase
  //correr función para acomodar acá on resize.
- const canvas_hold       = document.getElementById('canvas-container');
- const canvas_hold_info  = canvas_hold.getBoundingClientRect();
- const canvas_hold_w     = canvas_hold_info.width;
- const canvas_hold_h     = canvas_hold_info.height;
 
 /**
  * Creates a game on the client side to manage and render the players,
@@ -118,6 +114,11 @@ Game.prototype.update = function() {
   if (this.self) {
 
     console.time("framer");
+
+    const canvas_hold       = document.getElementById('canvas-container');
+    const canvas_hold_info  = canvas_hold.getBoundingClientRect();
+    const canvas_hold_w     = canvas_hold_info.width;
+    const canvas_hold_h     = canvas_hold_info.height;
 
     //armamos camera con la posición de la camera
     camera_x = this.self['x'];
@@ -442,5 +443,5 @@ Game.prototype.draw = function() {
     }
   }
 
-  console.timeEnd("framer");
+   console.timeEnd("framer");
 };
