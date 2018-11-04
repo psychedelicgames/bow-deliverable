@@ -442,5 +442,5 @@ Game.prototype.draw = function() {
     }
   }
 
-  // console.timeEnd("framer");
+  console.timeEnd("framer");
 };
