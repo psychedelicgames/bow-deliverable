@@ -312,6 +312,7 @@ $(document).ready(function() {
 			$('*').modal('hide');
 			$('#modal-online-players').modal('show');
 			//armamos el QR con su dirección
+			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
 			// user_log();
 		}
