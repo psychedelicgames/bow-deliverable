@@ -81,7 +81,12 @@ section.menu {
 				font-weight: 500;
 				color: $color-white;
 				font-family: 'Roboto Slab', serif !important;
+				-webkit-transition: all 0.2s;
+				transition: all 0.2s;
+				transition-timing-function: ease-out;
+				opacity: 0.7;		
 				&:hover {
+					opacity: 1;
 					text-decoration: none;
 					color: $color-one;
 				}
