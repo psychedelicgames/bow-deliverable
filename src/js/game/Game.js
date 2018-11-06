@@ -121,13 +121,13 @@ Game.prototype.update = function() {
     const canvas_hold_h     = canvas_hold_info.height;
 
     //armamos camera con la posición de la camera
-    camera_x = this.self['x'];
-    camera_y = this.self['y'];
+    camera_x = this.self['camera_x'];
+    camera_y = this.self['camera_y'];
     camera = {x: camera_x, y: camera_y};
 
     //armamos unidad con la posición del usuario
-    var unidad_x = this.self['x'];
-    var unidad_y = this.self['y'];
+    var unidad_x = this.self['camera_x'];
+    var unidad_y = this.self['camera_y'];
     unidad = {x: unidad_x, y: unidad_y};
 
     //armamos aim con la posición del cursor

@@ -10,7 +10,7 @@ $(document).ready(function() {
 	//es posible pasar información al io()
 	// var socket = io();
 	var socket = io('wss://54.67.15.38');
-	// var socket = io('wss://127.0.0.1');
+	//var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
