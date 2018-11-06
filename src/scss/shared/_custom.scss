@@ -377,6 +377,42 @@ section.menu {
 			width: 30%;
 		}		
 	}
+	&.modal-credits {
+		.team-unit {
+			display: flex;
+			flex-direction: row;
+			border-bottom: 1px solid #222;
+			border-top: 1px solid #222;
+			margin: 10px 25px;
+			padding: 15px 10px;
+			img {
+				margin-right: 20px;
+			}
+			.info {
+				.name {
+					span {
+						font-family: 'BigNoodleTooOblique';
+						font-size: 22px;
+						color: $color-one;
+						margin-right: 15px;
+					}
+					a {
+						background-color: #333333;
+						border-radius: 50%;
+						height: 23px;
+						width: 23px;
+						display: inline-block;
+						color: #fff;
+						font-size: 11px;
+						text-align: center;
+						padding: 4px 6px;
+						margin: 0 3px;
+						vertical-align: super;
+					}
+				}
+			}
+		}
+	}
 }
 
 /* ======================================

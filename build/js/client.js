@@ -1522,6 +1522,10 @@ $('#music-switch').click(function() {
 		$('*').modal('hide');
 		$('#modal-cashier').modal('show');
 	});
+	$('.show-modal-credits').click(function() {
+		$('*').modal('hide');
+		$('#modal-credits').modal('show');
+	});	
 
 	// open modals ingame
 	$('.show-modal-back-home').click(function() {
