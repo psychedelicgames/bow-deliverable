@@ -221,6 +221,7 @@ $(document).ready(function() {
 		//leemos feedback para salir del asyn
 		if(feedback == 'respawn_ok') {
 			KilledSequence(null, 'respawn');
+			sound_bg.play();
 			$('#canvas').css({ 'filter': 'inherit'});
 			//completamos el grafico de forma cabeza
 			user_balance_view();
