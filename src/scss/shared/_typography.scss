@@ -10,10 +10,10 @@ html, body {
 
 @font-face {
   font-family: 'BigNoodleTooOblique';
-  src: url('/img/fonts/BigNoodleTooOblique.eot');
-  src: url('/img/fonts/BigNoodleTooOblique.eot?#iefix') format('embedded-opentype'),
-  url('/img/fonts/BigNoodleTooOblique.woff2') format('woff2'),
-  url('/img/fonts/BigNoodleTooOblique.woff') format('woff');
+  src: url('../fonts/BigNoodleTooOblique.eot');
+  src: url('../fonts/BigNoodleTooOblique.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/BigNoodleTooOblique.woff2') format('woff2'),
+  url('../fonts/BigNoodleTooOblique.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

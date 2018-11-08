@@ -1,14 +1,22 @@
 .player-battle-info {
 	pointer-events: none;
 	position: absolute;
+	// display: flex;
+	// flex-direction: row;
 	top: 10px;
 	left: 20px;
-	width: 430px;
+	// width: 430px;
 	z-index: 200;
 	color: #fff;
 	-webkit-transition: opacity 0.5s;
 	transition: opacity 0.5s;
 	transition-timing-function: ease;
+	img {
+		margin-top: -10px;
+		margin-right: 15px;
+		margin-left: 0px;
+		display: inline-block !important;
+	}
 	ul {
 		border-bottom: 1px solid rgba(255,255,255,0.1);
 		border-top: 1px solid rgba(255,255,255,0.1);
@@ -18,9 +26,10 @@
 		line-height: 40px;
 		margin-bottom: 0px !important;
 		padding-left: 15px;
+		display:inline-block !important;
 	}
 	li {
-		display: inline-block;
+		display: inline-block !important;
 		list-style: none;
 		margin-right: 20px;
 		height: 30px;

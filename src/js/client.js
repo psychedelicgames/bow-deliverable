@@ -9,8 +9,8 @@ $(document).ready(function() {
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
 	// var socket = io();
-	var socket = io('wss://54.67.15.38');
-	//var socket = io('wss://127.0.0.1');
+	var socket = io('wss://clouds.bitofwar.com');
+	// var socket = io('wss://192.168.0.4');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -874,6 +874,7 @@ $('#music-switch').click(function() {
 
 			//cargamos el player battle info (kill, death, profit, spawns)
 			var row = '';
+			row += '<li>' + hub_usuario.name + '</li>';
 			row += '<li>Kills: ' + hub_usuario.kills + '</li>';
 			row += '<li>Deaths: ' + hub_usuario.deaths + '</li>';
 			row += '<li>Profits: ' + hub_usuario.difference + '</li>';

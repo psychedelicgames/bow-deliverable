@@ -22,6 +22,14 @@ body {
 		display: block;
 	}
 }
+.fa-arrow-up {
+	color: $color-green;
+	font-size: 10px;
+}
+.fa-arrow-down {
+	color: $color-one;
+	font-size: 10px;
+}
 section.header {
 	// background-color: #080708;
 	height: 50px;
@@ -196,6 +204,7 @@ section.menu {
 				color: $color-one;
 				span {
 					margin-right: 10px;
+					cursor: pointer;
 				}
 				.unselected {
 					color: $color-white;
@@ -221,6 +230,7 @@ section.menu {
 				filter: blur(0.7px);
 				opacity: 0.8;
 				margin-right: 15px;
+				cursor: pointer;
 			}
 			span:before  {
 				content: ">";

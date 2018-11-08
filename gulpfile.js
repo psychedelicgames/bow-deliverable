@@ -26,6 +26,7 @@ gulp.task('serve', ['watch'], () => {
         '/node_modules': './node_modules',
         '/img': './src/img/',
         '/audio': './src/audio/',
+        '/fonts': './src/fonts/',
       }
     },
   })
@@ -91,6 +92,11 @@ gulp.task('audio', () => gulp.src(['src/audio/**/*.*'])
   .pipe(server.stream())
 )
 
+gulp.task('fonts', () => gulp.src(['src/fonts/**/*.*'])
+  .pipe(gulp.dest('./build/fonts/'))
+  .pipe(server.stream())
+)
+
 gulp.task('default', ['build'], () => gulp.start('serve'))
-gulp.task('build', ['scripts', 'scss', 'html', 'img'])
+gulp.task('build', ['scripts', 'scss', 'html', 'img', 'audio', 'fonts'])
 gulp.task('build:production', ['scss:production', 'html:production'])
