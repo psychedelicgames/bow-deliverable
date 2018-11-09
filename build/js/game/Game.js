@@ -113,7 +113,7 @@ Game.prototype.update = function() {
 
   if (this.self) {
 
-    console.time("framer");
+    // console.time("framer");
 
     const canvas_hold       = document.getElementById('canvas-container');
     const canvas_hold_info  = canvas_hold.getBoundingClientRect();
