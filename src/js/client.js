@@ -8,9 +8,9 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	// var socket = io('wss://127.0.0.1');
-	// var socket = io('wss://clouds.bitofwar.com');
-	var socket = io('wss://192.168.0.4');
+	var socket = io('wss://127.0.0.1');
+	//var socket = io('wss://clouds.bitofwar.com');
+	//var socket = io('wss://192.168.0.4');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -807,7 +807,7 @@ $('#music-switch').click(function() {
 			if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
 			//almacenamos el balance en balance_previo
 			var balance_previo = $('.user_balance').html();
-
+			//console.log(balance_previo, feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
 			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
 			//refrescamos el balance del usuario
@@ -1561,20 +1561,12 @@ $('#music-switch').click(function() {
 
 	/************************************************************/
 	/* powerup counter and info! ********************************/
-	
+
 	function powerup_counter(order) {
-
-		if (game['self']['orders_remaining'] > 0 ) {
-			$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
-			$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');			
-			$('.powerups-container .title span').animate({top: '20px', 'font-size': '32px', opacity: '0.8', 'color': 'red'}, 'fast');
-			$('.powerups-container .title span').text(game['self']['orders_remaining'] - 1 + ' ');
-			$('.powerups-container .title span').animate({top: '0px', 'font-size': '22px', opacity: '1', 'color': 'white'}, 'slow');
-		}
-		if (game['self']['orders_remaining'] < 3 ) {
-			$('.powerups-container .title span').css({'color': 'red', 'font-size': '22px'});	
-		}
-
+		$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
+		$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');
+		console.log('shield');
+		// $('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
 	}
 
 	/************************************************************/
@@ -1587,8 +1579,7 @@ $('#music-switch').click(function() {
 		//envamos las variables para node
 		socket.emit('comprar-power', {keydown}, function(feedback) {
 			//refrescamos el balance del usuario
-			// if(feedback.advice == 'Low funds.') { showAlert(feedback.advice, 'red'); }
-			if(feedback.advice == 'no_orders_remaining') { showAlert('All upgrades used', 'red'); }
+			if(feedback.advice == 'Low funds.') { showAlert(feedback.advice, 'red'); }
 			//si la compra salió bien.
 			else {
 				//refrescamos el balance del usuario
@@ -1598,31 +1589,32 @@ $('#music-switch').click(function() {
 					rand = sounds_order_1.rand(); sounds[rand].play();
 					show_upper_message('A good shield when is needed.');
 					powerup_counter('order_power_1');
+					console.log('shield boton');
 				}
 				if(keydown == '50') {
 					rand = sounds_order_2.rand(); sounds[rand].play();
 					show_upper_message('There’s nothing faster than Assassin MK1!');
-					powerup_counter('order_power_2');
+					// push_price_up('order_power_2');
 				}
 				if(keydown == '51') {
 					rand = sounds_order_3.rand(); sounds[rand].play();
 					show_upper_message('Vladof relics 1.0  more bullets, more kills!');
-					powerup_counter('order_power_3');
+					// push_price_up('order_power_3');
 				}
 				if(keydown == '52') {
 					rand = sounds_order_4.rand(); sounds[rand].play();
 					show_upper_message('You are 1.666 times lighter with Moonwalk!');
-					powerup_counter('order_power_4');
+					// push_price_up('order_power_4');
 				}
 				if(keydown == '53') {
 					rand = sounds_order_5.rand(); sounds[rand].play();
 					show_upper_message('The Slow company loves you.');
-					powerup_counter('order_power_5');
+					// push_price_up('order_power_5');
 				}
 				if(keydown == '54') {
 					//rand = messagess_order_6.rand(); sounds[rand].play();
 					show_upper_message("Providing healing. We're killing you slowly");
-					powerup_counter('order_power_6');
+					// push_price_up('order_power_6');
 				}
 			}
 		});
