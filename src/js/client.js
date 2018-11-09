@@ -807,6 +807,7 @@ $('#music-switch').click(function() {
 			if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
 			//almacenamos el balance en balance_previo
 			var balance_previo = $('.user_balance').html();
+
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
 			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
 			//refrescamos el balance del usuario
