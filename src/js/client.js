@@ -9,8 +9,8 @@ $(document).ready(function() {
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
 	// var socket = io('wss://127.0.0.1');
-	//var socket = io('wss://clouds.bitofwar.com');
-	var socket = io('wss://192.168.0.4');
+	var socket = io('wss://clouds.bitofwar.com');
+	// var socket = io('wss://192.168.0.4');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -701,7 +701,7 @@ $(document).ready(function() {
 
 	//asumo que si lo ponemos en un if vamos a alivianar la carga del cpu y ram.
 	//no considero necesario correr los foreach ni armar el cuadro si el usuario no lo ve.
-	if ($('#developer-switch').hasClass('fa-check-square')) {
+	if ($('#developer-switch').hasClass('fa-check-square') || $('.btn-dev-on-off').hasClass('x-color-one')) {
 
 		// populamos
 		var developer_self = '';
@@ -762,6 +762,11 @@ $('#developer-switch').click(function() {
 		$('#developer-mode').css({display: 'none'});
 	};
 });
+$('.btn-dev-on-off').click(function() {
+	$('#developer-mode').toggleClass('active');
+	$('.btn-dev-on-off').toggleClass('x-color-one');
+	$('#canvas').focus();
+});
 
 $('#rain-switch').click(function() {
 	// show rain
@@ -776,6 +781,22 @@ $('#rain-switch').click(function() {
 		$('#canvas_02').css({display: 'none'});
 	};
 });
+
+$('#music-switch').click(function() {
+	// play - pause music
+	if ($('#music-switch').hasClass('fal fa-square')) {
+		$('#music-switch').removeClass('fal fa-square');
+		$('#music-switch').addClass('fal fa-check-square');
+		sound_bg.play();
+		$('#canvas').focus();
+	}
+	else {
+		$('#music-switch').removeClass('fal fa-check-square');
+		$('#music-switch').addClass('fal fa-square');
+		sound_bg.pause();
+		$('#canvas').focus();
+	};
+});
 $('.btn-music-off').click(function() {
 	sound_bg.pause();
 	$('.btn-music-off').css({'display': 'none'});
@@ -785,20 +806,6 @@ $('.btn-music-on').click(function() {
 	sound_bg.play();
 	$('.btn-music-off').css({'display': 'block'});
 	$('.btn-music-on').css({'display': 'none'});
-});
-
-$('#music-switch').click(function() {
-	// play - pause music
-	if ($('#music-switch').hasClass('fal fa-square')) {
-		$('#music-switch').removeClass('fal fa-square');
-		$('#music-switch').addClass('fal fa-check-square');
-		sound_bg.play();
-	}
-	else {
-		$('#music-switch').removeClass('fal fa-check-square');
-		$('#music-switch').addClass('fal fa-square');
-		sound_bg.pause();
-	};
 });
 
 
@@ -887,7 +894,7 @@ $('#music-switch').click(function() {
 			//cargamos el player battle info (kill, death, profit, spawns)
 			var row = '';
 			row += '<li>' + hub_usuario.name + '</li>';
-			row += '<li>Kills: ' + hub_usuario.kills + '</li>';
+			row += '<li>Kills: <span class="x-color-one">' + hub_usuario.kills + '</span></li>';
 			row += '<li>Deaths: ' + hub_usuario.deaths + '</li>';
 			row += '<li>Profits: ' + hub_usuario.difference + '</li>';
 			row += '<li>Spawns: ' + hub_usuario.spawns + '</li>';
