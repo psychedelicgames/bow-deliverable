@@ -38,8 +38,9 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a01616', endColorstr='#aa1111',GradientType=0 );
 }
 .tooltip {
+	opacity: 0.2;
 	.arrow::before {
-		border-bottom-color: $color-one !important;
+		border-left-color: $color-one !important;
 	}
 	.tooltip-inner {
 		background-color: $color-one !important;

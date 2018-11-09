@@ -157,6 +157,16 @@ section.menu {
   Modals
 
 ====================================== */
+#modal-settings-2fa {
+	#qrcode_mfa {
+		background-color: #fff;
+		padding: 10px;
+		margin-left: -20px;
+	}
+	#user-mfa-recover {
+		filter: blur(0);
+	}
+}
 .modal-backdrop {
 	display: none !important;
 	visibility: hidden !important;

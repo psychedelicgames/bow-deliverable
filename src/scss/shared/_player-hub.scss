@@ -4,7 +4,7 @@
  	bottom: 0px;
  	height: 180px;
  	width: 480px;
- 	pointer-events: none;
+ 	pointer-events: none !important;
  	z-index:200;
  	-webkit-transition: opacity 0.5s;
  	transition: opacity 0.5s;

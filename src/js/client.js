@@ -776,6 +776,16 @@ $('#rain-switch').click(function() {
 		$('#canvas_02').css({display: 'none'});
 	};
 });
+$('.btn-music-off').click(function() {
+	sound_bg.pause();
+	$('.btn-music-off').css({'display': 'none'});
+	$('.btn-music-on').css({'display': 'block'});
+});
+$('.btn-music-on').click(function() {
+	sound_bg.play();
+	$('.btn-music-off').css({'display': 'block'});
+	$('.btn-music-on').css({'display': 'none'});
+});
 
 $('#music-switch').click(function() {
 	// play - pause music
@@ -1279,7 +1289,8 @@ $('#music-switch').click(function() {
 		//buscamos las variables de cookies
 		var username = $('#2fa-username').val();
 		var password = $('#2fa-password').val();
-		var mfa_recover = $('#user-mfa-recover').val();
+		var password = forge_sha256(password);
+		var mfa_recover = $('#user-mfa-recover').text();
 		var mfa_code = $('#user-mfa-code').val();
 		socket.emit('user-mfa-enable', { username: username, password: password, mfa_recover: mfa_recover, mfa_code: mfa_code }, function(feedback) {
 			//hacer cosas con la información? o no hacer nada... siempre dice done.

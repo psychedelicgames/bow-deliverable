@@ -1,15 +1,14 @@
-.playing-header.playing-header {
-	// background-color: #080708;
-	height: 50px;
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: flex-end;
+.playing-header {
+	position: absolute;
+	right: 15px;
+	top: 10px;
 	z-index: 500;
 	ul {
 		list-style: none;
 		margin: 0px;
 		padding: 0;
 		display: flex;
+		flex-direction: column;
 		align-items: stretch;
 		z-index: 500;
 		li {
@@ -19,11 +18,19 @@
 			a {
 				color: $color-white;
 				display: flex;
-				padding: 0 15px;
+				width: 30px;
+				height: 30px;
+				// padding: 0 15px;
 				flex: 1;
 				justify-content: center;
 				flex-flow: column;
 				font-size: 17px;
+				.fas {
+					vertical-align: middle;
+				}
+				&.btn-music-on {
+					display: none;
+				}
 				&:hover {
 					text-decoration: none !important;
 					color: $color-one;
