@@ -9,8 +9,8 @@ $(document).ready(function() {
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
 	// var socket = io();
-	var socket = io('wss://clouds.bitofwar.com');
-	// var socket = io('wss://192.168.0.4');
+	// var socket = io('wss://clouds.bitofwar.com');
+	var socket = io('wss://192.168.0.4');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -1559,6 +1559,15 @@ $('#music-switch').click(function() {
 	}
 
 	/************************************************************/
+	/* powerup counter and info! ********************************/
+
+	function powerup_counter(order) {
+		$('#' + order).animate({top: '-20px', opacity: '1'}, "fast");
+		console.log('shield');
+		// $('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
+	}
+
+	/************************************************************/
 	/* Comprar powerups! ****************************************/
 
 	function order_power(keydown) {
@@ -1577,7 +1586,8 @@ $('#music-switch').click(function() {
 				if(keydown == '49') {
 					rand = sounds_order_1.rand(); sounds[rand].play();
 					show_upper_message('A good shield when is needed.');
-					// push_price_up('order_power_1');
+					powerup_counter('order_power_1');
+					console.log('shield boton');
 				}
 				if(keydown == '50') {
 					rand = sounds_order_2.rand(); sounds[rand].play();
