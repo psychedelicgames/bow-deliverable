@@ -357,7 +357,7 @@ Game.prototype.draw = function() {
           posiciones.y_maxima,
           this.self['health']
       );
-      console.log(posiciones);
+      // console.log(posiciones);
       //this.background_ready = 1;
     };
 
@@ -443,5 +443,5 @@ Game.prototype.draw = function() {
     }
   }
 
-   console.timeEnd("framer");
+   // console.timeEnd("framer");
 };

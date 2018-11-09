@@ -1561,6 +1561,15 @@ $('#music-switch').click(function() {
 	}
 
 	/************************************************************/
+	/* powerup counter and info! ********************************/
+
+	function powerup_counter(order) {
+		$('#' + order).animate({top: '-20px', opacity: '1'}, "fast");
+		console.log('shield');
+		// $('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
+	}
+
+	/************************************************************/
 	/* Comprar powerups! ****************************************/
 
 	function order_power(keydown) {
@@ -1579,7 +1588,8 @@ $('#music-switch').click(function() {
 				if(keydown == '49') {
 					rand = sounds_order_1.rand(); sounds[rand].play();
 					show_upper_message('A good shield when is needed.');
-					// push_price_up('order_power_1');
+					powerup_counter('order_power_1');
+					console.log('shield boton');
 				}
 				if(keydown == '50') {
 					rand = sounds_order_2.rand(); sounds[rand].play();
