@@ -8,9 +8,9 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	// var socket = io();
-	// var socket = io('wss://clouds.bitofwar.com');
-	var socket = io('wss://192.168.0.4');
+	var socket = io('wss://127.0.0.1');
+	//var socket = io('wss://clouds.bitofwar.com');
+	//var socket = io('wss://192.168.0.4');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -808,7 +808,9 @@ $('#music-switch').click(function() {
 			//almacenamos el balance en balance_previo
 			var balance_previo = $('#nav_user_balance').html();
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
-			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
+			if(feedback.user.available_balance > balance_previo) {
+				console.log('balance mayor');
+				sound_coins(); }
 			//refrescamos el balance del usuario
 			$('.user_balance').text(feedback.user.available_balance);
 			//modificamos la cookie
@@ -1527,7 +1529,7 @@ $('#music-switch').click(function() {
 	$('.show-modal-credits').click(function() {
 		$('*').modal('hide');
 		$('#modal-credits').modal('show');
-	});	
+	});
 
 	// open modals ingame
 	$('.show-modal-back-home').click(function() {
@@ -1731,7 +1733,6 @@ $('#switch-fullscreen-off').click(function() {
 
 		//user is online
 		if (Cookies('user_online') == "True") { cashier_search(); }
-		//game is running
 		if (game['self']) { player_hub(); }
 	}, 100);
 
