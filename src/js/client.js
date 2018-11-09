@@ -1564,7 +1564,8 @@ $('#music-switch').click(function() {
 	/* powerup counter and info! ********************************/
 
 	function powerup_counter(order) {
-		$('#' + order).animate({top: '-20px', opacity: '1'}, "fast");
+		$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
+		$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');
 		console.log('shield');
 		// $('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
 	}
