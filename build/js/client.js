@@ -806,11 +806,9 @@ $('#music-switch').click(function() {
 			//si hay operaciones nuevas, informamos.
 			if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
 			//almacenamos el balance en balance_previo
-			var balance_previo = $('#nav_user_balance').html();
+			var balance_previo = $('.user_balance').html();
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
-			if(feedback.user.available_balance > balance_previo) {
-				console.log('balance mayor');
-				sound_coins(); }
+			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
 			//refrescamos el balance del usuario
 			$('.user_balance').text(feedback.user.available_balance);
 			//modificamos la cookie
