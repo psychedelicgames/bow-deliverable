@@ -8,15 +8,9 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-<<<<<<< HEAD
 	var socket = io('wss://127.0.0.1');
 	//var socket = io('wss://clouds.bitofwar.com');
 	//var socket = io('wss://192.168.0.4');
-=======
-	// var socket = io();
-	// var socket = io('wss://clouds.bitofwar.com');
-	var socket = io('wss://192.168.0.4');
->>>>>>> 0a9de530b01655ee50956d9deac1c7747aa1c41e
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
