@@ -1277,8 +1277,8 @@ $('#music-switch').click(function() {
 		//$('#qrcode_mfa').val();
 		//$('#user-mfa-recover-code').val();
 		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
+		var username = $('#2fa-username').val();
+		var password = $('#2fa-password').val();
 		var mfa_recover = $('#user-mfa-recover').val();
 		var mfa_code = $('#user-mfa-code').val();
 		socket.emit('user-mfa-enable', { username: username, password: password, mfa_recover: mfa_recover, mfa_code: mfa_code }, function(feedback) {
@@ -1600,27 +1600,27 @@ $('#music-switch').click(function() {
 				if(keydown == '50') {
 					rand = sounds_order_2.rand(); sounds[rand].play();
 					show_upper_message('There’s nothing faster than Assassin MK1!');
-					powerup_counter('order_power_2');
+					powerup_counter	('order_power_2');
 				}
 				if(keydown == '51') {
 					rand = sounds_order_3.rand(); sounds[rand].play();
 					show_upper_message('Vladof relics 1.0  more bullets, more kills!');
-					powerup_counter('order_power_3');
+					powerup_counter	('order_power_3');
 				}
 				if(keydown == '52') {
 					rand = sounds_order_4.rand(); sounds[rand].play();
 					show_upper_message('You are 1.666 times lighter with Moonwalk!');
-					powerup_counter('order_power_4');
+					powerup_counter	('order_power_4');
 				}
 				if(keydown == '53') {
 					rand = sounds_order_5.rand(); sounds[rand].play();
 					show_upper_message('The Slow company loves you.');
-					powerup_counter('order_power_5');
+					powerup_counter	('order_power_5');
 				}
 				if(keydown == '54') {
 					//rand = messagess_order_6.rand(); sounds[rand].play();
 					show_upper_message("Providing healing. We're killing you slowly");
-					powerup_counter('order_power_6');
+					powerup_counter	('order_power_6');
 				}
 			}
 		});
