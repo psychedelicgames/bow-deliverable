@@ -8,13 +8,13 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	var socket = io('wss://127.0.0.1');
+	// var socket = io('wss://127.0.0.1');
 	//var socket = io('wss://clouds.bitofwar.com');
-	//var socket = io('wss://192.168.0.4');
+	var socket = io('wss://192.168.0.4');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
-	console.log(socket);
+	// console.log(socket);
 	Input.applyEventHandlers(document.getElementById('canvas'));
 	Input.addMouseTracker(document.getElementById('canvas'));
 
@@ -213,11 +213,11 @@ $(document).ready(function() {
 	function ingame_respawn() {
 
 		player_id = game['self']['id'];
-		console.log(player_id);
+		// console.log(player_id);
 
 		socket.emit('ingame-respawn', {player_id : player_id}, function(feedback) {
 		//hacer cosas con la información? o no hacer nada... siempre dice done.
-		console.log(feedback);
+		// console.log(feedback);
 		//leemos feedback para salir del asyn
 		if(feedback == 'respawn_ok') {
 			KilledSequence(null, 'respawn');
@@ -246,13 +246,13 @@ $(document).ready(function() {
 			//revisamos si el usuario es inválido:
 			if(feedback.advice == 'Invalid username or password.') {
 				showAlert(feedback.advice, 'red');
-				console.log(feedback.advice);
+				// console.log(feedback.advice);
 				// alert(feedback.advice);
 			}
 			//revisamos si el usuario ya anda online:
 			if(feedback.advice == 'You are online already.') {
 				showAlert(feedback.advice, 'yellow');
-				console.log(feedback.advice);
+				// console.log(feedback.advice);
 				// alert(feedback.advice);
 			}
 			//revisamos si el usuario dispone de dinero
@@ -540,11 +540,11 @@ $(document).ready(function() {
 				delay: 0.4,
 				className:"-=damaged"
 			});
-			console.log(pack);
+			// console.log(pack);
 		}
 		if (pack.user_dies == '1') { rand = sounds_dies.rand(); sounds[rand].play(); }
 		if (pack.user_cardio == '1') {
-			console.log('Cardio: 1');
+			// console.log('Cardio: 1');
 			//cardio
 			sounds['./audio/cardio.mp3'].pause();
 			sounds['./audio/cardio.mp3'].playbackRate = 1;
@@ -557,7 +557,7 @@ $(document).ready(function() {
 			sounds['./audio/buzz.mp3'].play();
 		}
 		if (pack.user_cardio == '2') {
-			console.log('Cardio: 2');
+			// console.log('Cardio: 2');
 			//cardio
 			sounds['./audio/cardio.mp3'].pause();
 			sounds['./audio/cardio.mp3'].playbackRate = 1.2;
@@ -570,7 +570,7 @@ $(document).ready(function() {
 			sounds['./audio/buzz.mp3'].play();
 		}
 		if (pack.user_cardio == '3') {
-			console.log('Cardio: 3');
+			// console.log('Cardio: 3');
 			//cardio
 			sounds['./audio/cardio.mp3'].pause();
 			sounds['./audio/cardio.mp3'].playbackRate = 1.6;
@@ -583,7 +583,7 @@ $(document).ready(function() {
 			sounds['./audio/buzz.mp3'].play();
 		}
 		if (pack.user_cardio == '0') {
-			console.log('Cardio: 0');
+			// console.log('Cardio: 0');
 			//fadeoff a los sonidos de cardio;
 			sounds['./audio/cardio.mp3'].pause();
 			sounds['./audio/buzz.mp3'].pause();
@@ -1195,7 +1195,7 @@ $('#music-switch').click(function() {
 
 			}
 
-			console.log(aaa);
+			// console.log(aaa);
 
 			//console.log(construccion);
 
@@ -1257,7 +1257,7 @@ $('#music-switch').click(function() {
 		var password = Cookies('user_password');
 		socket.emit('user-mfa', { username: username, password: password }, function(feedback) {
 			//hacer cosas con la información? o no hacer nada... siempre dice done.
-			console.log(feedback);
+			// console.log(feedback);
 			//armamos la información para el QR
 			var informacion = 'otpauth://totp/' + username + '?secret=' + feedback.mfa.recover + '&issuer=www.bitofwar.com';
 			//creamos el QR
@@ -1283,7 +1283,7 @@ $('#music-switch').click(function() {
 		var mfa_code = $('#user-mfa-code').val();
 		socket.emit('user-mfa-enable', { username: username, password: password, mfa_recover: mfa_recover, mfa_code: mfa_code }, function(feedback) {
 			//hacer cosas con la información? o no hacer nada... siempre dice done.
-			console.log(feedback);
+			// console.log(feedback);
 			//generador de QR
 			//$('#qrcode_mfa').qrcode(feedback.mfa.recover_code);
 			//informamos el recover_code
@@ -1563,10 +1563,16 @@ $('#music-switch').click(function() {
 	/* powerup counter and info! ********************************/
 
 	function powerup_counter(order) {
-		$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
-		$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');
-		console.log('shield');
-		// $('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
+		if (game['self']['orders_remaining'] > 0 ) {
+			$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
+			$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');			
+			$('.powerups-container .title span').animate({top: '20px', 'font-size': '32px', opacity: '0.8', 'color': 'red'}, 'fast');
+			$('.powerups-container .title span').text(game['self']['orders_remaining'] - 1 + ' ');
+			$('.powerups-container .title span').animate({top: '0px', 'font-size': '22px', opacity: '1', 'color': 'white'}, 'slow');
+		}
+		if (game['self']['orders_remaining'] < 3 ) {
+			$('.powerups-container .title span').css({'color': 'red', 'font-size': '22px'});	
+		}
 	}
 
 	/************************************************************/
@@ -1579,7 +1585,7 @@ $('#music-switch').click(function() {
 		//envamos las variables para node
 		socket.emit('comprar-power', {keydown}, function(feedback) {
 			//refrescamos el balance del usuario
-			if(feedback.advice == 'Low funds.') { showAlert(feedback.advice, 'red'); }
+			if(feedback.advice == 'no_orders_remaining') { showAlert('All upgrades used', 'red'); }
 			//si la compra salió bien.
 			else {
 				//refrescamos el balance del usuario
@@ -1589,32 +1595,32 @@ $('#music-switch').click(function() {
 					rand = sounds_order_1.rand(); sounds[rand].play();
 					show_upper_message('A good shield when is needed.');
 					powerup_counter('order_power_1');
-					console.log('shield boton');
+					// console.log('shield boton');
 				}
 				if(keydown == '50') {
 					rand = sounds_order_2.rand(); sounds[rand].play();
 					show_upper_message('There’s nothing faster than Assassin MK1!');
-					// push_price_up('order_power_2');
+					powerup_counter('order_power_2');
 				}
 				if(keydown == '51') {
 					rand = sounds_order_3.rand(); sounds[rand].play();
 					show_upper_message('Vladof relics 1.0  more bullets, more kills!');
-					// push_price_up('order_power_3');
+					powerup_counter('order_power_3');
 				}
 				if(keydown == '52') {
 					rand = sounds_order_4.rand(); sounds[rand].play();
 					show_upper_message('You are 1.666 times lighter with Moonwalk!');
-					// push_price_up('order_power_4');
+					powerup_counter('order_power_4');
 				}
 				if(keydown == '53') {
 					rand = sounds_order_5.rand(); sounds[rand].play();
 					show_upper_message('The Slow company loves you.');
-					// push_price_up('order_power_5');
+					powerup_counter('order_power_5');
 				}
 				if(keydown == '54') {
 					//rand = messagess_order_6.rand(); sounds[rand].play();
 					show_upper_message("Providing healing. We're killing you slowly");
-					// push_price_up('order_power_6');
+					powerup_counter('order_power_6');
 				}
 			}
 		});
