@@ -40,7 +40,7 @@
 	}
 }
 .player-battle-info {
-	pointer-events: none;
+	pointer-events: none !important;
 	position: absolute;
 	// display: flex;
 	// flex-direction: row;
@@ -97,7 +97,7 @@
 }
 
 .action-container {
-	pointer-events: none;
+	pointer-events: none !important;
 	opacity: 0;
 	top: 1vw;
 	position: absolute;
@@ -191,6 +191,7 @@
 	position: absolute;
 	top: 40%;
 	left: 10px;
+	pointer-events: none;
 	ul {
 		padding-left: 0px;
 		li {

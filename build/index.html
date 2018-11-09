@@ -335,7 +335,7 @@
                 </div>
             </div>
         </div>        <!-- Modal Online Players -->
-        <div class="modal fade modal-online-players" id="modal-rooms" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal fade modal-rooms" id="modal-rooms" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -346,12 +346,12 @@
                         <div class="modal-body">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <h5 class="modal-subtitle mt-20">play.bitofwar.com</h5>
+                                    <div class="col-12">
+                                        <h5 class="modal-subtitle mt-20">playground.bitofwar.com</h5>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <p>
-                                            You are now connected to play.bitofwar.com. There are 7 players online. Maximum capacity of 10 simultaneous players.
+                                            You have differents rooms to play, where you can choose the prize for kill one enemy, or to loose when someone kill you. Also you have a free room called playground where you can refine your skills.
                                         </p>
                                     </div>
                                 </div>
@@ -360,37 +360,23 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col"></th>
-                                                <th scope="col">domain</th>
-                                                <th scope="col">location</th>
-                                                <th scope="col">btc server</th>
-                                                <th scope="col">online</th>
-                                                <th scope="col">latency</th>
+                                                <th scope="col">name</th>
+                                                <th scope="col">type</th>
+                                                <th scope="col">cost/kill</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td><img src="./img/light-on.png"/></td>
-                                                <td>play.bitofwar.com</td>
-                                                <td>London</td>
-                                                <td>professional</td>
-                                                <td>7/10</td>
-                                                <td>113ms</td>
+                                                <td data-toggle="tooltip" data-placement="bottom" title="next release">play.bitofwar.com</td>
+                                                <td>bitcoin</td>
+                                                <td>1,000 bits</td>
                                             </tr>
                                             <tr>
                                                 <td><img src="./img/light-on.png"/></td>
-                                                <td>playground.bitofwar.com</td>
-                                                <td>Los Angeles</td>
+                                                <td><a href="https://playground.bitofwar.com/">playground.bitofwar.com</a></td>
                                                 <td>free</td>
-                                                <td>8/10</td>
-                                                <td>78ms</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>research.bitofwar.com</td>
-                                                <td>Sao Paulo</td>
-                                                <td>free</td>
-                                                <td>3/10</td>
-                                                <td>43ms</td>
+                                                <td>0</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1016,8 +1002,13 @@
             </div>            <div class="playing-header">
             	<ul>
             		<li><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="exit"><i class="fas fa-power-off"></i></a></li>
-            		<li><a class="x-fadeIn btn-music-off" href="#" data-toggle="tooltip" data-placement="bottom" title="music off"><i class="fas fa-volume-up x-color-one"></i></a></li>
+            
+            		<li><a class="x-fadeIn btn-music-off" href="#" data-toggle="tooltip" data-placement="bottom" title="music off"><i class="fas fa-volume-up"></i></a></li>
             		<li><a class="x-fadeIn btn-music-on" href="#" data-toggle="tooltip" data-placement="bottom" title="music on"><i class="fas fa-volume-off"></i></a></li>
+            
+            		<li><a class="x-fadeIn btn-fullscreen-off" href="#" data-toggle="tooltip" data-placement="bottom" title="fullscreen off"><i class="far fa-expand-wide"></i></a></li>
+            		<li><a class="x-fadeIn btn-fullscreen-on" href="#" data-toggle="tooltip" data-placement="bottom" title="fullscreen on"><i class="far fa-compress"></i></a></li>		
+            
             		<li><a class="x-fadeIn btn-dev-on-off" href="#" data-toggle="tooltip" data-placement="bottom" title="dev off"><i class="fas fa-code"></i></a></li>
             	</ul>
             </div>
@@ -1036,11 +1027,6 @@
             </div>
             
             <!-- switch full screen -->
-            <div class="switch-fullscreen">
-            	<i id="switch-fullscreen-on" class="far fa-expand-wide" title="Switch to full screen"></i>
-            	<i id="switch-fullscreen-off" class="far fa-compress" title="Switch to default screen"></i>
-            </div>
-            
             <!-- action container -->
             <div id="action-container" class="action-container" role="alert">
             	<img class="dead" src="./img/canvas/skull.png" />

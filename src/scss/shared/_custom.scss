@@ -438,6 +438,12 @@ section.menu {
 			}
 		}
 	}
+	&.modal-rooms {
+		a {
+			text-decoration: none !important;
+			color: $color-blue !important;
+		}
+	}
 }
 
 /* ======================================
