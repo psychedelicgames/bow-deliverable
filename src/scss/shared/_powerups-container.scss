@@ -1,13 +1,16 @@
+.powerups-container.active {
+	bottom: 30px;
+}
 .powerups-container {
 	position: absolute;
-	bottom: 30px;
+	bottom:-80px;
 	z-index: 200;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
 	text-align: center;
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
+	-webkit-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
 	transition-timing-function: ease;
 	.title {
 		color: #fff;

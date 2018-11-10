@@ -1,4 +1,8 @@
+.player-hub.hidden {
+	opacity: 0.3;
+}
 .player-hub {
+	opacity: 1;
  	position: absolute;
  	left: -100px;
  	bottom: 0px;
@@ -20,7 +24,7 @@
  		color: #fff;
  		font-size:25px;
  		position: absolute;
- 		left: 148px;
+ 		left: 128px;
  		bottom: 75px;
  		z-index: 210;
  		span {
@@ -38,8 +42,8 @@
  		height: 6px;
  		overflow: hidden;
  		position: absolute;
- 		left: 145px;
- 		bottom: 69px;
+ 		left: 125px;
+ 		bottom: 59px;
 		-ms-transform: skewX(-16deg); /* IE 9 */
 		-webkit-transform: skewX(-16deg); /* Safari */
 		transform: skewX(-16deg); /* Standard syntax */
@@ -59,8 +63,8 @@
 	}
 	.status-field {
 		position: absolute;
-		bottom: 30px;
-		left: 100px;
+		bottom: 20px;
+		left: 80px;
 		height: 28px;
 		margin-bottom: 0px !important;
 		z-index: 210;
@@ -109,7 +113,7 @@
 		position: absolute;
 		z-index: 200;
 		bottom: -5px;
-		left: 130px;
+		left: 110px;
 		pointer-events: none;
 		img {
 			pointer-events: none;

@@ -295,31 +295,31 @@ function canvas_shake() {
     force3D: true
   });
 
-  TweenMax.set(".powerups-container", {
-    bottom: '30px',
-    left: '50%'
-  });
-  TweenMax.staggerTo(".powerups-container", 0.1, {
-    bottom: R(28,29.7) + 'px',
-    left: R(50.2,50) + '%',
-    delay: 0,
-    ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
-    force3D: true
-  });
-  TweenMax.staggerTo(".powerups-container", 0.1, {
-    bottom: R(31,30) + 'px',
-    left: R(49.9,50) + '%',
-    delay: 0.2,
-    ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
-    force3D: true
-  });
-  TweenMax.staggerTo(".powerups-container", 0.1, {
-    bottom: '30px',
-    left: '50%',
-    delay: 0.3,
-    ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
-    force3D: true
-  });
+  // TweenMax.set(".powerups-container", {
+  //   bottom: '30px',
+  //   left: '50%'
+  // });
+  // TweenMax.staggerTo(".powerups-container", 0.1, {
+  //   bottom: R(28,29.7) + 'px',
+  //   left: R(50.2,50) + '%',
+  //   delay: 0,
+  //   ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
+  //   force3D: true
+  // });
+  // TweenMax.staggerTo(".powerups-container", 0.1, {
+  //   bottom: R(31,30) + 'px',
+  //   left: R(49.9,50) + '%',
+  //   delay: 0.2,
+  //   ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
+  //   force3D: true
+  // });
+  // TweenMax.staggerTo(".powerups-container", 0.1, {
+  //   bottom: '30px',
+  //   left: '50%',
+  //   delay: 0.3,
+  //   ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
+  //   force3D: true
+  // });
   function R(max,min){return Math.random()*(max-min)+min};
 };
 

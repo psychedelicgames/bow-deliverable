@@ -17,6 +17,15 @@ html, body {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+    font-family: 'BigNoodleTitling';
+    src: url('../fonts/BigNoodleTitling.eot');
+    src: url('../fonts/BigNoodleTitling.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/BigNoodleTitling.woff2') format('woff2'),
+        url('../fonts/BigNoodleTitling.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 /* ======================================
   Texts
 

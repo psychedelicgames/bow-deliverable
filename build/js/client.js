@@ -225,6 +225,7 @@ $(document).ready(function() {
 			$('#canvas').css({ 'filter': 'inherit'});
 			//completamos el grafico de forma cabeza
 			user_balance_view();
+			$('.powerups-info .title span').text('5');
 		}
 		//prevención de doble respawn desde server.
 		if(feedback == 'respawn_fail') { alert(feedback); }
@@ -285,6 +286,7 @@ $(document).ready(function() {
 				player_hub();
 				//completamos el grafico de forma cabeza
 				user_balance_view();
+				$('.powerups-info .title span').text('5');
 				//comienza el game
 				game.animate();
 				//marcamos al usuario online
@@ -399,8 +401,6 @@ $(document).ready(function() {
 	sound_bg.preLoad = true;
 	sound_bg.controls = true;
 	sound_bg.currentTime = sound_bg_posicion;
-
-	$('#name-input').focus();
 
 	/************************************************************/
 	/* sound preloader ******************************************/
@@ -747,20 +747,74 @@ $(document).ready(function() {
 };
 
 /************************************************************/
-/* settings funciones ***************************************/
+/* playing footer info **************************************/
 
-$('.btn-fullscreen-on').click(function() {
-	document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
-	$('.btn-fullscreen-on').css({'display': 'none'});
-	$('.btn-fullscreen-off').css({'display': 'block'});
-	$('#canvas').focus();
+// it's fullscreen enable?
+if( window.innerHeight == screen.height) {
+    $('.btn-fullscreen').html('<i class="far fa-compress"></i>');
+}
+else if ( window.innerHeight < screen.height ) {
+	$('.btn-fullscreen').html('<i class="far fa-expand-wide"></i>');
+}
+// fullscreen btn
+$('.btn-fullscreen').click(function() {
+	if ( window.innerHeight == screen.height ) {
+		document.fullScreenElement && null == document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
+		$(this).html('<i class="far fa-expand-wide"></i>');
+
+	}
+	else if ( window.innerHeight < screen.height ) {
+		document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
+		$(this).html('<i class="far fa-compress"></i>');
+	}
 });
-$('.btn-fullscreen-off').click(function() {
-	document.fullScreenElement && null == document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
-	$('.btn-fullscreen-off').css({'display': 'none'});
-	$('.btn-fullscreen-on').css({'display': 'block'});
-	$('#canvas').focus();
+
+// it's sound enable?
+if ( sound_bg.volume > 0 ) {
+	$('.btn-music').html('<i class="fas fa-volume-up"></i>');
+}
+else if ( sound_bg.volume == 0 ) {
+	$('.btn-music').html('<i class="fas fa-volume-off"></i>');
+}
+// sound enable btn
+$('.btn-music').click(function() {
+	if ( sound_bg.volume > 0 ) {
+		sound_bg.pause();
+		sound_bg.volume = 0;
+		$(this).html('<i class="fas fa-volume-off"></i>');
+	}
+	else if ( sound_bg.volume == 0 ) {
+		sound_bg.play();
+		sound_bg.volume = 0.2;
+		$(this).html('<i class="fas fa-volume-up"></i>');
+	}
 });
+
+/************************************************************/
+/* Playing footer function **********************************/
+	// mostramos los powerups
+	$('.powerups-info .title').click(function() {
+		$('.powerups-container').toggleClass('active');
+	});
+	function playing_footer() {
+
+		//esperamos la presencia de game
+		if (game['self']) {
+			//clonamos gameself para referenciarlo más rápido
+			var playing_info = game['self'];
+			// injection footer info
+			$('.user-name').text(playing_info.name);
+			$('.user-kills').text(playing_info.kills);
+			$('.user-deaths').text(playing_info.deaths);
+			$('.user-spawns').text(playing_info.spawns);
+			$('.user-bits').text(playing_info.balance + ' BITS');
+		}
+
+	}
+
+
+/************************************************************/
+/* settings funciones ***************************************/
 
 $('#developer-switch').click(function() {
 	// developer mode
@@ -810,16 +864,6 @@ $('#music-switch').click(function() {
 		$('#canvas').focus();
 	};
 });
-$('.btn-music-off').click(function() {
-	sound_bg.pause();
-	$('.btn-music-off').css({'display': 'none'});
-	$('.btn-music-on').css({'display': 'block'});
-});
-$('.btn-music-on').click(function() {
-	sound_bg.play();
-	$('.btn-music-off').css({'display': 'block'});
-	$('.btn-music-on').css({'display': 'none'});
-});
 
 
 /************************************************************/
@@ -863,8 +907,6 @@ $('.btn-music-on').click(function() {
 			var hub_usuario = game['self'];
 			$('#health-bar').empty();
 			$('#shield-bar').empty();
-			// cargamos el balance
-			$('.user_balance_hub').text(hub_usuario.balance);
 			//cargamos la barra de experiencia
 			$('#progress-bar-bitcoin').css({width: 50 + '%'});
 			//calculamos la salud perdida
@@ -903,16 +945,6 @@ $('.btn-music-on').click(function() {
 					$('#shield-bar').append('<li></li>');
 				}
 			}
-
-			//cargamos el player battle info (kill, death, profit, spawns)
-			var row = '';
-			row += '<li>' + hub_usuario.name + '</li>';
-			row += '<li>Kills: <span class="x-color-one">' + hub_usuario.kills + '</span></li>';
-			row += '<li>Deaths: ' + hub_usuario.deaths + '</li>';
-			row += '<li>Profits: ' + hub_usuario.difference + '</li>';
-			row += '<li>Spawns: ' + hub_usuario.spawns + '</li>';
-
-			$('.player-battle-info').html(row);
 		}
 
 	}
@@ -1204,7 +1236,7 @@ $('.btn-music-on').click(function() {
 				// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
 				row += '</tr>';
 			}
-			console.log(row);
+			// console.log(row);
 			//construccion = []
 			var aaa = [];
 			var bbb = [];
@@ -1603,12 +1635,12 @@ $('.btn-music-on').click(function() {
 		if (game['self']['orders_remaining'] > 0 ) {
 			$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
 			$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');
-			$('.powerups-container .title span').animate({top: '20px', 'font-size': '32px', opacity: '0.8', 'color': 'red'}, 'fast');
-			$('.powerups-container .title span').text(game['self']['orders_remaining'] - 1 + ' ');
-			$('.powerups-container .title span').animate({top: '0px', 'font-size': '22px', opacity: '1', 'color': 'white'}, 'slow');
+			$('.powerups-info .title span').animate({top: '20px', 'font-size': '32px', opacity: '0.8', 'color': 'red'}, 'fast');
+			$('.powerups-info .title span').text(game['self']['orders_remaining'] - 1 + ' ');
+			$('.powerups-info .title span').animate({top: '0px', 'font-size': '22px', opacity: '1', 'color': 'white'}, 'slow');
 		}
 		if (game['self']['orders_remaining'] < 3 ) {
-			$('.powerups-container .title span').css({'color': 'red', 'font-size': '22px'});
+			$('.powerups-info .title span').css({'color': 'red', 'font-size': '22px'});
 		}
 	}
 
@@ -1698,19 +1730,6 @@ $('#order_power_6').click(function() {
 	$('#canvas').focus();
 });
 
-/************************************************************/
-/* Cambio de estilos ****************************************/
-$('#switch-fullscreen-on').click(function() {
-	document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen()
-	$('#switch-fullscreen-on').css({'display': 'none'});
-	$('#switch-fullscreen-off').css({'display': 'block'});
-});
-
-$('#switch-fullscreen-off').click(function() {
-	document.fullScreenElement && null == document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen()
-	$('#switch-fullscreen-on').css({'display': 'block'});
-	$('#switch-fullscreen-off').css({'display': 'none'});
-});
 
 /************************************************************/
 /* Quickboards **********************************************/
@@ -1777,6 +1796,10 @@ $('#switch-fullscreen-off').click(function() {
 		if (Cookies('user_online') == "True") { cashier_search(); }
 		if (game['self']) { player_hub(); }
 	}, 100);
+
+	setInterval(function() {
+		if (game['self']) { playing_footer(); }
+	}, 5000);
 
 	/************************************************************/
 	/* clicks ***************************************************/

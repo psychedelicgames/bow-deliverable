@@ -29,7 +29,7 @@
 	</script>
 
 </head>
-<body>
+<body oncontextmenu="return false">
 	<!-- inicializamos sequencer acá -->
 	<script type="module">
 
@@ -956,10 +956,6 @@
 			<div id="canvas-container" class="canvas-container">
 				<!-- player hub -->
 				<div class="player-hub">
-					<div class="bitcoin-goal">
-						<span class="user_balance_hub"></span>
-						<b class="red">/ </b> bitcoin
-					</div>
 					<div class="bitcoin-line">
 						<div class="progress">
 							<div id="progress-bar-bitcoin" class="progress-bar progress-bar-bitcoin" role="progressbar" aria-valuenow="40"
@@ -979,7 +975,6 @@
 					</div>
 				</div>				<!-- powerups -->
 				<div class="powerups-container">
-					<div class="title">Available powerups <span>5 </span>/ 5</div>
 					<div id="order_power_1" class="powerup shield">
 						<div class="price">
 							<span>25 bits</span>
@@ -1041,9 +1036,22 @@
 						<img src="./img/canvas/power-locked.png" />
 					</div>
 				</div>				
-				<div class="player-battle-info-container">
-					<ul class="player-battle-info">
+				<div class="playing-footer-container">
+					<ul class="playing-info">
+						<li><img src="./img/canvas/game/ui/user-icon.png" style="height:14px;"><span class="user-name"></span></li>
+						<li><img src="./img/canvas/game/ui/kill-icon.png"><span class="user-kills"></span></li>
+						<li><img src="./img/canvas/game/ui/death-icon.png"><span class="user-deaths"></span></li>
+						<li><img src="./img/canvas/game/ui/spawn-icon.png"><span class="user-spawns"></span></li>
+						<li><span class="user-bits"></span></li>
 					</ul>
+					<div class="powerups-info">
+						<div class="title">Available powerups <span> 5 </span>/ 5</div>
+					</div>
+					<ul class="switch-container">
+						<li class="x-fadeIn btn-music"></li>
+						<li class="x-fadeIn btn-fullscreen"></li>
+				
+					</ul>	
 				</div>
 				
 				<!-- conversaciones -->
