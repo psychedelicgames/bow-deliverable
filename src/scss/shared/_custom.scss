@@ -462,6 +462,16 @@ section.menu {
 			color: $color-blue !important;
 		}
 	}
+	&.modal-balance {
+		thead {
+			display: block;
+		}
+		tbody {
+			display: block;
+			max-height: 40vh;
+			overflow-y: auto;
+		}
+	}
 }
 
 /* ======================================
