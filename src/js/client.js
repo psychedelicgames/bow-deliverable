@@ -864,7 +864,7 @@ $('.btn-music-on').click(function() {
 			$('#health-bar').empty();
 			$('#shield-bar').empty();
 			// cargamos el balance
-			$('.user_balance_table_hub').text(hub_usuario.balance);
+			$('.user_balance_hub').text(hub_usuario.balance);
 			//cargamos la barra de experiencia
 			$('#progress-bar-bitcoin').css({width: 50 + '%'});
 			//calculamos la salud perdida
