@@ -1,1115 +1,1125 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script src="./js/socket.io.min.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" type="image/png" href="./img/favicon.png">
+<head>
+	<script src="./js/socket.io.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" type="image/png" href="./img/favicon.png">
 
-        <title>Bit of War</title>
+	<title>Bit of War</title>
 
-        <link rel="stylesheet" href="./css/main.css">
-        <link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
 
-    </head>
-    <body>
-        <!-- inicializamos sequencer acá -->
-        <script type="module">
+	<!-- playground.bitofwar.com -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-49488235-14"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-49488235-14');
+	</script>
 
-            //usamos ES6 para incluir la clase
-            import Sequencer from './js/sequencer/sequencer.js';
+</head>
+<body>
+	<!-- inicializamos sequencer acá -->
+	<script type="module">
 
-            //considerar remplazar el nombre en caso de que haya más.
-            const av_fire = Sequencer.make({
-                    canvas           : document.getElementById('av_fire'),
-                    from             : './img/canvas/avs/av_fire/focus_av_final_000.png',
-                    to               : './img/canvas/avs/av_fire/focus_av_final_029.png',
-                    playMode         : "auto",
-                    //direction        : "-x",
-                    //scaleMode        : "cover",
-                    //showLoadedImages : false,
-                    //hiDPI            : true,
-                    //imageLoad        : function(e){ console.log("[id: " + e.id + "] " + e.count + "/" + e.total); },
-                    //queueComplete    : function(e){ console.log(e); }
-                });
+			//usamos ES6 para incluir la clase
+			import Sequencer from './js/sequencer/sequencer.js';
 
-                av_fire.size(500, 300);
+			//considerar remplazar el nombre en caso de que haya más.
+			const av_fire = Sequencer.make({
+				canvas           : document.getElementById('av_fire'),
+				from             : './img/canvas/avs/av_fire/focus_av_final_000.png',
+				to               : './img/canvas/avs/av_fire/focus_av_final_029.png',
+				playMode         : "auto",
+					//direction        : "-x",
+					//scaleMode        : "cover",
+					//showLoadedImages : false,
+					//hiDPI            : true,
+					//imageLoad        : function(e){ console.log("[id: " + e.id + "] " + e.count + "/" + e.total); },
+					//queueComplete    : function(e){ console.log(e); }
+				});
 
-        </script>
+			av_fire.size(500, 300);
 
-
-
-        <!-- Modal New User -->
-        <div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<h5 class="modal-title">
-        					<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        					<span id="modal-new-user-resume" class="unselected">Resume</span>
-        					<span id="modal-new-user-register">Create New Profile</span>
-        				</h5>
-        			</div>
-        			<div id="resume-container" class="modal-info f-fadeIn">
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="row">
-        							<div class="col-6">
-        								<div class="input-group mb-3">
-        									<div class="input-group-prepend">
-        										<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
-        									</div>
-        									<input id="name-input" type="text" class="form-control" placeholder="Username" aria-label="Username">
-        								</div>
-        								<div class="input-group mb-3">
-        									<div class="input-group-prepend">
-        										<span class="input-group-text"><i class="fas fa-key"></i></span>
-        									</div>
-        									<input id="pass-input" type="password" class="form-control" placeholder="Password" aria-label="Password">
-        								</div>
-        								<div class="input-group mb-3">
-        									<div class="input-group-prepend">
-        										<span class="input-group-text">2FA</span>
-        									</div>
-        									<input id="mfa-code-input" type="text" class="form-control" placeholder="2FA (if enabled)" aria-label="2FA (if enabled)">
-        								</div>
-        								<span id="alert-message-resume" class="text-alert font-small"></span>					
-        							</div>
-        						</div>
-        					</div>
-        				</div>
-        				<div class="modal-footer">
-        					<button id="name-submit" type="button" class="btn btn-custom-one">log in</button>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
-        			</div>
-        			<div id="register-container" class="modal-info f-fadeIn">
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="row">
-        							<div class="col-6">
-        								<div class="input-group mb-3">
-        									<div class="input-group-prepend">
-        										<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
-        									</div>
-        									<input id="user-new-username" type="text" class="form-control" placeholder="Username" aria-label="Username">
-        								</div>
-        								<div class="input-group mb-3">
-        									<div class="input-group-prepend">
-        										<span class="input-group-text"><i class="fas fa-key"></i></span>
-        									</div>
-        									<input id="user-new-password" type="text" class="form-control" placeholder="Password" aria-label="Password">
-        									<div class="input-group-append">
-        										<span class="input-group-text" id="refresh-password"><i class="fas fa-sync"></i></span>
-        									</div>
-        								</div>
-        								<div class="input-group mb-3">
-        									<div class="input-group-prepend">
-        										<span class="input-group-text"><i class="fas fa-envelope"></i></span>
-        									</div>
-        									<input id="user-new-email" type="text" class="form-control" placeholder="Email" aria-label="Email">
-        								</div>
-        								<span id="alert-message-register" class="text-alert font-small"></span>
-        							</div>
-        							<div class="col-6">
-        								<p>
-        									Email is optional: you don't need to assosiate an email to create a new account. However, accounts withour email don’t have any password recovery options.
-        								</p>
-        							</div>
-        						</div>
-        					</div>					
-        				</div>
-        				<div class="modal-footer">
-        					<button id="name-create" type="button" class="btn btn-custom-one">confirm</button>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal Disconnect -->
-        <div class="modal fade modal-disconnect" id="modal-disconnect" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">Disconnect</h5>
-        			</div>
-        			<div class="modal-info">
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="row">
-        							<div class="col-6 text-center">
-        								<i class="fal fa-sign-out-alt" style="font-size:90px;"></i>
-        							</div>
-        							<div class="col-6">
-        								<p>
-        									Are you sure you want to close your session and disconnect from the server?
-        								</p>
-        							</div>
-        						</div>
-        					</div>
-        				</div>
-        				<div class="modal-footer">
-        					<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
-                            <button id="close-session-modal-btn" type="button" class="btn">disconnect</button>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal Disconnect -->
-        <div class="modal fade modal-back-home" id="modal-back-home" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">Exit to Home</h5>
-        			</div>
-        			<div class="modal-info">
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="row">
-        							<div class="col-6 text-center">
-        								<i class="far fa-home" style="font-size:90px;"></i>
-        							</div>
-        							<div class="col-6">
-        								<p>
-        									Are you sure you want to go back to main menu?
-        								</p>
-        							</div>
-        						</div>
-        					</div>
-        				</div>
-        				<div class="modal-footer">
-        					<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
-                            <button type="button" class="btn go-home-modal-btn">home</button>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal Online Players -->
-        <div class="modal fade modal-online-players" id="modal-online-players" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-                        <h5 class="modal-title">Online Players</h5>
-                    </div>
-                    <div class="modal-info">
-                        <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h5 class="modal-subtitle mt-20">playground.bitofwar.com</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <p>
-                                            You are now connected to playground.bitofwar.com. 
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col">Username</th>
-                                                <th scope="col" class="text-center">kills</th>
-                                                <th scope="col" class="text-center">deads</th>
-                                                <th scope="col" class="text-center">spawns</th>
-                                                <th scope="col" class="text-center">level</th>
-                                                <th scope="col" class="text-right">profits</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>spicednew</td>
-                                                <td class="text-center">23</td>
-                                                <td class="text-center">65</td>
-                                                <td class="text-center">34</td>
-                                                <td class="text-center">67</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 36,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>paranoidandroid</td>
-                                                <td class="text-center">44</td>
-                                                <td class="text-center">13</td>
-                                                <td class="text-center">76</td>
-                                                <td class="text-center">34</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 76,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>soberworldcup</td>
-                                                <td class="text-center">45</td>
-                                                <td class="text-center">23</td>
-                                                <td class="text-center">12</td>
-                                                <td class="text-center">32</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 65,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>mushroomregal</td>
-                                                <td class="text-center">12</td>
-                                                <td class="text-center">56</td>
-                                                <td class="text-center">34</td>
-                                                <td class="text-center">23</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 76,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>blossomupload</td>
-                                                <td class="text-center">56</td>
-                                                <td class="text-center">76</td>
-                                                <td class="text-center">23</td>
-                                                <td class="text-center">45</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 65,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>chouxallude</td>
-                                                <td class="text-center">32</td>
-                                                <td class="text-center">98</td>
-                                                <td class="text-center">56</td>
-                                                <td class="text-center">76</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 34,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>reinforeach</td>
-                                                <td class="text-center">66</td>
-                                                <td class="text-center">12</td>
-                                                <td class="text-center">32</td>
-                                                <td class="text-center">76</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 87,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>survivalcaviar</td>
-                                                <td class="text-center">87</td>
-                                                <td class="text-center">65</td>
-                                                <td class="text-center">45</td>
-                                                <td class="text-center">76</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 47,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>considerrosen</td>
-                                                <td class="text-center">34</td>
-                                                <td class="text-center">23</td>
-                                                <td class="text-center">45</td>
-                                                <td class="text-center">12</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 54,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>monacoride</td>
-                                                <td class="text-center">34</td>
-                                                <td class="text-center">23</td>
-                                                <td class="text-center">45</td>
-                                                <td class="text-center">12</td>
-                                                <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 56,000</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-respawn btn btn-custom-one">spawn</button>
-                        </div>
-                        <span class="oil oil-t-l"><img src="./img/oil2.png"></span>
-                    </div>
-                    <span class="red-line"><img src="./img/red-line.png"></span>
-                </div>
-            </div>
-        </div>        <!-- Modal Online Players -->
-        <div class="modal fade modal-rooms" id="modal-rooms" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-                        <h5 class="modal-title">Server List</h5>
-                    </div>
-                    <div class="modal-info">
-                        <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h5 class="modal-subtitle mt-20">playground.bitofwar.com</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <p>
-                                            You have differents rooms to play, where you can choose the prize for kill one enemy, or to loose when someone kill you. Also you have a free room called playground where you can refine your skills.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col">name</th>
-                                                <th scope="col">type</th>
-                                                <th scope="col">cost/kill</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td data-toggle="tooltip" data-placement="bottom" title="next release">play.bitofwar.com</td>
-                                                <td>bitcoin</td>
-                                                <td>1,000 bits</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td><a href="https://playground.bitofwar.com/">playground.bitofwar.com</a></td>
-                                                <td>free</td>
-                                                <td>0</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="oil oil-t-r rotate-45"><img src="./img/oil2.png"></span>
-                    </div>
-                    <span class="red-line"><img src="./img/red-line.png"></span>
-                </div>
-            </div>
-        </div>        <!-- Modal Settings -->
-        <div id="modal-settings" class="modal fade modal-settings" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">Settings</h5>
-        				<h5 class="modal-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="2">2FA</span><span data-tab-link="3">Settings</span></h5>
-        			</div>
-        			<div class="modal-info">
-        
-        				
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="custom-tabs">
-        
-        							<div id="modal-settings-overview" class="active" data-tab="1">
-        								<div class="row">
-        									<div class="col-12">
-        										<p class="mb-4">
-        											<b>Hey <span id="username_text"><span>!</b> This is your personal user panel, from this section you can view your user information, change your email address and password.
-        										</p>
-        										<div class="input-group mb-3">
-        											<div class="input-group-prepend">
-        												<span class="input-group-text"><i class="fas fa-envelope"></i></span>
-        											</div>
-        											<input id="user_overview_email" type="text" class="form-control" aria-label="username" disabled>
-        											<div class="input-group-append">
-        												<span id="user_overview_email_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
-        											</div>										
-        										</div>
-        										<div class="input-group mb-3">
-        											<div class="input-group-prepend">
-        												<span class="input-group-text"><i class="fas fa-key"></i></span>
-        											</div>
-        											<input id="user_overview_email_edit" type="password" class="form-control" placeholder="password" aria-label="password" disabled>
-        											<div class="input-group-append">
-        												<span id="user_overview_password_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
-        											</div>
-        										</div>
-        										<table class="table table-striped">
-        											<tbody id="user_statistics">
-        												<!-- user overview -->
-        											</tbody>
-        										</table>
-        									</div>
-        								</div>
-        							</div>								
-        
-        							<div id="modal-settings-2fa" data-tab="3">
-        								<div class="row">						
-        									<div class="col-6">
-        										<div class="row mb-4">
-        											<div id="qrcode_mfa"></div>
-        										</div>
-        										<div class="row">
-        											<h5 class="modal-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
-        										</div>
-        									</div>
-        									<div class="col-6">
-        										<div class="row mb-4">
-        											<p>
-        												Scan the QR code with your authenticator app, we recommend Authenticator. In case you have any problem with the code, you can manually enter the secret shown.
-        											</p>
-        											<p>
-        												Once your phone is syncronized, please complete the form with your username, password and the provided time based token.
-        											</p>
-        										</div>
-        										<div class="row mb-4">
-        											<div class="input-group mb-3">
-        												<div class="input-group-prepend">
-        													<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
-        												</div>
-        												<input id="2fa-username" type="text" class="form-control" placeholder="username" aria-label="username">
-        											</div>
-        											<div class="input-group mb-3">
-        												<div class="input-group-prepend">
-        													<span class="input-group-text"><i class="fas fa-key"></i></span>
-        												</div>
-        												<input id="2fa-password" type="password" class="form-control" placeholder="password" aria-label="password">
-        											</div>
-        											<div class="input-group mb-3">
-        												<div class="input-group-prepend">
-        													<span class="input-group-text"><i class="fas fa-lock"></i></span>
-        												</div>
-        												<input id="user-mfa-code" type="text" class="form-control" placeholder="multifactor" aria-label="multifactor">
-        											</div>
-        										</div>
-        									</div>
-        									<div class="modal-footer">
-        										<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
-        									</div>
-        								</div>
-        							</div>
-        
-        							<div id="modal-settings-ux" data-tab="4">
-        								<div class="row">
-        									<div class="col-12">
-        										<table class="table table-striped">
-        											<tbody>
-        												<tr>
-        													<td>Activate developer's info</td>
-        													<td>
-        														<div class="switch">
-        															<i id="developer-switch" class="fal fa-square"></i>
-        														</div>
-        													</td>
-        												</tr>
-        												<tr>
-        													<td>Rain</td>
-        													<td>
-        														<div class="switch">
-        															<i id="rain-switch" class="fal fa-check-square"></i>
-        														</div>
-        													</td>
-        												</tr>
-        												<tr>
-        													<td>Music</td>
-        													<td>
-        														<div class="switch">
-        															<i id="music-switch" class="fal fa-check-square"></i>
-        														</div>
-        													</td>
-        												</tr>
-        											</tbody>
-        										</table>										
-        									</div>
-        								</div>
-        							</div>								
-        
-        						</div>
-        					</div>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal User Balance -->
-        <div class="modal fade modal-user-balance" id="modal-new-user" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-                        <h5 class="modal-title">Your Balance</h5>
-                    </div>
-                    <div class="modal-info">
-                        <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <ul class="user-stats col-12">
-                                        <li><h5 class="modal-subtitle">Kills: 62</h5></li>
-                                        <li><h5 class="modal-subtitle">Deaths: 32</h5></li>
-                                        <li><h5 class="modal-subtitle">Spawns:2</h5></li>
-                                        <li><h5 class="modal-subtitle">Profits: 1,850</h5></li>
-                                        <li><h5 class="modal-subtitle">Balance: 11,850</h5></li>
-                                    </ul>
-                                </div>
-                                <div class="row">
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col">information</th>
-                                                <th scope="col" class="text-center">profits</th>
-                                                <th scope="col">transaction</th>
-                                                <th scope="col">total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>initial spawn fee</td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>order</td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 50</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>enemy killed</td>
-                                                <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1,000</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 950</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-on.png"/></td>
-                                                <td>order</td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 925</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>enemy killed</td>
-                                                <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1000</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 1,925</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>order</td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1,900</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>order</td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1,875</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./img/light-off.png"/></td>
-                                                <td>death</td>
-                                                <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 1000</td>
-                                                <td>
-                                                    <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
-                                                </td>
-                                                <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>875</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-custom-one">spawn</button>
-                        </div>
-                        <span class="oil oil-t-l"><img src="./img/oil2.png"></span>
-                    </div>
-                    <span class="red-line"><img src="./img/red-line.png"></span>
-                </div>
-            </div>
-        </div>        <!-- Modal Online Players -->
-        <div class="modal fade modal-leaderboard" id="modal-leaderboard" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">Leaderboard</h5>
-        			</div>
-        			<div class="modal-info">
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="row">
-        							<table class="table table-striped">
-        								<thead>
-        									<tr>
-        										<th style="width: 10%">#</th>
-        										<th style="width: 51%">Username</th>
-        										<th style="width: 10%">Kills</th>
-        										<th style="width: 13%">Deaths</th>
-        										<th style="width: 30%">Profits</th>
-        									</tr>
-        								</thead>
-        								<tbody class="leaderboard-content">
-        								</tbody>
-        							</table>
-        						</div>
-        					</div>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal Settings -->
-        <div id="modal-cashier" class="modal fade modal-cashier" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">Cashier</h5>
-        				<h5 class="modal-subtitle-navigation cashier-tabs"><span class="active" data-tab-link="0">Cashier Deposits</span><span data-tab-link="1">Withdrawals</span><span data-tab-link="2">Send to user</span></h5>
-        			</div>
-        			<div class="modal-info">
-        
-        				
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="custom-tabs">
-        
-        							<div id="modal-cashier-deposits" class="active" data-tab="1">
-        								<div class="row">
-        									<div class="col-12">
-        										<p class="mb-4">
-        											<p><b>3 confirmations required:</b> if you are sending bitcoin from a <a href="https://greenaddress.it" target="_blank">Green Address</a> your payment will be accepted inmediatly. Otherwise the system will require 3 confirmations before updating your balance.</p>
-        										</p>
-        										<div class="input-group mb-3">
-        											<div class="input-group-prepend">
-        												<span class="input-group-text">Game address</span>
-        											</div>
-        											<input type="text" class="user_address form-control" aria-label="user_address" readonly>
-        											<div class="input-group-append">
-        												<span id="cashier_copy_address" class="input-group-text"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy</span>
-        											</div>										
-        										</div>
-        									</div>
-        								</div>									
-        								<div class="row">
-        									<div class="col-6">
-        										<div id="qrcode_personal_address"></div>
-        									</div>
-        									<div class="col-6">
-        										<p><b>Rescan blockchain:</b> please remember we are still testing the game, therefore we kindly request you to re-scan the blockchain ocasionally to detect new transfers and sync with your balance.</p>
-        
-        										<p><b>Real time transactions:</b> please note that BOW uses personal SEGWIT enabled BTC addresses for each player, the address below is yours and only yours. Each action in the game will be also reflected and stored in the blockchain. This address is assosiated with your current user.</p>
-        									</div>
-        								</div>
-        							</div>								
-        
-        							<div id="modal-cashier-withdrawals" data-tab="2">
-        								<div class="row">						
-        									<div class="col-12">
-        										<p class="mb-4">
-        											<b>Important:</b> your withdrawal will be sent from your personal game wallet, so you can send it to any address you may want. Your current balance is: <a class="user_balance"></a>. All your available balance will be sent.
-        										</p>
-        										<div class="input-group mb-3">
-        											<div class="input-group-prepend">
-        												<span class="input-group-text">Destination address</span>
-        											</div>
-        											<input id="address_b" type="text" class="form-control" placeholder="Address" aria-label="address">
-        										</div>
-        										<button id="cashier_send" class="btn mb-3">Submit</button>
-        									</div>
-        								</div>
-        							</div>
-        
-        							<div id="modal-cashier-send" data-tab="3">
-        								<div class="row">						
-        									<div class="col-12">
-        										<p class="mb-4">
-        											<b>Send money to another player!</b> You can use this function to send money to another player by it's username, it could be a friend, part of your team, or used to send any kind of in game payments. <b>The legend says</b> a wise man called Merovingian may craft special weaponery for offers.
-        										</p>
-        										<div class="input-group mb-3">
-        											<div class="input-group-prepend">
-        												<span class="input-group-text">Username</span>
-        											</div>
-        											<input id="wire_user_b" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
-        										</div>
-        										<div class="input-group mb-3">
-        											<div class="input-group-prepend">
-        												<span class="input-group-text">Amount</span>
-        											</div>
-        											<input id="wire_value" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
-        										</div>
-        										<div class="input-group mb-3">
-        											<div class="input-group-prepend">
-        												<span class="input-group-text">Information</span>
-        											</div>
-        											<input id="wire_message" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
-        										</div>
-        										<button id="cashier_wire" class="btn mb-3">Send</button>
-        									</div>
-        								</div>
-        							</div>
-        
-        						</div>
-        					</div>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal Disconnect -->
-        <div class="modal fade modal-low-funds" id="modal-low-funds" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">You don't have funds!</h5>
-        			</div>
-        			<div class="modal-info">
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="row">
-        							<div class="col-6 text-center">
-        								<i class="fab fa-bitcoin x-fadeIn" style="font-size:90px;"></i>
-        							</div>
-        							<div class="col-6">
-        								<p>
-        									You need at least 50 bits to respawn. Each respawn comes with 4 free powerups to use during the battle. You feel ready? 
-        								</p>
-        							</div>
-        						</div>
-        					</div>
-        				</div>
-        				<div class="modal-footer">
-        					<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
-                            <button type="button" class="btn btn-custom-one open-cashier-btn">go to cashier</button>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal Online Players -->
-        <div class="modal fade modal-credits" id="modal-credits" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">Credits</h5>
-        			</div>
-        			<div class="modal-info">
-        				<div class="modal-body">
-        					<div class="container">
-        						<div class="row">
-        							<div class="col-12">
-        								<h5 class="modal-subtitle mt-20">bit of war took months of continue developing effort.</h5>
-        							</div>
-        							<div class="col-12 line-bottom">
-        								<p>
-        									No tenemos palabras suficientes para explicar la cantidad de horas y esfuerzo que bit of war ha tomado hasta el día de la fecha. He aquí un espacio, una mención especial para cada una de las personas que hicieron esto posible. Sin ellos, bit of war no sería más que un sueño.
-        								</p>
-        							</div>
-        						</div>
-        						<div class="row">
-        							<div class="col-12 mb-4">
-        								<h5 class="modal-subtitle mt-20">core development team:</h5>
-        							</div>
-        						</div>
-        						<div class="row team">
-        							<div class="col-12">
-        								<div class="team-unit">
-        									<img class="avatar" src="./img/team/chris.png">
-        									<div class="info">
-        										<div class="name">
-        											<span>chris 'ch' russo</span> <a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-skype"></i></a><a href="#"><i class="fas fa-envelope"></i></a><a href="#"><i class="fas fa-comment"></i></a>
-        										</div>
-        										<div class="text">
-        											A computer developer, a self styled IT security researcher.
-        										</div>
-        									</div>
-        								</div>
-        								<div class="team-unit">
-        									<img class="avatar" src="./img/team/tuna.png">
-        									<div class="info">
-        										<div class="name">
-        											<span>ignacio 'tuna' gómez</span> <a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-skype"></i></a><a href="#"><i class="fas fa-envelope"></i></a><a href="#"><i class="fas fa-comment"></i></a>
-        										</div>
-        										<div class="text">
-        											A computer developer, a self styled IT security researcher.
-        										</div>
-        									</div>
-        								</div>								
-        							</div>
-        						</div>						
-        					</div>
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>        <!-- Modal Settings -->
-        <div id="modal-balance" class="modal fade modal-balance" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        	<div class="modal-dialog modal-dialog-centered" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-        				<h5 class="modal-title">Your Balance</h5>
-        				<h5 class="modal-subtitle">hola</h5>
-        			</div>
-        			<div class="modal-info">
-        				
-        				<div class="modal-body">
-        					<div class="container">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h5 class="modal-subtitle mt-20"><ul class="player-battle-info"></ul></h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="drawlines" style="width: 100%; height: 200px;"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <table class="table table-sm">
-                        				<thead>
-                        					<th style="width: 10%">status</th>
-        									<th style="width: 20%">information</th>
-        									<th style="width: 20%">profit</th>
-        									<th style="width: 30%">transaction</th>
-        									<th style="width: 20%">total</th>
-        								</thead>
-                                        <tbody class="user_balance">
-        									<!-- user_balance -->
-        								</tbody>
-                                    </table>
-                                </div>
-                            </div>					
-        				</div>
-        				<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
-        			</div>
-        			<span class="red-line"><img src="./img/red-line.png"></span>
-        		</div>
-        	</div>
-        </div>
-        <section id="section-header" class="header">
-        	<img alt="Brand" src="../img/logo-small.png">
-        <ul>
-        	<li class="user-online"><a class="x-fadeIn show-modal-cashier" href="#" data-toggle="tooltip" data-placement="bottom" title="cashier"><i class="far fa-exchange"></i></a></li>
-        	<li><a class="x-fadeIn show-modal-rooms" href="#" data-toggle="tooltip" data-placement="bottom" title="rooms"><i class="fas fa-globe-americas"></i></a></li>
-        	<li><a href="#" class="show-modal-leaderboard x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="leaderboard"><i class="fas fa-trophy"></i></a></li>
-        	<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-user"></i></a></li>
-        	<li class="user-online"><a class="x-fadeIn show-modal-balance" href="#" data-toggle="tooltip" data-placement="bottom" title="balance"><i class="fab fa-bitcoin"></i></a></li>
-        	<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-cog"></i></a></li>
-        	<li class="user-online"><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="Exit"><i class="fas fa-power-off"></i></a></li>
-        </ul>
-        </section>        <div id="alert-container" class="alerta alert-info" role="alert"></div>
-        <div id="home" class="home">
-            <section id="section-menu" class="menu x-fadeIn">
-            	<div class="logo"><img src="./img/logo-intro.png"></div>
-            	<div class="logo-bkg"><img src="./img/logo-bkg.png"></div>
-            	<ul>
-            		<li class="user-online"><a class="btn-respawn active" href="#">spawn now!</a></li>
-            		<li class="user-offline"><a class="show-modal-login" href="#" class="active">login</a></li>
-            		<li class="user-online"><a class="show-modal-balance" href="#">balance</a></li>
-            		<li class="user-online"><a class="show-modal-settings" href="#">settings</a></li>
-            		<li class="user-online"><a class="show-modal-cashier" href="#">cashier</a></li>
-            		<li><a class="show-modal-online-players" href="#">online players</a></li>
-            		<li><a class="show-modal-rooms" href="#">rooms</a></li>
-            		<li><a class="show-modal-leaderboard" href="#">leaderboard</a></li>
-            		<li><a class="show-modal-credits" href="#">game credits</a></li>
-            		<li class="user-online"><a class="show-modal-disconnect" href="#">disconnect</a></li>
-            	</ul>
-            </section>            <div id="leaderboard"></div>
-            <div id="chat-input"></div>
-        </div>
-
-        <div id="canvas-container" class="canvas-container">
-            <!-- player hub -->
-            <div class="player-hub">
-            	<div class="bitcoin-goal">
-            		<span id="user_balance_hub"></span>
-            		<b class="red">/ </b> bitcoin
-            	</div>
-            	<div class="bitcoin-line">
-            		<div class="progress">
-            			<div id="progress-bar-bitcoin" class="progress-bar progress-bar-bitcoin" role="progressbar" aria-valuenow="40"
-            			aria-valuemin="0" aria-valuemax="100" style="width:0%">
-            			</div>
-            		</div>
-            	</div>
-            	<div class="status-field">
-            		<ul id="health-bar" class="health-bar">
-            		</ul>
-            		<ul id="shield-bar" class="shield-bar">
-            		</ul>
-            	</div>
-            	<div class="av-container">
-            		<img id="av_plain" src="./img/canvas/av_plain.png">
-            		<canvas id="av_fire" style="pointer-events: none;"></canvas>
-            	</div>
-            </div>            <!-- powerups -->
-            <div class="powerups-container">
-            	<div class="title">Available powerups <span>5 </span>/ 5</div>
-            	<div id="order_power_1" class="powerup shield">
-            		<div class="price">
-            			<span>25 bits</span>
-            		</div>
-            		<span>1</span>
-            		<img src="./img/canvas/game/order_powers/power-1.png" />
-            		<div class="price-pop">-25 bits</div>
-            	</div>
-            	<div id="order_power_2" class="powerup rapidfire">
-            		<div class="price">
-            			<span>25 bits</span>
-            		</div>
-            		<span>2</span>
-            		<img src="./img/canvas/game/order_powers/power-2.png" />
-            		<div class="price-pop">-25 bits</div>
-            	</div>
-            	<div id="order_power_3" class="powerup peacemaker">
-            		<div class="price">
-            			<span>25 bits</span>
-            		</div>
-            		<span>3</span>
-            		<img src="./img/canvas/game/order_powers/power-3.png" />
-            		<div class="price-pop">-25 bits</div>
-            	</div>
-            	<div id="order_power_4" class="powerup">
-            		<div class="price">
-            			<span>25 bits</span>
-            		</div>
-            		<span>4</span>
-            		<img src="./img/canvas/game/order_powers/power-4.png" />
-            		<div class="price-pop">-25 bits</div>
-            	</div>
-            	<div id="order_power_5" class="powerup">
-            		<div class="price">
-            			<span>25 bits</span>
-            		</div>
-            		<span>5</span>
-            		<img src="./img/canvas/game/order_powers/power-5.png" />
-            		<div class="price-pop">-25 bits</div>
-            	</div>
-            	<div id="order_power_6" class="powerup">
-            		<div class="price">
-            			<span>25 bits</span>
-            		</div>
-            		<span>6</span>
-            		<img src="./img/canvas/game/order_powers/power-6.png" />
-            		<div class="price-pop">-25 bits</div>
-            	</div>
-            	<div class="powerup locked">
-            		<span>7</span>
-            		<img src="./img/canvas/power-locked.png" />
-            	</div>
-            	<div class="powerup locked">
-            		<span>8</span>
-            		<img src="./img/canvas/power-locked.png" />
-            	</div>
-            	<div class="powerup locked">
-            		<span>9</span>
-            		<img src="./img/canvas/power-locked.png" />
-            	</div>
-            </div>            
-            <div class="player-battle-info-container">
-            	<ul class="player-battle-info">
-            	</ul>
-            </div>
-            
-            <!-- conversaciones -->
-            <div id="chat-container" class="chat-container">
-            	<ul id="chat-display" class="chat-display">
-            	</ul>
-            	<input id="chat-input" class="chat-input user-online" type="text" placeholder="Press Enter to send" name="chat" />
-            </div>
-            
-            <!-- switch full screen -->
-            <div class="switch-fullscreen">
-            	<ul>
-            		<li><a class="x-fadeIn btn-music-off" href="#"><i class="fas fa-volume-up"></i></a></li>
-            		<li><a class="x-fadeIn btn-music-on" href="#"><i class="fas fa-volume-off"></i></a></li>	
-            		<li><a class="x-fadeIn btn-fullscreen-on" href="#"><i class="far fa-expand-wide"></i></a></li>
-            		<li><a class="x-fadeIn btn-fullscreen-off" href="#"><i class="far fa-compress"></i></a></li>
-            
-            	</ul>
-            </div>
-            
-            <!-- action container -->
-            <div id="action-container" class="action-container" role="alert">
-            	<img class="dead" src="./img/canvas/skull.png" />
-            	<span class="line"></span>
-            	<button class="btn dead go-home-modal-btn">go home</button>
-            	<button id="ingame_respawn" class="btn dead">respawn</button>
-            </div>
-            
-            <!-- developer mode -->
-            <div id="developer-mode" class="developer-mode">
-            	<table>
-            		<caption style="visibility:hidden;">game['self']</caption>
-            		<tbody id="developer_self">
-            		</tbody>
-            	</table>
-            	<table>
-            		<caption style="visibility:hidden;">game['self']['powerups']</caption>
-            		<tbody id="developer_powerups">
-            		</tbody>
-            	</table>
-            </div>            <!-- <div class="canvas-effects"><img src="/public/img/game/ui/screen-broken1.svg"></div> -->
-            <div class="canvas-overlay"></div>
-            <canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
-            <canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
-        </div>
+			</script>
 
 
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
+
+			<!-- Modal New User -->
+			<div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">
+								<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+								<span id="modal-new-user-resume" class="unselected">Resume</span>
+								<span id="modal-new-user-register">Create New Profile</span>
+							</h5>
+						</div>
+						<div id="resume-container" class="modal-info f-fadeIn">
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-6">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+												</div>
+												<input id="name-input" type="text" class="form-control" placeholder="Username" aria-label="Username">
+											</div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fas fa-key"></i></span>
+												</div>
+												<input id="pass-input" type="password" class="form-control" placeholder="Password" aria-label="Password">
+											</div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text">2FA</span>
+												</div>
+												<input id="mfa-code-input" type="text" class="form-control" placeholder="2FA (if enabled)" aria-label="2FA (if enabled)">
+											</div>
+											<span id="alert-message-resume" class="text-alert font-small"></span>					
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button id="name-submit" type="button" class="btn btn-custom-one">log in</button>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
+						</div>
+						<div id="register-container" class="modal-info f-fadeIn">
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-6">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+												</div>
+												<input id="user-new-username" type="text" class="form-control" placeholder="Username" aria-label="Username">
+											</div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fas fa-key"></i></span>
+												</div>
+												<input id="user-new-password" type="text" class="form-control" placeholder="Password" aria-label="Password">
+												<div class="input-group-append">
+													<span class="input-group-text" id="refresh-password"><i class="fas fa-sync"></i></span>
+												</div>
+											</div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+												</div>
+												<input id="user-new-email" type="text" class="form-control" placeholder="Email" aria-label="Email">
+											</div>
+											<span id="alert-message-register" class="text-alert font-small"></span>
+										</div>
+										<div class="col-6">
+											<p>
+												Email is optional: you don't need to assosiate an email to create a new account. However, accounts withour email don’t have any password recovery options.
+											</p>
+										</div>
+									</div>
+								</div>					
+							</div>
+							<div class="modal-footer">
+								<button id="name-create" type="button" class="btn btn-custom-one">confirm</button>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal Disconnect -->
+			<div class="modal fade modal-disconnect" id="modal-disconnect" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Disconnect</h5>
+						</div>
+						<div class="modal-info">
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-6 text-center">
+											<i class="fal fa-sign-out-alt" style="font-size:90px;"></i>
+										</div>
+										<div class="col-6">
+											<p>
+												Are you sure you want to close your session and disconnect from the server?
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
+			                    <button id="close-session-modal-btn" type="button" class="btn">disconnect</button>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal Disconnect -->
+			<div class="modal fade modal-back-home" id="modal-back-home" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Exit to Home</h5>
+						</div>
+						<div class="modal-info">
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-6 text-center">
+											<i class="far fa-home" style="font-size:90px;"></i>
+										</div>
+										<div class="col-6">
+											<p>
+												Are you sure you want to go back to main menu?
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
+			                    <button type="button" class="btn go-home-modal-btn">home</button>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal Online Players -->
+			<div class="modal fade modal-online-players" id="modal-online-players" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+			                <h5 class="modal-title">Online Players</h5>
+			            </div>
+			            <div class="modal-info">
+			                <div class="modal-body">
+			                    <div class="container">
+			                        <div class="row">
+			                            <div class="col-12">
+			                                <h5 class="modal-subtitle mt-20">playground.bitofwar.com</h5>
+			                            </div>
+			                            <div class="col-12">
+			                                <p>
+			                                    You are now connected to playground.bitofwar.com. 
+			                                </p>
+			                            </div>
+			                        </div>
+			                        <div class="row">
+			                            <table class="table table-sm">
+			                                <thead>
+			                                    <tr>
+			                                        <th scope="col"></th>
+			                                        <th scope="col">Username</th>
+			                                        <th scope="col" class="text-center">kills</th>
+			                                        <th scope="col" class="text-center">deads</th>
+			                                        <th scope="col" class="text-center">spawns</th>
+			                                        <th scope="col" class="text-center">level</th>
+			                                        <th scope="col" class="text-right">profits</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>spicednew</td>
+			                                        <td class="text-center">23</td>
+			                                        <td class="text-center">65</td>
+			                                        <td class="text-center">34</td>
+			                                        <td class="text-center">67</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 36,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>paranoidandroid</td>
+			                                        <td class="text-center">44</td>
+			                                        <td class="text-center">13</td>
+			                                        <td class="text-center">76</td>
+			                                        <td class="text-center">34</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 76,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>soberworldcup</td>
+			                                        <td class="text-center">45</td>
+			                                        <td class="text-center">23</td>
+			                                        <td class="text-center">12</td>
+			                                        <td class="text-center">32</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 65,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>mushroomregal</td>
+			                                        <td class="text-center">12</td>
+			                                        <td class="text-center">56</td>
+			                                        <td class="text-center">34</td>
+			                                        <td class="text-center">23</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 76,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>blossomupload</td>
+			                                        <td class="text-center">56</td>
+			                                        <td class="text-center">76</td>
+			                                        <td class="text-center">23</td>
+			                                        <td class="text-center">45</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 65,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>chouxallude</td>
+			                                        <td class="text-center">32</td>
+			                                        <td class="text-center">98</td>
+			                                        <td class="text-center">56</td>
+			                                        <td class="text-center">76</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 34,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>reinforeach</td>
+			                                        <td class="text-center">66</td>
+			                                        <td class="text-center">12</td>
+			                                        <td class="text-center">32</td>
+			                                        <td class="text-center">76</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 87,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>survivalcaviar</td>
+			                                        <td class="text-center">87</td>
+			                                        <td class="text-center">65</td>
+			                                        <td class="text-center">45</td>
+			                                        <td class="text-center">76</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 47,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>considerrosen</td>
+			                                        <td class="text-center">34</td>
+			                                        <td class="text-center">23</td>
+			                                        <td class="text-center">45</td>
+			                                        <td class="text-center">12</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 54,000</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>monacoride</td>
+			                                        <td class="text-center">34</td>
+			                                        <td class="text-center">23</td>
+			                                        <td class="text-center">45</td>
+			                                        <td class="text-center">12</td>
+			                                        <td class="text-right"><i class="fas fa-arrow-up align-baseline mr-1 f-color-green"></i> 56,000</td>
+			                                    </tr>
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="modal-footer">
+			                    <button type="button" class="btn-respawn btn btn-custom-one">spawn</button>
+			                </div>
+			                <span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+			            </div>
+			            <span class="red-line"><img src="./img/red-line.png"></span>
+			        </div>
+			    </div>
+			</div>			<!-- Modal Online Players -->
+			<div class="modal fade modal-rooms" id="modal-rooms" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+			                <h5 class="modal-title">Server List</h5>
+			            </div>
+			            <div class="modal-info">
+			                <div class="modal-body">
+			                    <div class="container">
+			                        <div class="row">
+			                            <div class="col-12">
+			                                <h5 class="modal-subtitle mt-20">playground.bitofwar.com</h5>
+			                            </div>
+			                            <div class="col-12">
+			                                <p>
+			                                    You have differents rooms to play, where you can choose the prize for kill one enemy, or to loose when someone kill you. Also you have a free room called playground where you can refine your skills.
+			                                </p>
+			                            </div>
+			                        </div>
+			                        <div class="row">
+			                            <table class="table table-sm">
+			                                <thead>
+			                                    <tr>
+			                                        <th scope="col"></th>
+			                                        <th scope="col">name</th>
+			                                        <th scope="col">type</th>
+			                                        <th scope="col">cost/kill</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td data-toggle="tooltip" data-placement="bottom" title="next release">play.bitofwar.com</td>
+			                                        <td>bitcoin</td>
+			                                        <td>1,000 bits</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td><a href="https://playground.bitofwar.com/">playground.bitofwar.com</a></td>
+			                                        <td>free</td>
+			                                        <td>0</td>
+			                                    </tr>
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                    </div>
+			                </div>
+			                <span class="oil oil-t-r rotate-45"><img src="./img/oil2.png"></span>
+			            </div>
+			            <span class="red-line"><img src="./img/red-line.png"></span>
+			        </div>
+			    </div>
+			</div>			<!-- Modal Settings -->
+			<div id="modal-settings" class="modal fade modal-settings" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Settings</h5>
+							<h5 class="modal-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="1">2FA</span><span data-tab-link="2">Settings</span></h5>
+						</div>
+						<div class="modal-info">
+			
+							
+							<div class="modal-body">
+								<div class="container">
+									<div class="custom-tabs">
+			
+										<div id="modal-settings-overview" class="active" data-tab="1">
+											<div class="row">
+												<div class="col-12">
+													<p class="mb-4">
+														<b>Hey <span id="username_text"><span>!</b> This is your personal user panel, from this section you can view your user information, change your email address and password.
+													</p>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+														</div>
+														<input id="user_overview_email" type="text" class="form-control" aria-label="username" disabled>
+														<div class="input-group-append">
+															<span id="user_overview_email_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
+														</div>										
+													</div>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text"><i class="fas fa-key"></i></span>
+														</div>
+														<input id="user_overview_email_edit" type="password" class="form-control" placeholder="password" aria-label="password" disabled>
+														<div class="input-group-append">
+															<span id="user_overview_password_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
+														</div>
+													</div>
+													<table class="table table-striped">
+														<tbody id="user_statistics">
+															<!-- user overview -->
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>								
+			
+										<div id="modal-settings-2fa" data-tab="2">
+											<div class="row">						
+												<div class="col-6">
+													<div class="row mb-4">
+														<div id="qrcode_mfa"></div>
+													</div>
+													<div class="row">
+														<h5 class="modal-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="row mb-4">
+														<p>
+															Scan the QR code with your authenticator app, we recommend Authenticator. In case you have any problem with the code, you can manually enter the secret shown.
+														</p>
+														<p>
+															Once your phone is syncronized, please complete the form with your username, password and the provided time based token.
+														</p>
+													</div>
+													<div class="row mb-4">
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+															</div>
+															<input id="2fa-username" type="text" class="form-control" placeholder="username" aria-label="username">
+														</div>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text"><i class="fas fa-key"></i></span>
+															</div>
+															<input id="2fa-password" type="password" class="form-control" placeholder="password" aria-label="password">
+														</div>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text"><i class="fas fa-lock"></i></span>
+															</div>
+															<input id="user-mfa-code" type="text" class="form-control" placeholder="multifactor" aria-label="multifactor">
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
+												</div>
+											</div>
+										</div>
+			
+										<div id="modal-settings-ux" data-tab="3">
+											<div class="row">
+												<div class="col-12">
+													<table class="table table-striped">
+														<tbody>
+															<tr>
+																<td>Activate developer's info</td>
+																<td>
+																	<div class="switch">
+																		<i id="developer-switch" class="fal fa-square"></i>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>Rain</td>
+																<td>
+																	<div class="switch">
+																		<i id="rain-switch" class="fal fa-check-square"></i>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>Music</td>
+																<td>
+																	<div class="switch">
+																		<i id="music-switch" class="fal fa-check-square"></i>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>										
+												</div>
+											</div>
+										</div>								
+			
+									</div>
+								</div>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal User Balance -->
+			<div class="modal fade modal-user-balance" id="modal-new-user" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+			                <h5 class="modal-title">Your Balance</h5>
+			            </div>
+			            <div class="modal-info">
+			                <div class="modal-body">
+			                    <div class="container">
+			                        <div class="row">
+			                            <ul class="user-stats col-12">
+			                                <li><h5 class="modal-subtitle">Kills: 62</h5></li>
+			                                <li><h5 class="modal-subtitle">Deaths: 32</h5></li>
+			                                <li><h5 class="modal-subtitle">Spawns:2</h5></li>
+			                                <li><h5 class="modal-subtitle">Profits: 1,850</h5></li>
+			                                <li><h5 class="modal-subtitle">Balance: 11,850</h5></li>
+			                            </ul>
+			                        </div>
+			                        <div class="row">
+			                            <table class="table table-sm">
+			                                <thead>
+			                                    <tr>
+			                                        <th scope="col"></th>
+			                                        <th scope="col">information</th>
+			                                        <th scope="col" class="text-center">profits</th>
+			                                        <th scope="col">transaction</th>
+			                                        <th scope="col">total</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>initial spawn fee</td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>order</td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 50</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>enemy killed</td>
+			                                        <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1,000</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 950</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-on.png"/></td>
+			                                        <td>order</td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 925</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>enemy killed</td>
+			                                        <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1000</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 1,925</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>order</td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1,900</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>order</td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 25</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>1,875</td>
+			                                    </tr>
+			                                    <tr>
+			                                        <td><img src="./img/light-off.png"/></td>
+			                                        <td>death</td>
+			                                        <td><i class="fas fa-arrow-down align-baseline mr-1"></i> 1000</td>
+			                                        <td>
+			                                            <a href="#"  class="transaction text-truncate" title="f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387">f4184fc596403b9d638783c403b9d638783cf5f57ad96403b9d6387</a>
+			                                        </td>
+			                                        <td><img src="./img/arrow-up.png" class="align-baseline mr-1"/>875</td>
+			                                    </tr>
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="modal-footer">
+			                    <button type="button" class="btn btn-custom-one">spawn</button>
+			                </div>
+			                <span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+			            </div>
+			            <span class="red-line"><img src="./img/red-line.png"></span>
+			        </div>
+			    </div>
+			</div>			<!-- Modal Online Players -->
+			<div class="modal fade modal-leaderboard" id="modal-leaderboard" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Leaderboard</h5>
+						</div>
+						<div class="modal-info">
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th style="width: 10%">#</th>
+													<th style="width: 51%">Username</th>
+													<th style="width: 10%">Kills</th>
+													<th style="width: 13%">Deaths</th>
+													<th style="width: 30%">Profits</th>
+												</tr>
+											</thead>
+											<tbody class="leaderboard-content">
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal Settings -->
+			<div id="modal-cashier" class="modal fade modal-cashier" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Cashier</h5>
+							<h5 class="modal-subtitle-navigation cashier-tabs"><span class="active" data-tab-link="0">Cashier Deposits</span><span data-tab-link="1">Withdrawals</span><span data-tab-link="2">Send to user</span></h5>
+						</div>
+						<div class="modal-info">
+			
+							
+							<div class="modal-body">
+								<div class="container">
+									<div class="custom-tabs">
+			
+										<div id="modal-cashier-deposits" class="active" data-tab="1">
+											<div class="row">
+												<div class="col-12">
+													<p class="mb-4">
+														<p><b>3 confirmations required:</b> if you are sending bitcoin from a <a href="https://greenaddress.it" target="_blank">Green Address</a> your payment will be accepted inmediatly. Otherwise the system will require 3 confirmations before updating your balance.</p>
+													</p>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text">Game address</span>
+														</div>
+														<input type="text" class="user_address form-control" aria-label="user_address" readonly>
+														<div class="input-group-append">
+															<span id="cashier_copy_address" class="input-group-text"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy</span>
+														</div>										
+													</div>
+												</div>
+											</div>									
+											<div class="row">
+												<div class="col-6">
+													<div id="qrcode_personal_address"></div>
+												</div>
+												<div class="col-6">
+													<p><b>Rescan blockchain:</b> please remember we are still testing the game, therefore we kindly request you to re-scan the blockchain ocasionally to detect new transfers and sync with your balance.</p>
+			
+													<p><b>Real time transactions:</b> please note that BOW uses personal SEGWIT enabled BTC addresses for each player, the address below is yours and only yours. Each action in the game will be also reflected and stored in the blockchain. This address is assosiated with your current user.</p>
+												</div>
+											</div>
+										</div>								
+			
+										<div id="modal-cashier-withdrawals" data-tab="2">
+											<div class="row">						
+												<div class="col-12">
+													<p class="mb-4">
+														<b>Important:</b> your withdrawal will be sent from your personal game wallet, so you can send it to any address you may want. Your current balance is: <a class="user_balance"></a>. All your available balance will be sent.
+													</p>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text">Destination address</span>
+														</div>
+														<input id="address_b" type="text" class="form-control" placeholder="Address" aria-label="address">
+													</div>
+													<button id="cashier_send" class="btn mb-3">Submit</button>
+												</div>
+											</div>
+										</div>
+			
+										<div id="modal-cashier-send" data-tab="3">
+											<div class="row">						
+												<div class="col-12">
+													<p class="mb-4">
+														<b>Send money to another player!</b> You can use this function to send money to another player by it's username, it could be a friend, part of your team, or used to send any kind of in game payments. <b>The legend says</b> a wise man called Merovingian may craft special weaponery for offers.
+													</p>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text">Username</span>
+														</div>
+														<input id="wire_user_b" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
+													</div>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text">Amount</span>
+														</div>
+														<input id="wire_value" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
+													</div>
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<span class="input-group-text">Information</span>
+														</div>
+														<input id="wire_message" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
+													</div>
+													<button id="cashier_wire" class="btn mb-3">Send</button>
+												</div>
+											</div>
+										</div>
+			
+									</div>
+								</div>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal Disconnect -->
+			<div class="modal fade modal-low-funds" id="modal-low-funds" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">You don't have funds!</h5>
+						</div>
+						<div class="modal-info">
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-6 text-center">
+											<i class="fab fa-bitcoin x-fadeIn" style="font-size:90px;"></i>
+										</div>
+										<div class="col-6">
+											<p>
+												You need at least 50 bits to respawn. Each respawn comes with 4 free powerups to use during the battle. You feel ready? 
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-cancel" data-dismiss="modal">cancel</button>
+			                    <button type="button" class="btn btn-custom-one open-cashier-btn">go to cashier</button>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil1.png" style="width:90%;"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal Online Players -->
+			<div class="modal fade modal-credits" id="modal-credits" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Credits</h5>
+						</div>
+						<div class="modal-info">
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-12">
+											<h5 class="modal-subtitle mt-20">bit of war took months of continue developing effort.</h5>
+										</div>
+										<div class="col-12 line-bottom">
+											<p>
+												No tenemos palabras suficientes para explicar la cantidad de horas y esfuerzo que bit of war ha tomado hasta el día de la fecha. He aquí un espacio, una mención especial para cada una de las personas que hicieron esto posible. Sin ellos, bit of war no sería más que un sueño.
+											</p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 mb-4">
+											<h5 class="modal-subtitle mt-20">core development team:</h5>
+										</div>
+									</div>
+									<div class="row team">
+										<div class="col-12">
+											<div class="team-unit">
+												<img class="avatar" src="./img/team/chris.png">
+												<div class="info">
+													<div class="name">
+														<span>chris 'ch' russo</span> <a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-skype"></i></a><a href="#"><i class="fas fa-envelope"></i></a><a href="#"><i class="fas fa-comment"></i></a>
+													</div>
+													<div class="text">
+														A computer developer, a self styled IT security researcher.
+													</div>
+												</div>
+											</div>
+											<div class="team-unit">
+												<img class="avatar" src="./img/team/tuna.png">
+												<div class="info">
+													<div class="name">
+														<span>ignacio 'tuna' gómez</span> <a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-skype"></i></a><a href="#"><i class="fas fa-envelope"></i></a><a href="#"><i class="fas fa-comment"></i></a>
+													</div>
+													<div class="text">
+														A computer developer, a self styled IT security researcher.
+													</div>
+												</div>
+											</div>								
+										</div>
+									</div>						
+								</div>
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal Settings -->
+			<div id="modal-balance" class="modal fade modal-balance" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Your Balance</h5>
+							<h5 class="modal-subtitle">hola</h5>
+						</div>
+						<div class="modal-info">
+							
+							<div class="modal-body">
+								<div class="container">
+			                        <div class="row">
+			                            <div class="col-12">
+			                                <h5 class="modal-subtitle mt-20"><ul class="player-battle-info"></ul></h5>
+			                            </div>
+			                            <div class="col-12">
+			                                <div class="drawlines" style="width: 100%; height: 200px;"></div>
+			                            </div>
+			                        </div>
+			                        <div class="row">
+			                            <table class="table table-sm">
+			                				<thead>
+			                					<th style="width: 10%">status</th>
+												<th style="width: 20%">information</th>
+												<th style="width: 20%">profit</th>
+												<th style="width: 30%">transaction</th>
+												<th style="width: 20%">total</th>
+											</thead>
+			                                <tbody class="user_balance">
+												<!-- user_balance -->
+											</tbody>
+			                            </table>
+			                        </div>
+			                    </div>					
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>
+			<section id="section-header" class="header">
+				<img alt="Brand" src="../img/logo-small.png">
+			<ul>
+				<li class="user-online"><a class="x-fadeIn show-modal-cashier" href="#" data-toggle="tooltip" data-placement="bottom" title="cashier"><i class="far fa-exchange"></i></a></li>
+				<li><a class="x-fadeIn show-modal-rooms" href="#" data-toggle="tooltip" data-placement="bottom" title="rooms"><i class="fas fa-globe-americas"></i></a></li>
+				<li><a href="#" class="show-modal-leaderboard x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="leaderboard"><i class="fas fa-trophy"></i></a></li>
+				<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-user"></i></a></li>
+				<li class="user-online"><a class="x-fadeIn show-modal-balance" href="#" data-toggle="tooltip" data-placement="bottom" title="balance"><i class="fab fa-bitcoin"></i></a></li>
+				<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-cog"></i></a></li>
+				<li class="user-online"><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="Exit"><i class="fas fa-power-off"></i></a></li>
+			</ul>
+			</section>			<div id="alert-container" class="alerta alert-info" role="alert"></div>
+			<div id="home" class="home">
+				<section id="section-menu" class="menu x-fadeIn">
+					<div class="logo"><img src="./img/logo-intro.png"></div>
+					<div class="logo-bkg"><img src="./img/logo-bkg.png"></div>
+					<ul>
+						<li class="user-online"><a class="btn-respawn active" href="#">spawn now!</a></li>
+						<li class="user-offline"><a class="show-modal-login" href="#" class="active">login</a></li>
+						<li class="user-online"><a class="show-modal-balance" href="#">balance</a></li>
+						<li class="user-online"><a class="show-modal-settings" href="#">settings</a></li>
+						<li class="user-online"><a class="show-modal-cashier" href="#">cashier</a></li>
+						<li><a class="show-modal-online-players" href="#">online players</a></li>
+						<li><a class="show-modal-rooms" href="#">rooms</a></li>
+						<li><a class="show-modal-leaderboard" href="#">leaderboard</a></li>
+						<li><a class="show-modal-credits" href="#">game credits</a></li>
+						<li class="user-online"><a class="show-modal-disconnect" href="#">disconnect</a></li>
+					</ul>
+				</section>				<div id="leaderboard"></div>
+				<div id="chat-input"></div>
+			</div>
+
+			<div id="canvas-container" class="canvas-container">
+				<!-- player hub -->
+				<div class="player-hub">
+					<div class="bitcoin-goal">
+						<span id="user_balance_hub"></span>
+						<b class="red">/ </b> bitcoin
+					</div>
+					<div class="bitcoin-line">
+						<div class="progress">
+							<div id="progress-bar-bitcoin" class="progress-bar progress-bar-bitcoin" role="progressbar" aria-valuenow="40"
+							aria-valuemin="0" aria-valuemax="100" style="width:0%">
+							</div>
+						</div>
+					</div>
+					<div class="status-field">
+						<ul id="health-bar" class="health-bar">
+						</ul>
+						<ul id="shield-bar" class="shield-bar">
+						</ul>
+					</div>
+					<div class="av-container">
+						<img id="av_plain" src="./img/canvas/av_plain.png">
+						<canvas id="av_fire" style="pointer-events: none;"></canvas>
+					</div>
+				</div>				<!-- powerups -->
+				<div class="powerups-container">
+					<div class="title">Available powerups <span>5 </span>/ 5</div>
+					<div id="order_power_1" class="powerup shield">
+						<div class="price">
+							<span>25 bits</span>
+						</div>
+						<span>1</span>
+						<img src="./img/canvas/game/order_powers/power-1.png" />
+						<div class="price-pop">-25 bits</div>
+					</div>
+					<div id="order_power_2" class="powerup rapidfire">
+						<div class="price">
+							<span>25 bits</span>
+						</div>
+						<span>2</span>
+						<img src="./img/canvas/game/order_powers/power-2.png" />
+						<div class="price-pop">-25 bits</div>
+					</div>
+					<div id="order_power_3" class="powerup peacemaker">
+						<div class="price">
+							<span>25 bits</span>
+						</div>
+						<span>3</span>
+						<img src="./img/canvas/game/order_powers/power-3.png" />
+						<div class="price-pop">-25 bits</div>
+					</div>
+					<div id="order_power_4" class="powerup">
+						<div class="price">
+							<span>25 bits</span>
+						</div>
+						<span>4</span>
+						<img src="./img/canvas/game/order_powers/power-4.png" />
+						<div class="price-pop">-25 bits</div>
+					</div>
+					<div id="order_power_5" class="powerup">
+						<div class="price">
+							<span>25 bits</span>
+						</div>
+						<span>5</span>
+						<img src="./img/canvas/game/order_powers/power-5.png" />
+						<div class="price-pop">-25 bits</div>
+					</div>
+					<div id="order_power_6" class="powerup">
+						<div class="price">
+							<span>25 bits</span>
+						</div>
+						<span>6</span>
+						<img src="./img/canvas/game/order_powers/power-6.png" />
+						<div class="price-pop">-25 bits</div>
+					</div>
+					<div class="powerup locked">
+						<span>7</span>
+						<img src="./img/canvas/power-locked.png" />
+					</div>
+					<div class="powerup locked">
+						<span>8</span>
+						<img src="./img/canvas/power-locked.png" />
+					</div>
+					<div class="powerup locked">
+						<span>9</span>
+						<img src="./img/canvas/power-locked.png" />
+					</div>
+				</div>				
+				<div class="player-battle-info-container">
+					<ul class="player-battle-info">
+					</ul>
+				</div>
+				
+				<!-- conversaciones -->
+				<div id="chat-container" class="chat-container">
+					<ul id="chat-display" class="chat-display">
+					</ul>
+					<input id="chat-input" class="chat-input user-online" type="text" placeholder="Press Enter to send" name="chat" />
+				</div>
+				
+				<!-- switch full screen -->
+				<div class="switch-fullscreen">
+					<ul>
+						<li><a class="x-fadeIn btn-music-off" href="#"><i class="fas fa-volume-up"></i></a></li>
+						<li><a class="x-fadeIn btn-music-on" href="#"><i class="fas fa-volume-off"></i></a></li>	
+						<li><a class="x-fadeIn btn-fullscreen-on" href="#"><i class="far fa-expand-wide"></i></a></li>
+						<li><a class="x-fadeIn btn-fullscreen-off" href="#"><i class="far fa-compress"></i></a></li>
+				
+					</ul>
+				</div>
+				
+				<!-- action container -->
+				<div id="action-container" class="action-container" role="alert">
+					<img class="dead" src="./img/canvas/skull.png" />
+					<span class="line"></span>
+					<button class="btn dead go-home-modal-btn">go home</button>
+					<button id="ingame_respawn" class="btn dead">respawn</button>
+				</div>
+				
+				<!-- developer mode -->
+				<div id="developer-mode" class="developer-mode">
+					<table>
+						<caption style="visibility:hidden;">game['self']</caption>
+						<tbody id="developer_self">
+						</tbody>
+					</table>
+					<table>
+						<caption style="visibility:hidden;">game['self']['powerups']</caption>
+						<tbody id="developer_powerups">
+						</tbody>
+					</table>
+				</div>				<!-- <div class="canvas-effects"><img src="/public/img/game/ui/screen-broken1.svg"></div> -->
+				<div class="canvas-overlay"></div>
+				<canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
+				<canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
+			</div>
 
 
-        <!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/treemap.js"></script>
-    <script src="https://blacklabel.github.io/multicolor_series/js/multicolor_series.js"></script>
-        <!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
-        <script src="./js/shared/Constants.js"></script>
-        <script src="./js/shared/Util.js"></script>
-        <script src="./js/shared/base.js"></script>
-        <script src="./js/game/Chat.js"></script>
-        <script src="./js/game/Drawing.js"></script>
-        <script src="./js/game/Game.js"></script>
-        <script src="./js/game/Input.js"></script>
-        <script src="./js/game/Leaderboard.js"></script>
-        <script src="./js/game/ViewPort.js"></script>
-        <script src="./js/cookies.min.js"></script>
-        <script src="./js/sound.js"></script>
-        <script src="./js/forge-sha256.min.js"></script>
+		<!-- Bootstrap core JavaScript
+			================================================== -->
+			<!-- Placed at the end of the document so the pages load faster -->
 
-        <script src="./js/jquery-3.3.1.min.js"></script>
-        <script src="./js/qrcode.js"></script>
-        <script src="./js/client.js"></script>
-        <script src="./js/popper.min.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="./js/main.js"></script>
-    </body>
-</html>
+
+			<!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+			<script src="https://code.highcharts.com/highcharts.js"></script>
+			<script src="https://code.highcharts.com/modules/treemap.js"></script>
+			<script src="https://blacklabel.github.io/multicolor_series/js/multicolor_series.js"></script>
+			<!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
+			<script src="./js/shared/Constants.js"></script>
+			<script src="./js/shared/Util.js"></script>
+			<script src="./js/shared/base.js"></script>
+			<script src="./js/game/Chat.js"></script>
+			<script src="./js/game/Drawing.js"></script>
+			<script src="./js/game/Game.js"></script>
+			<script src="./js/game/Input.js"></script>
+			<script src="./js/game/Leaderboard.js"></script>
+			<script src="./js/game/ViewPort.js"></script>
+			<script src="./js/cookies.min.js"></script>
+			<script src="./js/sound.js"></script>
+			<script src="./js/forge-sha256.min.js"></script>
+
+			<script src="./js/jquery-3.3.1.min.js"></script>
+			<script src="./js/qrcode.js"></script>
+			<script src="./js/client.js"></script>
+			<script src="./js/popper.min.js"></script>
+			<script src="./js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="./js/main.js"></script>
+		</body>
+		</html>

@@ -1204,7 +1204,7 @@ $('.btn-music-on').click(function() {
 				// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
 				row += '</tr>';
 			}
-			console.log(feedback);
+			console.log(row);
 			//construccion = []
 			var aaa = [];
 			var bbb = [];
@@ -1268,6 +1268,7 @@ $('.btn-music-on').click(function() {
 			//ocultamos el highchart credits
 			$('.highcharts-credits').css({'display': 'none'});
 			//enviamos la información hacia la tabla user balance
+			
 			$('.user_balance').html(row);
 			$('.user_balance .fa-spinner').remove();
 		})
