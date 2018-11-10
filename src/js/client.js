@@ -912,7 +912,7 @@ $('.btn-music-on').click(function() {
 			row += '<li>Profits: ' + hub_usuario.difference + '</li>';
 			row += '<li>Spawns: ' + hub_usuario.spawns + '</li>';
 
-			$('#player-battle-info').html(row);
+			$('.player-battle-info').html(row);
 		}
 
 	}
@@ -1230,41 +1230,41 @@ $('.btn-music-on').click(function() {
 			//console.log(construccion);
 
 			//armamos las Lineas
-			// $('.drawlines').each(function(){
-			// 	var chart = new Highcharts.Chart({
-			// 		chart: {
-			// 			renderTo: this,
-			// 		//borderWidth: 1,
-			// 		backgroundColor: null
-			// 	},
-			// 	title: {
-			// 		text: '',
-			// 		x: -20
-			// 	},
-			// 	xAxis: {
-			// 		categories: bbb
-			// 	},
-			// 	yAxis: {
-			// 		title: '',
-			// 		plotLines: [{value: 0, width: 1 }]
-			// 	},
-			// 	tooltip: {
-			// 		headerFormat: ccc
-			// 	},
-			// 	legend: {
-			// 		layout: 'vertical',
-			// 		align: 'right',
-			// 		verticalAlign: 'middle',
-			// 		borderWidth: 0
-			// 	},
-			// 	series: [{
-			// 		type: 'coloredline',
-			// 		showInLegend: false, 
-			// 		name: ' ',
-			// 		data: aaa
-			// 	}]
-			// });
-			// });
+			$('.drawlines').each(function(){
+				var chart = new Highcharts.Chart({
+					chart: {
+						renderTo: this,
+					//borderWidth: 1,
+					backgroundColor: null
+				},
+				title: {
+					text: '',
+					x: -20
+				},
+				xAxis: {
+					categories: bbb
+				},
+				yAxis: {
+					title: '',
+					plotLines: [{value: 0, width: 1 }]
+				},
+				tooltip: {
+					headerFormat: ccc
+				},
+				legend: {
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'middle',
+					borderWidth: 0
+				},
+				series: [{
+					type: 'coloredline',
+					showInLegend: false, 
+					name: ' ',
+					data: aaa
+				}]
+			});
+			});
 			//ocultamos el highchart credits
 			$('.highcharts-credits').css({'display': 'none'});
 			//enviamos la información hacia la tabla user balance
