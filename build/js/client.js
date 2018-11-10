@@ -35,7 +35,7 @@ $(document).ready(function() {
 
 	//máximo de lluvia
 	var init = [];
-	var maxParts = 10;
+	var maxParts = 50;
 	for (var a = 0; a < maxParts; a++) {
 		init.push({
 			x: Math.random() * w,
@@ -1608,13 +1608,13 @@ $('.btn-music-on').click(function() {
 	function powerup_counter(order) {
 		if (game['self']['orders_remaining'] > 0 ) {
 			$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
-			$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');			
+			$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');
 			$('.powerups-container .title span').animate({top: '20px', 'font-size': '32px', opacity: '0.8', 'color': 'red'}, 'fast');
 			$('.powerups-container .title span').text(game['self']['orders_remaining'] - 1 + ' ');
 			$('.powerups-container .title span').animate({top: '0px', 'font-size': '22px', opacity: '1', 'color': 'white'}, 'slow');
 		}
 		if (game['self']['orders_remaining'] < 3 ) {
-			$('.powerups-container .title span').css({'color': 'red', 'font-size': '22px'});	
+			$('.powerups-container .title span').css({'color': 'red', 'font-size': '22px'});
 		}
 	}
 
