@@ -864,7 +864,7 @@ $('.btn-music-on').click(function() {
 			$('#health-bar').empty();
 			$('#shield-bar').empty();
 			// cargamos el balance
-			$('#user_balance_hub').text(hub_usuario.balance);
+			$('.user_balance_table_hub').text(hub_usuario.balance);
 			//cargamos la barra de experiencia
 			$('#progress-bar-bitcoin').css({width: 50 + '%'});
 			//calculamos la salud perdida
@@ -1181,7 +1181,7 @@ $('.btn-music-on').click(function() {
 
 	function user_balance_view() {
 		//loading
-		$('.user_balance').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
+		$('.user_balance_table').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
 
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
@@ -1269,8 +1269,8 @@ $('.btn-music-on').click(function() {
 			$('.highcharts-credits').css({'display': 'none'});
 			//enviamos la información hacia la tabla user balance
 			
-			$('.user_balance').html(row);
-			$('.user_balance .fa-spinner').remove();
+			$('.user_balance_table').html(row);
+			$('.user_balance_table .fa-spinner').remove();
 		})
 	}
 	//abrimos el modal en la solapa
