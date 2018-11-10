@@ -277,7 +277,7 @@ section.menu {
 			}					
 		}		
 		.modal-info {
-			background-color: rgba(0,0,0,0.7);
+			background-color: rgba(0,0,0,0.86);
 			padding: 25px 35px;
 			z-index: 401;
 			.modal-body {
@@ -463,6 +463,14 @@ section.menu {
 		}
 	}
 	&.modal-balance {
+		.player-battle-info {
+			li {
+				float: left;
+				font-size: 18px;
+				list-style: none;
+				margin-right: 10px;
+			}
+		}		
 		thead {
 			display: block;
 		}
