@@ -96,6 +96,7 @@
 		flex: 1;
 		font-size: 20px;
 		align-self: center;
+		text-align: center;
 		.title {
 			pointer-events: all !important;
 			cursor: pointer;
@@ -106,10 +107,8 @@
 		list-style: none;
 		margin: 0px;
 		padding: 0;
-		display: flex;
-		flex-direction: row;
-		align-items: stretch;
 		z-index: 500;
+		flex: 1;
 		.btn-fullscreen-off {
 			display: none;
 		}		
@@ -121,6 +120,8 @@
 			width: 40px;
 			height: 40px;
 			font-size: 17px;
+			float: right;
+			cursor: pointer;
 			&.btn-music i {
 				margin-top: 12px;
 				margin-left: auto;
