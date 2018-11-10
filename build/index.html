@@ -397,7 +397,7 @@
         			<div class="modal-header">
         				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
         				<h5 class="modal-title">Settings</h5>
-        				<h5 class="modal-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="1">Balance</span><span data-tab-link="2">2FA</span><span data-tab-link="3">Settings</span></h5>
+        				<h5 class="modal-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="2">2FA</span><span data-tab-link="3">Settings</span></h5>
         			</div>
         			<div class="modal-info">
         
@@ -438,31 +438,6 @@
         									</div>
         								</div>
         							</div>								
-        
-        							<div id="modal-settings-balance" data-tab="2">
-        								<div class="row">						
-        									<div class="col-6">
-        										<p class="mb-4">
-        											<b>Your balance</b> info will be here
-        										</p>
-        										<div class="drawlines" style="width: 100%; height: 200px;"></div>
-        										<table class="table table-striped">
-        											<thead>
-        												<th style="width: 7%">id</th>
-        												<th style="width: 15%">reason</th>
-        												<th style="width: 10%">value</th>
-        												<th style="width: 10%">profits</th>
-        												<th style="width: 33%">xid</th>
-        												<th style="width: 15%">status</th>
-        												<th style="width: 17%">date</th>
-        											</thead>
-        											<tbody id="user_balance">
-        												<!-- user_balance -->
-        											</tbody>
-        										</table>
-        									</div>
-        								</div>
-        							</div>
         
         							<div id="modal-settings-2fa" data-tab="3">
         								<div class="row">						
@@ -893,6 +868,50 @@
         			<span class="red-line"><img src="./img/red-line.png"></span>
         		</div>
         	</div>
+        </div>        <!-- Modal Settings -->
+        <div id="modal-balance" class="modal fade modal-balance" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        	<div class="modal-dialog modal-dialog-centered" role="document">
+        		<div class="modal-content">
+        			<div class="modal-header">
+        				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+        				<h5 class="modal-title">Your Balance</h5>
+        				<h5 class="modal-subtitle">hola</h5>
+        			</div>
+        			<div class="modal-info">
+        				
+        				<div class="modal-body">
+        					<div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 class="modal-subtitle mt-20">playground.bitofwar.com</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>
+                                            You are now connected to playground.bitofwar.com. 
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-sm">
+                        				<thead>
+                        					<th style="width: 10%">status</th>
+        									<th style="width: 20%">information</th>
+        									<th style="width: 20%">profit</th>
+        									<th style="width: 30%">transaction</th>
+        									<th style="width: 20%">total</th>
+        								</thead>
+                                        <tbody class="user_balance">
+        									<!-- user_balance -->
+        								</tbody>
+                                    </table>
+                                </div>
+                            </div>					
+        				</div>
+        				<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+        			</div>
+        			<span class="red-line"><img src="./img/red-line.png"></span>
+        		</div>
+        	</div>
         </div>
         <section id="section-header" class="header">
         	<img alt="Brand" src="../img/logo-small.png">
@@ -913,6 +932,7 @@
             	<ul>
             		<li class="user-online"><a class="btn-respawn active" href="#">spawn now!</a></li>
             		<li class="user-offline"><a class="show-modal-login" href="#" class="active">login</a></li>
+            		<li class="user-online"><a class="show-modal-balance" href="#">balance</a></li>
             		<li class="user-online"><a class="show-modal-settings" href="#">settings</a></li>
             		<li class="user-online"><a class="show-modal-cashier" href="#">cashier</a></li>
             		<li><a class="show-modal-online-players" href="#">online players</a></li>

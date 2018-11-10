@@ -1181,7 +1181,7 @@ $('.btn-music-on').click(function() {
 
 	function user_balance_view() {
 		//loading
-		$('#user_balance').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
+		$('.user_balance').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
 
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
@@ -1195,16 +1195,16 @@ $('.btn-music-on').click(function() {
 		for (var i = 0; i < feedback.xfers.length; ++i) {
 				//armamos el cuadro
 				row += '<tr>';
-				row += '<td>' + feedback.xfers[i]['id'] + '</td>';
+				// row += '<td>' + feedback.xfers[i]['id'] + '</td>';
+				row += '<td>' + feedback.xfers[i]['condicion'] + '</td>';
 				row += '<td>' + feedback.xfers[i]['reason'] + '</td>';
 				row += '<td>' + feedback.xfers[i]['difference'] + '</td>';
+				row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';				
 				row += '<td>' + feedback.xfers[i]['difference_sum'] + '</td>';
-				row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';
-				row += '<td>' + feedback.xfers[i]['condicion'] + '</td>';
-				row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
+				// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
 				row += '</tr>';
 			}
-
+			console.log(feedback);
 			//construccion = []
 			var aaa = [];
 			var bbb = [];
@@ -1268,15 +1268,15 @@ $('.btn-music-on').click(function() {
 			//ocultamos el highchart credits
 			$('.highcharts-credits').css({'display': 'none'});
 			//enviamos la información hacia la tabla user balance
-			$('#user_balance').html(row);
-			$('#user_balance .fa-spinner').remove();
+			$('.user_balance').html(row);
+			$('.user_balance .fa-spinner').remove();
 		})
 	}
 	//abrimos el modal en la solapa
-	$('.show_user_balance').click(function () {
-		var target = $(this).attr('href');
-		$('a[data-toggle=tab][href=' + target + ']').tab('show');
-	});
+	// $('.show-modal-balance').click(function () {
+	// 	var target = $(this).attr('href');
+	// 	$('a[data-toggle=tab][href=' + target + ']').tab('show');
+	// });
 
 	/************************************************************/
 	/* Procesa la información necesaria para crear el MFA *******/
@@ -1509,12 +1509,17 @@ $('.btn-music-on').click(function() {
 		clear_modal_login();
 	});
 
+	$('.show-modal-balance').click(function() {
+		user_balance_view();
+		$('*').modal('hide');
+		$('#modal-balance').modal('toggle');
+	});
+
 	$('.show-modal-settings').click(function() {
 		$('*').modal('hide');
 		$('#modal-settings').modal('toggle');
 	});
 	$('#modal-settings').on('show.bs.modal', function (e) {
-		user_overview();
 		user_mfa_show();
 		// user_balance_view(); <-- no anda para popular el balance
 		$('#modal-settings .modal-info').height(530);
