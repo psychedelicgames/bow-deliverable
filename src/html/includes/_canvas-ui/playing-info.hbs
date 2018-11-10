@@ -1,5 +1,5 @@
 {{!-- playing extra buttons --}}
-<div class="playing-header">
+{{!-- <div class="playing-header">
 	<ul>
 		<li><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="exit"><i class="fas fa-power-off"></i></a></li>
 
@@ -11,11 +11,11 @@
 
 		<li><a class="x-fadeIn btn-dev-on-off" href="#" data-toggle="tooltip" data-placement="bottom" title="dev off"><i class="fas fa-code"></i></a></li>
 	</ul>
-</div>
+</div> --}}
 
 {{!-- player battle info --}}
 <div class="player-battle-info">
-	<img alt="Brand" src="../img/logo-small.png">
+	{{!-- <img alt="Brand" src="../img/logo-small.png"> --}}
 	<ul id="player-battle-info">
 	</ul>
 </div>
@@ -28,11 +28,18 @@
 </div>
 
 <!-- switch full screen -->
-{{!-- <div class="switch-fullscreen">
-	<i id="switch-fullscreen-on" class="far fa-expand-wide" title="Switch to full screen"></i>
-	<i id="switch-fullscreen-off" class="far fa-compress" title="Switch to default screen"></i>
+<div class="switch-fullscreen">
+	<ul>
+		<li><a class="x-fadeIn btn-music-off" href="#"><i class="fas fa-volume-up"></i></a></li>
+		<li><a class="x-fadeIn btn-music-on" href="#"><i class="fas fa-volume-off"></i></a></li>	
+		<li><a class="x-fadeIn btn-fullscreen-on" href="#"><i class="far fa-expand-wide"></i></a></li>
+		<li><a class="x-fadeIn btn-fullscreen-off" href="#"><i class="far fa-compress"></i></a></li>
+
+	</ul>
+	{{!-- <i id="switch-fullscreen-on" class="far fa-expand-wide" title="Switch to full screen"></i>
+	<i id="switch-fullscreen-off" class="far fa-compress" title="Switch to default screen"></i> --}}
 </div>
- --}}
+
 <!-- action container -->
 <div id="action-container" class="action-container" role="alert">
 	<img class="dead" src="./img/canvas/skull.png" />

@@ -44,6 +44,8 @@
 
         </script>
 
+
+
         <!-- Modal New User -->
         <div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -208,12 +210,12 @@
                         <div class="modal-body">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <h5 class="modal-subtitle mt-20">play.bitofwar.com</h5>
+                                    <div class="col-12">
+                                        <h5 class="modal-subtitle mt-20">playground.bitofwar.com</h5>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <p>
-                                            You are now connected to play.bitofwar.com. There’s 3 players online. Maximum capacity of 10 simultaneous players in this server.
+                                            You are now connected to playground.bitofwar.com. 
                                         </p>
                                     </div>
                                 </div>
@@ -892,7 +894,18 @@
         		</div>
         	</div>
         </div>
-        <div id="alert-container" class="alerta alert-info" role="alert"></div>
+        <section id="section-header" class="header">
+        	<img alt="Brand" src="../img/logo-small.png">
+        <ul>
+        	<li class="user-online"><a class="x-fadeIn show-modal-cashier" href="#" data-toggle="tooltip" data-placement="bottom" title="cashier"><i class="far fa-exchange"></i></a></li>
+        	<li><a class="x-fadeIn show-modal-rooms" href="#" data-toggle="tooltip" data-placement="bottom" title="rooms"><i class="fas fa-globe-americas"></i></a></li>
+        	<li><a href="#" class="show-modal-leaderboard x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="leaderboard"><i class="fas fa-trophy"></i></a></li>
+        	<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-user"></i></a></li>
+        	<li class="user-online"><a class="x-fadeIn show-modal-balance" href="#" data-toggle="tooltip" data-placement="bottom" title="balance"><i class="fab fa-bitcoin"></i></a></li>
+        	<li class="user-online"><a class="x-fadeIn show-modal-settings" href="#" data-toggle="tooltip" data-placement="bottom" title="settings"><i class="fas fa-cog"></i></a></li>
+        	<li class="user-online"><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="Exit"><i class="fas fa-power-off"></i></a></li>
+        </ul>
+        </section>        <div id="alert-container" class="alerta alert-info" role="alert"></div>
         <div id="home" class="home">
             <section id="section-menu" class="menu x-fadeIn">
             	<div class="logo"><img src="./img/logo-intro.png"></div>
@@ -999,22 +1012,8 @@
             		<span>9</span>
             		<img src="./img/canvas/power-locked.png" />
             	</div>
-            </div>            <div class="playing-header">
-            	<ul>
-            		<li><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="exit"><i class="fas fa-power-off"></i></a></li>
-            
-            		<li><a class="x-fadeIn btn-music-off" href="#" data-toggle="tooltip" data-placement="bottom" title="music off"><i class="fas fa-volume-up"></i></a></li>
-            		<li><a class="x-fadeIn btn-music-on" href="#" data-toggle="tooltip" data-placement="bottom" title="music on"><i class="fas fa-volume-off"></i></a></li>
-            
-            		<li><a class="x-fadeIn btn-fullscreen-off" href="#" data-toggle="tooltip" data-placement="bottom" title="fullscreen off"><i class="far fa-expand-wide"></i></a></li>
-            		<li><a class="x-fadeIn btn-fullscreen-on" href="#" data-toggle="tooltip" data-placement="bottom" title="fullscreen on"><i class="far fa-compress"></i></a></li>		
-            
-            		<li><a class="x-fadeIn btn-dev-on-off" href="#" data-toggle="tooltip" data-placement="bottom" title="dev off"><i class="fas fa-code"></i></a></li>
-            	</ul>
-            </div>
-            
+            </div>            
             <div class="player-battle-info">
-            	<img alt="Brand" src="../img/logo-small.png">
             	<ul id="player-battle-info">
             	</ul>
             </div>
@@ -1027,6 +1026,16 @@
             </div>
             
             <!-- switch full screen -->
+            <div class="switch-fullscreen">
+            	<ul>
+            		<li><a class="x-fadeIn btn-music-off" href="#"><i class="fas fa-volume-up"></i></a></li>
+            		<li><a class="x-fadeIn btn-music-on" href="#"><i class="fas fa-volume-off"></i></a></li>	
+            		<li><a class="x-fadeIn btn-fullscreen-on" href="#"><i class="far fa-expand-wide"></i></a></li>
+            		<li><a class="x-fadeIn btn-fullscreen-off" href="#"><i class="far fa-compress"></i></a></li>
+            
+            	</ul>
+            </div>
+            
             <!-- action container -->
             <div id="action-container" class="action-container" role="alert">
             	<img class="dead" src="./img/canvas/skull.png" />

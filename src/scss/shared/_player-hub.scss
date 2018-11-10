@@ -9,6 +9,12 @@
  	-webkit-transition: opacity 0.5s;
  	transition: opacity 0.5s;
  	transition-timing-function: ease;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 	
  	.bitcoin-goal {
  		font-family: 'BigNoodleTooOblique';
  		color: #fff;

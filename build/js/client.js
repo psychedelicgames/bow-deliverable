@@ -749,18 +749,6 @@ $(document).ready(function() {
 /************************************************************/
 /* settings funciones ***************************************/
 
-// $('#fullscreen-switch').click(function() {
-// 	if ($('#developer-switch').hasClass('fal fa-square')) {
-// 		$('#developer-switch').removeClass('fal fa-square');
-// 		$('#developer-switch').addClass('fal fa-check-square');
-// 		$('#developer-mode').css({display: 'block'});
-// 	}
-// 	else {
-// 		$('#developer-switch').removeClass('fal fa-check-square');
-// 		$('#developer-switch').addClass('fal fa-square');
-// 		$('#developer-mode').css({display: 'none'});
-// 	};
-// });
 $('.btn-fullscreen-on').click(function() {
 	document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
 	$('.btn-fullscreen-on').css({'display': 'none'});

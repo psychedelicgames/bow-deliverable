@@ -45,6 +45,8 @@
 
         </script>
 
+
+
         {{!-- modals include --}}
         {{> includes/_modals/new-user }}
         {{> includes/_modals/disconnect }}
@@ -59,6 +61,7 @@
         {{> includes/_modals/credits }}
 
         {{!-- interface include --}}
+        {{> includes/_layout/header }}
         {{> includes/_layout/ui }}
 
         {{!-- home page --}}
@@ -70,7 +73,6 @@
 
         {{!-- game itself --}}
         <div id="canvas-container" class="canvas-container">
-            {{!-- {{> includes/_layout/header }} --}}
             {{> includes/_canvas-ui/player-hub }}
             {{> includes/_canvas-ui/powerups-container }}
             {{> includes/_canvas-ui/playing-info }}
