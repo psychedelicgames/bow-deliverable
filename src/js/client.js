@@ -117,7 +117,7 @@ $(document).ready(function() {
 						Cookies.set('user_online', 'True');
 						//escondemos el modal
 						$('*').modal('hide');
-						$('#modal-online-players').modal('show');
+						$('#modal-home-logged').modal('show');
 						//marcamos al usuario online
 						is_user_online();
 					}
@@ -185,7 +185,7 @@ $(document).ready(function() {
 				Cookies.set('user_address', feedback.user.address);
 				Cookies.set('user_online', 'True');
 				//marcamos al usuario online
-				$('#modal-online-players').modal('show');
+				$('#modal-home-logged').modal('show');
 				is_user_online();
 
 			}
@@ -223,6 +223,7 @@ $(document).ready(function() {
 			KilledSequence(null, 'respawn');
 			sound_bg.play();
 			$('#canvas').css({ 'filter': 'inherit'});
+			$('#canvas').focus();
 			//completamos el grafico de forma cabeza
 			user_balance_view();
 			$('.powerups-info .title span').text('5');
@@ -279,7 +280,6 @@ $(document).ready(function() {
 			if(feedback.advice == 'Welcome.') {
 				//cerramos el modal y realizamos operaciones gráficas.
 				$('*').modal('hide');
-				$('#canvas').focus();
 				$('#canvas-container').css({'display': 'block'});
 				$('#home').css({'display': 'none'});
 				// cargamos el hub
@@ -294,6 +294,7 @@ $(document).ready(function() {
 				//lanzamos música de fondo
 				sound_bg.play();
 				$('*').modal('hide');
+				$('#canvas').focus();
 			}
 		});
 	};
@@ -313,7 +314,7 @@ $(document).ready(function() {
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
 			$('*').modal('hide');
-			$('#modal-online-players').modal('show');
+			$('#modal-home-logged').modal('show');
 			//armamos el QR con su dirección
 			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
@@ -792,10 +793,7 @@ $('.btn-music').click(function() {
 
 /************************************************************/
 /* Playing footer function **********************************/
-	// mostramos los powerups
-	$('.powerups-info .title').click(function() {
-		$('.powerups-container').toggleClass('active');
-	});
+
 	function playing_footer() {
 
 		//esperamos la presencia de game
@@ -809,8 +807,24 @@ $('.btn-music').click(function() {
 			$('.user-spawns').text(playing_info.spawns);
 			$('.user-bits').text(playing_info.balance + ' BITS');
 		}
-
 	}
+
+	// powerups btn tooltip
+	$('.powerups-info .title').on( "mousemove", function( event ) {
+		$('.powerups-info .title label').fadeIn(80);
+	});
+
+	$('.powerups-info .title').on( "mouseleave", function( event ) {
+		$('.powerups-info .title label').fadeOut(80);
+	});	
+
+	function show_powerups() {
+		$('.powerups-container').toggleClass('active');
+	}
+	$('.powerups-info .title').click(function() {
+		show_powerups();
+		$('#canvas').focus();
+	});	
 
 
 /************************************************************/
@@ -849,20 +863,21 @@ $('#rain-switch').click(function() {
 	};
 });
 
-$('#music-switch').click(function() {
+$('.music-settings-switch').click(function() {
 	// play - pause music
-	if ($('#music-switch').hasClass('fal fa-square')) {
-		$('#music-switch').removeClass('fal fa-square');
-		$('#music-switch').addClass('fal fa-check-square');
-		sound_bg.play();
-		$('#canvas').focus();
-	}
-	else {
-		$('#music-switch').removeClass('fal fa-check-square');
-		$('#music-switch').addClass('fal fa-square');
+	if ( sound_bg.volume > 0 ) {
 		sound_bg.pause();
-		$('#canvas').focus();
-	};
+		sound_bg.volume = 0;
+		$(this).html('<i class="fal fa-square"></i>');
+		$('.btn-music').html('<i class="fas fa-volume-off"></i>');
+	}
+	else if ( sound_bg.volume == 0 ) {
+		sound_bg.play();
+		sound_bg.volume = 0.2;
+		$(this).html('<i class="fal fa-check-square"></i>');
+		$('.btn-music').html('<i class="fas fa-volume-up"></i>');
+	}
+
 });
 
 
@@ -892,14 +907,22 @@ $('#music-switch').click(function() {
 	};
 
 	/************************************************************/
-	/* creamos los canvas necesarios ****************************/
-
-
-
-	/************************************************************/
 	/* Nos encargamos del Player Hub ****************************/
 
 	function player_hub() {
+		
+		// hide player hub when mouse hover
+		var bottomX = 410;
+		var bottomY = window.innerHeight - 220;
+		
+		$('#canvas').on( "mousemove", function( event ) {
+			if (event.pageX < bottomX && event.pageY > bottomY) {
+				$('.player-hub').css({'opacity': 0});
+			}
+			else {
+				$('.player-hub').css({'opacity': 1});
+			}
+		});
 
 		//esperamos la presencia de game
 		if (game['self']) {
@@ -954,9 +977,18 @@ $('#music-switch').click(function() {
 
 	function showAlert(info, color) {
 		$('#alert-container').text(info);
-		if (color == 'red') { $('#alert-container').addClass('active alert-red'); }
-		if (color == 'yellow') { $('#alert-container').addClass('active alert-yellow'); }
-		setTimeout(function(){ $('#alert-container').removeClass('active alert-red alert-yellow'); },5000);
+		if (color == 'red') { 
+			$('#alert-container').removeClass('alert-yellow');
+			$('#alert-container').addClass('active alert-red'); 
+		}
+		if (color == 'yellow') { 
+			$('#alert-container').removeClass('alert-red');
+			$('#alert-container').addClass('active alert-yellow'); 
+		}
+
+		setTimeout(function(){ 
+			$('#alert-container').removeClass('active'); 
+		},5000);	
 	}
 
 	/************************************************************/
@@ -1222,15 +1254,35 @@ $('#music-switch').click(function() {
 		//hacer cosas con la información? o no hacer nada... siempre dice done.
 		// console.log(feedback);
 
+		//cargamos el player battle info (kill, death, profit, spawns)
+			$('.user-name').text(feedback.user.username);
+			$('.user-kills').text(feedback.user.won);
+			$('.user-deaths').text(feedback.user.eliminado);
+			$('.user-spawns').text(feedback.user.spawns);
+			$('.user-bits').text(feedback.user.available_balance + ' BITS');
+
 		//populamos la tabla
 		var row = '';
 		for (var i = 0; i < feedback.xfers.length; ++i) {
 				//armamos el cuadro
 				row += '<tr>';
 				// row += '<td>' + feedback.xfers[i]['id'] + '</td>';
-				row += '<td>' + feedback.xfers[i]['condicion'] + '</td>';
+				if (feedback.xfers[i]['condicion'] == 'confirmado') {
+					row += '<td><i class="fas fa-check"></i></td>';	
+				}
+				else {
+					row += '<td></td>';		
+				}
+				
 				row += '<td>' + feedback.xfers[i]['reason'] + '</td>';
-				row += '<td>' + feedback.xfers[i]['difference'] + '</td>';
+
+				if (feedback.xfers[i]['difference'] >= '0') {
+					row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';	
+				}
+				else {
+					row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + feedback.xfers[i]['difference'] + '</td>';	
+				}
+
 				row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';				
 				row += '<td>' + feedback.xfers[i]['difference_sum'] + '</td>';
 				// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
@@ -1246,7 +1298,8 @@ $('#music-switch').click(function() {
 				inversion = feedback.xfers[i]["difference_sum"] * 1;
 				if (feedback.xfers[i]['difference'] < 0) { color = '#FF3939'; } else { color = '#89D926'; }
 				aaa.push({ y: inversion, flag: 'win', color: color, segmentColor: color });
-				bbb.push(feedback.xfers[i]['creacion']);
+				var date = feedback.xfers[i]['creacion'].split(" ");
+				bbb.push(date[0]);
 				ccc.push(feedback.xfers[i]['reason']);
 				//y = feedback.xfers[i]['difference_sum']
 				//@beluchi
@@ -1274,7 +1327,7 @@ $('#music-switch').click(function() {
 					x: -20
 				},
 				xAxis: {
-					categories: bbb
+					categories: 2
 				},
 				yAxis: {
 					title: '',
@@ -1635,9 +1688,9 @@ $('#music-switch').click(function() {
 		if (game['self']['orders_remaining'] > 0 ) {
 			$('#' + order).animate({top: '-20px', transform: 'scale(1.1)', opacity: '0.8'}, 'fast');
 			$('#' + order).animate({top: '0px', transform: 'scale(1)', opacity: '1'}, 'slow');
-			$('.powerups-info .title span').animate({top: '20px', 'font-size': '32px', opacity: '0.8', 'color': 'red'}, 'fast');
+			// $('.powerups-info .title span').animate({top: '20px', 'font-size': '32px', opacity: '0.8', 'color': 'red'}, 'fast');
 			$('.powerups-info .title span').text(game['self']['orders_remaining'] - 1 + ' ');
-			$('.powerups-info .title span').animate({top: '0px', 'font-size': '22px', opacity: '1', 'color': 'white'}, 'slow');
+			// $('.powerups-info .title span').animate({top: '0px', 'font-size': '22px', opacity: '1', 'color': 'white'}, 'slow');
 		}
 		if (game['self']['orders_remaining'] < 3 ) {
 			$('.powerups-info .title span').css({'color': 'red', 'font-size': '22px'});
@@ -1654,7 +1707,10 @@ $('#music-switch').click(function() {
 		//envamos las variables para node
 		socket.emit('comprar-power', {keydown}, function(feedback) {
 			//refrescamos el balance del usuario
-			if(feedback.advice == 'no_orders_remaining') { showAlert('All upgrades used', 'red'); }
+			if(feedback.advice == 'no_orders_remaining') { 
+				showAlert('All upgrades used', 'red'); 
+				$('.powerups-container').removeClass('active');
+			}
 			//si la compra salió bien.
 			else {
 				//refrescamos el balance del usuario
@@ -1664,32 +1720,37 @@ $('#music-switch').click(function() {
 					rand = sounds_order_1.rand(); sounds[rand].play();
 					show_upper_message('A good shield when is needed.');
 					powerup_counter('order_power_1');
-					// console.log('shield boton');
+					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '50') {
 					rand = sounds_order_2.rand(); sounds[rand].play();
 					show_upper_message('There’s nothing faster than Assassin MK1!');
 					powerup_counter	('order_power_2');
+					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '51') {
 					rand = sounds_order_3.rand(); sounds[rand].play();
 					show_upper_message('Vladof relics 1.0  more bullets, more kills!');
 					powerup_counter	('order_power_3');
+					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '52') {
 					rand = sounds_order_4.rand(); sounds[rand].play();
 					show_upper_message('You are 1.666 times lighter with Moonwalk!');
 					powerup_counter	('order_power_4');
+					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '53') {
 					rand = sounds_order_5.rand(); sounds[rand].play();
 					show_upper_message('The Slow company loves you.');
 					powerup_counter	('order_power_5');
+					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '54') {
 					//rand = messagess_order_6.rand(); sounds[rand].play();
 					show_upper_message("Providing healing. We're killing you slowly");
 					powerup_counter	('order_power_6');
+					$('.powerups-container').removeClass('active');
 				}
 			}
 		});
@@ -1767,7 +1828,11 @@ $('#order_power_6').click(function() {
 			break;
 			//añadir sunflower, añadir laser
 			//'Tab' para abrir sidebar
-			case 9: show_sidebar(); break;
+			case 9: show_sidebar();
+			break;
+			// show powerups
+			case 16: show_powerups();
+			break;
 			//salimos del handler
 			default: return;
 		}

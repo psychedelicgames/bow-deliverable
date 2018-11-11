@@ -1,18 +1,3 @@
-{{!-- playing extra buttons --}}
-{{!-- <div class="playing-header">
-	<ul>
-		<li><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="exit"><i class="fas fa-power-off"></i></a></li>
-
-		<li><a class="x-fadeIn btn-music-off" href="#" data-toggle="tooltip" data-placement="bottom" title="music off"><i class="fas fa-volume-up"></i></a></li>
-		<li><a class="x-fadeIn btn-music-on" href="#" data-toggle="tooltip" data-placement="bottom" title="music on"><i class="fas fa-volume-off"></i></a></li>
-
-		<li><a class="x-fadeIn btn-fullscreen-off" href="#" data-toggle="tooltip" data-placement="bottom" title="fullscreen off"><i class="far fa-expand-wide"></i></a></li>
-		<li><a class="x-fadeIn btn-fullscreen-on" href="#" data-toggle="tooltip" data-placement="bottom" title="fullscreen on"><i class="far fa-compress"></i></a></li>		
-
-		<li><a class="x-fadeIn btn-dev-on-off" href="#" data-toggle="tooltip" data-placement="bottom" title="dev off"><i class="fas fa-code"></i></a></li>
-	</ul>
-</div> --}}
-
 {{!-- player battle info --}}
 <div class="playing-footer-container">
 	<ul class="playing-info">
@@ -23,7 +8,12 @@
 		<li><span class="user-bits"></span></li>
 	</ul>
 	<div class="powerups-info">
-		<div class="title">Available powerups <span> 5 </span>/ 5</div>
+		<div class="title">
+			<div>
+				Available powerups <span> 5 </span>/ 5
+				<label>shift key to open</label>
+			</div>
+		</div>
 	</div>
 	<ul class="switch-container">
 		<li class="x-fadeIn btn-fullscreen"></li>
@@ -36,19 +26,6 @@
 	<ul id="chat-display" class="chat-display">
 	</ul>
 	<input id="chat-input" class="chat-input user-online" type="text" placeholder="Press Enter to send" name="chat" />
-</div>
-
-<!-- switch full screen -->
-<div class="switch-fullscreen">
-	<ul>
-		<li><a class="x-fadeIn btn-music-off" href="#"><i class="fas fa-volume-up"></i></a></li>
-		<li><a class="x-fadeIn btn-music-on" href="#"><i class="fas fa-volume-off"></i></a></li>	
-		<li><a class="x-fadeIn btn-fullscreen-on" href="#"><i class="far fa-expand-wide"></i></a></li>
-		<li><a class="x-fadeIn btn-fullscreen-off" href="#"><i class="far fa-compress"></i></a></li>
-
-	</ul>
-	{{!-- <i id="switch-fullscreen-on" class="far fa-expand-wide" title="Switch to full screen"></i>
-	<i id="switch-fullscreen-off" class="far fa-compress" title="Switch to default screen"></i> --}}
 </div>
 
 <!-- action container -->

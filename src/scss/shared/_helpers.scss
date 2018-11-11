@@ -50,6 +50,18 @@
 		padding-left: 15px;
 		padding-right: 15px;
 	}
+	&.left {
+		.arrow::before {
+			border-left-color: $color-one !important;
+		}
+	}
+}
+.tooltip-left {
+	.tooltip {
+		.arrow::before {
+			border-left-color: $color-one !important;
+		}
+	}
 }
 /* ======================================
 	Formating input fields

@@ -56,7 +56,57 @@
 
 
 
-			<!-- Modal New User -->
+			<!-- Modal Settings -->
+			<div id="modal-home-logged" class="modal fade modal-home-logged" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
+							<h5 class="modal-title">Your Balance</h5>
+							<h5 class="modal-subtitle">hola</h5>
+						</div>
+						<div class="modal-info">
+							
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-12">
+											<h5 class="modal-subtitle mb-20">
+												<ul class="playing-info">
+													<li><img src="./img/canvas/game/ui/user-icon.png" style="height:14px;"><span class="user-name"></span></li>
+													<li><img src="./img/canvas/game/ui/kill-icon.png"><span class="user-kills"></span></li>
+													<li><img src="./img/canvas/game/ui/death-icon.png"><span class="user-deaths"></span></li>
+													<li><img src="./img/canvas/game/ui/spawn-icon.png"><span class="user-spawns"></span></li>
+													<li><span class="user-bits"></span></li>
+												</ul>
+											</h5>
+										</div>
+										<div class="col-12 pl-0 pr-0 mb-10">
+											<div class="drawlines" style="width: 100%; height: 200px;"></div>
+										</div>
+									</div>
+									<div class="row">
+										<table class="table table-sm">
+											<thead>
+												<th>status</th>
+												<th>information</th>
+												<th>profit</th>
+												<th>transaction</th>
+												<th>total</th>
+											</thead>
+											<tbody class="user_balance_table">
+												<!-- user_balance -->
+											</tbody>
+										</table>
+									</div>
+								</div>					
+							</div>
+							<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
+						</div>
+						<span class="red-line"><img src="./img/red-line.png"></span>
+					</div>
+				</div>
+			</div>			<!-- Modal New User -->
 			<div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
@@ -519,8 +569,8 @@
 															<tr>
 																<td>Music</td>
 																<td>
-																	<div class="switch">
-																		<i id="music-switch" class="fal fa-check-square"></i>
+																	<div class="switch music-settings-switch">
+																		<i class="fal fa-check-square"></i>
 																	</div>
 																</td>
 															</tr>
@@ -891,29 +941,37 @@
 							
 							<div class="modal-body">
 								<div class="container">
-			                        <div class="row">
-			                            <div class="col-12">
-			                                <h5 class="modal-subtitle mt-20"><ul class="player-battle-info"></ul></h5>
-			                            </div>
-			                            <div class="col-12">
-			                                <div class="drawlines" style="width: 100%; height: 200px;"></div>
-			                            </div>
-			                        </div>
-			                        <div class="row">
-			                            <table class="table table-sm">
-			                				<thead>
-			                					<th style="width: 10%">status</th>
-												<th style="width: 20%">information</th>
-												<th style="width: 20%">profit</th>
-												<th style="width: 30%">transaction</th>
-												<th style="width: 20%">total</th>
+									<div class="row">
+										<div class="col-12">
+											<h5 class="modal-subtitle mb-20">
+												<ul class="playing-info">
+													<li><img src="./img/canvas/game/ui/user-icon.png" style="height:14px;"><span class="user-name"></span></li>
+													<li><img src="./img/canvas/game/ui/kill-icon.png"><span class="user-kills"></span></li>
+													<li><img src="./img/canvas/game/ui/death-icon.png"><span class="user-deaths"></span></li>
+													<li><img src="./img/canvas/game/ui/spawn-icon.png"><span class="user-spawns"></span></li>
+													<li><span class="user-bits"></span></li>
+												</ul>
+											</h5>
+										</div>
+										<div class="col-12 pl-0 pr-0 mb-10">
+											<div class="drawlines" style="width: 100%; height: 200px;"></div>
+										</div>
+									</div>
+									<div class="row">
+										<table class="table table-sm">
+											<thead>
+												<th>status</th>
+												<th>information</th>
+												<th>profit</th>
+												<th>transaction</th>
+												<th>total</th>
 											</thead>
-			                                <tbody class="user_balance_table">
+											<tbody class="user_balance_table">
 												<!-- user_balance -->
 											</tbody>
-			                            </table>
-			                        </div>
-			                    </div>					
+										</table>
+									</div>
+								</div>					
 							</div>
 							<span class="oil oil-t-l"><img src="./img/oil2.png"></span>
 						</div>
@@ -924,6 +982,7 @@
 			<section id="section-header" class="header">
 				<img alt="Brand" src="../img/logo-small.png">
 			<ul>
+				<li><a class="x-fadeIn discord-btn" href="https://discordapp.com/channels/476351902288838677/509872931673735169" target="_blank" data-toggle="tooltip" data-placement="bottom" title="discord channel"><img src="./img/discord-icon.svg" /></a></li>
 				<li class="user-online"><a class="x-fadeIn show-modal-cashier" href="#" data-toggle="tooltip" data-placement="bottom" title="cashier"><i class="far fa-exchange"></i></a></li>
 				<li><a class="x-fadeIn show-modal-rooms" href="#" data-toggle="tooltip" data-placement="bottom" title="rooms"><i class="fas fa-globe-americas"></i></a></li>
 				<li><a href="#" class="show-modal-leaderboard x-fadeIn" data-toggle="tooltip" data-placement="bottom" title="leaderboard"><i class="fas fa-trophy"></i></a></li>
@@ -1035,8 +1094,7 @@
 						<span>9</span>
 						<img src="./img/canvas/power-locked.png" />
 					</div>
-				</div>				
-				<div class="playing-footer-container">
+				</div>				<div class="playing-footer-container">
 					<ul class="playing-info">
 						<li><img src="./img/canvas/game/ui/user-icon.png" style="height:14px;"><span class="user-name"></span></li>
 						<li><img src="./img/canvas/game/ui/kill-icon.png"><span class="user-kills"></span></li>
@@ -1045,7 +1103,12 @@
 						<li><span class="user-bits"></span></li>
 					</ul>
 					<div class="powerups-info">
-						<div class="title">Available powerups <span> 5 </span>/ 5</div>
+						<div class="title">
+							<div>
+								Available powerups <span> 5 </span>/ 5
+								<label>shift key to open</label>
+							</div>
+						</div>
 					</div>
 					<ul class="switch-container">
 						<li class="x-fadeIn btn-fullscreen"></li>
@@ -1058,17 +1121,6 @@
 					<ul id="chat-display" class="chat-display">
 					</ul>
 					<input id="chat-input" class="chat-input user-online" type="text" placeholder="Press Enter to send" name="chat" />
-				</div>
-				
-				<!-- switch full screen -->
-				<div class="switch-fullscreen">
-					<ul>
-						<li><a class="x-fadeIn btn-music-off" href="#"><i class="fas fa-volume-up"></i></a></li>
-						<li><a class="x-fadeIn btn-music-on" href="#"><i class="fas fa-volume-off"></i></a></li>	
-						<li><a class="x-fadeIn btn-fullscreen-on" href="#"><i class="far fa-expand-wide"></i></a></li>
-						<li><a class="x-fadeIn btn-fullscreen-off" href="#"><i class="far fa-compress"></i></a></li>
-				
-					</ul>
 				</div>
 				
 				<!-- action container -->

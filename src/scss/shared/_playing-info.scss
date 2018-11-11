@@ -100,6 +100,19 @@
 		.title {
 			pointer-events: all !important;
 			cursor: pointer;
+			div {
+				width: 180px;
+				display: block;
+				margin: 0 auto;
+			}
+			label {
+				position: absolute;
+				font-size: 13px;
+				top: 10px;
+				margin-left: 10px;
+				display: none;
+				color: #999;
+			}			
 		}
 	}
 	ul.switch-container {
@@ -265,7 +278,7 @@
 			background-color: rgba(0,0,0,.2);
 			padding: 4px 10px;
 			margin-bottom: 2px;
-			font-size: 12px;
+			font-size: 13px !important;
 			.green {
 				color: #67E361;
 			}
@@ -274,6 +287,9 @@
 			}
 			.red {
 				color: #FF4444;
+			}
+			.view_usermame {
+				color: $color-one;
 			}
 		}
 	}

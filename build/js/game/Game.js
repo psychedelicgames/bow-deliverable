@@ -242,6 +242,7 @@ Game.prototype.update = function() {
 };
 
 function canvas_shake() {
+  
   TweenMax.set("#canvas", {
     top: '50%',
     left: '50%',
@@ -269,6 +270,33 @@ function canvas_shake() {
     force3D: true
   });
 
+  TweenMax.set(".playing-footer-container", {
+    bottom: '0px',
+    left: '0px',
+    ease: RoughEase.ease.config({ template:  Power1.easeOut, strength: 1.5, points: 10, taper: "out", randomize:  true, clamp: true})
+  });
+  TweenMax.staggerTo(".playing-footer-container", 0.1, {
+    bottom: R(0,2) + 'px',
+    left: R(0,2) + 'px',
+    delay: 0,
+    ease: RoughEase.ease.config({ template:  Power1.easeOut, strength: 1.5, points: 10, taper: "out", randomize:  true, clamp: true}),
+    force3D: true
+  });
+  TweenMax.staggerTo(".playing-footer-container", 0.1, {
+    bottom: R(-1,-2) + 'px',
+    left: R(-1,-2) + 'px',
+    delay: 0.2,
+    ease: RoughEase.ease.config({ template:  Power1.easeOut, strength: 1.5, points: 10, taper: "out", randomize:  true, clamp: true}),
+    force3D: true
+  });
+  TweenMax.staggerTo(".playing-footer-container", 0.1, {
+    bottom: '0px',
+    left: '0px',
+    delay: 0.3,
+    ease: RoughEase.ease.config({ template:  Power1.easeOut, strength: 1.5, points: 10, taper: "out", randomize:  true, clamp: true}),
+    force3D: true
+  });  
+
   TweenMax.set(".player-hub", {
     bottom: '0px',
     left: '-100px'
@@ -295,31 +323,6 @@ function canvas_shake() {
     force3D: true
   });
 
-  // TweenMax.set(".powerups-container", {
-  //   bottom: '30px',
-  //   left: '50%'
-  // });
-  // TweenMax.staggerTo(".powerups-container", 0.1, {
-  //   bottom: R(28,29.7) + 'px',
-  //   left: R(50.2,50) + '%',
-  //   delay: 0,
-  //   ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
-  //   force3D: true
-  // });
-  // TweenMax.staggerTo(".powerups-container", 0.1, {
-  //   bottom: R(31,30) + 'px',
-  //   left: R(49.9,50) + '%',
-  //   delay: 0.2,
-  //   ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
-  //   force3D: true
-  // });
-  // TweenMax.staggerTo(".powerups-container", 0.1, {
-  //   bottom: '30px',
-  //   left: '50%',
-  //   delay: 0.3,
-  //   ease: RoughEase.ease.config({ template:  Bounce.easeOut, strength: 1.5, points: 20, taper: "out", randomize:  true, clamp: false}),
-  //   force3D: true
-  // });
   function R(max,min){return Math.random()*(max-min)+min};
 };
 

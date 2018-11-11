@@ -47,7 +47,9 @@ section.header {
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;		
+	user-select: none;
+	height: 50px;
+	margin-top: -6px;
 	}
 	ul {
 		list-style: none;
@@ -72,6 +74,10 @@ section.header {
 					text-decoration: none !important;
 					color: $color-one;
 				}
+				&.discord-btn img {
+					width: 23px;
+					margin-top: 0px;
+				}
 			}
 		}
 	}
@@ -85,6 +91,22 @@ section.menu {
 		position: absolute;
 		top: 40px;
 		left: 85px;
+		pointer-events: none !important;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.logo-bkg {
+		pointer-events: none !important;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;		
 	}
 	ul {
 		position: absolute;
@@ -128,9 +150,11 @@ section.menu {
 	opacity: 0;
 	position: absolute;
 	left: 10px;
-	top: 10px;
+	top: 45px;
 	z-index: 15;
+	font-size: 14px;
 	padding: 5px 15px;
+	font-weight: 600;
 	background-color: inherit;
 	-webkit-transition: opacity 0.5s;
 	transition: opacity 0.5s;
@@ -297,16 +321,16 @@ section.menu {
 					.color-accent{
 						color: $color-one
 					}
-					span {
-						color: $color-white;
-						filter: blur(0.7px);
-						opacity: 0.8;
-						margin-right: 15px;
-					}
-					span.active {
-						color: $color-one;
-						filter: blur(0);
-					}					
+					// span {
+					// 	color: $color-white;
+					// 	filter: blur(0.7px);
+					// 	opacity: 0.8;
+					// 	margin-right: 15px;
+					// }
+					// span.active {
+					// 	color: $color-one;
+					// 	filter: blur(0);
+					// }					
 				}
 				ul.user-stats{
 					display: table;
@@ -463,21 +487,96 @@ section.menu {
 		}
 	}
 	&.modal-balance {
-		.player-battle-info {
+		ul.playing-info {
+			font-family: 'BigNoodleTitling';
+			font-size: 20px;
+			height: 40px;
+			line-height: 40px;
+			margin-bottom: 0px !important;
+			padding-left: 15px;
+			display:inline-block !important;
+			flex: 1;
 			li {
-				float: left;
-				font-size: 18px;
+				display: inline-block !important;
 				list-style: none;
-				margin-right: 10px;
+				margin-right: 20px;
+				font-size: 21px;
+				height: 30px;
+				img {
+					height: 18px;
+					margin-right: 5px;
+				}
+				.user-bits {
+					color: $color-green;
+				}
 			}
-		}		
+		}
+		.highcharts-container {
+
+		}
+		.drawlines {
+			margin-right: -40px;
+			margin-left: -20px;
+		}
 		thead {
 			display: block;
+			th:nth-child(1) {
+				width: 46px;
+			}
+			th:nth-child(2) {
+				width: 100px;
+			}
+			th:nth-child(3) {
+				width: 80px;
+			}
+			th:nth-child(4) {
+				width: 235px;
+			}
+			th:nth-child(5) {
+				width: 67px;
+			}			
 		}
 		tbody {
 			display: block;
 			max-height: 40vh;
 			overflow-y: auto;
+			.fa-circle {
+				font-size: 10px;
+			}
+			.fa-check {
+				font-size: 10px;
+				color: $color-green;
+			}			
+			td {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				.fas {
+					margin-right: 3px;
+				}
+			}
+			td:nth-child(1) {
+				width: 46px;
+				text-align: center;
+			}
+			td:nth-child(2) {
+				width: 100px;
+			}
+			td:nth-child(3) {
+				width: 80px;
+			}
+			td:nth-child(4) {
+				width: 235px;
+				a {
+					width: 235px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+			td:nth-child(5) {
+				width: 67px;
+			}			
 		}
 	}
 }
