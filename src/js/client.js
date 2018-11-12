@@ -12,7 +12,7 @@ $(document).ready(function() {
 	var socket = io('wss://clouds.bitofwar.com');
 	// var socket = io('wss://192.168.0.4');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
-	var chat = Chat.create(socket, document.getElementById('chat-display'), document.getElementById('chat-input'));
+	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
 	// console.log(socket);
 	Input.applyEventHandlers(document.getElementById('canvas'));
@@ -214,11 +214,11 @@ $(document).ready(function() {
 		$('#modal-home-logged').modal('show');
 	}
 
-	$('*').on('hidden.bs.modal', function () {
-		var button = $(event.relatedTarget);
-		console.log(button);
-		// $('#modal-home-logged').modal('show');
-	});
+	// $('*').on('hidden.bs.modal', function () {
+	// 	var button = $(event.relatedTarget);
+	// 	console.log(button);
+	// 	// $('#modal-home-logged').modal('show');
+	// });
 
 	/******************************************************/
 	/* Ingame respawn *************************************/

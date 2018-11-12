@@ -35,37 +35,6 @@
 		z-index: 190;
 		pointer-events: none;
 	}
-	#chat-container {
-		color: #fff;
-		z-index: 200;
-		position: absolute;
-		top: 40%;
-		left: 10px;
-		ul {
-			padding-left: 0px;
-			li {
-				list-style: none;
-				background-color: rgba(0,0,0,.2);
-				padding: 4px 10px;
-				margin-bottom: 2px;
-				font-size: 12px;
-				.green {
-					color: #67E361;
-				}
-				.yellow {
-					color: #FF6D00;
-				}
-				.red {
-					color: #FF4444;
-				}
-			}
-		}
-		.chat-input {
-			display: none !important;
-			width: 90%;
-			margin: 0 auto;
-		}
-	}
 	.canvas:focus {
 		outline: none !important;
 	}

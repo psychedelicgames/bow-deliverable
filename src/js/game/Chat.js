@@ -60,20 +60,30 @@ Chat.prototype.init = function() {
  *   administrative notification.
  */
 Chat.prototype.receiveMessage = function(name, message, isNotification) {
+console.log(isNotification);
 
-  //mandamos el li con la clase desvanecedora
-  variable  = "<li class='dialog'>";
-  variable += name;
-  variable += message;
-  variable += "</li>";
+  if (isNotification) {
+    //mandamos el li con la clase desvanecedora
+    variable  = "<li class='dialog'>";
+    variable += name;
+    variable += message;
+    variable += "</li>";
 
-  //mandamos el li preparado para ser eliminado en 4500 segundos (demora 4500 en desvanecer)
-  $(variable).appendTo('#chat-display').delay(4500).queue(function() { $(this).remove(); });
-  //calculamos los lis que lleva
-  var messages_size = $("#chat-display li").length;
-  //si acumulamos más de 3, liquidamos el primero
-  if (messages_size > 3) {
-    $('#chat-display li').first().remove();
+    //mandamos el li preparado para ser eliminado en 4500 segundos (demora 4500 en desvanecer)
+    $(variable).appendTo('.playing-chat-container .chat-display').delay(4500).queue(function() { $(this).remove(); });
+    //calculamos los lis que lleva
+    var messages_size = $(".playing-chat-container .chat-display li").length;
+    //si acumulamos más de 3, liquidamos el primero
+    if (messages_size > 3) {
+      $('.playing-chat-container .chat-display li').first().remove();
+    }
+  }
+  else {
+    variable  = "<li class='dialog'>";
+    variable += '<span>' + name + ': </span>';
+    variable += message;
+    variable += "</li>";
+    $(variable).appendTo('.small-chat-container .chat-display');
   }
 
 };
@@ -95,5 +105,5 @@ Chat.prototype.sendMessage = function() {
   //var password = Cookies('user_password');
   this.textElement.value = '';
   this.socket.emit('dialogo-usuario-servidor', username, message);
-  $('#chat-display').scrollTop(0);
+  $('.chat-display').scrollTop(0);
 };

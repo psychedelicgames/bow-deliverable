@@ -137,26 +137,16 @@
 							<span class="red-line"><img src="./img/red-line.png"></span>
 						</div>
 						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title">Chat</h5>
-							</div>
 							<div class="modal-info">
 								<div class="modal-body">
 									<div class="container">
 										<div class="row">
-											<table class="table table-leaderboard table-striped">
-												<thead>
-													<tr>
-														<th style="width: 10%">#</th>
-														<th style="width: 51%">Username</th>
-														<th style="width: 10%">Kills</th>
-														<th style="width: 13%">Deaths</th>
-														<th style="width: 30%">Profits</th>
-													</tr>
-												</thead>
-												<tbody class="leaderboard-content">
-												</tbody>
-											</table>
+											<!-- conversaciones -->
+											<div class="small-chat-container">
+												<ul class="chat-display">
+												</ul>
+												<input id="chat-input" class="chat-input user-online" type="text" placeholder="Press Enter to send" name="chat" />
+											</div>
 										</div>
 									</div>
 								</div>
@@ -1176,10 +1166,9 @@
 				</div>
 				
 				<!-- conversaciones -->
-				<div id="chat-container" class="chat-container">
-					<ul id="chat-display" class="chat-display">
+				<div class="playing-chat-container chat-container">
+					<ul class="chat-display">
 					</ul>
-					<input id="chat-input" class="chat-input user-online" type="text" placeholder="Press Enter to send" name="chat" />
 				</div>
 				
 				<!-- action container -->
