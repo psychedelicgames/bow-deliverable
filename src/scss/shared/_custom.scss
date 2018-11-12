@@ -223,6 +223,9 @@ section.menu {
 	@include desktop {
 		left: 20% !important;
 	}
+	@include desktop-large {
+		left: 10% !important;
+	}	
 	.modal-dialog {
 		min-width: 600px;
 	}
@@ -416,27 +419,6 @@ section.menu {
 			display: block;
 			max-height: 65vh;
 			overflow-y: auto;
-		}
-		thead {
-			display: block;
-		}
-		tbody {
-			display: block;
-		}
-		tr td:nth-child(1) {
-			width: 15%;
-		}
-		tr td:nth-child(2) {
-			width: 27%;
-		}
-		tr td:nth-child(3) {
-			width: 18%;
-		}
-		tr td:nth-child(4) {
-			width: 18%;
-		}
-		tr td:nth-child(5) {
-			width: 30%;
 		}		
 	}
 	&.modal-credits {
@@ -487,30 +469,6 @@ section.menu {
 		}
 	}
 	&.modal-balance {
-		ul.playing-info {
-			font-family: 'BigNoodleTitling';
-			font-size: 20px;
-			height: 40px;
-			line-height: 40px;
-			margin-bottom: 0px !important;
-			padding-left: 15px;
-			display:inline-block !important;
-			flex: 1;
-			li {
-				display: inline-block !important;
-				list-style: none;
-				margin-right: 20px;
-				font-size: 21px;
-				height: 30px;
-				img {
-					height: 18px;
-					margin-right: 5px;
-				}
-				.user-bits {
-					color: $color-green;
-				}
-			}
-		}
 		.highcharts-container {
 
 		}
@@ -518,68 +476,167 @@ section.menu {
 			margin-right: -40px;
 			margin-left: -20px;
 		}
-		thead {
-			display: block;
-			th:nth-child(1) {
-				width: 46px;
-			}
-			th:nth-child(2) {
-				width: 100px;
-			}
-			th:nth-child(3) {
-				width: 80px;
-			}
-			th:nth-child(4) {
-				width: 235px;
-			}
-			th:nth-child(5) {
-				width: 67px;
-			}			
+	}
+	&.modal-home-logged {
+		.medium {
+			width: 59%;
+			margin-right: 1%;
+			float: left;
 		}
-		tbody {
-			display: block;
-			max-height: 40vh;
-			overflow-y: auto;
-			.fa-circle {
-				font-size: 10px;
-			}
-			.fa-check {
-				font-size: 10px;
-				color: $color-green;
-			}			
-			td {
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				.fas {
-					margin-right: 3px;
+		.small {
+			width: 40%;
+			float: left;
+		}
+		.red-line img {
+			width: 100%;
+		}
+		p {
+			font-size: 13px;
+		}
+		td {
+			font-size: 13px;
+		}
+		.table-balance {
+			thead {
+				th:nth-child(4) {
+					width: 150px !important;
 				}
 			}
-			td:nth-child(1) {
-				width: 46px;
-				text-align: center;
-			}
-			td:nth-child(2) {
-				width: 100px;
-			}
-			td:nth-child(3) {
-				width: 80px;
-			}
-			td:nth-child(4) {
-				width: 235px;
-				a {
-					width: 235px;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
+			tbody {
+				height: 20vh;
+				td:nth-child(4) a {
+					width: 150px !important;
 				}
 			}
-			td:nth-child(5) {
-				width: 67px;
-			}			
+		}
+		.table-leaderboard {
+			tbody {
+				height: 20vh;
+			}
 		}
 	}
 }
+
+/* ======================================
+  Components
+
+====================================== */
+table.table-leaderboard {
+	font-size: 13px !important;
+	thead {
+		display: block;
+	}
+	tbody {
+		display: block;
+		overflow-y: auto;
+	}
+	tr td:nth-child(1) {
+		width: 20%;
+	}
+	tr td:nth-child(2) {
+		width: 27%;
+	}
+	tr td:nth-child(3) {
+		width: 18%;
+	}
+	tr td:nth-child(4) {
+		width: 18%;
+	}
+	tr td:nth-child(5) {
+		width: 30%;
+	}
+}
+ul.playing-info {
+	font-family: 'BigNoodleTitling';
+	font-size: 20px;
+	height: 40px;
+	line-height: 40px;
+	margin-bottom: 0px !important;
+	padding-left: 15px;
+	display:inline-block !important;
+	flex: 1;
+	li {
+		display: inline-block !important;
+		list-style: none;
+		margin-right: 20px;
+		font-size: 21px;
+		height: 30px;
+		img {
+			height: 18px;
+			margin-right: 5px;
+		}
+		.user-bits {
+			color: $color-green;
+		}
+	}
+}
+table.table-balance {
+	thead {
+		display: block;
+		th:nth-child(1) {
+			width: 46px;
+		}
+		th:nth-child(2) {
+			width: 100px;
+		}
+		th:nth-child(3) {
+			width: 80px;
+		}
+		th:nth-child(4) {
+			width: 235px;
+		}
+		th:nth-child(5) {
+			width: 67px;
+		}			
+	}
+	tbody {
+		display: block;
+		max-height: 40vh;
+		overflow-y: auto;
+		.fa-circle {
+			font-size: 10px;
+		}
+		.fa-check {
+			font-size: 10px;
+			color: $color-green;
+		}			
+		td {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			.fas {
+				margin-right: 3px;
+			}
+		}
+		td:nth-child(1) {
+			width: 46px;
+			text-align: center;
+			display: block;
+		}
+		td:nth-child(2) {
+			width: 100px;
+		}
+		td:nth-child(3) {
+			width: 80px;
+		}
+		td:nth-child(4) {
+			width: 235px;
+			a {
+				width: 235px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+		td:nth-child(5) {
+			width: 67px;
+		}			
+	}	
+}
+
+
+
+
 
 /* ======================================
   Forms and inputs

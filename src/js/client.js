@@ -117,7 +117,7 @@ $(document).ready(function() {
 						Cookies.set('user_online', 'True');
 						//escondemos el modal
 						$('*').modal('hide');
-						$('#modal-home-logged').modal('show');
+						home_layout();
 						//marcamos al usuario online
 						is_user_online();
 					}
@@ -185,7 +185,7 @@ $(document).ready(function() {
 				Cookies.set('user_address', feedback.user.address);
 				Cookies.set('user_online', 'True');
 				//marcamos al usuario online
-				$('#modal-home-logged').modal('show');
+				home_layout();
 				is_user_online();
 
 			}
@@ -206,6 +206,19 @@ $(document).ready(function() {
 	// $('#close-login').click(clear_modal_login);
 	//$('#name-form').submit(user_login);
 
+	/******************************************************/
+	/* Fill home screen************************************/
+	function home_layout() {
+		user_balance_view();
+		leaderboard_view();
+		$('#modal-home-logged').modal('show');
+	}
+
+	$('*').on('hidden.bs.modal', function () {
+		var button = $(event.relatedTarget);
+		console.log(button);
+		// $('#modal-home-logged').modal('show');
+	});
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
@@ -314,7 +327,7 @@ $(document).ready(function() {
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
 			$('*').modal('hide');
-			$('#modal-home-logged').modal('show');
+			home_layout();
 			//armamos el QR con su dirección
 			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
@@ -1280,7 +1293,7 @@ $('.music-settings-switch').click(function() {
 					row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';	
 				}
 				else {
-					row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + feedback.xfers[i]['difference'] + '</td>';	
+					row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';	
 				}
 
 				row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';				
@@ -1545,8 +1558,6 @@ $('.music-settings-switch').click(function() {
 	/* Volver a casa ********************************************/
 
 	function go_home() {
-		//asumo que la función de fadein será así...
-		// $('.respawn-container').fadeIn(500);
 		//sacamos los sonidos
 		sounds['./audio/cardio.mp3'].pause();
 		sounds['./audio/buzz.mp3'].pause();
@@ -1554,23 +1565,13 @@ $('.music-settings-switch').click(function() {
 		sound_bg.pause();
 		//desenchufamos al usuario,
 		var previa = socket.disconnect();
-		//console.log(previa);
 		previa.open();
-		//eliminamos las cookies que creamos con el login
-		//Cookies.expire('user_id');
-		//Cookies.expire('user_email');
-		//Cookies.expire('user_username');
-		//Cookies.expire('user_password');
-		//Cookies.expire('user_balance');
-		//Cookies.expire('user_balance_usd');
-		//Cookies.expire('user_online');
-		//Cookies.expire('user_address');
 		$('#home').focus();
 		$('#canvas-container').css({'display': 'none'});
 		$('#home').css({'display': 'block'});
 		is_user_online();
 		$('*').modal('hide');
-		// $('#modal-new-user').modal('show');
+		home_layout();
 	}
 
 	/************************************************************/

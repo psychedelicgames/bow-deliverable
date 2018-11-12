@@ -46,3 +46,13 @@ input {
 	-ms-user-select: all;
 	user-select: all;
 }
+@include desktop {
+	.modal-lg {
+	    max-width: 950px !important;
+	}
+}
+@include desktop-large {
+	.modal-lg {
+	    max-width: 950px !important;
+	}
+}
