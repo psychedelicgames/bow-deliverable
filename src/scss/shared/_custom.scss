@@ -647,6 +647,7 @@ table.table-balance {
 		overflow-y: auto;
 		min-width: 100%;
 		padding: 0px;
+		padding-bottom: 20px;
 		li {
 			list-style: none;
 			font-size: 13px;
@@ -654,6 +655,10 @@ table.table-balance {
 				color: $color-one;
 			}
 		}
+	}
+	.chat-input {
+		font-size: 13px;
+		width: 100%;
 	}
 }
 

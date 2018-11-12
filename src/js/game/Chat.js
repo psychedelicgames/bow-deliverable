@@ -60,7 +60,6 @@ Chat.prototype.init = function() {
  *   administrative notification.
  */
 Chat.prototype.receiveMessage = function(name, message, isNotification) {
-console.log(isNotification);
 
   if (isNotification) {
     //mandamos el li con la clase desvanecedora
@@ -84,6 +83,10 @@ console.log(isNotification);
     variable += message;
     variable += "</li>";
     $(variable).appendTo('.small-chat-container .chat-display');
+    var lis = $('.chat-display').children('li');
+    var alto = (lis.length * 19);
+    $('.chat-display').scrollTop(alto);
+
   }
 
 };
@@ -105,5 +108,8 @@ Chat.prototype.sendMessage = function() {
   //var password = Cookies('user_password');
   this.textElement.value = '';
   this.socket.emit('dialogo-usuario-servidor', username, message);
-  $('.chat-display').scrollTop(0);
+  
+  var lis = $('.chat-display').children('li');
+  var alto = (lis.length * 19);
+  $('.chat-display').scrollTop(alto);
 };
