@@ -48,11 +48,13 @@ input {
 }
 @include desktop {
 	.modal-lg {
-	    max-width: 950px !important;
+		width: 90% !important;
+	    max-width: 1250px !important;
 	}
 }
 @include desktop-large {
 	.modal-lg {
-	    max-width: 950px !important;
+		width: 90% !important;
+	    max-width: 1250px !important;
 	}
 }

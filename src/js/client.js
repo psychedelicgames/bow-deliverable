@@ -211,14 +211,15 @@ $(document).ready(function() {
 	function home_layout() {
 		user_balance_view();
 		leaderboard_view();
+		$('*').modal('hide');
 		$('#modal-home-logged').modal('show');
 	}
 
-	// $('*').on('hidden.bs.modal', function () {
-	// 	var button = $(event.relatedTarget);
-	// 	console.log(button);
-	// 	// $('#modal-home-logged').modal('show');
-	// });
+	function show_home() {
+		if ($('#home').css('display') == 'block') {
+			$('#modal-home-logged').modal('show');
+		}
+	}
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
@@ -235,6 +236,7 @@ $(document).ready(function() {
 		if(feedback == 'respawn_ok') {
 			KilledSequence(null, 'respawn');
 			sound_bg.play();
+			$('*').modal('hide');
 			$('#canvas').css({ 'filter': 'inherit'});
 			$('#canvas').focus();
 			//completamos el grafico de forma cabeza
@@ -292,7 +294,7 @@ $(document).ready(function() {
 			//si no hizo cosas raras
 			if(feedback.advice == 'Welcome.') {
 				//cerramos el modal y realizamos operaciones gráficas.
-				$('*').modal('hide');
+				is_user_online();
 				$('#canvas-container').css({'display': 'block'});
 				$('#home').css({'display': 'none'});
 				// cargamos el hub
@@ -302,8 +304,6 @@ $(document).ready(function() {
 				$('.powerups-info .title span').text('5');
 				//comienza el game
 				game.animate();
-				//marcamos al usuario online
-				is_user_online();
 				//lanzamos música de fondo
 				sound_bg.play();
 				$('*').modal('hide');
@@ -327,7 +327,7 @@ $(document).ready(function() {
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
 			$('*').modal('hide');
-			home_layout();
+			// home_layout();
 			//armamos el QR con su dirección
 			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
@@ -1599,7 +1599,11 @@ $('.music-settings-switch').click(function() {
 	$('.show-modal-balance').click(function() {
 		user_balance_view();
 		$('*').modal('hide');
+		
 		$('#modal-balance').modal('toggle');
+	});
+	$('#modal-balance').on('hidden.bs.modal', function (e) {
+		show_home();
 	});
 
 	$('.show-modal-settings').click(function() {
@@ -1608,19 +1612,27 @@ $('.music-settings-switch').click(function() {
 	});
 	$('#modal-settings').on('show.bs.modal', function (e) {
 		user_mfa_show();
-		// user_balance_view(); <-- no anda para popular el balance
 		$('#modal-settings .modal-info').height(530);
 	});
+	$('#modal-settings').on('hidden.bs.modal', function (e) {
+		show_home();
+	});	
 
 	$('.show-modal-disconnect').click(function() {
 		$('*').modal('hide');
 		$('#modal-disconnect').modal('toggle');
 	});
+	$('#modal-disconnect').on('hidden.bs.modal', function (e) {
+		show_home();
+	});	
 
 	$('.show-modal-rooms').click(function() {
 		$('*').modal('hide');
 		$('#modal-rooms').modal('toggle');
 	});
+	$('#modal-rooms').on('hidden.bs.modal', function (e) {
+		show_home();
+	});	
 
 	$('.show-modal-login').click(function() {
 		$('*').modal('hide');
@@ -1631,33 +1643,49 @@ $('.music-settings-switch').click(function() {
 		$('*').modal('hide');
 		$('#modal-online-players').modal('toggle');
 	});
+	$('#modal-online-players').on('hidden.bs.modal', function (e) {
+		show_home();
+	});	
 
 	$('.show-modal-leaderboard').click(function() {
+		leaderboard_view();
 		$('*').modal('hide');
 		$('#modal-leaderboard').modal('toggle');
 	});
-	$('#modal-leaderboard').on('show.bs.modal', function (e) {
-		leaderboard_view();
-	});
+	$('#modal-leaderboard').on('hidden.bs.modal', function (e) {
+		show_home();
+	});	
 
 	$('.show-modal-cashier').click(function() {
 		$('*').modal('hide');
+		// show_home('#modal-cashier');
 		$('#modal-cashier').modal('toggle');
 	});
+	$('#modal-cashier').on('hidden.bs.modal', function (e) {
+		show_home();
+	});	
+
 	$('.open-cashier-btn').click(function() {
 		$('*').modal('hide');
 		$('#modal-cashier').modal('show');
 	});
 	$('.show-modal-credits').click(function() {
 		$('*').modal('hide');
+		// show_home('#modal-credits');
 		$('#modal-credits').modal('show');
 	});
+	$('#modal-credits').on('hidden.bs.modal', function (e) {
+		show_home();
+	});		
 
 	// open modals ingame
 	$('.show-modal-back-home').click(function() {
 		$('*').modal('hide');
 		$('#modal-back-home').modal('toggle');
 	});
+	$('#modal-back-home').on('hidden.bs.modal', function (e) {
+		show_home();
+	});		
 
 	/************************************************************/
 	/* custom tabs ***********************************************/
@@ -1902,6 +1930,7 @@ $('#order_power_6').click(function() {
 
 	//puede quedar al final
 	is_user_online();
+	home_layout();
 
 	//mandamos helpers
 //   tippy('.helpers', {

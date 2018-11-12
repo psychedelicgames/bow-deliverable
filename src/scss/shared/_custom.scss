@@ -91,6 +91,7 @@ section.menu {
 		position: absolute;
 		top: 40px;
 		left: 85px;
+		display: none;
 		pointer-events: none !important;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -100,6 +101,7 @@ section.menu {
 		user-select: none;
 	}
 	.logo-bkg {
+		margin-left: -80px;
 		pointer-events: none !important;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -110,8 +112,8 @@ section.menu {
 	}
 	ul {
 		position: absolute;
-		top: 220px;
-		left: 85px;
+		top: 15vh;
+		left: 65px;
 		list-style: none;
 		padding: 0px;
 		li {
@@ -219,12 +221,12 @@ section.menu {
 	z-index: 400 !important;
 	font-size: 13px;
 	pointer-events:none;
-	overflow: hidden !important;
+	overflow: visible !important;
 	@include desktop {
-		left: 20% !important;
+		margin-left: 300px !important;
 	}
 	@include desktop-large {
-		left: 10% !important;
+		margin-left: 300px !important;
 	}	
 	.modal-dialog {
 		min-width: 600px;
