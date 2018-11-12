@@ -481,11 +481,11 @@ section.menu {
 		.medium {
 			width: 59%;
 			margin-right: 1%;
-			float: left;
+			display: inline-block;
 		}
 		.small {
 			width: 40%;
-			float: left;
+			display: inline-block;
 		}
 		.red-line img {
 			width: 100%;

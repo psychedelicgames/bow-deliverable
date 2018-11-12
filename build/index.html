@@ -58,7 +58,7 @@
 
 			<!-- Modal Settings -->
 			<div id="modal-home-logged" class="modal fade modal-home-logged" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-				<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 					<div class="modal-content medium">
 						<div class="modal-header">
 							<h5 class="modal-title">Your Balance</h5>
@@ -103,38 +103,67 @@
 						</div>
 						<span class="red-line"><img src="./img/red-line.png"></span>
 					</div>
-					<div class="modal-content small">
-			            <div class="modal-header">
-			                <h5 class="modal-title">Leaderboard</h5>
-			            </div>
-			            <div class="modal-info">
-			                <div class="modal-body">
-			                    <div class="container">
-			                        <div class="row">
-			                            <div class="col-12">
-			                                <h5 class="modal-subtitle">play.bitofwar.com</h5>
-			                            </div>
-			                        </div>
-			                        <div class="row">
-			                           	<table class="table table-leaderboard table-striped">
-											<thead>
-												<tr>
-													<th style="width: 10%">#</th>
-													<th style="width: 51%">Username</th>
-													<th style="width: 10%">Kills</th>
-													<th style="width: 13%">Deaths</th>
-													<th style="width: 30%">Profits</th>
-												</tr>
-											</thead>
-											<tbody class="leaderboard-content">
-											</tbody>
-										</table>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			            <span class="red-line"><img src="./img/red-line.png"></span>
-			        </div>		
+					<div class="small">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Leaderboard</h5>
+							</div>
+							<div class="modal-info">
+								<div class="modal-body">
+									<div class="container">
+										<div class="row">
+											<div class="col-12">
+												<h5 class="modal-subtitle">play.bitofwar.com</h5>
+											</div>
+										</div>
+										<div class="row">
+											<table class="table table-leaderboard table-striped">
+												<thead>
+													<tr>
+														<th style="width: 10%">#</th>
+														<th style="width: 51%">Username</th>
+														<th style="width: 10%">Kills</th>
+														<th style="width: 13%">Deaths</th>
+														<th style="width: 30%">Profits</th>
+													</tr>
+												</thead>
+												<tbody class="leaderboard-content">
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<span class="red-line"><img src="./img/red-line.png"></span>
+						</div>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Chat</h5>
+							</div>
+							<div class="modal-info">
+								<div class="modal-body">
+									<div class="container">
+										<div class="row">
+											<table class="table table-leaderboard table-striped">
+												<thead>
+													<tr>
+														<th style="width: 10%">#</th>
+														<th style="width: 51%">Username</th>
+														<th style="width: 10%">Kills</th>
+														<th style="width: 13%">Deaths</th>
+														<th style="width: 30%">Profits</th>
+													</tr>
+												</thead>
+												<tbody class="leaderboard-content">
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<span class="red-line"><img src="./img/red-line.png"></span>
+						</div>
+					</div>	
 				</div>
 			</div>			<!-- Modal New User -->
 			<div class="modal fade modal-new-user" id="modal-new-user" data-easein="flipBounceXIn" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
@@ -1021,6 +1050,7 @@
 				<li class="user-online"><a class="x-fadeIn show-modal-back-home" href="#" data-toggle="tooltip" data-placement="bottom" title="Exit"><i class="fas fa-power-off"></i></a></li>
 			</ul>
 			</section>			<div id="alert-container" class="alerta alert-info" role="alert"></div>
+			<div class="canvas-overlay"></div>
 			<div id="home" class="home">
 				<section id="section-menu" class="menu x-fadeIn">
 					<div class="logo"><img src="./img/logo-intro.png"></div>
@@ -1173,7 +1203,7 @@
 						</tbody>
 					</table>
 				</div>				<!-- <div class="canvas-effects"><img src="/public/img/game/ui/screen-broken1.svg"></div> -->
-				<div class="canvas-overlay"></div>
+				
 				<canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
 				<canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
 			</div>
