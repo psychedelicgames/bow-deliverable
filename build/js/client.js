@@ -209,16 +209,57 @@ $(document).ready(function() {
 	/******************************************************/
 	/* Fill home screen************************************/
 	function home_layout() {
-		user_balance_view();
-		leaderboard_view();
-		$('*').modal('hide');
-		$('#modal-home-logged').modal('show');
+		
+		show_home();
+		
 	}
 
 	function show_home() {
-		if ($('#home').css('display') == 'block') {
+
+		if ( (Cookies('user_online') == "True") && ($('#home').css('display') == 'block')) {
+			user_balance_view();
+			leaderboard_view();
+			$('*').modal('hide');
 			$('#modal-home-logged').modal('show');
 		}
+		else {
+			console.log('cccc');
+		}
+	}
+
+	// track which show modal button and send to modals_manager
+	$('.modal-manager').click(function() {
+		var elementClicked = this.getAttribute('href').split('#')[1];
+		modals_manager(elementClicked);
+	});
+
+	// track which close modal button and send to modals_manager
+	$('.modal-close').click(function() {
+		var elementClicked = $(this).closest('.modal')[0].id.split(/-(.+)/)[1];
+		modals_manager(elementClicked);
+	});
+
+	function modals_manager(modal) {
+
+		// if user online preload modal contents
+		if (Cookies('user_online') == "True") {
+			user_balance_view();
+			user_mfa_show();
+		}
+		leaderboard_view();
+
+		// manage show and hide modals
+		if ( $('.modal-' + modal).css('display') == 'none' ) {
+			$('*').modal('hide');
+			$('#modal-settings .modal-info').height(530);
+			$('#modal-' + modal).modal('show');
+		}
+		if ( $('.modal-' + modal).hasClass('show') ) {
+			$('#modal-' + modal).modal('hide');
+			show_home();
+		}
+
+
 	}
 
 	/******************************************************/
@@ -326,6 +367,7 @@ $(document).ready(function() {
 			//cambiamos el view
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
+			$('body').addClass('user-logged');
 			$('*').modal('hide');
 			// home_layout();
 			//armamos el QR con su dirección
@@ -336,7 +378,9 @@ $(document).ready(function() {
 		else {
 			$(".user-online").css({ "display": "none" });
 			$(".user-offline").css({ "display": "inherit" });
+			$('*').modal('hide');
 			$('#modal-new-user').modal('show');
+			$('#modal-home-logged').modal('hide');
 		};
 	};
 
@@ -1596,87 +1640,105 @@ $('.music-settings-switch').click(function() {
 		clear_modal_login();
 	});
 
-	$('.show-modal-balance').click(function() {
-		user_balance_view();
-		$('*').modal('hide');
-		
-		$('#modal-balance').modal('toggle');
-	});
-	$('#modal-balance').on('hidden.bs.modal', function (e) {
-		show_home();
-	});
+	// $('.show-modal-balance').click(function() {
 
-	$('.show-modal-settings').click(function() {
-		$('*').modal('hide');
-		$('#modal-settings').modal('toggle');
-	});
-	$('#modal-settings').on('show.bs.modal', function (e) {
-		user_mfa_show();
-		$('#modal-settings .modal-info').height(530);
-	});
-	$('#modal-settings').on('hidden.bs.modal', function (e) {
-		show_home();
-	});	
+	// 	if ( $('.modal-balance').not('.show') ) {
+	// 		user_balance_view();
+	// 		$('*').modal('hide');
+	// 		$('#modal-balance').modal('show');
+	// 	}
+	// 	else {
+	// 		$('#modal-balance').modal('hide');
+	// 		show_home();
+	// 	}
+	// });
+	// $('#modal-balance').on('shown.bs.modal', function (e) {
+	// 	$('body').addClass('modal-open');
+	// });
+	// $('#modal-balance').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });
 
-	$('.show-modal-disconnect').click(function() {
-		$('*').modal('hide');
-		$('#modal-disconnect').modal('toggle');
-	});
-	$('#modal-disconnect').on('hidden.bs.modal', function (e) {
-		show_home();
-	});	
+	// $('.show-modal-settings').click(function() {
+	// 	$('*').modal('hide');
+	// 	$('#modal-settings').modal('toggle').delay(500);
+	// });
+	// $('#modal-settings').on('show.bs.modal', function (e) {
+	// 	user_mfa_show();
+	// 	$('#modal-settings .modal-info').height(530);
+	// 	$('body').addClass('modal-open');
+	// });
+	// $('#modal-settings').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });
 
-	$('.show-modal-rooms').click(function() {
-		$('*').modal('hide');
-		$('#modal-rooms').modal('toggle');
-	});
-	$('#modal-rooms').on('hidden.bs.modal', function (e) {
-		show_home();
-	});	
+	// $('.show-modal-disconnect').click(function() {
+	// 	$('*').modal('hide');
+	// 	$('#modal-disconnect').modal('toggle');
+	// });
+	// $('#modal-disconnect').on('shown.bs.modal', function (e) {
+	// 	$('body').addClass('modal-open');
+	// });
+	// $('#modal-disconnect').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });	
 
-	$('.show-modal-login').click(function() {
-		$('*').modal('hide');
-		$('#modal-new-user').modal('toggle');
-	});
+	// $('.show-modal-rooms').click(function() {
+	// 	$('*').modal('hide');
+	// 	$('#modal-rooms').modal('toggle');
+	// 	$('body').addClass('modal-open');
+	// });
+	// $('#modal-rooms').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });	
 
-	$('.show-modal-online-players').click(function() {
-		$('*').modal('hide');
-		$('#modal-online-players').modal('toggle');
-	});
-	$('#modal-online-players').on('hidden.bs.modal', function (e) {
-		show_home();
-	});	
+	// $('.show-modal-login').click(function() {
+	// 	$('*').modal('hide');
+	// 	$('#modal-new-user').modal('toggle');
+	// 	$('body').addClass('modal-open');
+	// });
 
-	$('.show-modal-leaderboard').click(function() {
-		leaderboard_view();
-		$('*').modal('hide');
-		$('#modal-leaderboard').modal('toggle');
-	});
-	$('#modal-leaderboard').on('hidden.bs.modal', function (e) {
-		show_home();
-	});	
+	// $('.show-modal-online-players').click(function() {
+	// 	$('*').modal('hide');
+	// 	$('#modal-online-players').modal('toggle');
+	// 	$('body').addClass('modal-open');
+	// });
+	// $('#modal-online-players').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });	
 
-	$('.show-modal-cashier').click(function() {
-		$('*').modal('hide');
-		// show_home('#modal-cashier');
-		$('#modal-cashier').modal('toggle');
-	});
-	$('#modal-cashier').on('hidden.bs.modal', function (e) {
-		show_home();
-	});	
+	// $('.show-modal-leaderboard').click(function() {
+	// 	leaderboard_view();
+	// 	$('*').modal('hide');
+	// 	$('#modal-leaderboard').modal('toggle');
+	// 	$('body').addClass('modal-open');
+	// });
+	// $('#modal-leaderboard').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });	
 
-	$('.open-cashier-btn').click(function() {
-		$('*').modal('hide');
-		$('#modal-cashier').modal('show');
-	});
-	$('.show-modal-credits').click(function() {
-		$('*').modal('hide');
-		// show_home('#modal-credits');
-		$('#modal-credits').modal('show');
-	});
-	$('#modal-credits').on('hidden.bs.modal', function (e) {
-		show_home();
-	});		
+	// $('.show-modal-cashier').click(function() {
+	// 	$('*').modal('hide');
+	// 	// show_home('#modal-cashier');
+	// 	$('#modal-cashier').modal('toggle');
+	// 	$('body').addClass('modal-open');
+	// });
+	// $('#modal-cashier').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });	
+
+	// $('.open-cashier-btn').click(function() {
+	// 	$('*').modal('hide');
+	// 	$('#modal-cashier').modal('show');
+	// });
+	// $('.show-modal-credits').click(function() {
+	// 	$('*').modal('hide');
+	// 	// show_home('#modal-credits');
+	// 	$('#modal-credits').modal('show');
+	// });
+	// $('#modal-credits').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });		
 
 	// open modals ingame
 	$('.show-modal-back-home').click(function() {
