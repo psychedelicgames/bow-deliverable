@@ -227,6 +227,10 @@ $(document).ready(function() {
 		}
 	}
 
+
+	/******************************************************/
+	/* Modal manager **************************************/
+
 	// track which show modal button and send to modals_manager
 	$('.modal-manager').click(function() {
 		var elementClicked = this.getAttribute('href').split('#')[1];
@@ -245,6 +249,7 @@ $(document).ready(function() {
 		if (Cookies('user_online') == "True") {
 			user_balance_view();
 			user_mfa_show();
+			user_overview();
 		}
 		leaderboard_view();
 
@@ -258,9 +263,35 @@ $(document).ready(function() {
 			$('#modal-' + modal).modal('hide');
 			show_home();
 		}
-
-
 	}
+
+	$('#modal-new-user-resume').click(function() {
+		$('#resume-container').css({'display': 'block'});
+		$('#modal-new-user-resume').removeClass('unselected');
+		$('#register-container').css({'display': 'none'});
+		$('#modal-new-user-register').addClass('unselected');
+		$('#alert-message-resume').text('');
+		$('#alert-message-register').text('');
+	});
+
+	$('#modal-new-user-register').click(function() {
+		$('#register-container').css({'display': 'block'});
+		$('#modal-new-user-register').removeClass('unselected');
+		$('#resume-container').css({'display': 'none'});
+		$('#modal-new-user-resume').addClass('unselected');
+	});
+	$('#modal-new-user').on('hidden.bs.modal', function (e) {
+		clear_modal_login();
+	});
+
+		// open modals ingame
+	$('.show-modal-back-home').click(function() {
+		$('*').modal('hide');
+		$('#modal-back-home').modal('toggle');
+	});
+	$('#modal-back-home').on('hidden.bs.modal', function (e) {
+		show_home();
+	});		
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
@@ -1621,24 +1652,7 @@ $('.music-settings-switch').click(function() {
 	/************************************************************/
 	/* Modals open & close **************************************/
 
-	$('#modal-new-user-resume').click(function() {
-		$('#resume-container').css({'display': 'block'});
-		$('#modal-new-user-resume').removeClass('unselected');
-		$('#register-container').css({'display': 'none'});
-		$('#modal-new-user-register').addClass('unselected');
-		$('#alert-message-resume').text('');
-		$('#alert-message-register').text('');
-	});
 
-	$('#modal-new-user-register').click(function() {
-		$('#register-container').css({'display': 'block'});
-		$('#modal-new-user-register').removeClass('unselected');
-		$('#resume-container').css({'display': 'none'});
-		$('#modal-new-user-resume').addClass('unselected');
-	});
-	$('#modal-new-user').on('hidden.bs.modal', function (e) {
-		clear_modal_login();
-	});
 
 	// $('.show-modal-balance').click(function() {
 
@@ -1740,14 +1754,7 @@ $('.music-settings-switch').click(function() {
 	// 	show_home();
 	// });		
 
-	// open modals ingame
-	$('.show-modal-back-home').click(function() {
-		$('*').modal('hide');
-		$('#modal-back-home').modal('toggle');
-	});
-	$('#modal-back-home').on('hidden.bs.modal', function (e) {
-		show_home();
-	});		
+	
 
 	/************************************************************/
 	/* custom tabs ***********************************************/
