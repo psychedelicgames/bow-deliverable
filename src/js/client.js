@@ -203,8 +203,6 @@ $(document).ready(function() {
 		$('#register-container :input').val('');
 		$('#name-prompt-container .fa-spinner').remove();
 	};
-	// $('#close-login').click(clear_modal_login);
-	//$('#name-form').submit(user_login);
 
 	/******************************************************/
 	/* Fill home screen************************************/
@@ -216,7 +214,8 @@ $(document).ready(function() {
 	}
 
 	function show_home() {
-		if ($('#home').css('display') == 'block') {
+		if ($('body').hasClass('user-logged')) {
+			home_layout();
 			$('#modal-home-logged').modal('show');
 		}
 	}
@@ -326,6 +325,7 @@ $(document).ready(function() {
 			//cambiamos el view
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
+			$('body').addClass('user-logged');
 			$('*').modal('hide');
 			// home_layout();
 			//armamos el QR con su dirección
@@ -336,6 +336,8 @@ $(document).ready(function() {
 		else {
 			$(".user-online").css({ "display": "none" });
 			$(".user-offline").css({ "display": "inherit" });
+			$('body').removeClass('user-logged');
+			$('*').modal('hide');
 			$('#modal-new-user').modal('show');
 		};
 	};
@@ -1930,7 +1932,7 @@ $('#order_power_6').click(function() {
 
 	//puede quedar al final
 	is_user_online();
-	home_layout();
+	show_home();
 
 	//mandamos helpers
 //   tippy('.helpers', {
