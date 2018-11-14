@@ -348,20 +348,18 @@ $(document).ready(function() {
 			if(feedback.advice == 'Low funds.') {
 					//Have a drone.
 					$('*').modal('hide');
-					$('#modal-low-funds').modal('show');
-					// showAlert('Low founds for a tank! Have a drone.', 'red');
-					// console.log('Low founds! Have a drone');
-					// alert('Low founds! Have a drone');
-					//cerramos el modal y realizamos operaciones gráficas.
-					// $('.respawn-container').fadeOut(500);
-					//focus sobre el canvas
-					// $('#canvas').focus();
-					//comienza el game
-					// game.animate();
-					//marcamos al usuario online
-					// is_user_online();
-					//lanzamos música de fondo
-					// sound_bg.play();
+					// $('#modal-low-funds').modal('show');
+					showAlert('Low founds for a tank! Have a drone.', 'red');
+					// cerramos el modal y realizamos operaciones gráficas.
+					$('.respawn-container').fadeOut(500);
+					// focus sobre el canvas
+					$('#canvas').focus();
+					// comienza el game
+					game.animate();
+					// marcamos al usuario online
+					is_user_online();
+					// lanzamos música de fondo
+					sound_bg.play();
 				}
 			//si no hizo cosas raras
 			if(feedback.advice == 'Welcome.') {
