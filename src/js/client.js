@@ -8,9 +8,9 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	// var socket = io('wss://127.0.0.1');
 	var socket = io('wss://clouds.bitofwar.com');
-	// var socket = io('wss://192.168.0.4');
+	//var socket = io('wss://192.168.0.4');
+	//var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -209,9 +209,9 @@ $(document).ready(function() {
 	/******************************************************/
 	/* Fill home screen************************************/
 	function home_layout() {
-		
+
 		show_home();
-		
+
 	}
 
 	function show_home() {
@@ -291,7 +291,7 @@ $(document).ready(function() {
 	});
 	$('#modal-back-home').on('hidden.bs.modal', function (e) {
 		show_home();
-	});		
+	});
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
@@ -904,7 +904,7 @@ $('.btn-music').click(function() {
 
 	$('.powerups-info .title').on( "mouseleave", function( event ) {
 		$('.powerups-info .title label').fadeOut(80);
-	});	
+	});
 
 	function show_powerups() {
 		$('.powerups-container').toggleClass('active');
@@ -912,7 +912,7 @@ $('.btn-music').click(function() {
 	$('.powerups-info .title').click(function() {
 		show_powerups();
 		$('#canvas').focus();
-	});	
+	});
 
 
 /************************************************************/
@@ -998,11 +998,11 @@ $('.music-settings-switch').click(function() {
 	/* Nos encargamos del Player Hub ****************************/
 
 	function player_hub() {
-		
+
 		// hide player hub when mouse hover
 		var bottomX = 410;
 		var bottomY = window.innerHeight - 220;
-		
+
 		$('#canvas').on( "mousemove", function( event ) {
 			if (event.pageX < bottomX && event.pageY > bottomY) {
 				$('.player-hub').css({'opacity': 0});
@@ -1065,18 +1065,18 @@ $('.music-settings-switch').click(function() {
 
 	function showAlert(info, color) {
 		$('#alert-container').text(info);
-		if (color == 'red') { 
+		if (color == 'red') {
 			$('#alert-container').removeClass('alert-yellow');
-			$('#alert-container').addClass('active alert-red'); 
+			$('#alert-container').addClass('active alert-red');
 		}
-		if (color == 'yellow') { 
+		if (color == 'yellow') {
 			$('#alert-container').removeClass('alert-red');
-			$('#alert-container').addClass('active alert-yellow'); 
+			$('#alert-container').addClass('active alert-yellow');
 		}
 
-		setTimeout(function(){ 
-			$('#alert-container').removeClass('active'); 
-		},5000);	
+		setTimeout(function(){
+			$('#alert-container').removeClass('active');
+		},5000);
 	}
 
 	/************************************************************/
@@ -1356,22 +1356,22 @@ $('.music-settings-switch').click(function() {
 				row += '<tr>';
 				// row += '<td>' + feedback.xfers[i]['id'] + '</td>';
 				if (feedback.xfers[i]['condicion'] == 'confirmado') {
-					row += '<td><i class="fas fa-check"></i></td>';	
+					row += '<td><i class="fas fa-check"></i></td>';
 				}
 				else {
-					row += '<td></td>';		
+					row += '<td></td>';
 				}
-				
+
 				row += '<td>' + feedback.xfers[i]['reason'] + '</td>';
 
 				if (feedback.xfers[i]['difference'] >= '0') {
-					row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';	
+					row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';
 				}
 				else {
-					row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';	
+					row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';
 				}
 
-				row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';				
+				row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';
 				row += '<td>' + feedback.xfers[i]['difference_sum'] + '</td>';
 				// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
 				row += '</tr>';
@@ -1441,7 +1441,7 @@ $('.music-settings-switch').click(function() {
 			//ocultamos el highchart credits
 			$('.highcharts-credits').css({'display': 'none'});
 			//enviamos la información hacia la tabla user balance
-			
+
 			$('.user_balance_table').html(row);
 			$('.user_balance_table .fa-spinner').remove();
 		})
@@ -1695,7 +1695,7 @@ $('.music-settings-switch').click(function() {
 	// });
 	// $('#modal-disconnect').on('hidden.bs.modal', function (e) {
 	// 	show_home();
-	// });	
+	// });
 
 	// $('.show-modal-rooms').click(function() {
 	// 	$('*').modal('hide');
@@ -1704,7 +1704,7 @@ $('.music-settings-switch').click(function() {
 	// });
 	// $('#modal-rooms').on('hidden.bs.modal', function (e) {
 	// 	show_home();
-	// });	
+	// });
 
 	// $('.show-modal-login').click(function() {
 	// 	$('*').modal('hide');
@@ -1719,7 +1719,7 @@ $('.music-settings-switch').click(function() {
 	// });
 	// $('#modal-online-players').on('hidden.bs.modal', function (e) {
 	// 	show_home();
-	// });	
+	// });
 
 	// $('.show-modal-leaderboard').click(function() {
 	// 	leaderboard_view();
@@ -1729,7 +1729,7 @@ $('.music-settings-switch').click(function() {
 	// });
 	// $('#modal-leaderboard').on('hidden.bs.modal', function (e) {
 	// 	show_home();
-	// });	
+	// });
 
 	// $('.show-modal-cashier').click(function() {
 	// 	$('*').modal('hide');
@@ -1739,7 +1739,7 @@ $('.music-settings-switch').click(function() {
 	// });
 	// $('#modal-cashier').on('hidden.bs.modal', function (e) {
 	// 	show_home();
-	// });	
+	// });
 
 	// $('.open-cashier-btn').click(function() {
 	// 	$('*').modal('hide');
@@ -1752,9 +1752,9 @@ $('.music-settings-switch').click(function() {
 	// });
 	// $('#modal-credits').on('hidden.bs.modal', function (e) {
 	// 	show_home();
-	// });		
+	// });
 
-	
+
 
 	/************************************************************/
 	/* custom tabs ***********************************************/
@@ -1805,8 +1805,8 @@ $('.music-settings-switch').click(function() {
 		//envamos las variables para node
 		socket.emit('comprar-power', {keydown}, function(feedback) {
 			//refrescamos el balance del usuario
-			if(feedback.advice == 'no_orders_remaining') { 
-				showAlert('All upgrades used', 'red'); 
+			if(feedback.advice == 'no_orders_remaining') {
+				showAlert('All upgrades used', 'red');
 				$('.powerups-container').removeClass('active');
 			}
 			//si la compra salió bien.

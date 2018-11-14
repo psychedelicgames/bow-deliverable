@@ -242,7 +242,7 @@ Game.prototype.update = function() {
 };
 
 function canvas_shake() {
-  
+
   TweenMax.set("#canvas", {
     top: '50%',
     left: '50%',
@@ -295,7 +295,7 @@ function canvas_shake() {
     delay: 0.3,
     ease: RoughEase.ease.config({ template:  Power1.easeOut, strength: 1.5, points: 10, taper: "out", randomize:  true, clamp: true}),
     force3D: true
-  });  
+  });
 
   TweenMax.set(".player-hub", {
     bottom: '0px',
