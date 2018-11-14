@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	var socket = io('wss://clouds.bitofwar.com');
-	// var socket = io('wss://127.0.0.1');
+	// var socket = io('wss://clouds.bitofwar.com');
+	var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -347,20 +347,7 @@ $(document).ready(function() {
 			if(feedback.advice == 'Low funds.') {
 					//Have a drone.
 					$('*').modal('hide');
-					// $('#modal-low-funds').modal('show');
-					showAlert('Low founds for a tank! Have a drone.', 'red');
-					// cerramos el modal y realizamos operaciones gráficas.
-					$('#canvas-container').css({'display': 'block'});
-					$('#home').css({'display': 'none'});
-					$('.player-hub').css({'display': 'none'});
-					// focus sobre el canvas
-					$('#canvas').focus();
-					// comienza el game
-					game.animate();
-					// marcamos al usuario online
-					is_user_online();
-					// lanzamos música de fondo
-					sound_bg.play();
+					$('#modal-low-funds').modal('show');
 				}
 			//si no hizo cosas raras
 			if(feedback.advice == 'Welcome.') {
@@ -382,6 +369,27 @@ $(document).ready(function() {
 			}
 		});
 	};
+
+	/******************************************************/
+	/* Respawn with a drone *******************************/
+	
+	function drone_respawn() {
+		$('*').modal('hide');
+		showAlert('Low founds for a tank! Have a drone.', 'red');
+		// cerramos el modal y realizamos operaciones gráficas.
+		$('#canvas-container').css({'display': 'block'});
+		$('#home').css({'display': 'none'});
+		$('.player-hub').css({'display': 'none'});
+		// focus sobre el canvas
+		$('#canvas').focus();
+		// comienza el game
+		game.animate();
+		// marcamos al usuario online
+		is_user_online();
+		// lanzamos música de fondo
+		sound_bg.play();
+	}
+	$('.drone-respawn').click(drone_respawn);
 
 
 	/************************************************************/
