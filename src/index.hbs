@@ -55,23 +55,6 @@
 
 			</script>
 
-
-
-			{{!-- modals include --}}
-			{{> includes/_modals/home-logged }}
-			{{> includes/_modals/new-user }}
-			{{> includes/_modals/disconnect }}
-			{{> includes/_modals/back-home }}
-			{{> includes/_modals/online-players }}
-			{{> includes/_modals/rooms }}
-			{{> includes/_modals/settings }}
-			{{> includes/_modals/user-balance }}
-			{{> includes/_modals/leaderboard }}
-			{{> includes/_modals/cashier }}
-			{{> includes/_modals/template }}
-			{{> includes/_modals/credits }}
-			{{> includes/_modals/balance }}
-
 			{{!-- interface include --}}
 			{{> includes/_layout/header }}
 			{{> includes/_layout/ui }}
@@ -80,6 +63,24 @@
 			<div class="canvas-overlay"></div>
 			<div id="home" class="home">
 				{{> includes/_layout/menu }}
+				<div class="center-column">
+					{{!-- modals include --}}
+					{{> includes/_modals/home-logged }}
+					{{> includes/_modals/new-user }}
+					{{> includes/_modals/disconnect }}
+					{{> includes/_modals/back-home }}
+					{{> includes/_modals/online-players }}
+					{{> includes/_modals/rooms }}
+					{{> includes/_modals/settings }}
+					{{> includes/_modals/user-balance }}
+					{{> includes/_modals/leaderboard }}
+					{{> includes/_modals/cashier }}
+					{{> includes/_modals/template }}
+					{{> includes/_modals/credits }}
+					{{> includes/_modals/balance }}
+				</div>
+				{{> includes/_layout/right_column }}
+
 				<div id="leaderboard"></div>
 				<div id="chat-input"></div>
 			</div>
@@ -90,7 +91,6 @@
 				{{> includes/_canvas-ui/powerups-container }}
 				{{> includes/_canvas-ui/playing-info }}
 				<!-- <div class="canvas-effects"><img src="/public/img/game/ui/screen-broken1.svg"></div> -->
-				
 				<canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
 				<canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
 			</div>

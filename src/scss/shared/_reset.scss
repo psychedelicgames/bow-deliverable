@@ -39,12 +39,14 @@ body::-webkit-scrollbar-thumb {
 	user-select: none;
 }
 input {
-	-webkit-touch-callout: all;
-	-webkit-user-select: all;
-	-khtml-user-select: all;
-	-moz-user-select: all;
-	-ms-user-select: all;
-	user-select: all;
+	-webkit-touch-callout: all !important;
+	-webkit-user-select: all !important;
+	-khtml-user-select: all !important;
+	-moz-user-select: all !important;
+	-ms-user-select: all !important;
+	user-select: all !important;
+	display: block !important;
+	z-index: 999 !important
 }
 @include desktop {
 	.modal-lg {

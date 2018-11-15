@@ -1,16 +1,49 @@
-<section id="section-menu" class="menu x-fadeIn">
-	<div class="logo"><img src="./img/logo-intro.png"></div>
-	<div class="logo-bkg"><img src="./img/logo-bkg.png"></div>
-	<ul>
-		<li class="user-online"><a class="btn-respawn active" href="#">resume</a></li>
-		<li class="user-offline"><a class="modal-manager" href="#new-user" class="active">login</a></li>
-		<li class="user-online"><a class="modal-manager" href="#balance">balance</a></li>
-		<li class="user-online"><a class="modal-manager" href="#settings">settings</a></li>
-		<li class="user-online"><a class="modal-manager" href="#cashier">cashier</a></li>
-		<li><a class="modal-manager" href="#online-players">online players</a></li>
-		<li><a class="modal-manager" href="#rooms">rooms</a></li>
-		<li><a class="modal-manager" href="#leaderboard">leaderboard</a></li>
-		<li><a class="modal-manager" href="#credits">game credits</a></li>
-		<li class="user-online"><a class="modal-manager" href="#disconnect">disconnect</a></li>
-	</ul>
+<section id="section-right" class="right-column x-fadeIn">
+	{{!-- kar leaderboard --}}
+	<div class="kard k-small leaderboard">
+		<div class="kard-header">
+			<h5 class="kard-title">Leaderboard</h5>
+		</div>
+		<div class="kard-info">
+			<div class="kard-body">
+				<div class="container">
+					<div class="row">
+						<table class="table table-leaderboard table-striped">
+							<thead>
+								<tr>
+									<th style="width: 10%">#</th>
+									<th style="width: 51%">Username</th>
+									<th style="width: 10%">Kills</th>
+									<th style="width: 13%">Deaths</th>
+									<th style="width: 30%">Profits</th>
+								</tr>
+							</thead>
+							<tbody class="leaderboard-content">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<span class="red-line"><img src="./img/red-line.png"></span>
+	</div>
+	{{!-- kard chat --}}
+	<div class="kard k-small chat">
+		<div class="kard-info">
+			<div class="kard-body">
+				<div class="container">
+					<div class="row">
+						<!-- conversaciones -->
+						<div class="small-chat-container">
+							<ul class="chat-display">
+							</ul>
+							<input id="chat-input" class="chat-input user-online" type="text" placeholder="Press Enter to send" name="chat" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<span class="red-line"><img src="./img/red-line.png"></span>
+	</div>
+
 </section>
