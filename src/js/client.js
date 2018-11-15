@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	var socket = io('wss://clouds.bitofwar.com');
-	// var socket = io('wss://127.0.0.1');
+	//var socket = io('wss://clouds.bitofwar.com');
+	var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -372,7 +372,7 @@ $(document).ready(function() {
 
 	/******************************************************/
 	/* Respawn with a drone *******************************/
-	
+
 	function drone_respawn() {
 		$('*').modal('hide');
 		showAlert('Low founds for a tank! Have a drone.', 'red');
