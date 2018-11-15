@@ -176,8 +176,13 @@ Game.prototype.update = function() {
     /************************************************************/
     /* prevención de operaciones sin foco ***********************/
 
+    //observamos al canvas y vemos si posee foco
+    var canvas_focus = document.getElementById('canvas');
+    var canvas_isFocused = (document.activeElement === canvas_focus);
+    console.log(canvas_isFocused);
+
     //si el canvas no posee foco, liberar varaibles
-    if (document.hasFocus() == false) {
+    if (canvas_isFocused == false) {
       //armamos acá la información para enviar al servidor
       Input.UP = false;
       Input.RIGHT = false;
