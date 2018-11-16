@@ -46,3 +46,15 @@ Thanks to the speed and efficiency provided by bitcoin switness and Green Addres
 
 - www.audacityteam.org
 - analyze sound, hace las divisiones, se hace un exp. de las selecciones.
+
+# Installing the game
+
+1) install git if you don't have it.
+2) "git clone https://github.com/psychedelicgames/bow-deliverable"
+3) "cd bow-deliverable"
+4) install npm if you don't have it.
+5) "npm install"
+6) ...wait for it...
+7) install gulp if you don't have it.
+8) "gulp"
+9) your browser should open and launch the game.
