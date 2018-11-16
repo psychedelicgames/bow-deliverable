@@ -536,22 +536,53 @@ $(document).ready(function() {
 
 
 	/************************************************************/
-	/* función compra de powerups *******************************/
+	/* Playing rage notification ********************************/
 
-	function show_upper_message(info, rage) {
+	function rage_state() {
+		$('#action-container span').text('massive rage unleashed');
+		TweenMax.set("#action-container", {
+			opacity: 0,
+			top: '2vw',
+			scale: 5,
+			className: '+=rage',
+			textShadow:"0px 0px 0px rgba(255,255,0,0)",
+		});
+
+		TweenMax.staggerTo("#action-container", 1, {
+			scale: 1.2,
+			opacity: 1,
+			textShadow:"5px 5px 80px rgba(255,255,0,1)",
+			delay: 0.2,
+			ease: Elastic.easeOut.config(1, 0.75),
+			force3D: true
+		});
+
+		TweenMax.staggerTo("#action-container", 0.6, {
+			textShadow:"5px 5px 15px rgba(255,255,0,0.5)",
+			delay: 0.4
+		});
+
+		TweenMax.staggerTo("#action-container", 0.2, {
+			opacity: 0,
+			textShadow:"0px 0px 0px rgba(255,255,0,0)",
+			delay: 1.9,
+			scale: 5,
+			// ease: Elastic.easeOut.config(1, 0.75),
+			force3D: true
+		});	
+	}
+
+	/************************************************************/
+	/* Playing big notifications ********************************/
+
+	function show_upper_message(info) {
 		$('#action-container span').html(info);
-		console.log(rage);
-		if (rage == 'rage') {
-			$('#action-container').addClass(rage);
-		}
-		else {
-			$('#action-container').removeClass('rage');	
-		};
-		
+
 		TweenMax.set("#action-container", {
 			opacity: 0,
 			top: '2vw',
 			scale: 3,
+			className: '-=rage',
 			textShadow:"0px 0px 0px rgba(0,0,0,0.3)",
 		});
 
@@ -918,187 +949,184 @@ $(document).ready(function() {
 
 	//asumo que si lo ponemos en un if vamos a alivianar la carga del cpu y ram.
 	//no considero necesario correr los foreach ni armar el cuadro si el usuario no lo ve.
-	if ($('#developer-switch').hasClass('fa-check-square') || $('.btn-dev-on-off').hasClass('x-color-one')) {
+		if ($('#developer-switch').hasClass('fa-check-square') || $('.btn-dev-on-off').hasClass('x-color-one')) {
 
-		// populamos
-		var developer_self = '';
-		$.each( game['self'], function( key, value ) {
-			developer_self += '<tr>';
-			developer_self += '<td>' + key + '</td>';
-			developer_self += '<td>' + value + '</td>';
-			developer_self += '</tr>';
-		});
-		//enviamos la información hacia la tabla user overview
-		$('#developer_self').html(developer_self);
+			// populamos
+			var developer_self = '';
+			$.each( game['self'], function( key, value ) {
+				developer_self += '<tr>';
+				developer_self += '<td>' + key + '</td>';
+				developer_self += '<td>' + value + '</td>';
+				developer_self += '</tr>';
+			});
+			//enviamos la información hacia la tabla user overview
+			$('#developer_self').html(developer_self);
 
-		// populamos
-		var developer_powerups = '';
-		$.each( game['self']['powerups'], function( key, value ) {
-			var expiracion = value.expirationTime
-			var ahora = Date.now();
-			var diferencia = expiracion - ahora;
-			developer_powerups += '<tr><td><strong>powerups</strong></td><td></td></tr>';
-			developer_powerups += '<tr>';
-			developer_powerups += '<td>value.name</td>';
-			developer_powerups += '<td>' + value.name + '</td>';
-			developer_powerups += '</tr>';
-			developer_powerups += '<tr>';
-			developer_powerups += '<td>value.data</td>';
-			developer_powerups += '<td>' + value.data + '</td>';
-			developer_powerups += '</tr>';
-			developer_powerups += '<tr>';
-			developer_powerups += '<td>value.expirationTime</td>';
-			developer_powerups += '<td>' + expiracion  + '</td>';
-			developer_powerups += '</tr>';
-			developer_powerups += '<tr>';
-			developer_powerups += '<td>Calculo de diferencia</td>';
-			developer_powerups += '<td>' + diferencia + '</td>';
-			developer_powerups += '</tr>';
-		});
+			// populamos
+			var developer_powerups = '';
+			$.each( game['self']['powerups'], function( key, value ) {
+				var expiracion = value.expirationTime
+				var ahora = Date.now();
+				var diferencia = expiracion - ahora;
+				developer_powerups += '<tr><td><strong>powerups</strong></td><td></td></tr>';
+				developer_powerups += '<tr>';
+				developer_powerups += '<td>value.name</td>';
+				developer_powerups += '<td>' + value.name + '</td>';
+				developer_powerups += '</tr>';
+				developer_powerups += '<tr>';
+				developer_powerups += '<td>value.data</td>';
+				developer_powerups += '<td>' + value.data + '</td>';
+				developer_powerups += '</tr>';
+				developer_powerups += '<tr>';
+				developer_powerups += '<td>value.expirationTime</td>';
+				developer_powerups += '<td>' + expiracion  + '</td>';
+				developer_powerups += '</tr>';
+				developer_powerups += '<tr>';
+				developer_powerups += '<td>Calculo de diferencia</td>';
+				developer_powerups += '<td>' + diferencia + '</td>';
+				developer_powerups += '</tr>';
+			});
 
-		//enviamos la información hacia la tabla user overview
-		$('#developer_powerups').html(developer_powerups);
-
+			//enviamos la información hacia la tabla user overview
+			$('#developer_powerups').html(developer_powerups);
+		};
 	};
 
-};
+	/************************************************************/
+	/* playing footer info **************************************/
 
-/************************************************************/
-/* playing footer info **************************************/
-
-// it's fullscreen enable?
-if( window.innerHeight == screen.height) {
-    $('.btn-fullscreen').html('<i class="far fa-compress"></i>');
-}
-else if ( window.innerHeight < screen.height ) {
-	$('.btn-fullscreen').html('<i class="far fa-expand-wide"></i>');
-}
-// fullscreen btn
-$('.btn-fullscreen').click(function() {
-	if ( window.innerHeight == screen.height ) {
-		document.fullScreenElement && null == document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
-		$(this).html('<i class="far fa-expand-wide"></i>');
-
+	// it's fullscreen enable?
+	if( window.innerHeight == screen.height) {
+	    $('.btn-fullscreen').html('<i class="far fa-compress"></i>');
 	}
 	else if ( window.innerHeight < screen.height ) {
-		document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
-		$(this).html('<i class="far fa-compress"></i>');
+		$('.btn-fullscreen').html('<i class="far fa-expand-wide"></i>');
 	}
-});
+	// fullscreen btn
+	$('.btn-fullscreen').click(function() {
+		if ( window.innerHeight == screen.height ) {
+			document.fullScreenElement && null == document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
+			$(this).html('<i class="far fa-expand-wide"></i>');
 
-// it's sound enable?
-if ( sound_bg.volume > 0 ) {
-	$('.btn-music').html('<i class="fas fa-volume-up"></i>');
-}
-else if ( sound_bg.volume == 0 ) {
-	$('.btn-music').html('<i class="fas fa-volume-off"></i>');
-}
-// sound enable btn
-$('.btn-music').click(function() {
+		}
+		else if ( window.innerHeight < screen.height ) {
+			document.fullScreenElement && null !== document.fullScreenElement || !document.mozFullScreen && !document.webkitIsFullScreen ? document.documentElement.requestFullScreen ? document.documentElement.requestFullScreen() : document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() : document.documentElement.webkitRequestFullScreen && document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen();
+			$(this).html('<i class="far fa-compress"></i>');
+		}
+	});
+
+	// it's sound enable?
 	if ( sound_bg.volume > 0 ) {
-		sound_bg.pause();
-		sound_bg.volume = 0;
-		$(this).html('<i class="fas fa-volume-off"></i>');
+		$('.btn-music').html('<i class="fas fa-volume-up"></i>');
 	}
 	else if ( sound_bg.volume == 0 ) {
-		sound_bg.play();
-		sound_bg.volume = 0.2;
-		$(this).html('<i class="fas fa-volume-up"></i>');
+		$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 	}
-});
-
-/************************************************************/
-/* Playing footer function **********************************/
-
-	function playing_footer() {
-
-		//esperamos la presencia de game
-		if (game['self']) {
-			//clonamos gameself para referenciarlo más rápido
-			var playing_info = game['self'];
-			// injection footer info
-			$('.user-name').text(playing_info.name);
-			$('.user-kills').text(playing_info.kills);
-			$('.user-deaths').text(playing_info.deaths);
-			$('.user-spawns').text(playing_info.spawns);
-			$('.user-bits').text(playing_info.balance + ' BITS');
+	// sound enable btn
+	$('.btn-music').click(function() {
+		if ( sound_bg.volume > 0 ) {
+			sound_bg.pause();
+			sound_bg.volume = 0;
+			$(this).html('<i class="fas fa-volume-off"></i>');
 		}
-	}
-
-	// powerups btn tooltip
-	$('.powerups-info .title').on( "mousemove", function( event ) {
-		$('.powerups-info .title label').fadeIn(80);
+		else if ( sound_bg.volume == 0 ) {
+			sound_bg.play();
+			sound_bg.volume = 0.2;
+			$(this).html('<i class="fas fa-volume-up"></i>');
+		}
 	});
 
-	$('.powerups-info .title').on( "mouseleave", function( event ) {
-		$('.powerups-info .title label').fadeOut(80);
-	});
+	/************************************************************/
+	/* Playing footer function **********************************/
 
-	function show_powerups() {
-		$('.powerups-container').toggleClass('active');
-	}
-	$('.powerups-info .title').click(function() {
-		show_powerups();
+		function playing_footer() {
+
+			//esperamos la presencia de game
+			if (game['self']) {
+				//clonamos gameself para referenciarlo más rápido
+				var playing_info = game['self'];
+				// injection footer info
+				$('.user-name').text(playing_info.name);
+				$('.user-kills').text(playing_info.kills);
+				$('.user-deaths').text(playing_info.deaths);
+				$('.user-spawns').text(playing_info.spawns);
+				$('.user-bits').text(playing_info.balance + ' BITS');
+			}
+		}
+
+		// powerups btn tooltip
+		$('.powerups-info .title').on( "mousemove", function( event ) {
+			$('.powerups-info .title label').fadeIn(80);
+		});
+
+		$('.powerups-info .title').on( "mouseleave", function( event ) {
+			$('.powerups-info .title label').fadeOut(80);
+		});
+
+		function show_powerups() {
+			$('.powerups-container').toggleClass('active');
+		}
+		$('.powerups-info .title').click(function() {
+			show_powerups();
+			$('#canvas').focus();
+		});
+
+
+	/************************************************************/
+	/* settings funciones ***************************************/
+
+	$('#developer-switch').click(function() {
+		// developer mode
+		if ($('#developer-switch').hasClass('fal fa-square')) {
+			$('#developer-switch').removeClass('fal fa-square');
+			$('#developer-switch').addClass('fal fa-check-square');
+			$('#developer-mode').css({display: 'block'});
+		}
+		else {
+			$('#developer-switch').removeClass('fal fa-check-square');
+			$('#developer-switch').addClass('fal fa-square');
+			$('#developer-mode').css({display: 'none'});
+		};
+	});
+	$('.btn-dev-on-off').click(function() {
+		$('#developer-mode').toggleClass('active');
+		$('.btn-dev-on-off').toggleClass('x-color-one');
 		$('#canvas').focus();
 	});
 
+	$('#rain-switch').click(function() {
+		// show rain
+		if ($('#rain-switch').hasClass('fal fa-square')) {
+			$('#rain-switch').removeClass('fal fa-square');
+			$('#rain-switch').addClass('fal fa-check-square');
+			$('#canvas_02').css({display: 'block'});
+		}
+		else {
+			$('#rain-switch').removeClass('fal fa-check-square');
+			$('#rain-switch').addClass('fal fa-square');
+			$('#canvas_02').css({display: 'none'});
+		};
+	});
 
-/************************************************************/
-/* settings funciones ***************************************/
-
-$('#developer-switch').click(function() {
-	// developer mode
-	if ($('#developer-switch').hasClass('fal fa-square')) {
-		$('#developer-switch').removeClass('fal fa-square');
-		$('#developer-switch').addClass('fal fa-check-square');
-		$('#developer-mode').css({display: 'block'});
-	}
-	else {
-		$('#developer-switch').removeClass('fal fa-check-square');
-		$('#developer-switch').addClass('fal fa-square');
-		$('#developer-mode').css({display: 'none'});
-	};
-});
-$('.btn-dev-on-off').click(function() {
-	$('#developer-mode').toggleClass('active');
-	$('.btn-dev-on-off').toggleClass('x-color-one');
-	$('#canvas').focus();
-});
-
-$('#rain-switch').click(function() {
-	// show rain
-	if ($('#rain-switch').hasClass('fal fa-square')) {
-		$('#rain-switch').removeClass('fal fa-square');
-		$('#rain-switch').addClass('fal fa-check-square');
-		$('#canvas_02').css({display: 'block'});
-	}
-	else {
-		$('#rain-switch').removeClass('fal fa-check-square');
-		$('#rain-switch').addClass('fal fa-square');
-		$('#canvas_02').css({display: 'none'});
-	};
-});
-
-$('.music-settings-switch').click(function() {
-	// play - pause music
-	if ( sound_bg.volume > 0 ) {
-		sound_bg.pause();
-		sound_bg.volume = 0;
-		$(this).html('<i class="fal fa-square"></i>');
-		$('.btn-music').html('<i class="fas fa-volume-off"></i>');
-	}
-	else if ( sound_bg.volume == 0 ) {
-		sound_bg.play();
-		sound_bg.volume = 0.2;
-		$(this).html('<i class="fal fa-check-square"></i>');
-		$('.btn-music').html('<i class="fas fa-volume-up"></i>');
-	}
-
-});
+	$('.music-settings-switch').click(function() {
+		// play - pause music
+		if ( sound_bg.volume > 0 ) {
+			sound_bg.pause();
+			sound_bg.volume = 0;
+			$(this).html('<i class="fal fa-square"></i>');
+			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
+		}
+		else if ( sound_bg.volume == 0 ) {
+			sound_bg.play();
+			sound_bg.volume = 0.2;
+			$(this).html('<i class="fal fa-check-square"></i>');
+			$('.btn-music').html('<i class="fas fa-volume-up"></i>');
+		}
+	});
 
 
-/************************************************************/
-/* cashier/search *******************************************/
+	/************************************************************/
+	/* cashier/search *******************************************/
 
 	//Busca nuevas operaciones del usuario
 
@@ -1124,7 +1152,7 @@ $('.music-settings-switch').click(function() {
 
 	/************************************************************/
 	/* Nos encargamos del Player Hub ****************************/
-var rage_informed = 0
+	var rage_informed = 0
 	function player_hub() {
 
 		// hide player hub when mouse hover
@@ -1155,7 +1183,7 @@ var rage_informed = 0
 			
 			
 			if (hub_usuario.rage >= 2 && rage_informed == 0) {
-				show_upper_message('massive rage unleashed', 'rage');
+				rage_state();
 				rage_informed = 1;
 			};
 			if (hub_usuario.rage < 2) {
@@ -2084,7 +2112,7 @@ $('#order_power_6').click(function() {
 			case 9: show_sidebar();
 			break;
 			// show powerups
-			case 16: show_powerups();
+			case 16: show_powerups(), rage_state();
 			break;
 			//salimos del handler
 			default: return;
