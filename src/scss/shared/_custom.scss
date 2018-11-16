@@ -833,6 +833,7 @@ table.user-statistics {
 		padding: 20px 25px;
 		// z-index: 401;
 		height: 100%;
+		pointer-events:all;
 		.kard-body {
 			color: $color-white;
 			z-index: 455;
@@ -897,6 +898,10 @@ table.user-statistics {
 			// z-index: 403;
 			padding: 5px 0 0 0;
 			width: 100%;
+		}
+		button {
+			z-index: 455;
+			position: relative;
 		}
 		.oil {
 			position: absolute;

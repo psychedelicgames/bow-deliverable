@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	// var socket = io('wss://clouds.bitofwar.com');
-	var socket = io('wss://127.0.0.1');
+	var socket = io('wss://clouds.bitofwar.com');
+	// var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -364,20 +364,20 @@ $(document).ready(function() {
 		// }
 	}
 
-	$('#modal-new-user-resume').click(function() {
+	$('#kard-new-user-resume').click(function() {
 		$('#resume-container').css({'display': 'block'});
-		$('#modal-new-user-resume').removeClass('unselected');
+		$('#kard-new-user-resume').removeClass('unselected');
 		$('#register-container').css({'display': 'none'});
-		$('#modal-new-user-register').addClass('unselected');
+		$('#kard-new-user-register').addClass('unselected');
 		$('#alert-message-resume').text('');
 		$('#alert-message-register').text('');
 	});
 
-	$('#modal-new-user-register').click(function() {
+	$('#kard-new-user-register').click(function() {
 		$('#register-container').css({'display': 'block'});
-		$('#modal-new-user-register').removeClass('unselected');
+		$('#kard-new-user-register').removeClass('unselected');
 		$('#resume-container').css({'display': 'none'});
-		$('#modal-new-user-resume').addClass('unselected');
+		$('#kard-new-user-resume').addClass('unselected');
 	});
 	$('#modal-new-user').on('hidden.bs.modal', function (e) {
 		clear_modal_login();
