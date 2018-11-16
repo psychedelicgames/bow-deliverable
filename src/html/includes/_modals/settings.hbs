@@ -1,19 +1,18 @@
 <!-- Modal Settings -->
-<div id="modal-settings" class="modal fade modal-settings" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<span class="modal-close" data-dismiss="modal"><i class="fal fa-times"></i></span>
-				<h5 class="modal-title">Settings</h5>
-				<h5 class="modal-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="1">2FA</span><span data-tab-link="2">Settings</span></h5>
+<div id="kard-settings" class="kard-modal kard-settings">
+		<div class="kard">
+			<div class="kard-header">
+				{{!-- <span class="kard-close" data-dismiss="modal"><i class="fal fa-times"></i></span> --}}
+				<h5 class="kard-title">Settings</h5>
+				<h5 class="kard-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="1">2FA</span><span data-tab-link="2">Settings</span></h5>
 			</div>
-			<div class="modal-info">
-				<div class="modal-body">
+			<div class="kard-info">
+				<div class="kard-body">
 					<div class="container">
 						<div class="custom-tabs">
 
 							{{!-- vamos cambiando --}}
-							<div id="modal-settings-overview" class="active" data-tab="1">
+							<div id="kard-settings-overview" class="active" data-tab="1">
 								<div class="row">
 									<div class="col-12">
 										<p class="mb-4">
@@ -48,14 +47,14 @@
 							{{!-- hasta aca --}}
 
 							{{!-- vamos cambiando --}}
-							<div id="modal-settings-2fa" data-tab="2">
+							<div id="kard-settings-2fa" data-tab="2">
 								<div class="row">						
 									<div class="col-6">
 										<div class="row mb-4">
 											<div id="qrcode_mfa"></div>
 										</div>
 										<div class="row">
-											<h5 class="modal-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
+											<h5 class="kard-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
 										</div>
 									</div>
 									<div class="col-6">
@@ -88,7 +87,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="modal-footer">
+									<div class="kard-footer">
 										<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
 									</div>
 								</div>
@@ -96,7 +95,7 @@
 							{{!-- hasta aca --}}
 
 							{{!-- vamos cambiando --}}
-							<div id="modal-settings-ux" data-tab="3">
+							<div id="kard-settings-ux" data-tab="3">
 								<div class="row">
 									<div class="col-12">
 										<table class="table table-striped">
@@ -139,5 +138,4 @@
 			</div>
 			<span class="red-line"><img src="./img/red-line.png"></span>
 		</div>
-	</div>
 </div>

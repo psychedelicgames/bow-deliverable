@@ -1,22 +1,3 @@
-.home {
-	z-index: 550;
-	.respawn-info {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		-webkit-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
-		.logo {
-			margin-bottom: 30px;
-		}
-		p {
-			max-width: 500px;
-			margin: 0 auto;
-			margin-bottom: 30px;
-			color:#838383;
-		}
-	}
-}
 .canvas-container {
 	background-color: #353535;
 	position: absolute;

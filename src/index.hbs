@@ -63,7 +63,7 @@
 			<div class="canvas-overlay"></div>
 			<div id="home" class="home">
 				{{> includes/_layout/menu }}
-				<div class="center-column">
+				<section class="center-column">
 					{{!-- modals include --}}
 					{{> includes/_modals/home-logged }}
 					{{> includes/_modals/new-user }}
@@ -78,11 +78,8 @@
 					{{> includes/_modals/template }}
 					{{> includes/_modals/credits }}
 					{{> includes/_modals/balance }}
-				</div>
+				</section>
 				{{> includes/_layout/right_column }}
-
-				<div id="leaderboard"></div>
-				<div id="chat-input"></div>
 			</div>
 
 			{{!-- game itself --}}
@@ -94,7 +91,7 @@
 				<canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
 				<canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
 			</div>
-
+<div id="leaderboard"></div>
 			{{!-- {{> includes/_layout/footer }} --}}
 
 		<!-- Bootstrap core JavaScript

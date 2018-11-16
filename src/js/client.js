@@ -226,6 +226,15 @@ $(document).ready(function() {
 		}
 	}
 
+	/******************************************************/
+	/* Interface composer UI ******************************/
+	var chatHeight = $('.kard.chat').innerHeight();
+	$('.chat-display').height(chatHeight - 150);
+
+	$(window).resize(function() {
+		var chatHeight = $('.kard.chat').innerHeight();
+		$('.chat-display').height(chatHeight - 150);		
+	});
 
 	/******************************************************/
 	/* Modal manager **************************************/
@@ -253,15 +262,106 @@ $(document).ready(function() {
 		leaderboard_view();
 
 		// manage show and hide modals
-		if ( $('.modal-' + modal).css('display') == 'none' ) {
-			$('*').modal('hide');
-			$('#modal-settings .modal-info').height(530);
-			$('#modal-' + modal).modal('show');
+		if ( $('.kard-' + modal).css('display') == 'none' ) {
+			$('*').removeClass('show');
+			// $('#kard-settings .kard-info').height(530);
+			$('#kard-' + modal).addClass('show');	
+			console.log('no tiene' + modal);
+
+			// TweenMax.set('.kard-modal:not(.show)', {
+			// 	opacity: 1,
+			// 	display: 'block',
+			// 	scale: 1,
+			// 	top: '0vh',
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });
+
+			// TweenMax.to('.kard-modal:not(.show)', 1, {
+			// 	opacity: 0,
+			// 	display: 'none',
+			// 	scale: 0.7,
+			// 	top: '130vh',
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });	
+
+			// TweenMax.set('.kard-modal.show', {
+			// 	opacity: 0,
+			// 	display: 'none',
+			// 	scale: 0.7,
+			// 	top: '-100vh',
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });
+
+			// TweenMax.staggerTo('.kard-modal.show', 1, {
+			// 	opacity: 1,
+			// 	display: 'block',
+			// 	scale: 1,
+			// 	top: '0vh',
+			// 	delay: 0.2,
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });
+
+			// TweenMax.set('.kard-modal:not(.show)', {
+			// 	opacity: 1,
+			// 	display: 'block',
+			// 	scale: 1,
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });
+
+			TweenMax.to('.kard-modal:not(.show)', 0.5, {
+				opacity: 0,
+				display: 'none',
+				scale: 0.7,
+				ease: Elastic.easeIn.config(1, 0.75),
+				force3D: true
+			});	
+
+			// TweenMax.set('.kard-modal.show', {
+			// 	opacity: 0,
+			// 	display: 'none',
+			// 	scale: 0.7,
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });
+
+			TweenMax.staggerTo('.kard-modal.show', 0.7, {
+				opacity: 1,
+				display: 'block',
+				scale: 1,
+				delay: 0.5,
+				ease: Elastic.easeOut.config(1, 0.75),
+				force3D: true
+			});
+			// TweenMax.staggerTo('.kard-modal.show', 1, {
+			// 	opacity: 1,
+			// 	display: 'block',
+			// 	scale: 1,
+			// 	delay: 0.2,
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });			
+
+
 		}
-		if ( $('.modal-' + modal).hasClass('show') ) {
-			$('#modal-' + modal).modal('hide');
-			show_home();
-		}
+		// else if ( $('.kard-' + modal).hasClass('show') ) {
+		// 	console.log('la tiene' + modal);
+		// 	$('#kard-' + modal).removeClass('show');
+			
+		// 	TweenMax.to('#kard-' + modal, 1, {
+		// 		opacity: 0,
+		// 		display: 'none',
+		// 		scale: 0,
+		// 		top: '130vh',
+		// 		ease: Elastic.easeOut.config(1, 0.75),
+		// 		force3D: true
+		// 	});		
+		// 	// show_home();
+		// }
 	}
 
 	$('#modal-new-user-resume').click(function() {
@@ -1357,101 +1457,104 @@ $('.music-settings-switch').click(function() {
 			$('.user-bits').text(feedback.user.available_balance + ' BITS');
 
 		//populamos la tabla
-		var row = '';
-		for (var i = 0; i < feedback.xfers.length; ++i) {
-				//armamos el cuadro
-				row += '<tr>';
-				// row += '<td>' + feedback.xfers[i]['id'] + '</td>';
-				if (feedback.xfers[i]['condicion'] == 'confirmado') {
-					row += '<td><i class="fas fa-check"></i></td>';
-				}
-				else {
-					row += '<td></td>';
-				}
-
-				row += '<td>' + feedback.xfers[i]['reason'] + '</td>';
-
-				if (feedback.xfers[i]['difference'] >= '0') {
-					row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';
-				}
-				else {
-					row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';
-				}
-
-				row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';
-				row += '<td>' + feedback.xfers[i]['difference_sum'] + '</td>';
-				// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
-				row += '</tr>';
-			}
-			// console.log(row);
-			//construccion = []
-			var aaa = [];
-			var bbb = [];
-			var ccc = [];
-
+		if (feedback.xfers) {
+			var row = '';
 			for (var i = 0; i < feedback.xfers.length; ++i) {
-				inversion = feedback.xfers[i]["difference_sum"] * 1;
-				if (feedback.xfers[i]['difference'] < 0) { color = '#FF3939'; } else { color = '#89D926'; }
-				aaa.push({ y: inversion, flag: 'win', color: color, segmentColor: color });
-				var date = feedback.xfers[i]['creacion'].split(" ");
-				bbb.push(date[0]);
-				ccc.push(feedback.xfers[i]['reason']);
-				//y = feedback.xfers[i]['difference_sum']
-				//@beluchi
-				//ob.y : feedback.xfers[i]['difference_sum'];
-				//ob.flag : 'win',
-				//ob.color : '#89D926',
-				//ob.segmentColor: '#89D926'
+					//armamos el cuadro
+					row += '<tr>';
+					// row += '<td>' + feedback.xfers[i]['id'] + '</td>';
+					if (feedback.xfers[i]['condicion'] == 'confirmado') {
+						row += '<td><i class="fas fa-check"></i></td>';
+					}
+					else {
+						row += '<td></td>';
+					}
 
-			}
+					row += '<td>' + feedback.xfers[i]['reason'] + '</td>';
 
-			// console.log(aaa);
+					if (feedback.xfers[i]['difference'] >= '0') {
+						row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';
+					}
+					else {
+						row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';
+					}
 
-			//console.log(construccion);
+					row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';
+					row += '<td>' + feedback.xfers[i]['difference_sum'] + '</td>';
+					// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
+					row += '</tr>';
+				}
+				// console.log(row);
+				//construccion = []
+				var aaa = [];
+				var bbb = [];
+				var ccc = [];
 
-			//armamos las Lineas
-			$('.drawlines').each(function(){
-				var chart = new Highcharts.Chart({
-					chart: {
-						renderTo: this,
-					//borderWidth: 1,
-					backgroundColor: null
-				},
-				title: {
-					text: '',
-					x: -20
-				},
-				xAxis: {
-					categories: 2
-				},
-				yAxis: {
-					title: '',
-					plotLines: [{value: 0, width: 1 }]
-				},
-				tooltip: {
-					headerFormat: ccc
-				},
-				legend: {
-					layout: 'vertical',
-					align: 'right',
-					verticalAlign: 'middle',
-					borderWidth: 0
-				},
-				series: [{
-					type: 'coloredline',
-					showInLegend: false, 
-					name: ' ',
-					data: aaa
-				}]
-			});
-			});
-			//ocultamos el highchart credits
-			$('.highcharts-credits').css({'display': 'none'});
-			//enviamos la información hacia la tabla user balance
+				for (var i = 0; i < feedback.xfers.length; ++i) {
+					inversion = feedback.xfers[i]["difference_sum"] * 1;
+					if (feedback.xfers[i]['difference'] < 0) { color = '#FF3939'; } else { color = '#89D926'; }
+					aaa.push({ y: inversion, flag: 'win', color: color, segmentColor: color });
+					var date = feedback.xfers[i]['creacion'].split(" ");
+					bbb.push(date[0]);
+					ccc.push(feedback.xfers[i]['reason']);
+					//y = feedback.xfers[i]['difference_sum']
+					//@beluchi
+					//ob.y : feedback.xfers[i]['difference_sum'];
+					//ob.flag : 'win',
+					//ob.color : '#89D926',
+					//ob.segmentColor: '#89D926'
 
-			$('.user_balance_table').html(row);
-			$('.user_balance_table .fa-spinner').remove();
-		})
+				}
+
+				// console.log(aaa);
+
+				//console.log(construccion);
+
+				//armamos las Lineas
+				$('.drawlines').each(function(){
+					var chart = new Highcharts.Chart({
+						chart: {
+							renderTo: this,
+						//borderWidth: 1,
+						backgroundColor: null
+					},
+					title: {
+						text: '',
+						x: -20
+					},
+					xAxis: {
+						categories: 2
+					},
+					yAxis: {
+						title: '',
+						plotLines: [{value: 0, width: 1 }]
+					},
+					tooltip: {
+						headerFormat: ccc
+					},
+					legend: {
+						layout: 'vertical',
+						align: 'right',
+						verticalAlign: 'middle',
+						borderWidth: 0
+					},
+					series: [{
+						type: 'coloredline',
+						showInLegend: false, 
+						name: ' ',
+						data: aaa
+					}]
+				});
+				});
+				//ocultamos el highchart credits
+				$('.highcharts-credits').css({'display': 'none'});
+				//enviamos la información hacia la tabla user balance
+
+				$('.user_balance_table').html(row);
+				$('.user_balance_table .fa-spinner').remove();
+			};
+		});
+		
 	}
 	//abrimos el modal en la solapa
 	// $('.show-modal-balance').click(function () {
@@ -1768,7 +1871,7 @@ $('.music-settings-switch').click(function() {
 
 	$('[data-tab-link]').click(function() {
 		var tab = $(this).attr('data-tab-link');
-		var parents = $(this).closest('.modal-content').find('[data-tab]');
+		var parents = $(this).closest('.kard').find('[data-tab]');
 		var contentId = parents[tab].id;
 
 		$('[data-tab-link]').removeClass('active');
