@@ -272,7 +272,7 @@ Drawing.prototype.drawExplosion = function(coords) {
  // param {number} maxX The maximum canvas x coordinate to draw to.
  // param {number} maxY The maximum canvas y coordinate to draw to.
 
-Drawing.prototype.drawTiles = function(minX, minY, maxX, maxY, salud) {
+Drawing.prototype.drawTiles = function(minX, minY, maxX, maxY) {
   this.context.save();
   var tile = this.images['tile'];
   for (var x = minX; x < maxX; x += Drawing.TILE_SIZE) {
