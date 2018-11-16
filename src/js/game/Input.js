@@ -35,7 +35,7 @@ Input.onMouseUp = function(event) {
 
 //perceive keydown
 Input.onKeyDown = function(event) {
-  console.log('Keydown: ' + event.keyCode);
+  // console.log('Keydown: ' + event.keyCode);
   switch (event.keyCode) {
     case 37:
     case 65:

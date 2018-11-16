@@ -237,7 +237,7 @@ $(document).ready(function() {
 	});
 
 	/******************************************************/
-	/* Modal manager **************************************/
+	/* Kards manager **************************************/
 
 	// track which show modal button and send to modals_manager
 	$('.modal-manager').click(function() {
@@ -246,9 +246,17 @@ $(document).ready(function() {
 	});
 
 	// track which close modal button and send to modals_manager
-	$('.modal-close').click(function() {
-		var elementClicked = $(this).closest('.modal')[0].id.split(/-(.+)/)[1];
-		modals_manager(elementClicked);
+	$('.kard-close').click(function() {
+		TweenMax.to('.kard-modal.show', 0.5, {
+			opacity: 0,
+			display: 'none',
+			scale: 0.7,
+			ease: Elastic.easeIn.config(1, 0.75),
+			force3D: true
+		});
+		$('*').removeClass('show');
+		$('.center-column').css({'display': 'none'});
+		console.log('closeee');
 	});
 
 	function modals_manager(modal) {
@@ -264,6 +272,7 @@ $(document).ready(function() {
 		// manage show and hide modals
 		if ( $('.kard-' + modal).css('display') == 'none' ) {
 			$('*').removeClass('show');
+			$('.center-column').css({'display': 'block'});
 			// $('#kard-settings .kard-info').height(530);
 			$('#kard-' + modal).addClass('show');	
 			console.log('no tiene' + modal);
@@ -454,7 +463,11 @@ $(document).ready(function() {
 				//cerramos el modal y realizamos operaciones gráficas.
 				is_user_online();
 				$('#canvas-container').css({'display': 'block'});
-				$('#home').css({'display': 'none'});
+				// $('#home').css({'display': 'none'});
+				$('.left-column').css({'display': 'none'});
+				$('.center-column').css({'display': 'none'});
+				$('.right-column').css({'display': 'none'});
+				$('*').removeClass('show');
 				// cargamos el hub
 				player_hub();
 				//completamos el grafico de forma cabeza
@@ -464,7 +477,6 @@ $(document).ready(function() {
 				game.animate();
 				//lanzamos música de fondo
 				sound_bg.play();
-				$('*').modal('hide');
 				$('#canvas').focus();
 			}
 		});
@@ -1126,13 +1138,25 @@ $('.music-settings-switch').click(function() {
 			$('#health-bar').empty();
 			$('#shield-bar').empty();
 			//cargamos la barra de experiencia
-			$('#progress-bar-bitcoin').css({width: 50 + '%'});
+			// console.log((hub_usuario.rage - 1 ) * 100 + '%');
+			$('#progress-bar-rage').css({width: (hub_usuario.rage - 1 ) * 100 + '%'});
 			//calculamos la salud perdida
 			var emptyHealth = 20 - hub_usuario.health;
 			//salud
 			for (var i = 0; i < hub_usuario.health; ++i) {
 				$('#health-bar').append('<li></li>');
 			}
+			// rage
+			// $('#progress-bar-bitcoin').attr('width': hub_usuario.rage);
+
+			// TweenMax.set("#progress-bar-bitcoin", {
+			// 	width: hub_usuario.rage,
+			// });
+			// TweenMax.staggerTo("#action-container", 1, {
+			// 	width: hub_usuario.rage,
+			// 	ease: Elastic.easeOut.config(1, 0.75),
+			// 	force3D: true
+			// });
 
 			// manejamos el ambiente segun la vida
 			a = (7 / hub_usuario.health) * 100;
@@ -2063,11 +2087,11 @@ $('#order_power_6').click(function() {
 		//para cualquier usuario
 		//leaderboard_view();
 		//developer info
-		developer_info();
+		
 
 		//user is online
 		if (Cookies('user_online') == "True") { cashier_search(); }
-		if (game['self']) { player_hub(); }
+		if (game['self']) { player_hub(); developer_info(); }
 	}, 100);
 
 	setInterval(function() {
