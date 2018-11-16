@@ -34,3 +34,15 @@ A multiplayer real time action challenge connected to the bitcoin network. No lu
 
 Thanks to the speed and efficiency provided by bitcoin switness and Green Addresses, the whole action is recorded for ever on the blockchain, as it happens. Bit of war is an online real time strategy game, connected to the bitcoin network.
 
+#De donde conseguir sonidos?
+
+- www.soundsnap.com
+- www.audioblocks.com
+- www.soundscrate.com
+- www.soundarchive.online
+- www.freesoundeffects.com
+
+#Manipulación de sonidos, creación de MP3
+
+- www.audacityteam.org
+- analyze sound, hace las divisiones, se hace un exp. de las selecciones.
