@@ -538,8 +538,16 @@ $(document).ready(function() {
 	/************************************************************/
 	/* función compra de powerups *******************************/
 
-	function show_upper_message(info) {
+	function show_upper_message(info, rage) {
 		$('#action-container span').html(info);
+		console.log(rage);
+		if (rage == 'rage') {
+			$('#action-container').addClass(rage);
+		}
+		else {
+			$('#action-container').removeClass('rage');	
+		};
+		
 		TweenMax.set("#action-container", {
 			opacity: 0,
 			top: '2vw',
@@ -569,6 +577,7 @@ $(document).ready(function() {
 			ease: Elastic.easeIn.config(1, 0.75),
 			force3D: true
 		});
+		// $('#action-container').removeClass(rage);
 	}
 
 	/************************************************************/
@@ -1115,12 +1124,13 @@ $('.music-settings-switch').click(function() {
 
 	/************************************************************/
 	/* Nos encargamos del Player Hub ****************************/
-
+var rage_informed = 0
 	function player_hub() {
 
 		// hide player hub when mouse hover
 		var bottomX = 410;
 		var bottomY = window.innerHeight - 220;
+		
 
 		$('#canvas').on( "mousemove", function( event ) {
 			if (event.pageX < bottomX && event.pageY > bottomY) {
@@ -1141,6 +1151,17 @@ $('.music-settings-switch').click(function() {
 			// console.log((hub_usuario.rage - 1 ) * 100 + '%');
 			$('#progress-bar-rage').css({width: (hub_usuario.rage - 1 ) * 100 + '%'});
 			//calculamos la salud perdida
+			console.log(hub_usuario.rage);
+			
+			
+			if (hub_usuario.rage >= 2 && rage_informed == 0) {
+				show_upper_message('massive rage unleashed', 'rage');
+				rage_informed = 1;
+			};
+			if (hub_usuario.rage < 2) {
+				rage_informed = 0;
+			};			
+
 			var emptyHealth = 20 - hub_usuario.health;
 			//salud
 			for (var i = 0; i < hub_usuario.health; ++i) {

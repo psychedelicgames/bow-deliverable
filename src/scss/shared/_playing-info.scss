@@ -178,7 +178,11 @@
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;	
+	user-select: none;
+	&.rage {
+		color: yellow;
+		font-size: 5.7vw !important;
+	}	
 	span.line {
 		display: block;
 	}
