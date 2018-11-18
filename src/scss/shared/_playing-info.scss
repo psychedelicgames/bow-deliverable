@@ -161,9 +161,10 @@
 	pointer-events: none !important;
 	opacity: 0;
 	top: 1vw;
+	width: 100%;
 	position: absolute;
-	left: 0px !important;
-	right: 0px !important;
+	// left: 0px !important;
+	// right: 0px !important;
 	text-align: center;
 	margin: 0 auto;
 	color: #fff;
@@ -180,7 +181,10 @@
 	-ms-user-select: none;
 	user-select: none;
 	&.rage {
-		color: #FFFF00;
+		color: #fff;
+		-webkit-animation: neon3 1s ease-in-out infinite alternate;
+		-moz-animation: neon3 1s ease-in-out infinite alternate;
+		animation: neon3 1s ease-in-out infinite alternate;
 		font-size: 5.7vw !important;
 	}	
 	span.line {

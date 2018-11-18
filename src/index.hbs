@@ -59,39 +59,42 @@
 			{{> includes/_layout/header }}
 			{{> includes/_layout/ui }}
 
-			{{!-- home page --}}
-			<div class="canvas-overlay"></div>
-			<div id="home" class="home">
-				{{> includes/_layout/menu }}
-				<section class="center-column">
+			{{!-- menu --}}
+
+			<section id="menu" class="menu">
+				<h5 class="menu-title">Main Menu</h5>
+				{{> includes/_layout/menu_left }}
+				<div class="menu-center">
 					{{!-- modals include --}}
-					{{> includes/_modals/home-logged }}
-					{{> includes/_modals/new-user }}
-					{{> includes/_modals/disconnect }}
-					{{> includes/_modals/back-home }}
-					{{> includes/_modals/online-players }}
-					{{> includes/_modals/rooms }}
-					{{> includes/_modals/settings }}
-					{{> includes/_modals/user-balance }}
-					{{> includes/_modals/leaderboard }}
-					{{> includes/_modals/cashier }}
-					{{> includes/_modals/template }}
-					{{> includes/_modals/credits }}
-					{{> includes/_modals/balance }}
-				</section>
-				{{> includes/_layout/right_column }}
-			</div>
+					{{> includes/_kards/home-logged }}
+					{{> includes/_kards/new-user }}
+					{{> includes/_kards/disconnect }}
+					{{> includes/_kards/back-home }}
+					{{> includes/_kards/online-players }}
+					{{> includes/_kards/rooms }}
+					{{> includes/_kards/settings }}
+					{{> includes/_kards/user-balance }}
+					{{> includes/_kards/leaderboard }}
+					{{> includes/_kards/cashier }}
+					{{> includes/_kards/template }}
+					{{> includes/_kards/credits }}
+					{{> includes/_kards/balance }}
+				</div>
+				{{> includes/_layout/menu_right }}
+				<span class="red-line"><img src="./img/red-line.png"></span>
+			</section>
 
 			{{!-- game itself --}}
-			<div id="canvas-container" class="canvas-container">
+			<section id="canvas-container" class="canvas-container">
+				<div class="canvas-overlay"></div>
 				{{> includes/_canvas-ui/player-hub }}
 				{{> includes/_canvas-ui/powerups-container }}
 				{{> includes/_canvas-ui/playing-info }}
 				<!-- <div class="canvas-effects"><img src="/public/img/game/ui/screen-broken1.svg"></div> -->
 				<canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
 				<canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
-			</div>
-<div id="leaderboard"></div>
+			</section>
+			<div id="leaderboard"></div>
 			{{!-- {{> includes/_layout/footer }} --}}
 
 		<!-- Bootstrap core JavaScript

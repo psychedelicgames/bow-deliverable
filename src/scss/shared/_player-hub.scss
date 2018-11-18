@@ -48,6 +48,14 @@
 		-webkit-transform: skewX(-16deg); /* Safari */
 		transform: skewX(-16deg); /* Standard syntax */
 		z-index: 210;
+		&.on-rage {
+			-webkit-animation: neon33 0.5s ease-in-out infinite alternate;
+			-moz-animation: neon33 0.5s ease-in-out infinite alternate;
+			animation: neon33 0.5s ease-in-out infinite alternate;
+			.progress .progress-bar {
+				color: #fff !important;
+			}
+		}
 		.progress {
 			background-color: #ffea95;
 			height: 6px;

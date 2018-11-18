@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	var socket = io('wss://clouds.bitofwar.com');
-	// var socket = io('wss://127.0.0.1');
+	// var socket = io('wss://clouds.bitofwar.com');
+	var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -116,7 +116,7 @@ $(document).ready(function() {
 						Cookies.set('user_online', 'True');
 						//escondemos el modal
 						$('*').modal('hide');
-						home_layout();
+						modals_manager('online-players');
 						//marcamos al usuario online
 						is_user_online();
 					}
@@ -184,7 +184,7 @@ $(document).ready(function() {
 				Cookies.set('user_address', feedback.user.address);
 				Cookies.set('user_online', 'True');
 				//marcamos al usuario online
-				home_layout();
+				modals_manager('online-players');
 				is_user_online();
 
 			}
@@ -207,34 +207,34 @@ $(document).ready(function() {
 
 	/******************************************************/
 	/* Fill home screen************************************/
-	function home_layout() {
+	// function home_layout() {
 
-		show_home();
+	// 	show_home();
 
-	}
+	// }
 
-	function show_home() {
+	// function show_home() {
 
-		if ( (Cookies('user_online') == "True") && ($('#home').css('display') == 'block')) {
-			user_balance_view();
-			leaderboard_view();
-			$('*').modal('hide');
-			$('#modal-home-logged').modal('show');
-		}
-		else {
-			console.log('cccc');
-		}
-	}
+	// 	if ( (Cookies('user_online') == "True") && ($('#home').css('display') == 'block')) {
+	// 		user_balance_view();
+	// 		leaderboard_view();
+	// 		$('*').modal('hide');
+	// 		$('#modal-home-logged').modal('show');
+	// 	}
+	// 	else {
+	// 		console.log('cccc');
+	// 	}
+	// }
 
 	/******************************************************/
 	/* Interface composer UI ******************************/
-	var chatHeight = $('.kard.chat').innerHeight();
-	$('.chat-display').height(chatHeight - 150);
+	// var chatHeight = $('.kard.chat').innerHeight();
+	// $('.chat-display').height(chatHeight - 150);
 
-	$(window).resize(function() {
-		var chatHeight = $('.kard.chat').innerHeight();
-		$('.chat-display').height(chatHeight - 150);		
-	});
+	// $(window).resize(function() {
+	// 	var chatHeight = $('.kard.chat').innerHeight();
+	// 	$('.chat-display').height(chatHeight - 150);		
+	// });
 
 	/******************************************************/
 	/* Kards manager **************************************/
@@ -242,6 +242,9 @@ $(document).ready(function() {
 	// track which show modal button and send to modals_manager
 	$('.modal-manager').click(function() {
 		var elementClicked = this.getAttribute('href').split('#')[1];
+		$('*').removeClass('menu-active');
+		$(this).addClass('menu-active');
+		$('.modal-manager.' + elementClicked).addClass('menu-active');
 		modals_manager(elementClicked);
 	});
 
@@ -255,13 +258,12 @@ $(document).ready(function() {
 			force3D: true
 		});
 		$('*').removeClass('show');
-		$('.center-column').css({'display': 'none'});
-		console.log('closeee');
 	});
 
 	function modals_manager(modal) {
 
-		// if user online preload modal contents
+		$('.menu').css({'display':'flex'});
+
 		if (Cookies('user_online') == "True") {
 			user_balance_view();
 			user_mfa_show();
@@ -272,10 +274,7 @@ $(document).ready(function() {
 		// manage show and hide modals
 		if ( $('.kard-' + modal).css('display') == 'none' ) {
 			$('*').removeClass('show');
-			$('.center-column').css({'display': 'block'});
-			// $('#kard-settings .kard-info').height(530);
-			$('#kard-' + modal).addClass('show');	
-			console.log('no tiene' + modal);
+			$('#kard-' + modal).addClass('show');
 
 			// TweenMax.set('.kard-modal:not(.show)', {
 			// 	opacity: 1,
@@ -325,9 +324,6 @@ $(document).ready(function() {
 			TweenMax.to('.kard-modal:not(.show)', 0.5, {
 				opacity: 0,
 				display: 'none',
-				scale: 0.7,
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true
 			});	
 
 			// TweenMax.set('.kard-modal.show', {
@@ -341,10 +337,7 @@ $(document).ready(function() {
 			TweenMax.staggerTo('.kard-modal.show', 0.7, {
 				opacity: 1,
 				display: 'block',
-				scale: 1,
 				delay: 0.5,
-				ease: Elastic.easeOut.config(1, 0.75),
-				force3D: true
 			});
 			// TweenMax.staggerTo('.kard-modal.show', 1, {
 			// 	opacity: 1,
@@ -464,10 +457,8 @@ $(document).ready(function() {
 				is_user_online();
 				$('#canvas-container').css({'display': 'block'});
 				// $('#home').css({'display': 'none'});
-				$('.left-column').css({'display': 'none'});
-				$('.center-column').css({'display': 'none'});
-				$('.right-column').css({'display': 'none'});
-				$('*').removeClass('show');
+				$('.menu').css({'display': 'none'});
+				// $('*').removeClass('show');
 				// cargamos el hub
 				player_hub();
 				//completamos el grafico de forma cabeza
@@ -542,34 +533,32 @@ $(document).ready(function() {
 		$('#action-container span').text('massive rage unleashed');
 		TweenMax.set("#action-container", {
 			opacity: 0,
-			top: '2vw',
-			scale: 5,
+			top: '8vw',
+			scale: 8,
 			className: '+=rage',
-			textShadow:"0px 0px 0px rgba(255,255,0,0)",
 		});
 
 		TweenMax.staggerTo("#action-container", 1, {
-			scale: 1.2,
+			scale: 2,
 			opacity: 1,
-			textShadow:"5px 5px 80px rgba(255,255,0,1)",
 			delay: 0.2,
 			ease: Elastic.easeOut.config(1, 0.75),
 			force3D: true
 		});
 
 		TweenMax.staggerTo("#action-container", 0.6, {
-			textShadow:"5px 5px 15px rgba(255,255,0,0.5)",
-			delay: 0.4
+			delay: 0.4,
+			opacity: 1,
 		});
 
-		TweenMax.staggerTo("#action-container", 0.2, {
+		TweenMax.staggerTo("#action-container", 1, {
 			opacity: 0,
-			textShadow:"0px 0px 0px rgba(255,255,0,0)",
-			delay: 1.9,
-			scale: 5,
-			// ease: Elastic.easeOut.config(1, 0.75),
+			delay: 2.9,
+			scale: 1,
+			ease: Elastic.easeOut.config(1, 0.75),
 			force3D: true
-		});	
+		});
+		$('.rage-line').addClass('on-rage');
 	}
 
 	/************************************************************/
@@ -580,6 +569,7 @@ $(document).ready(function() {
 
 		TweenMax.set("#action-container", {
 			opacity: 0,
+			left: '0%',
 			top: '2vw',
 			scale: 3,
 			className: '-=rage',
@@ -1188,6 +1178,7 @@ $(document).ready(function() {
 			};
 			if (hub_usuario.rage < 2) {
 				rage_informed = 0;
+				$('.rage-line').removeClass('on-rage');
 			};			
 
 			var emptyHealth = 20 - hub_usuario.health;
@@ -1429,6 +1420,7 @@ $(document).ready(function() {
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
 		var password = Cookies('user_password');
+		$('.username').text(username);
 
 		socket.emit('user-overview', { username: username, password: password }, function(feedback) {
 		//hacer cosas con la información? o no hacer nada... siempre dice done.
@@ -1462,6 +1454,16 @@ $(document).ready(function() {
 
 			// populamos el nombre en el parrafo
 			$('#username_text').text(feedback.user.username + '!');
+
+			if (feedback.user.condicion == 'online') {
+				$('.avatar-container .stats .fa-circle').addClass('x-color-green');
+				$('.user-status').addClass('x-color-green');
+			}
+			else {
+				$('.avatar-container .stats .fa-circle').removeClass('x-color-green');
+				$('.user-status').removeClass('x-color-green');
+			}
+			$('.user-status').text(feedback.user.condicion);
 
 			var row = '';
 			row += '<tr>';
@@ -1808,29 +1810,29 @@ $(document).ready(function() {
 		Cookies.expire('user_online');
 		Cookies.expire('user_address');
 		is_user_online();
-		$('*').modal('hide');
-		$('#modal-new-user').modal('show');
+		// $('*').modal('hide');
+		// $('#modal-new-user').modal('show');
 	}
 
 	/************************************************************/
 	/* Volver a casa ********************************************/
 
-	function go_home() {
-		//sacamos los sonidos
-		sounds['./audio/cardio.mp3'].pause();
-		sounds['./audio/buzz.mp3'].pause();
-		//la musica
-		sound_bg.pause();
-		//desenchufamos al usuario,
-		var previa = socket.disconnect();
-		previa.open();
-		$('#home').focus();
-		$('#canvas-container').css({'display': 'none'});
-		$('#home').css({'display': 'block'});
-		is_user_online();
-		$('*').modal('hide');
-		home_layout();
-	}
+	// function go_home() {
+	// 	//sacamos los sonidos
+	// 	sounds['./audio/cardio.mp3'].pause();
+	// 	sounds['./audio/buzz.mp3'].pause();
+	// 	//la musica
+	// 	sound_bg.pause();
+	// 	//desenchufamos al usuario,
+	// 	var previa = socket.disconnect();
+	// 	previa.open();
+	// 	$('#home').focus();
+	// 	$('#canvas-container').css({'display': 'none'});
+	// 	$('#home').css({'display': 'block'});
+	// 	is_user_online();
+	// 	$('*').modal('hide');
+	// 	home_layout();
+	// }
 
 	/************************************************************/
 	/* Modals open & close **************************************/
@@ -1957,10 +1959,10 @@ $(document).ready(function() {
 	/************************************************************/
 	/* price up! ************************************************/
 
-	function push_price_up(order) {
-		$('#' + order + ' .price-pop').animate({top: '-20px', opacity: '1'}, "fast").delay( 800 );
-		$('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
-	}
+	// function push_price_up(order) {
+	// 	$('#' + order + ' .price-pop').animate({top: '-20px', opacity: '1'}, "fast").delay( 800 );
+	// 	$('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
+	// }
 
 	/************************************************************/
 	/* powerup counter and info! ********************************/
@@ -2047,30 +2049,30 @@ $(document).ready(function() {
 /************************************************************/
 /* Compra de powerups con el mouse **************************/
 
-$('#order_power_1').click(function() {
-	order_power('49');
-	$('#canvas').focus();
-});
-$('#order_power_2').click(function() {
-	order_power('50');
-	$('#canvas').focus();
-});
-$('#order_power_3').click(function() {
-	order_power('51');
-	$('#canvas').focus();
-});
-$('#order_power_4').click(function() {
-	order_power('52');
-	$('#canvas').focus();
-});
-$('#order_power_5').click(function() {
-	order_power('53');
-	$('#canvas').focus();
-});
-$('#order_power_6').click(function() {
-	order_power('54');
-	$('#canvas').focus();
-});
+	$('#order_power_1').click(function() {
+		order_power('49');
+		$('#canvas').focus();
+	});
+	$('#order_power_2').click(function() {
+		order_power('50');
+		$('#canvas').focus();
+	});
+	$('#order_power_3').click(function() {
+		order_power('51');
+		$('#canvas').focus();
+	});
+	$('#order_power_4').click(function() {
+		order_power('52');
+		$('#canvas').focus();
+	});
+	$('#order_power_5').click(function() {
+		order_power('53');
+		$('#canvas').focus();
+	});
+	$('#order_power_6').click(function() {
+		order_power('54');
+		$('#canvas').focus();
+	});
 
 
 /************************************************************/
@@ -2160,7 +2162,7 @@ $('#order_power_6').click(function() {
 
 	$('#close-session-modal-btn').click(session_close);
 	$('#recover-password').click(recover_pass);
-	$('.go-home-modal-btn').click(go_home);
+	// $('.go-home-modal-btn').click(go_home);
 
 	$('#name-submit').click(user_login);
 	$('#name-create').click(user_new);
@@ -2182,7 +2184,8 @@ $('#order_power_6').click(function() {
 
 	//puede quedar al final
 	is_user_online();
-	home_layout();
+	
+	modals_manager('online-players');
 
 	//mandamos helpers
 //   tippy('.helpers', {

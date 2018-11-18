@@ -1,0 +1,137 @@
+<!-- Modal Settings -->
+<div id="kard-settings" class="kard-modal kard-settings">
+	<div class="kard">
+		<div class="kard-info">
+			<div class="kard-header">
+				<h5 class="kard-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="1">2FA</span><span data-tab-link="2">Settings</span></h5>
+			</div>				
+			<div class="kard-body">
+				<div class="container">
+					<div class="custom-tabs">
+
+						{{!-- vamos cambiando --}}
+						<div id="kard-settings-overview" class="active" data-tab="1">
+							<div class="row">
+								<div class="col-12">
+									<p class="mb-4">
+										<b>Hey <span id="username_text"><span>!</b> This is your personal user panel, from this section you can view your user information, change your email address and password.
+									</p>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+										</div>
+										<input id="user_overview_email" type="text" class="form-control" aria-label="username" disabled>
+										<div class="input-group-append">
+											<span id="user_overview_email_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
+										</div>										
+									</div>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="fas fa-key"></i></span>
+										</div>
+										<input id="user_overview_email_edit" type="password" class="form-control" placeholder="password" aria-label="password" disabled>
+										<div class="input-group-append">
+											<span id="user_overview_password_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
+										</div>
+									</div>
+									<table class="table table-striped" class="user-statistics">
+										<tbody id="user_statistics">
+											<!-- user overview -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>								
+						{{!-- hasta aca --}}
+
+						{{!-- vamos cambiando --}}
+						<div id="kard-settings-2fa" data-tab="2">
+							<div class="row">						
+								<div class="col-6">
+									<div class="row mb-4">
+										<div id="qrcode_mfa"></div>
+									</div>
+									<div class="row">
+										<h5 class="kard-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="row mb-4">
+										<p>
+											Scan the QR code with your authenticator app, we recommend Authenticator. In case you have any problem with the code, you can manually enter the secret shown.
+										</p>
+										<p>
+											Once your phone is syncronized, please complete the form with your username, password and the provided time based token.
+										</p>
+									</div>
+									<div class="row mb-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+											</div>
+											<input id="2fa-username" type="text" class="form-control" placeholder="username" aria-label="username">
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fas fa-key"></i></span>
+											</div>
+											<input id="2fa-password" type="password" class="form-control" placeholder="password" aria-label="password">
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fas fa-lock"></i></span>
+											</div>
+											<input id="user-mfa-code" type="text" class="form-control" placeholder="multifactor" aria-label="multifactor">
+										</div>
+									</div>
+								</div>
+								<div class="kard-footer">
+									<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
+								</div>
+							</div>
+						</div>
+						{{!-- hasta aca --}}
+
+						{{!-- vamos cambiando --}}
+						<div id="kard-settings-ux" data-tab="3">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-striped">
+										<tbody>
+											<tr>
+												<td>Activate developer's info</td>
+												<td>
+													<div class="switch">
+														<i id="developer-switch" class="fal fa-square"></i>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>Rain</td>
+												<td>
+													<div class="switch">
+														<i id="rain-switch" class="fal fa-check-square"></i>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>Music</td>
+												<td>
+													<div class="switch music-settings-switch">
+														<i class="fal fa-check-square"></i>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>										
+								</div>
+							</div>
+						</div>								
+						{{!-- hasta aca --}}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
