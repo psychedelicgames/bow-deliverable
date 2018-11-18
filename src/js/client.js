@@ -1464,6 +1464,7 @@ $(document).ready(function() {
 				$('.user-status').removeClass('x-color-green');
 			}
 			$('.user-status').text(feedback.user.condicion);
+			console.log(feedback.user.condicion);
 
 			var row = '';
 			row += '<tr>';

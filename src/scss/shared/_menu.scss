@@ -88,16 +88,20 @@ section.menu {
 	flex-direction: column;
 	padding-top: 40px;
 	.avatar-container {
-		background-color: #090b0d;
+		background: rgb(7,9,10);
+		background: -moz-linear-gradient(top, rgba(7,9,10,1) 0%, rgba(11,14,16,1) 100%);
+		background: -webkit-linear-gradient(top, rgba(7,9,10,1) 0%,rgba(11,14,16,1) 100%);
+		background: linear-gradient(to bottom, rgba(7,9,10,1) 0%,rgba(11,14,16,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#07090a', endColorstr='#0b0e10',GradientType=0 );
 		color: #fff;
 		display: flex;
-	    padding: 5px 0px 5px 15px;
+	    padding: 13px 0 17px 15px;
 		.image {
 			// display: inline-block;
 		}
 		.line {
 			display: block;
-			margin: 7px 0px 7px -50px;
+			margin: 6px 0 8px -50px;
 		}
 		.info {
 			padding-left: 20px;
@@ -317,7 +321,8 @@ section.menu {
 			color: $color-one;
 			filter: blur(0);
 		}					
-	}		
+	}
+
 	.kard-info {
 		padding: 50px 25px;
 		height: 100%;
@@ -360,9 +365,11 @@ section.menu {
 					text-align: center;
 				}
 			}
+			table.table-leaderboard {
+				margin-top: -10px;
+			}
 			table{
 				border-bottom: 1px solid $color-grey-dark;
-				// margin: 20px 0px 40px;
 				thead {
 
 				}
