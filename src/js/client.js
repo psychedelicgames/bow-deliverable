@@ -390,8 +390,10 @@ $(document).ready(function() {
 		// detect if user is logged to preload the info
 		if (Cookies('user_online') == "True") {
 			user_balance_view();
-			user_mfa_show();
 			user_overview();
+			if (modal == 'settings') {
+				user_mfa_show();
+			}
 		}
 		leaderboard_view();
 
