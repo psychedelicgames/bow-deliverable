@@ -681,6 +681,10 @@ $(document).ready(function() {
 			ease: Elastic.easeOut.config(1, 0.75),
 			force3D: true
 		});
+		TweenMax.staggerTo("#action-container", 1, {
+			className: '-=rage',
+			delay: 3.9
+		});		
 		$('.rage-line').addClass('on-rage');
 	}
 
@@ -1403,6 +1407,7 @@ $(document).ready(function() {
 				opacity: 0,
 				top: '2vw',
 				scale: 1,
+				className: '-=rage',
 				textShadow: "0px 0px 0px rgba(0,0,0,0)"
 			});
 			TweenMax.staggerTo("#action-container", 1, {
