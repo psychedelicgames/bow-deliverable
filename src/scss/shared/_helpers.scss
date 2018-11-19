@@ -229,10 +229,10 @@ input:focus, input:active {
 }
 @-webkit-keyframes neon33 {
   from {
-    box-shadow: 0 0 40px $color-one, 0 0 50px $color-one, 0 0 60px $color-one, 0 0 70px $color-one, 0 0 90px $color-one, 0 0 90px $color-one, 0 0 100px $color-one, 0 0 150px $color-one;
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
   }
   to {
-    box-shadow: 0 0 5px $color-one, 0 0 5px $color-one, 0 0 10px $color-one, 0 0 15px $color-one, 0 0 10px $color-one, 0 0 18px $color-one, 0 0 12px $color-one, 0 0 25px $color-one;
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
   }
 }
 /* ======================================
