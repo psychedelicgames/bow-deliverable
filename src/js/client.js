@@ -387,6 +387,9 @@ $(document).ready(function() {
 
 	function modals_manager(modal) {
 		
+		if ( $('body').hasClass('playing')) {
+			modals_switch();
+		};
 		$('*').removeClass('menu-active');
 		$('.modal-manager.' + modal).addClass('menu-active');
 		$('.menu').addClass('menu-on');
