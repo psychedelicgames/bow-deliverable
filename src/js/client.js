@@ -253,6 +253,7 @@ $(document).ready(function() {
 				force3D: true
 			});
 
+
 		} else {
 			TweenMax.to('.menu-overlay', 0.5, {
 				css: {opacity:"0", display:"none"},
@@ -2296,7 +2297,7 @@ $(document).ready(function() {
 	// refresh password on modal new user
 	$('#refresh-password').click(cookpassword);
 
-	$('#close-session-modal-btn').click(session_close);
+	$('.btn-go-menu').click(session_close);
 	$('#recover-password').click(recover_pass);
 	// $('.go-home-modal-btn').click(go_home);
 
