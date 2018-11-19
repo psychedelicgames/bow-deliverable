@@ -3,51 +3,16 @@
 	<div class="kard">
 		<div class="kard-info">
 			<div class="kard-header">
-				<h5 class="kard-subtitle-navigation"><span class="active" data-tab-link="0">Overview</span><span data-tab-link="1">2FA</span><span data-tab-link="2">Settings</span></h5>
+				<h5 class="kard-subtitle-navigation"><span class="active" data-tab-link="0">2FA</span><span data-tab-link="1">Settings</span></h5>
 			</div>				
 			<div class="kard-body">
 				<div class="container">
 					<div class="custom-tabs">
 
 						{{!-- vamos cambiando --}}
-						<div id="kard-settings-overview" class="active" data-tab="1">
-							<div class="row">
-								<div class="col-12">
-									<p class="mb-4">
-										<b>Hey <span id="username_text"><span>!</b> This is your personal user panel, from this section you can view your user information, change your email address and password.
-									</p>
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text"><i class="fas fa-envelope"></i></span>
-										</div>
-										<input id="user_overview_email" type="text" class="form-control" aria-label="username" disabled>
-										<div class="input-group-append">
-											<span id="user_overview_email_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
-										</div>										
-									</div>
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text"><i class="fas fa-key"></i></span>
-										</div>
-										<input id="user_overview_email_edit" type="password" class="form-control" placeholder="password" aria-label="password" disabled>
-										<div class="input-group-append">
-											<span id="user_overview_password_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
-										</div>
-									</div>
-									<table class="table table-striped" class="user-statistics">
-										<tbody id="user_statistics">
-											<!-- user overview -->
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>								
-						{{!-- hasta aca --}}
-
-						{{!-- vamos cambiando --}}
-						<div id="kard-settings-2fa" data-tab="2">
+						<div id="kard-settings-2fa" class="active" data-tab="0">
 							<div class="row">						
-								<div class="col-6">
+								<div class="col-xl-6">
 									<div class="row mb-4">
 										<div id="qrcode_mfa"></div>
 									</div>
@@ -55,7 +20,7 @@
 										<h5 class="kard-subtitle">Having Issues? <span id="user-mfa-recover" class="color-accent"></span></h5>
 									</div>
 								</div>
-								<div class="col-6">
+								<div class="col-xl-6">
 									<div class="row mb-4">
 										<p>
 											Scan the QR code with your authenticator app, we recommend Authenticator. In case you have any problem with the code, you can manually enter the secret shown.
@@ -93,7 +58,7 @@
 						{{!-- hasta aca --}}
 
 						{{!-- vamos cambiando --}}
-						<div id="kard-settings-ux" data-tab="3">
+						<div id="kard-settings-ux" data-tab="1">
 							<div class="row">
 								<div class="col-12">
 									<table class="table table-striped">

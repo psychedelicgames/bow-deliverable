@@ -239,31 +239,155 @@ $(document).ready(function() {
 	/******************************************************/
 	/* Kards manager **************************************/
 
-	// track which show modal button and send to modals_manager
+	// track which section tab clicked
 	$('.modal-manager').click(function() {
 		var elementClicked = this.getAttribute('href').split('#')[1];
-		$('*').removeClass('menu-active');
-		$(this).addClass('menu-active');
-		$('.modal-manager.' + elementClicked).addClass('menu-active');
 		modals_manager(elementClicked);
 	});
 
-	// track which close modal button and send to modals_manager
-	$('.kard-close').click(function() {
-		TweenMax.to('.kard-modal.show', 0.5, {
-			opacity: 0,
-			display: 'none',
-			scale: 0.7,
-			ease: Elastic.easeIn.config(1, 0.75),
-			force3D: true
-		});
-		$('*').removeClass('show');
+	function modals_switch() {
+		if ( $('body').hasClass('playing')) {
+			TweenMax.to('.menu-overlay', 0.5, {
+				css: {opacity:"1", display:"block"},
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});
+
+		} else {
+			TweenMax.to('.menu-overlay', 0.5, {
+				css: {opacity:"0", display:"none"},
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});
+		}
+		if ( $('.menu').css('display') == 'flex' ) {
+
+			TweenMax.set('.menu-title', {
+				opacity: 1,
+				scale: 1,
+				top: '0px',
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});
+			TweenMax.to('.menu-title', 0.5, {
+				opacity: 0,
+				scale: 0.7,
+				top: '50px',
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});
+
+			TweenMax.set('.red-line img', {
+				opacity: 1,
+				width: '100%',
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});
+			TweenMax.to('.red-line img', 0.5, {
+				opacity: 0.5,
+				width: '0%',
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});			
+
+			TweenMax.set('.menu', {
+				opacity: 1,
+				scale: 1,
+				ease: Elastic.easeIn.config(1, 0.75),
+				force3D: true
+			});
+			TweenMax.to('.menu', 0.5, {
+				opacity: 0,
+				scale: 0.7,
+				ease: Elastic.easeIn.config(1, 0.75),
+				force3D: true
+			});
+			TweenMax.to('.menu', 0.1, {
+				delay: 0.5,
+				className: '-=menu-on'
+			});
+
+			TweenMax.to('.menu-overlay', 0.5, {
+				delay: 0.5,
+				css: {opacity:"0", display:"none"},
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});
+
+		}
+		else {
+
+			TweenMax.set('.menu-title', {
+				opacity: 0,
+				scale: 0.7,
+				top: '50px',
+				ease: Elastic.easeIn.config(1, 0.75),
+				force3D: true
+			});
+			TweenMax.to('.menu-title', 0.5, {
+				opacity: 1,
+				scale: 1,
+				top: '0px',
+				ease: Elastic.easeIn.config(1, 0.75),
+				force3D: true
+			});
+
+			TweenMax.set('.red-line img', {
+				opacity: 0.5,
+				width: '0%',
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});
+			TweenMax.to('.red-line img', 0.5, {
+				opacity: 1,
+				width: '100%',
+				ease: Elastic.easeInOut.config(1, 0.75),
+				force3D: true
+			});				
+
+			TweenMax.to('.menu', 0.1, {
+				opacity: 0,
+				className: '+=menu-on'
+			});			
+			TweenMax.to('.menu', 0.5, {
+				delay: 0.1,
+				opacity: 1,
+				scale: 1,
+				ease: Elastic.easeOut.config(1, 0.75),
+				force3D: true
+			});		
+		};
+	}
+
+	// create array with all sections
+	var sections = [];
+
+	$('.menu-left ul li a').each(function() {
+		var thisSection = $( this ).attr('href').split('#')[1];
+		sections.push(thisSection);
 	});
 
+	// check url to manage menu 
+	var url = $(location).attr('href').split('#')[1];
+
+	if (url && ($.inArray(url, sections) > 0)) {
+		$('*').removeClass('menu-active');
+		modals_manager(url);
+	}
+	else {
+		$('*').removeClass('menu-active');
+		modals_manager('online-players');
+		$(location).attr('href', '#online-players');
+	};
+	
+
 	function modals_manager(modal) {
+		
+		$('*').removeClass('menu-active');
+		$('.modal-manager.' + modal).addClass('menu-active');
+		$('.menu').addClass('menu-on');
 
-		$('.menu').css({'display':'flex'});
-
+		// detect if user is logged to preload the info
 		if (Cookies('user_online') == "True") {
 			user_balance_view();
 			user_mfa_show();
@@ -454,13 +578,13 @@ $(document).ready(function() {
 			//si no hizo cosas raras
 			if(feedback.advice == 'Welcome.') {
 				//cerramos el modal y realizamos operaciones gráficas.
-				is_user_online();
+				// is_user_online();
 				$('#canvas-container').css({'display': 'block'});
-				// $('#home').css({'display': 'none'});
-				$('.menu').css({'display': 'none'});
-				// $('*').removeClass('show');
+				$('.menu').removeClass('menu-on');
 				// cargamos el hub
 				player_hub();
+				$(location).attr('href','#play');
+				$('body').addClass('playing');
 				//completamos el grafico de forma cabeza
 				user_balance_view();
 				$('.powerups-info .title span').text('5');
@@ -488,7 +612,7 @@ $(document).ready(function() {
 		// comienza el game
 		game.animate();
 		// marcamos al usuario online
-		is_user_online();
+		// is_user_online();
 		// lanzamos música de fondo
 		sound_bg.play();
 	}
@@ -509,7 +633,6 @@ $(document).ready(function() {
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
 			$('body').addClass('user-logged');
-			$('*').modal('hide');
 			// home_layout();
 			//armamos el QR con su dirección
 			$('#qrcode_personal_address').text('');
@@ -519,9 +642,6 @@ $(document).ready(function() {
 		else {
 			$(".user-online").css({ "display": "none" });
 			$(".user-offline").css({ "display": "inherit" });
-			$('*').modal('hide');
-			$('#modal-new-user').modal('show');
-			$('#modal-home-logged').modal('hide');
 		};
 	};
 
@@ -1457,14 +1577,14 @@ $(document).ready(function() {
 
 			if (feedback.user.condicion == 'online') {
 				$('.avatar-container .stats .fa-circle').addClass('x-color-green');
-				$('.user-status').addClass('x-color-green');
+				// $('.user-status').addClass('x-color-green');
 			}
 			else {
 				$('.avatar-container .stats .fa-circle').removeClass('x-color-green');
-				$('.user-status').removeClass('x-color-green');
+				// $('.user-status').removeClass('x-color-green');
 			}
 			$('.user-status').text(feedback.user.condicion);
-			console.log(feedback.user.condicion);
+			// console.log(feedback.user);
 
 			var row = '';
 			row += '<tr>';
@@ -2117,12 +2237,27 @@ $(document).ready(function() {
 			// show powerups
 			case 16: show_powerups(), rage_state();
 			break;
+			// show menu
+			case 27: modals_switch();
+			break;				
 			//salimos del handler
 			default: return;
 		}
 		//prevenimos las convencionales
 		e.preventDefault();
 	});
+
+	$('body').keydown(function(e) {
+		switch(e.which) {
+			// show menu
+			case 27: modals_switch();
+			break;	
+			//salimos del handler
+			default: return;
+		}
+		//prevenimos las convencionales
+		e.preventDefault();
+	});	
 
 	//Tabulador hodl
 	//$('#canvas').keydown(function(e) { if (e.which == 9) { e.preventDefault(); $('#sidebar').show(); } });
@@ -2186,7 +2321,7 @@ $(document).ready(function() {
 	//puede quedar al final
 	is_user_online();
 	
-	modals_manager('online-players');
+	// modals_manager('online-players');
 
 	//mandamos helpers
 //   tippy('.helpers', {
