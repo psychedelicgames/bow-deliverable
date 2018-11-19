@@ -1934,29 +1934,24 @@ $(document).ready(function() {
 		Cookies.expire('user_online');
 		Cookies.expire('user_address');
 		is_user_online();
-		// $('*').modal('hide');
-		// $('#modal-new-user').modal('show');
 	}
 
 	/************************************************************/
 	/* Volver a casa ********************************************/
 
-	// function go_home() {
-	// 	//sacamos los sonidos
-	// 	sounds['./audio/cardio.mp3'].pause();
-	// 	sounds['./audio/buzz.mp3'].pause();
-	// 	//la musica
-	// 	sound_bg.pause();
-	// 	//desenchufamos al usuario,
-	// 	var previa = socket.disconnect();
-	// 	previa.open();
-	// 	$('#home').focus();
-	// 	$('#canvas-container').css({'display': 'none'});
-	// 	$('#home').css({'display': 'block'});
-	// 	is_user_online();
-	// 	$('*').modal('hide');
-	// 	home_layout();
-	// }
+	function go_home() {
+		//sacamos los sonidos
+		sounds['./audio/cardio.mp3'].pause();
+		sounds['./audio/buzz.mp3'].pause();
+		//la musica
+		sound_bg.pause();
+		//desenchufamos al usuario,
+		var previa = socket.disconnect();
+		previa.open();
+		$('#canvas-container').css({'display': 'none'});
+		$('.menu').addClass('menu-on');
+		is_user_online();
+	}
 
 	/************************************************************/
 	/* Modals open & close **************************************/
@@ -2299,9 +2294,9 @@ $(document).ready(function() {
 	// refresh password on modal new user
 	$('#refresh-password').click(cookpassword);
 
-	$('.btn-go-menu').click(session_close);
+	$('.btn-disconnect').click(session_close);
+	$('.btn-go-menu').click(go_home);
 	$('#recover-password').click(recover_pass);
-	// $('.go-home-modal-btn').click(go_home);
 
 	$('#name-submit').click(user_login);
 	$('#name-create').click(user_new);
