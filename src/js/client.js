@@ -115,8 +115,7 @@ $(document).ready(function() {
 						Cookies.set('user_address', feedback.user.address);
 						Cookies.set('user_online', 'True');
 						//escondemos el modal
-						$('*').modal('hide');
-						modals_manager('online-players');
+						// modals_manager('online-players');
 						//marcamos al usuario online
 						is_user_online();
 					}
@@ -184,7 +183,7 @@ $(document).ready(function() {
 				Cookies.set('user_address', feedback.user.address);
 				Cookies.set('user_online', 'True');
 				//marcamos al usuario online
-				modals_manager('online-players');
+				// modals_manager('online-players');
 				is_user_online();
 
 			}
@@ -377,9 +376,9 @@ $(document).ready(function() {
 	}
 	else {
 		$('*').removeClass('menu-active');
-		modals_manager('online-players');
-		$(location).attr('href', '#online-players');
+		is_user_online();
 	};
+
 	
 
 	function modals_manager(modal) {
@@ -638,11 +637,14 @@ $(document).ready(function() {
 			//armamos el QR con su dirección
 			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
-			// user_log();
+			modals_manager('online-players');
+			$(location).attr('href', '#online-players');
 		}
 		else {
 			$(".user-online").css({ "display": "none" });
 			$(".user-offline").css({ "display": "inherit" });
+			modals_manager('new-user');
+			$(location).attr('href', '#new-user');
 		};
 	};
 

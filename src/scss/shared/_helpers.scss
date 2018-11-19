@@ -37,6 +37,10 @@
 	background: linear-gradient(to bottom, rgba(160,22,22,1) 0%,rgba(170,17,17,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a01616', endColorstr='#aa1111',GradientType=0 );
 }
+.btn.btn-black {
+	background: #000 !important;
+	color: #fff !important;
+}
 .tooltip {
 	opacity: 0.2;
 	.arrow::before {
@@ -97,16 +101,15 @@ input:focus, input:active {
 	clear: both;
 }
 .x-padding-md {
-	height: 100px;
+	height: 80px;
 	clear: both;
 }
 .x-padding-sm {
-	height: 50px;
-	height: 2vh;
+	height: 40px;
 	clear: both;
 }
 .x-padding-xs {
-	height: 30px;
+	height: 20px;
 	clear: both;
 }
 

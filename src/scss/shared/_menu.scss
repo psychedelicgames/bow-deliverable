@@ -189,11 +189,12 @@ section.menu {
 
 	}
 	&.kard-new-user {
-		#resume-container {
-			display: none;
+		.resume {
+			background-color: rgb(11, 15, 17);
+			padding: 20px;
 		}
 		p {
-			margin-top: 30px;
+			margin-top: 10px;
 		}
 	}
 	&.kard-credits {
