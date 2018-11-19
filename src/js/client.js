@@ -370,10 +370,14 @@ $(document).ready(function() {
 
 		// check url to manage menu 
 		var url = $(location).attr('href').split('#')[1];
-		console.log($.inArray(url, sections));
+		console.log(url);
 		if (url && ($.inArray(url, sections) >= 0)) {
 			$('*').removeClass('menu-active');
 			modals_manager(url);
+		}
+		else if (typeof url === 'undefined') {
+			$('*').removeClass('menu-active');
+			modals_manager('online-players');
 		}
 		else {
 			$('*').removeClass('menu-active');
