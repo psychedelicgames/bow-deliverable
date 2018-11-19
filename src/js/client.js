@@ -166,10 +166,7 @@ $(document).ready(function() {
 				// console.log(feedback.advice);
 			}
 			//si el usuario es válido
-			else {
-				//escondemos el modal
-				$('#modal-new-user').modal('hide');
-
+			else {;
 				clear_modal_login();
 				//calculamos la coma en 2
 				//feedback.user.balance_usd = feedback.user.balance_usd.toFixed(2);
@@ -184,6 +181,7 @@ $(document).ready(function() {
 				Cookies.set('user_online', 'True');
 				//marcamos al usuario online
 				// modals_manager('online-players');
+				$(location).attr('href', '#online-players');
 				is_user_online();
 
 			}
@@ -359,27 +357,29 @@ $(document).ready(function() {
 		};
 	}
 
-	// create array with all sections
-	var sections = [];
-
-	$('.menu-left ul li a').each(function() {
-		var thisSection = $( this ).attr('href').split('#')[1];
-		sections.push(thisSection);
-	});
-
-	// check url to manage menu 
-	var url = $(location).attr('href').split('#')[1];
-
-	if (url && ($.inArray(url, sections) > 0)) {
-		$('*').removeClass('menu-active');
-		modals_manager(url);
-	}
-	else {
-		$('*').removeClass('menu-active');
-		is_user_online();
-	};
-
 	
+	function url_worker() {
+		
+		// create array with all sections	
+		var sections = [];
+
+		$('.menu-left ul li a').each(function() {
+			var thisSection = $( this ).attr('href').split('#')[1];
+			sections.push(thisSection);
+		});
+
+		// check url to manage menu 
+		var url = $(location).attr('href').split('#')[1];
+		console.log($.inArray(url, sections));
+		if (url && ($.inArray(url, sections) >= 0)) {
+			$('*').removeClass('menu-active');
+			modals_manager(url);
+		}
+		else {
+			$('*').removeClass('menu-active');
+			modals_manager('credits');
+		};
+	}
 
 	function modals_manager(modal) {
 		
@@ -492,33 +492,33 @@ $(document).ready(function() {
 		// }
 	}
 
-	$('#kard-new-user-resume').click(function() {
-		$('#resume-container').css({'display': 'block'});
-		$('#kard-new-user-resume').removeClass('unselected');
-		$('#register-container').css({'display': 'none'});
-		$('#kard-new-user-register').addClass('unselected');
-		$('#alert-message-resume').text('');
-		$('#alert-message-register').text('');
-	});
+	// $('#kard-new-user-resume').click(function() {
+	// 	$('#resume-container').css({'display': 'block'});
+	// 	$('#kard-new-user-resume').removeClass('unselected');
+	// 	$('#register-container').css({'display': 'none'});
+	// 	$('#kard-new-user-register').addClass('unselected');
+	// 	$('#alert-message-resume').text('');
+	// 	$('#alert-message-register').text('');
+	// });
 
-	$('#kard-new-user-register').click(function() {
-		$('#register-container').css({'display': 'block'});
-		$('#kard-new-user-register').removeClass('unselected');
-		$('#resume-container').css({'display': 'none'});
-		$('#kard-new-user-resume').addClass('unselected');
-	});
-	$('#modal-new-user').on('hidden.bs.modal', function (e) {
-		clear_modal_login();
-	});
+	// $('#kard-new-user-register').click(function() {
+	// 	$('#register-container').css({'display': 'block'});
+	// 	$('#kard-new-user-register').removeClass('unselected');
+	// 	$('#resume-container').css({'display': 'none'});
+	// 	$('#kard-new-user-resume').addClass('unselected');
+	// });
+	// $('#modal-new-user').on('hidden.bs.modal', function (e) {
+	// 	clear_modal_login();
+	// });
 
-		// open modals ingame
-	$('.show-modal-back-home').click(function() {
-		$('*').modal('hide');
-		$('#modal-back-home').modal('toggle');
-	});
-	$('#modal-back-home').on('hidden.bs.modal', function (e) {
-		show_home();
-	});
+	// 	// open modals ingame
+	// $('.show-modal-back-home').click(function() {
+	// 	$('*').modal('hide');
+	// 	$('#modal-back-home').modal('toggle');
+	// });
+	// $('#modal-back-home').on('hidden.bs.modal', function (e) {
+	// 	show_home();
+	// });
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
@@ -635,18 +635,20 @@ $(document).ready(function() {
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
 			$('body').addClass('user-logged');
-			// home_layout();
 			//armamos el QR con su dirección
 			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
-			modals_manager('online-players');
-			$(location).attr('href', '#online-players');
+			$('*').removeClass('menu-active');
+			url_worker();
+
 		}
 		else {
 			$(".user-online").css({ "display": "none" });
 			$(".user-offline").css({ "display": "inherit" });
-			modals_manager('new-user');
-			$(location).attr('href', '#new-user');
+			$('*').removeClass('menu-active');
+			// modals_manager('new-user');
+			// $(location).attr('href', '#new-user');
+			url_worker();
 		};
 	};
 
@@ -1940,6 +1942,7 @@ $(document).ready(function() {
 		Cookies.expire('user_balance_usd');
 		Cookies.expire('user_online');
 		Cookies.expire('user_address');
+		$(location).attr('href', '#new-user');
 		is_user_online();
 	}
 
