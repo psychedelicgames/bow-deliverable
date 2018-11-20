@@ -51,8 +51,12 @@ section.menu {
 	z-index: 200;
 	flex: 1;
 	max-width: 200px;
+	min-width: 60px;
 	// padding-left: 2%;
 	background-color: #0b0f11;
+	@include menu-left {
+		max-width: 60px;
+	}
 	ul {
 		list-style: none;
 		padding: 0px;
@@ -64,6 +68,7 @@ section.menu {
 				color: $color-white;
 				line-height: 38px;
 				padding-left: 46px;
+				height: 38px;
 				border-bottom: 1px solid #14181a;
 				display: block;
 				position: relative;
@@ -85,6 +90,17 @@ section.menu {
 					left: 20px;
 					top: 12px;
 				}
+				@include menu-left {
+					padding-left: 3px;
+					span {
+						display: none;
+						height: 36px;
+					}
+					i {
+						display: block;
+						position: inherit;
+					}
+				}				
 			}
 		}
 	}
@@ -105,7 +121,10 @@ section.menu {
 	flex-direction: column;
 	padding-top: 40px;
 	// max-width: 370px;
-	width: 360px;
+	min-width: 360px;
+	@include menu-right {
+		display: none;
+	}
 	.avatar-container {
 		background: rgb(7,9,10);
 		background: -moz-linear-gradient(top, rgba(7,9,10,1) 0%, rgba(11,14,16,1) 100%);
