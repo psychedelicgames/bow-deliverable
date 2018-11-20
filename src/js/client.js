@@ -1676,28 +1676,48 @@ $(document).ready(function() {
 
 					row += '<td>' + feedback.xfers[i]['reason'] + '</td>';
 
-					if (feedback.xfers[i]['difference'] >= '0') {
-						row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';
+					if (feedback.xfers[i]['difference'] < 0) {
+						row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';
 					}
 					else {
-						row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';
+						row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';
 					}
 
 					row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';
-					row += '<td>' + feedback.xfers[i]['difference_sum'] + '</td>';
+
+
+					//remplazamos en busqueda del simbolo '-'
+					var difference_sum = feedback.xfers[i]['difference_sum'];
+					var raw_difference_sum = difference_sum.replace("-", "");
+
+
+					if (feedback.xfers[i]['difference_sum'] < 0) {
+						row += '<td><i class="far fa-minus x-color-one"></i> ' + raw_difference_sum + '</td>';
+					}
+					else {
+						row += '<td><i class="far fa-plus x-color-green"></i> ' + raw_difference_sum + '</td>';
+					}
+
 					// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
 					row += '</tr>';
 				}
 				// console.log(row);
-				//construccion = []
 				var aaa = [];
 				var bbb = [];
 				var ccc = [];
 
 				for (var i = 0; i < feedback.xfers.length; ++i) {
+					//realiazamos la inversion
 					inversion = feedback.xfers[i]["difference_sum"] * 1;
-					if (feedback.xfers[i]['difference'] < 0) { color = '#FF3939'; } else { color = '#89D926'; }
-					aaa.push({ y: inversion, flag: 'win', color: color, segmentColor: color });
+					//calculamos el color de la posición
+					if (feedback.xfers[i]['difference'] < 0) { color = '#FF3939'; bandera = 'loss' } else { color = '#89D926'; bandera = 'gain'; }
+					//calculamos el proximo
+					proximo = i + 1;
+					//calculamos el color de la linea hacia la próxima posición.
+					if (feedback.xfers[proximo] != null) {
+						if (feedback.xfers[proximo]['difference'] < 0) { lineacolor = '#FF3939' } else { lineacolor = '#89D926' }
+					}
+					aaa.push( { y: inversion, flag: bandera, color: color, segmentColor: lineacolor });
 					var date = feedback.xfers[i]['creacion'].split(" ");
 					bbb.push(date[0]);
 					ccc.push(feedback.xfers[i]['reason']);
@@ -1734,8 +1754,7 @@ $(document).ready(function() {
 					},
 					yAxis: {
 						title: '',
-						gridLineColor: 'transparent',
-						plotLines: [{value: 0, width: 0 }]
+						plotLines: [{value: 0, width: 1 }]
 					},
 					tooltip: {
 						headerFormat: ccc

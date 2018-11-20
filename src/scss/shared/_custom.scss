@@ -206,7 +206,7 @@ table.table-balance {
 		}
 		th:nth-child(5) {
 			width: 67px;
-		}			
+		}
 	}
 	tbody {
 		display: block;
@@ -218,13 +218,16 @@ table.table-balance {
 		.fa-check {
 			font-size: 10px;
 			color: $color-green;
-		}			
+		}
 		td {
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			.fas {
 				margin-right: 3px;
+			}
+			.far {
+				font-size: 10px;
 			}
 		}
 		td:nth-child(1) {
@@ -249,13 +252,13 @@ table.table-balance {
 		}
 		td:nth-child(5) {
 			width: 67px;
-		}			
-	}	
+		}
+	}
 }
 table.user-statistics {
 	tbody {
 		td:nth-child(1) {
-			// width: 
+			// width:
 		}
 	}
 }
