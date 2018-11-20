@@ -3,15 +3,52 @@
 	<div class="kard">
 		<div class="kard-info">
 			<div class="kard-header">
-				<h5 class="kard-subtitle-navigation"><span class="active" data-tab-link="0">2FA</span><span data-tab-link="1">Settings</span></h5>
-			</div>				
+				<h5 class="kard-subtitle-navigation"><span class="active" data-tab-link="0">Settings</span><span data-tab-link="1">2FA</span></h5>
+			</div>
 			<div class="kard-body">
 				<div class="container">
 					<div class="custom-tabs">
 
 						{{!-- vamos cambiando --}}
-						<div id="kard-settings-2fa" class="active" data-tab="0">
-							<div class="row">						
+						<div id="kard-settings-ux" class="active" data-tab="0">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-striped">
+										<tbody>
+											<tr>
+												<td>Activate developer's info</td>
+												<td>
+													<div class="switch">
+														<i id="developer-switch" class="fal fa-square"></i>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>Rain</td>
+												<td>
+													<div class="switch">
+														<i id="rain-switch" class="fal fa-check-square"></i>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>Music</td>
+												<td>
+													<div class="switch music-settings-switch">
+														<i class="fal fa-check-square"></i>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						{{!-- hasta aca --}}
+
+						{{!-- vamos cambiando --}}
+						<div id="kard-settings-2fa" data-tab="1">
+							<div class="row">
 								<div class="col-xl-6">
 									<div class="row mb-4">
 										<div id="qrcode_mfa"></div>
@@ -55,43 +92,6 @@
 								</div>
 							</div>
 						</div>
-						{{!-- hasta aca --}}
-
-						{{!-- vamos cambiando --}}
-						<div id="kard-settings-ux" data-tab="1">
-							<div class="row">
-								<div class="col-12">
-									<table class="table table-striped">
-										<tbody>
-											<tr>
-												<td>Activate developer's info</td>
-												<td>
-													<div class="switch">
-														<i id="developer-switch" class="fal fa-square"></i>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>Rain</td>
-												<td>
-													<div class="switch">
-														<i id="rain-switch" class="fal fa-check-square"></i>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>Music</td>
-												<td>
-													<div class="switch music-settings-switch">
-														<i class="fal fa-check-square"></i>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>										
-								</div>
-							</div>
-						</div>								
 						{{!-- hasta aca --}}
 
 					</div>

@@ -1664,9 +1664,17 @@ $(document).ready(function() {
 		if (feedback.xfers) {
 			var row = '';
 			for (var i = 0; i < feedback.xfers.length; ++i) {
+					//asosiamos variable
+					var row_reason = feedback.xfers[i]['reason'];
+					var row_difference = feedback.xfers[i]['difference']
+					//comparamos variable
+					if(row_reason == 'user_spawn') { row_reason = 'spawn fee'; }
+					if(row_reason == 'kill') {
+						if(row_difference < 0) { row_reason = 'defeated'; }
+						else { row_reason = 'victorious'; }
+					}
 					//armamos el cuadro
 					row += '<tr>';
-					// row += '<td>' + feedback.xfers[i]['id'] + '</td>';
 					if (feedback.xfers[i]['condicion'] == 'confirmado') {
 						row += '<td><i class="fas fa-check"></i></td>';
 					}
@@ -1674,7 +1682,7 @@ $(document).ready(function() {
 						row += '<td></td>';
 					}
 
-					row += '<td>' + feedback.xfers[i]['reason'] + '</td>';
+					row += '<td>' + row_reason + '</td>';
 
 					if (feedback.xfers[i]['difference'] < 0) {
 						row += '<td><i class="fas fa-arrow-down x-color-one"></i>' + (feedback.xfers[i]['difference'] * -1) + '</td>';
