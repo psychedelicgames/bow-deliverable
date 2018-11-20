@@ -230,7 +230,7 @@ $(document).ready(function() {
 
 	// $(window).resize(function() {
 	// 	var chatHeight = $('.kard.chat').innerHeight();
-	// 	$('.chat-display').height(chatHeight - 150);		
+	// 	$('.chat-display').height(chatHeight - 150);
 	// });
 
 	/******************************************************/
@@ -286,7 +286,7 @@ $(document).ready(function() {
 				width: '0%',
 				ease: Elastic.easeInOut.config(1, 0.75),
 				force3D: true
-			});			
+			});
 
 			TweenMax.set('.menu', {
 				opacity: 1,
@@ -341,26 +341,26 @@ $(document).ready(function() {
 				width: '100%',
 				ease: Elastic.easeInOut.config(1, 0.75),
 				force3D: true
-			});				
+			});
 
 			TweenMax.to('.menu', 0.1, {
 				opacity: 0,
 				className: '+=menu-on'
-			});			
+			});
 			TweenMax.to('.menu', 0.5, {
 				delay: 0.1,
 				opacity: 1,
 				scale: 1,
 				ease: Elastic.easeOut.config(1, 0.75),
 				force3D: true
-			});		
+			});
 		};
 	}
 
-	
+
 	function url_worker() {
-		
-		// create array with all sections	
+
+		// create array with all sections
 		var sections = [];
 
 		$('.menu-left ul li a').each(function() {
@@ -368,7 +368,7 @@ $(document).ready(function() {
 			sections.push(thisSection);
 		});
 
-		// check url to manage menu 
+		// check url to manage menu
 		var url = $(location).attr('href').split('#')[1];
 		console.log(url);
 		if (url && ($.inArray(url, sections) >= 0)) {
@@ -422,7 +422,7 @@ $(document).ready(function() {
 			// 	top: '130vh',
 			// 	ease: Elastic.easeOut.config(1, 0.75),
 			// 	force3D: true
-			// });	
+			// });
 
 			// TweenMax.set('.kard-modal.show', {
 			// 	opacity: 0,
@@ -454,7 +454,7 @@ $(document).ready(function() {
 			TweenMax.to('.kard-modal:not(.show)', 0.5, {
 				opacity: 0,
 				display: 'none',
-			});	
+			});
 
 			// TweenMax.set('.kard-modal.show', {
 			// 	opacity: 0,
@@ -476,14 +476,14 @@ $(document).ready(function() {
 			// 	delay: 0.2,
 			// 	ease: Elastic.easeOut.config(1, 0.75),
 			// 	force3D: true
-			// });			
+			// });
 
 
 		}
 		// else if ( $('.kard-' + modal).hasClass('show') ) {
 		// 	console.log('la tiene' + modal);
 		// 	$('#kard-' + modal).removeClass('show');
-			
+
 		// 	TweenMax.to('#kard-' + modal, 1, {
 		// 		opacity: 0,
 		// 		display: 'none',
@@ -491,7 +491,7 @@ $(document).ready(function() {
 		// 		top: '130vh',
 		// 		ease: Elastic.easeOut.config(1, 0.75),
 		// 		force3D: true
-		// 	});		
+		// 	});
 		// 	// show_home();
 		// }
 	}
@@ -605,7 +605,7 @@ $(document).ready(function() {
 
 	/******************************************************/
 	/* Respawn with a drone *******************************/
-	
+
 	function drone_respawn() {
 		$('*').modal('hide');
 		showAlert('Low founds for a tank! Have a drone.', 'red');
@@ -692,7 +692,7 @@ $(document).ready(function() {
 		TweenMax.staggerTo("#action-container", 1, {
 			className: '-=rage',
 			delay: 3.9
-		});		
+		});
 		$('.rage-line').addClass('on-rage');
 	}
 
@@ -870,14 +870,6 @@ $(document).ready(function() {
 		var params =  {
 			username:               Cookies('user_username'),
 			password:               Cookies('user_password'),
-			review_play_for_coin:   $('#user_review_play_for_coin').val(),
-			review_fair_play:       $('#user_review_fair_play').val(),
-			review_sound_music:     $('#user_review_sound_music').val(),
-			review_sound_fx:        $('#user_review_sound_fx').val(),
-			review_panel_design:    $('#user_review_panel_design').val(),
-			review_game_design:     $('#user_review_game_design').val(),
-			review_slow:            $('#user_review_slow').val(),
-			review_map_size:        $('#user_review_map_size').val(),
 			user_feedback:          $('#user_feedback').val()
 		};
 
@@ -1283,7 +1275,7 @@ $(document).ready(function() {
 		// hide player hub when mouse hover
 		var bottomX = 410;
 		var bottomY = window.innerHeight - 220;
-		
+
 
 		$('#canvas').on( "mousemove", function( event ) {
 			if (event.pageX < bottomX && event.pageY > bottomY) {
@@ -1305,8 +1297,8 @@ $(document).ready(function() {
 			$('#progress-bar-rage').css({width: (hub_usuario.rage - 1 ) * 100 + '%'});
 			//calculamos la salud perdida
 			console.log(hub_usuario.rage);
-			
-			
+
+
 			if (hub_usuario.rage >= 2 && rage_informed == 0) {
 				rage_state();
 				rage_informed = 1;
@@ -1314,7 +1306,7 @@ $(document).ready(function() {
 			if (hub_usuario.rage < 2) {
 				rage_informed = 0;
 				$('.rage-line').removeClass('on-rage');
-			};			
+			};
 
 			var emptyHealth = 20 - hub_usuario.health;
 			//salud
@@ -1727,19 +1719,23 @@ $(document).ready(function() {
 					var chart = new Highcharts.Chart({
 						chart: {
 							renderTo: this,
-						//borderWidth: 1,
-						backgroundColor: null
-					},
+							borderWidth: null,
+							borderColor: null,
+							backgroundColor: null,
+							dashStyle: null
+						},
 					title: {
 						text: '',
 						x: -20
 					},
 					xAxis: {
-						categories: 2
+						categories: 2,
+						gridLineColor: 'transparent',
 					},
 					yAxis: {
 						title: '',
-						plotLines: [{value: 0, width: 1 }]
+						gridLineColor: 'transparent',
+						plotLines: [{value: 0, width: 0 }]
 					},
 					tooltip: {
 						headerFormat: ccc
@@ -1766,13 +1762,8 @@ $(document).ready(function() {
 				$('.user_balance_table .fa-spinner').remove();
 			};
 		});
-		
+
 	}
-	//abrimos el modal en la solapa
-	// $('.show-modal-balance').click(function () {
-	// 	var target = $(this).attr('href');
-	// 	$('a[data-toggle=tab][href=' + target + ']').tab('show');
-	// });
 
 	/************************************************************/
 	/* Procesa la información necesaria para crear el MFA *******/
@@ -2251,7 +2242,7 @@ $(document).ready(function() {
 			break;
 			// show menu
 			case 27: modals_switch();
-			break;				
+			break;
 			//salimos del handler
 			default: return;
 		}
@@ -2263,13 +2254,13 @@ $(document).ready(function() {
 		switch(e.which) {
 			// show menu
 			case 27: modals_switch();
-			break;	
+			break;
 			//salimos del handler
 			default: return;
 		}
 		//prevenimos las convencionales
 		e.preventDefault();
-	});	
+	});
 
 	//Tabulador hodl
 	//$('#canvas').keydown(function(e) { if (e.which == 9) { e.preventDefault(); $('#sidebar').show(); } });
@@ -2286,7 +2277,7 @@ $(document).ready(function() {
 		//para cualquier usuario
 		//leaderboard_view();
 		//developer info
-		
+
 
 		//user is online
 		if (Cookies('user_online') == "True") { cashier_search(); }
@@ -2332,7 +2323,7 @@ $(document).ready(function() {
 
 	//puede quedar al final
 	is_user_online();
-	
+
 	// modals_manager('online-players');
 
 	//mandamos helpers
