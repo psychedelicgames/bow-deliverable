@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 	//definimos lo que hay que definir
 	//es posible pasar información al io()
-	var socket = io('wss://clouds.bitofwar.com');
-	// var socket = io('wss://127.0.0.1');
+	//var socket = io('wss://clouds.bitofwar.com');
+	var socket = io('wss://127.0.0.1');
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
@@ -542,6 +542,8 @@ $(document).ready(function() {
 			$('*').modal('hide');
 			$('#canvas').css({ 'filter': 'inherit'});
 			$('#canvas').focus();
+			//sonido respawn al azar
+			rand = sounds_spawn.rand(); sounds[rand].play();
 			//completamos el grafico de forma cabeza
 			user_balance_view();
 			$('.powerups-info .title span').text('5');
@@ -599,6 +601,8 @@ $(document).ready(function() {
 				//lanzamos música de fondo
 				sound_bg.play();
 				$('#canvas').focus();
+				//sonido respawn al azar
+				rand = sounds_spawn.rand(); sounds[rand].play();
 			}
 		});
 	};
@@ -782,11 +786,13 @@ $(document).ready(function() {
 	var sounds_harm = [];
 	var sounds_dies = [];
 	var sounds_eliminacion = [];
+	var sounds_spawn = [];
 	var sounds_order_1 = [];
 	var sounds_order_2 = [];
 	var sounds_order_3 = [];
 	var sounds_order_4 = [];
 	var sounds_order_5 = [];
+	var sounds_order_6 = [];
 
 
 	//sounds.whenLoaded = alinear_sonido;
@@ -821,6 +827,11 @@ $(document).ready(function() {
 				sounds.load([ './audio/eliminacion/' + file ]);
 				sounds_eliminacion.push('./audio/eliminacion/' + file);
 			});
+			//sound preloader spawn
+			feedback.spawn.forEach( function(file) {
+				sounds.load([ './audio/spawn/' + file ]);
+				sounds_spawn.push('./audio/spawn/' + file);
+			});
 			//sound preloader powers 1
 			feedback.order_1.forEach( function(file) {
 				sounds.load([ './audio/powers/1/' + file ]);
@@ -845,6 +856,11 @@ $(document).ready(function() {
 			feedback.order_5.forEach( function(file) {
 				sounds.load([ './audio/powers/5/' + file ]);
 				sounds_order_5.push('./audio/powers/5/' + file);
+			});
+			//sound preloader powers 6
+			feedback.order_6.forEach( function(file) {
+				sounds.load([ './audio/powers/6/' + file ]);
+				sounds_order_6.push('./audio/powers/6/' + file);
 			});
 			//inicializados
 			sounds.whenLoaded = alinear_sonido;
@@ -2181,7 +2197,7 @@ $(document).ready(function() {
 					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '54') {
-					//rand = messagess_order_6.rand(); sounds[rand].play();
+					rand = sounds_order_6.rand(); sounds[rand].play(); console.log(rand);
 					show_upper_message("Providing healing. We're killing you slowly");
 					powerup_counter	('order_power_6');
 					$('.powerups-container').removeClass('active');
