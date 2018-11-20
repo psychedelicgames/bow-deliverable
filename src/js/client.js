@@ -6,13 +6,16 @@ $(document).ready(function() {
 	 	return this[Math.floor((Math.random()*this.length))];
 	 }
 
+	 //conservar como variable principal y hacer que se pueda remplazar desde el menu
+	 //es posible que requiera una función como 'serverswapper'
+	 var server = 'wss://clouds.bitofwar.com';
+
 	//definimos lo que hay que definir
-	//es posible pasar información al io()
-	//var socket = io('wss://clouds.bitofwar.com');
-	var socket = io('wss://127.0.0.1');
+	var socket = io(server);
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
+
 	// console.log(socket);
 	Input.applyEventHandlers(document.getElementById('canvas'));
 	Input.addMouseTracker(document.getElementById('canvas'));
@@ -72,7 +75,8 @@ $(document).ready(function() {
 	}
 	setInterval(draw, 30);
 
-
+	/************************************************************/
+	/* serverswapper *******************************************/
 
 
 	/************************************************************/
