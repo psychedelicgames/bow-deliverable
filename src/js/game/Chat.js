@@ -104,11 +104,13 @@ Chat.prototype.receiveMessage = function(name, message, isNotification) {
  //no es recomendable inicializar la información del sock, como segunda opción.
 Chat.prototype.sendMessage = function() {
   var message = this.textElement.value;
+  //buscamos las variables de cookies
   var username = Cookies('user_username');
+  var password = Cookies('user_password');
   //var password = Cookies('user_password');
   this.textElement.value = '';
-  this.socket.emit('dialogo-usuario-servidor', username, message);
-  
+  this.socket.emit('dialogo-usuario-servidor', username, password, message);
+
   var lis = $('.chat-display').children('li');
   var alto = (lis.length * 19);
   $('.chat-display').scrollTop(alto);
