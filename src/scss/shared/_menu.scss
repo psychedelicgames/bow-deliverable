@@ -420,12 +420,24 @@ section.menu {
 		}
 	}
 }
+#qrcode_personal_address {
 
-#modal-settings-2fa {
+	canvas {
+			background-color: #fff;
+	padding: 5px;
+		width: 100%;
+		max-width: 256px;
+	}
+}
+#kard-settings-2fa {
 	#qrcode_mfa {
-		background-color: #fff;
-		padding: 10px;
-		margin-left: -20px;
+
+		canvas {
+					background-color: #fff;
+		padding: 5px;
+			width: 100%;
+			max-width: 256px;
+		}
 	}
 	#user-mfa-recover {
 		filter: blur(0);
