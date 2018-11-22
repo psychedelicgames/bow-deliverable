@@ -1261,6 +1261,35 @@ $(document).ready(function() {
 		}
 	});
 
+	/************************************************************/
+	/* Pedir conversaciones previas *****************************/
+
+	//recomendaciones de la función:
+	//sería recomendable correrlo solo una vez, en la carga inicial.
+	//realizar las modificaciones en la función que sean necesarias,
+	//a fin de almacenar la información
+
+	function dialog_view() {
+		//envamos las variables para node
+		socket.emit('dialogo-view', function(feedback) {
+			//si hay operaciones nuevas, informamos.
+			var conversaciones = feedback.dialogo
+			console.log(conversaciones);
+			//foreach
+
+			//if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
+			//almacenamos el balance en balance_previo
+			//var balance_previo = $('.user_balance').html();
+			//console.log(balance_previo, feedback.user.available_balance);
+			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
+			//if(feedback.user.available_balance > balance_previo) { sound_coins(); }
+			//refrescamos el balance del usuario
+			//$('.user_balance').text(feedback.user.available_balance);
+			//modificamos la cookie
+			//if(feedback.user.available_balance != Cookies('user_balance')) { Cookies.set('user_balance', feedback.user.available_balance); }
+		});
+	};
+
 
 	/************************************************************/
 	/* cashier/search *******************************************/
@@ -1289,6 +1318,7 @@ $(document).ready(function() {
 
 	/************************************************************/
 	/* Nos encargamos del Player Hub ****************************/
+
 	var rage_informed = 0
 	function player_hub() {
 
@@ -2285,7 +2315,7 @@ $(document).ready(function() {
 			case 9: show_sidebar();
 			break;
 			// show powerups
-			case 16: show_powerups(), rage_state();
+			case 16: show_powerups(), rage_state(); dialog_view();
 			break;
 			// show menu
 			case 27: modals_switch();
