@@ -182,9 +182,9 @@
 	user-select: none;
 	&.rage {
 		color: #fff;
-		-webkit-animation: neon3 1s ease-in-out infinite alternate;
-		-moz-animation: neon3 1s ease-in-out infinite alternate;
-		animation: neon3 1s ease-in-out infinite alternate;
+		-webkit-animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
+		-moz-animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
+		animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate; 
 		font-size: 5.7vw !important;
 	}	
 	span.line {
