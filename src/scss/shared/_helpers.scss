@@ -15,13 +15,13 @@
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none; 
-	cursor: pointer; 
+	user-select: none;
+	cursor: pointer;
 	background: rgb(251,53,53);
 	background: -moz-linear-gradient(top, rgba(251,53,53,1) 0%, rgba(229,31,31,1) 100%);
 	background: -webkit-linear-gradient(top, rgba(251,53,53,1) 0%,rgba(229,31,31,1) 100%);
 	background: linear-gradient(to bottom, rgba(251,53,53,1) 0%,rgba(229,31,31,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fb3535', endColorstr='#e51f1f',GradientType=0 );  
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fb3535', endColorstr='#e51f1f',GradientType=0 );
 	transition: transform .1s ease-out !important;
 	transform: scale(1);
 }
@@ -217,7 +217,7 @@ input:focus, input:active {
 		-webkit-transform: translateY(-100%);
 		transform: translateY(-100%);
 	}
-} 
+}
 
 @-webkit-keyframes neon3 {
   from {
@@ -248,8 +248,8 @@ input:focus, input:active {
   80% { transform: translate(-1px, -1px); }
   90% { transform: translate(1px, 2px); }
   100% { transform: translate(1px, -2px); }
-} 
- 
+}
+
 @keyframes shakeRage {
   0% { transform: translate(1px, 0px); }
   10% { transform: translate(-1px, 0px); }
@@ -273,7 +273,7 @@ input:focus, input:active {
 }
 .line-bottom {
 	border-bottom: 1px solid #222;
-	margin-bottom: 30px;
+	margin-bottom: 25px;
 	padding-bottom: 10px;
 
 }

@@ -100,7 +100,7 @@ section.menu {
 						display: block;
 						position: inherit;
 					}
-				}				
+				}
 			}
 		}
 	}
@@ -155,7 +155,7 @@ section.menu {
 				}
 				.user-bits {
 					color: $color-green;
-				}				
+				}
 			}
 		}
 		ul {
@@ -178,7 +178,7 @@ section.menu {
 					vertical-align: sub;
 				}
 			}
-		}		
+		}
 	}
 	.chat {
 		height: 90%;
@@ -220,6 +220,9 @@ section.menu {
 		}
 	}
 	&.kard-credits {
+		// .team-unit:last-child {
+		// 	border-bottom:0px;
+		// }
 		.team-unit {
 			display: flex;
 			flex-direction: row;
@@ -326,7 +329,7 @@ section.menu {
 		span.active {
 			color: $color-one;
 			filter: blur(0);
-		}					
+		}
 	}
 
 	.kard-info {
@@ -341,7 +344,7 @@ section.menu {
 			z-index: 200;
 			position: relative;
 			pointer-events: all !important;
-		}		
+		}
 		.kard-title {
 			font-family: 'BigNoodleTooOblique';
 			font-size: 24px;
@@ -356,13 +359,13 @@ section.menu {
 				color: $color-white;
 				filter: blur(0.7px);
 				opacity: 0.8;
-			}			
-		}			
+			}
+		}
 		.kard-subtitle {
 			font-family: 'BigNoodleTooOblique';
 			font-size: 20px;
 			text-transform: uppercase;
-			color: $color-white;				
+			color: $color-white;
 		}
 		.kard-body {
 			color: $color-white;
@@ -370,7 +373,7 @@ section.menu {
 			padding: 0px;
 			position: relative;
 			// max-height: 63vh;
-			
+
 			.custom-tabs {
 				.col-12 {
 					// padding-left: 0px;
@@ -406,7 +409,7 @@ section.menu {
 					color: $color-one;
 				}
 			}
-		}	
+		}
 		.kard-footer {
 			border: 0px;
 			border-radius: 0px;
@@ -446,6 +449,6 @@ section.menu {
 		-khtml-user-select: all;
 		-moz-user-select: all;
 		-ms-user-select: all;
-		user-select: all;		
+		user-select: all;
 	}
 }
