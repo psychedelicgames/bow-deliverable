@@ -163,6 +163,7 @@
 	top: 1vw;
 	width: 100%;
 	position: absolute;
+	display: none;
 	// left: 0px !important;
 	// right: 0px !important;
 	text-align: center;
@@ -180,12 +181,17 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	// &.active {
+	// 	display: block;
+	// }
 	&.rage {
+		display: block;
 		color: #ffd800;
 		-webkit-animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
 		-moz-animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
 		animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
-		font-size: 9vw !important;
+		font-size: 12vw !important;
+		top:33% !important;
 	}
 	span.line {
 		display: block;
@@ -218,7 +224,7 @@
 		margin: 0 auto;
 	}
 	&.active {
-		display: block;
+		display: block !important;
 		opacity: 1;
 		-webkit-transition: opacity 0.5s;
 		transition: opacity 0.5s;
@@ -299,11 +305,19 @@
 			.view_usermame {
 				color: $color-one;
 			}
+			&.dialog-killed {
+				background-color: $color-one;
+				color: #fff;
+			}
 		}
 	}
 	.chat-input {
-		display: none !important;
+		// display: none !important;
 		width: 90%;
+		position: absolute;
+		top: 60px;
+		left: 60px;
+		z-index: 99999;
 		margin: 0 auto;
 	}
 }

@@ -47,7 +47,7 @@ Chat.prototype.init = function() {
 
   this.socket.on('dialogo-servidor-usuarios', bind(this, function(data) {
     //enviamos la información al canal
-    this.receiveMessage(data['name'], data['message'], data['isNotification']);
+    this.receiveMessage(data['name'], data['message'], data['message_class'], data['user_killer'], data['user_killed']);
   }));
 };
 
@@ -59,35 +59,75 @@ Chat.prototype.init = function() {
  * @param {boolean} isNotification Whether or not this message is an
  *   administrative notification.
  */
-Chat.prototype.receiveMessage = function(name, message, isNotification) {
+Chat.prototype.receiveMessage = function(name, message, message_class, user_killer, user_killed) {
+  /*
+  name: players[i].name,
+                message:"has been killed by",
+                message_class: killed,
+                user_killer: players[i].killer,
+                user_killed: players[i].name
 
-  if (isNotification) {
-    //mandamos el li con la clase desvanecedora
-    variable  = "<li class='dialog'>";
-    variable += name;
-    variable += message;
-    variable += "</li>";
 
-    //mandamos el li preparado para ser eliminado en 4500 segundos (demora 4500 en desvanecer)
-    $(variable).appendTo('.playing-chat-container .chat-display').delay(4500).queue(function() { $(this).remove(); });
-    //calculamos los lis que lleva
-    var messages_size = $(".playing-chat-container .chat-display li").length;
-    //si acumulamos más de 3, liquidamos el primero
-    if (messages_size > 3) {
-      $('.playing-chat-container .chat-display li').first().remove();
-    }
-  }
-  else {
-    variable  = "<li class='dialog'>";
-    variable += '<span>' + name + ': </span>';
-    variable += message;
-    variable += "</li>";
-    $(variable).appendTo('.small-chat-container .chat-display');
-    var lis = $('.chat-display').children('li');
-    var alto = (lis.length * 19);
-    $('.chat-display').scrollTop(alto);
+message:"<a class='view_usermame'>" + players[i].name +"</a> has been killed by <a class='view_usermame'>" + players[i].killer + "</a>",
+message: body.user.username + "</a> is in for the kill.",
+/*
+name: " ",
+message: body.user.username,
+message_class: 'spawn'
+*/
+console.log(message + ' ' + message_class);
 
-  }
+if ( message_class == 'spawn') {
+  variable  = "<li class='dialog'>";
+  variable += '<span class="x-color-one">' + name + '</span> ';
+  variable += message;
+  variable += "</li>";
+
+  $(variable).appendTo('.playing-chat-container .chat-display').delay(4500).queue(function() { $(this).remove(); });
+}
+else if ( message_class == 'spawn_drone') {
+  variable  = "<li class='dialog'>";
+  variable += '<span class="x-color-one">' + name + '</span> ';
+  variable += message;
+  variable += "</li>";
+
+  $(variable).appendTo('.playing-chat-container .chat-display').delay(4500).queue(function() { $(this).remove(); });
+}
+else if ( message_class == 'order') {
+  variable  = "<li class='dialog'>";
+  variable += '<span class="x-color-one">' + name + '</span> ';
+  variable += message;
+  variable += "</li>";
+
+  $(variable).appendTo('.playing-chat-container .chat-display').delay(4500).queue(function() { $(this).remove(); });
+}
+else if ( message_class == 'killed') {
+  variable  = "<li class='dialog dialog-killed'>";
+  variable += user_killed;
+  variable += ' ' + message + ' ';
+  variable += user_killer;
+  variable += "</li>";
+
+  $(variable).appendTo('.playing-chat-container .chat-display').delay(45500).queue(function() { $(this).remove(); });
+}
+else {
+  variable  = "<li class='dialog'>";
+  variable += '<span>' + name + ': </span>';
+  variable += message;
+  variable += "</li>";
+  $(variable).appendTo('.small-chat-container .chat-display');
+  $(variable).appendTo('.playing-chat-container .chat-display').delay(45500).queue(function() { $(this).remove(); });
+  var lis = $('.chat-display').children('li');
+  var alto = (lis.length * 19);
+  $('.chat-display').scrollTop(alto);
+
+}
+//calculamos los lis que lleva
+var messages_size = $(".playing-chat-container .chat-display li").length;
+//si acumulamos más de 3, liquidamos el primero
+if (messages_size > 3) {
+  $('.playing-chat-container .chat-display li').first().remove();
+}
 
 };
 
