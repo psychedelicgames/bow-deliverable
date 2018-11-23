@@ -172,8 +172,6 @@ $(document).ready(function() {
 			//si el usuario es válido
 			else {
 				clear_modal_login();
-				//calculamos la coma en 2
-				//feedback.user.balance_usd = feedback.user.balance_usd.toFixed(2);
 				//armamos las cookies
 				Cookies.set('user_id', feedback.user.id);
 				Cookies.set('user_email', feedback.user.email);
@@ -318,7 +316,6 @@ $(document).ready(function() {
 
 		}
 		else {
-
 			TweenMax.set('.menu-title', {
 				opacity: 0,
 				scale: 0.7,
