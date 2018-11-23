@@ -8,7 +8,8 @@ function Drawing(context, images) {
 }
 
 //show names
-var show_names = '0';
+var show_names = '1';
+var show_life = '0';
 
 /************************************************************/
 /* Definiciones generales ***********************************/
@@ -73,6 +74,10 @@ Drawing.prototype.clear = function() {
 /* Crea las unidades en el mapa *****************************/
 
 Drawing.prototype.drawTank = function(isSelf, coords, orientation, turretAngle, name, kind, health, hasShield, shieldsize) {
+
+  /************************************************************/
+  /* visualización opcional de los nombres de usuario *********/
+
   if (show_names == 1) {
     this.context.save();
     //presición pixelar
@@ -85,6 +90,12 @@ Drawing.prototype.drawTank = function(isSelf, coords, orientation, turretAngle, 
     this.context.fillStyle = Drawing.NAME_COLOR;
     this.context.fillText(name, 0, -50);
     this.context.restore();
+  }
+
+  /************************************************************/
+  /* visualización opcional de la barra de vida ***************/
+
+  if (show_life == 1) {
     this.context.save();
     //presición pixelar
     coords[0] = (0.5 + coords[0]) | 0;
@@ -120,6 +131,10 @@ Drawing.prototype.drawTank = function(isSelf, coords, orientation, turretAngle, 
     //c-c-coom-bo breaker!
     this.context.restore();
   }
+
+  /************************************************************/
+  /* resumimos operaciones convencionales sobre unidad ********/
+
   this.context.save();
   //presición pixelar
   coords[0] = (0.5 + coords[0]) | 0;

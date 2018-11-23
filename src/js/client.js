@@ -672,7 +672,7 @@ $(document).ready(function() {
 		$('#action-container span').text('massive rage unleashed');
 		TweenMax.set("#action-container", {
 			opacity: 0,
-			className: '+=rage',
+			className: '+=rage active',
 		});
 
 		TweenMax.staggerTo("#action-container", 1, {
@@ -689,7 +689,7 @@ $(document).ready(function() {
 			force3D: true
 		});
 		TweenMax.staggerTo("#action-container", 1, {
-			className: '-=rage',
+			className: '-=rage active',
 			delay: 3.9
 		});
 		$('.rage-line').addClass('on-rage');
@@ -703,10 +703,10 @@ $(document).ready(function() {
 
 		TweenMax.set("#action-container", {
 			opacity: 0,
+			className: '+=active',
 			left: '0%',
 			top: '2vw',
 			scale: 3,
-			className: '-=rage',
 			textShadow:"0px 0px 0px rgba(0,0,0,0.3)",
 		});
 
@@ -714,7 +714,6 @@ $(document).ready(function() {
 			scale: 1,
 			opacity: 1,
 			textShadow:"0px 0px 0px rgba(0,0,0,0.3)",
-			delay: 0.2,
 			ease: Elastic.easeOut.config(1, 0.75),
 			force3D: true
 		});
@@ -731,6 +730,10 @@ $(document).ready(function() {
 			delay: 0.9,
 			ease: Elastic.easeIn.config(1, 0.75),
 			force3D: true
+		});
+		TweenMax.staggerTo("#action-container", 0.5, {
+			className: '-=active',
+			delay: 2.6
 		});
 		// $('#action-container').removeClass(rage);
 	}
@@ -1426,9 +1429,9 @@ $(document).ready(function() {
 		var user_killed = info['user_killed'];
 		var user_self = Cookies('user_username');
 		//si es el asesino
-		if (user_killer == user_self) {
-			KilledSequence(('You have killed <span class="text-green">' + user_killed + '. Well done!</span>'), 'kill');
-		}
+		// if (user_killer == user_self) {
+		// 	KilledSequence(('You have killed <span class="text-green">' + user_killed + '. Well done!</span>'), 'kill');
+		// }
 		//si fue el que perdió
 		if (user_killed == user_self) {
 			KilledSequence(('You were eliminated by <span class="text-red">' + user_killer + '. Such a shame.</span>'), 'die');
@@ -1446,6 +1449,7 @@ $(document).ready(function() {
 			$('#action-container span').html(info);
 			TweenMax.set("#action-container", {
 				opacity: 0,
+				className: '+=active',
 				top: '2vw',
 				scale: 1,
 				className: '-=rage',
@@ -1475,7 +1479,7 @@ $(document).ready(function() {
 		if (action == 'die') {
 			$('#action-container span').html(info);
 			TweenMax.set(".canvas-overlay", {
-				opacity: 0
+				opacity: 0,
 			});
 			TweenMax.set(aarray, {
 				opacity: 0,
