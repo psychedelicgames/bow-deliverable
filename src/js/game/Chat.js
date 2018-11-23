@@ -108,7 +108,7 @@ else if ( message_class == 'killed') {
   variable += user_killer;
   variable += "</li>";
 
-  $(variable).appendTo('.playing-chat-container .chat-display').delay(45500).queue(function() { $(this).remove(); });
+  $(variable).appendTo('.playing-chat-container .chat-display').delay(6500).queue(function() { $(this).remove(); });
 }
 else {
   variable  = "<li class='dialog'>";
@@ -116,7 +116,7 @@ else {
   variable += message;
   variable += "</li>";
   $(variable).appendTo('.small-chat-container .chat-display');
-  $(variable).appendTo('.playing-chat-container .chat-display').delay(45500).queue(function() { $(this).remove(); });
+  $(variable).appendTo('.playing-chat-container .chat-display').delay(6500).queue(function() { $(this).remove(); });
   var lis = $('.chat-display').children('li');
   var alto = (lis.length * 19);
   $('.chat-display').scrollTop(alto);
