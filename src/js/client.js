@@ -672,28 +672,19 @@ $(document).ready(function() {
 		$('#action-container span').text('massive rage unleashed');
 		TweenMax.set("#action-container", {
 			opacity: 0,
-			top: '8vw',
-			scale: 8,
 			className: '+=rage',
 		});
 
 		TweenMax.staggerTo("#action-container", 1, {
-			scale: 2,
 			opacity: 1,
 			delay: 0.2,
 			ease: Elastic.easeOut.config(1, 0.75),
 			force3D: true
 		});
 
-		TweenMax.staggerTo("#action-container", 0.6, {
-			delay: 0.4,
-			opacity: 1,
-		});
-
 		TweenMax.staggerTo("#action-container", 1, {
 			opacity: 0,
 			delay: 2.9,
-			scale: 1,
 			ease: Elastic.easeOut.config(1, 0.75),
 			force3D: true
 		});
