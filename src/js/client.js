@@ -1441,15 +1441,18 @@ $(document).ready(function() {
 		var aarray = ["#action-container", "img.dead", "button.dead", "#action-container .fas"]
 
 		if (action == 'kill') {
+			console.log('caca');
 			$('#action-container span').html(info);
 			TweenMax.set("#action-container", {
 				opacity: 0,
 				className: '+=active',
 				top: '2vw',
 				scale: 1,
-				className: '-=rage',
 				textShadow: "0px 0px 0px rgba(0,0,0,0)"
 			});
+			TweenMax.set("#action-container", {
+				className: '-=rage',
+			});			
 			TweenMax.staggerTo("#action-container", 1, {
 				scale: 1.7,
 				opacity: 1,
@@ -1473,6 +1476,16 @@ $(document).ready(function() {
 		}
 		if (action == 'die') {
 			$('#action-container span').html(info);
+			TweenMax.set("#action-container", {
+				opacity: 0,
+				className: '+=active',
+				top: '2vw',
+				scale: 1,
+				textShadow: "0px 0px 0px rgba(0,0,0,0)"
+			});
+			TweenMax.set("#action-container", {
+				className: '-=rage',
+			});				
 			TweenMax.set(".canvas-overlay", {
 				opacity: 0,
 			});
