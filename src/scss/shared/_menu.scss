@@ -14,7 +14,7 @@
 	display: none;
 }
 section.menu {
-	// z-index: 200;
+	z-index: 500;
 	height: 80vh;
 	width: 90vw;
 	max-width: 1200px;
@@ -25,9 +25,11 @@ section.menu {
 	margin-top: 5%;
 	padding-top: 50px;
 	position: relative;
-	z-index: 200;
+	// z-index: 200;
 	&.menu-on {
 		display: flex !important;
+		opacity: 1 !important;
+		pointer-events:all !important;
 	}
 	.menu-title {
 		font-family: 'BigNoodleTooOblique';
@@ -41,14 +43,14 @@ section.menu {
 	.red-line {
 		position: absolute;
 		top: 35px;
-		z-index: 200;
+		// z-index: 200;
 		img {
 			width: 100%;
 		}
 	}
 }
 .menu-left {
-	z-index: 200;
+	// z-index: 200;
 	flex: 1;
 	max-width: 200px;
 	min-width: 60px;
@@ -106,14 +108,14 @@ section.menu {
 	}
 }
 .menu-center {
-	z-index: 200;
+	// z-index: 200;
 	height: 100%;
 	min-width: 550px;
 	flex: 1.7;
 	background-color: #111517;
 }
 .menu-right {
-	z-index: 200;
+	// z-index: 200;
 	flex: 1;
 	background-color: #0f1315;
 	// align-items: stretch;
@@ -353,7 +355,7 @@ section.menu {
 			border: 0px;
 			border-radius: 0px;
 			padding: 0 0 0 5px;
-			z-index: 200;
+			// z-index: 200;
 			position: relative;
 			pointer-events: all !important;
 		}
@@ -381,7 +383,7 @@ section.menu {
 		}
 		.kard-body {
 			color: $color-white;
-			z-index: 200;
+			// z-index: 200;
 			padding: 0px;
 			position: relative;
 			// max-height: 63vh;
@@ -425,12 +427,12 @@ section.menu {
 		.kard-footer {
 			border: 0px;
 			border-radius: 0px;
-			// z-index: 200;
+			z-index: 200;
 			padding: 5px 0 0 0;
 			width: 100%;
 		}
 		button {
-			z-index: 200;
+			// z-index: 200;
 			position: relative;
 		}
 	}

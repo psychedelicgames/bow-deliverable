@@ -260,7 +260,7 @@ $(document).ready(function() {
 				force3D: true
 			});
 		}
-		if ( $('.menu').css('display') == 'flex' ) {
+		if ($('.menu').hasClass('menu-on')) {
 
 			TweenMax.set('.menu-title', {
 				opacity: 1,
@@ -539,8 +539,8 @@ $(document).ready(function() {
 		//leemos feedback para salir del asyn
 		if(feedback == 'respawn_ok') {
 			KilledSequence(null, 'respawn');
+			$('.menu').removeClass('menu-on');
 			sound_bg.play();
-			$('*').modal('hide');
 			$('#canvas').css({ 'filter': 'inherit'});
 			$('#canvas').focus();
 			//sonido respawn al azar
@@ -590,6 +590,7 @@ $(document).ready(function() {
 				// is_user_online();
 				$('#canvas-container').css({'display': 'block'});
 				$('.menu').removeClass('menu-on');
+				$('.menu-overlay').attr('style','');
 				// cargamos el hub
 				player_hub();
 				$(location).attr('href','#play');
@@ -1443,7 +1444,6 @@ $(document).ready(function() {
 		var aarray = ["#action-container", "img.dead", "button.dead", "#action-container .fas"]
 
 		if (action == 'kill') {
-			console.log('caca');
 			$('#action-container span').html(info);
 			TweenMax.set("#action-container", {
 				opacity: 0,
@@ -2037,7 +2037,11 @@ $(document).ready(function() {
 		var previa = socket.disconnect();
 		previa.open();
 		$('#canvas-container').css({'display': 'none'});
-		$('.menu').addClass('menu-on');
+		// $('.menu').addClass('menu-on');
+		KilledSequence(null, 'respawn');
+		$('#canvas').css({ 'filter': 'grayscale(0%) contrast(100%)','-webkit-filter': 'grayscale(0%) contrast(100%)'});
+		$(location).attr('href', '#online-players');
+		// modals_manager('online-players');
 		is_user_online();
 	}
 
