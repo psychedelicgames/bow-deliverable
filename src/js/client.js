@@ -170,7 +170,7 @@ $(document).ready(function() {
 				// console.log(feedback.advice);
 			}
 			//si el usuario es válido
-			else {;
+			else {
 				clear_modal_login();
 				//calculamos la coma en 2
 				//feedback.user.balance_usd = feedback.user.balance_usd.toFixed(2);
