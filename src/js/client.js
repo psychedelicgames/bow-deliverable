@@ -1812,6 +1812,7 @@ $(document).ready(function() {
 					},
 					yAxis: {
 						title: '',
+						gridLineColor: 'transparent',
 						plotLines: [{value: 0, width: 1 }]
 					},
 					tooltip: {

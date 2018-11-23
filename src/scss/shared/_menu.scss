@@ -273,6 +273,13 @@ section.menu {
 			text-decoration: none !important;
 			color: $color-blue !important;
 		}
+		table {
+			tbody {
+				td:nth-child(2) {
+					width: 55%;
+				}
+			}
+		}
 	}
 	&.kard-balance {
 		.drawlines {
