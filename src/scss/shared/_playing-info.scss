@@ -67,7 +67,7 @@
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 	ul.playing-info {
 		font-family: 'BigNoodleTitling';
 		font-size: 20px;
@@ -112,7 +112,7 @@
 				margin-left: 10px;
 				display: none;
 				color: #999;
-			}			
+			}
 		}
 	}
 	ul.switch-container {
@@ -124,7 +124,7 @@
 		flex: 1;
 		.btn-fullscreen-off {
 			display: none;
-		}		
+		}
 		li {
 			flex: 1;
 			display: flex;
@@ -145,7 +145,7 @@
 				margin-top: 11px;
 				display: block;
 				margin-left: auto;
-				margin-right: auto;				
+				margin-right: auto;
 			}
 			&.btn-music-on {
 				display: none;
@@ -154,7 +154,7 @@
 				color: $color-one !important;
 			}
 		}
-	}	
+	}
 }
 
 .action-container {
@@ -181,12 +181,12 @@
 	-ms-user-select: none;
 	user-select: none;
 	&.rage {
-		color: #fff;
+		color: #ffd800;
 		-webkit-animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
 		-moz-animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
-		animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate; 
-		font-size: 5.7vw !important;
-	}	
+		animation: shakeRage 0.3s infinite, neon3 1s ease-in-out infinite alternate;
+		font-size: 9vw !important;
+	}
 	span.line {
 		display: block;
 	}
@@ -251,7 +251,7 @@
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 	&.active {
 		display: block !important;
 	}
@@ -278,7 +278,7 @@
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 	ul {
 		padding-left: 0px;
 		li {

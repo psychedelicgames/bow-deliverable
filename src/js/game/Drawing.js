@@ -8,7 +8,7 @@ function Drawing(context, images) {
 }
 
 //show names
-var show_names = '1';
+var show_names = '0';
 
 /************************************************************/
 /* Definiciones generales ***********************************/
