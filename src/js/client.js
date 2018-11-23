@@ -330,7 +330,6 @@ $(document).ready(function() {
 				ease: Elastic.easeIn.config(1, 0.75),
 				force3D: true
 			});
-
 			TweenMax.set('.red-line img', {
 				opacity: 0.5,
 				width: '0%',
@@ -343,7 +342,6 @@ $(document).ready(function() {
 				ease: Elastic.easeInOut.config(1, 0.75),
 				force3D: true
 			});
-
 			TweenMax.to('.menu', 0.1, {
 				opacity: 0,
 				className: '+=menu-on'
@@ -355,7 +353,7 @@ $(document).ready(function() {
 				ease: Elastic.easeOut.config(1, 0.75),
 				force3D: true
 			});
-		};
+		}
 	}
 
 
