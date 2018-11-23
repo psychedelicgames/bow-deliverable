@@ -584,8 +584,8 @@ $(document).ready(function() {
 			//revisamos si el usuario dispone de dinero
 			if(feedback.advice == 'Low funds.') {
 					//Have a drone.
-					$('*').modal('hide');
-					$('#modal-low-funds').modal('show');
+					modals_manager('low-funds');
+					console.log('test');
 				}
 			//si no hizo cosas raras
 			if(feedback.advice == 'Welcome.') {
@@ -615,9 +615,9 @@ $(document).ready(function() {
 	/* Respawn with a drone *******************************/
 
 	function drone_respawn() {
-		$('*').modal('hide');
 		showAlert('Low founds for a tank! Have a drone.', 'red');
 		// cerramos el modal y realizamos operaciones gráficas.
+		$('.menu').removeClass('menu-on');
 		$('#canvas-container').css({'display': 'block'});
 		$('#home').css({'display': 'none'});
 		$('.player-hub').css({'display': 'none'});
@@ -1346,7 +1346,7 @@ $(document).ready(function() {
 			// console.log((hub_usuario.rage - 1 ) * 100 + '%');
 			$('#progress-bar-rage').css({width: (hub_usuario.rage - 1 ) * 100 + '%'});
 			//calculamos la salud perdida
-			console.log(hub_usuario.rage);
+			// console.log(hub_usuario.rage);
 
 
 			if (hub_usuario.rage >= 2 && rage_informed == 0) {

@@ -263,6 +263,11 @@ section.menu {
 			}
 		}
 	}
+	&.kard-low-funds {
+		.kard-info {
+			height: auto;
+		}
+	}
 	&.kard-rooms {
 		a {
 			text-decoration: none !important;
