@@ -1452,7 +1452,7 @@ $(document).ready(function() {
 			});
 			TweenMax.set("#action-container", {
 				className: '-=rage',
-			});			
+			});
 			TweenMax.staggerTo("#action-container", 1, {
 				scale: 1.7,
 				opacity: 1,
@@ -1485,7 +1485,7 @@ $(document).ready(function() {
 			});
 			TweenMax.set("#action-container", {
 				className: '-=rage',
-			});				
+			});
 			TweenMax.set(".canvas-overlay", {
 				opacity: 0,
 			});
@@ -2320,13 +2320,13 @@ $(document).ready(function() {
 			break;
 			//añadir sunflower, añadir laser
 			//'Tab' para abrir sidebar
-			case 9: show_sidebar();
-			break;
+			//case 9: show_sidebar();
+			//break;
 			// show powerups
 			case 16: show_powerups(), rage_state(); dialog_view();
 			break;
 			// show menu
-			case 27: modals_switch();
+			case 9: modals_switch();
 			break;
 			//salimos del handler
 			default: return;
@@ -2335,10 +2335,11 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
+//se añade a fin de cerrar el menú
 	$('body').keydown(function(e) {
 		switch(e.which) {
 			// show menu
-			case 27: modals_switch();
+			case 9: modals_switch();
 			break;
 			//salimos del handler
 			default: return;
