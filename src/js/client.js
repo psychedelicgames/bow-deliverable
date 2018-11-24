@@ -398,7 +398,9 @@ $(document).ready(function() {
 				user_mfa_show();
 			}
 		}
-		leaderboard_view();
+
+		//pide usuarios offline, size: 50
+		leaderboard_view(0, 50);
 
 		// manage show and hide modals
 		if ( $('.kard-' + modal).css('display') == 'none' ) {
@@ -975,9 +977,9 @@ $(document).ready(function() {
 	/* leaderboard/view *****************************************/
 
 	//Devuelve los 50 principales
-	function leaderboard_view() {
+	function leaderboard_view(online, size) {
 		//enviamos las variables para node
-		socket.emit('leaderboard-view', function(feedback) {
+		socket.emit('leaderboard-view', function(feedback, online, size) {
 			//hacer cosas con la información? o no hacer nada...
 			//feedback vuelve con información del node, muchas veces no debería de verse.
 			if(feedback.leaderboard != null) {
