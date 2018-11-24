@@ -158,6 +158,9 @@ section.menu {
 				.user-bits {
 					color: $color-green;
 				}
+				.fa-balance-scale {
+					font-size: 18px;
+				}
 			}
 		}
 		ul {
@@ -287,6 +290,9 @@ section.menu {
 		.drawlines {
 			margin-right: -40px;
 			margin-left: -20px;
+		}
+		.fa-balance-scale {
+			font-size: 18px;
 		}
 	}
 }
