@@ -1278,7 +1278,21 @@ $(document).ready(function() {
 			//si hay operaciones nuevas, informamos.
 			var conversaciones = feedback.dialogo
 			console.log(conversaciones);
-			//foreach
+			
+			var i = 0;
+			while ( i < conversaciones.length) {
+				variable  = "<li class='dialog'>";
+				variable += '<span>' + conversaciones[i].username + ': </span>';
+				variable += conversaciones[i].message;
+				variable += "</li>";
+				$(variable).appendTo('.small-chat-container .chat-display');
+				++i;
+				
+			}
+			var lis = $('.chat-display').children('li');
+			var alto = (lis.length * 19);
+			console.log(alto);
+			$('.chat-display').scrollTop(alto);
 
 			//if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
 			//almacenamos el balance en balance_previo
@@ -1347,19 +1361,20 @@ $(document).ready(function() {
 			$('#shield-bar').empty();
 			//cargamos la barra de experiencia
 			// console.log((hub_usuario.rage - 1 ) * 100 + '%');
-			$('#progress-bar-rage').css({width: (hub_usuario.rage - 1 ) * 100 + '%'});
+			
 			//calculamos la salud perdida
 			// console.log(hub_usuario.rage);
 
-
-			if (hub_usuario.rage >= 2 && rage_informed == 0) {
-				rage_state();
-				rage_informed = 1;
-			};
-			if (hub_usuario.rage < 2) {
-				rage_informed = 0;
-				$('.rage-line').removeClass('on-rage');
-			};
+			// user rage --------------------> OFF
+			// $('#progress-bar-rage').css({width: (hub_usuario.rage - 1 ) * 100 + '%'});
+			// if (hub_usuario.rage >= 2 && rage_informed == 0) {
+			// 	rage_state();
+			// 	rage_informed = 1;
+			// };
+			// if (hub_usuario.rage < 2) {
+			// 	rage_informed = 0;
+			// 	$('.rage-line').removeClass('on-rage');
+			// };
 
 			var emptyHealth = 20 - hub_usuario.health;
 			//salud
@@ -2336,7 +2351,7 @@ $(document).ready(function() {
 			//case 9: show_sidebar();
 			//break;
 			// show powerups
-			case 16: show_powerups(), rage_state(); dialog_view(); leaderboard_view(1, 25);
+			case 16: show_powerups(), dialog_view(); leaderboard_view(1, 25);
 			break;
 			// show menu
 			case 9: modals_switch();
@@ -2422,6 +2437,7 @@ $(document).ready(function() {
 
 	//puede quedar al final
 	is_user_online();
+	dialog_view();
 
 	// modals_manager('online-players');
 
