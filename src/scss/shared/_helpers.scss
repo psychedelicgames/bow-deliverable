@@ -29,6 +29,9 @@
 	transition: transform .1s;
 	transform: scale(1.05);
 }
+.btn.btn-large {
+	min-width: 160px;
+}
 .btn.btn-cancel {
 	color: #000;
 	background: rgb(160,22,22);

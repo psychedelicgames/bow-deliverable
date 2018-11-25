@@ -40,6 +40,15 @@ section.menu {
 		top: 0px;
 		left: 20px;
 	}
+	.menu-subtitle {
+		font-family: 'BigNoodleTooOblique';
+		font-size: 20px;
+		text-transform: uppercase;
+		color: $color-white;
+		position: absolute;
+		top: 15px;
+		right: 20px;
+	}
 	.red-line {
 		position: absolute;
 		top: 35px;
