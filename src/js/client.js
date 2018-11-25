@@ -979,7 +979,10 @@ $(document).ready(function() {
 	//Devuelve los 50 principales
 	function leaderboard_view(online, size) {
 		//enviamos las variables para node
-		socket.emit('leaderboard-view', function(feedback, online, size) {
+		var online = online;
+		var size = size;
+		console.log(online, size);
+		socket.emit('leaderboard-view', {online: online, size: size}, function(feedback) {
 			//hacer cosas con la información? o no hacer nada...
 			//feedback vuelve con información del node, muchas veces no debería de verse.
 			if(feedback.leaderboard != null) {
@@ -1007,6 +1010,8 @@ $(document).ready(function() {
 					row2 += '</tr>';
 				}
 				$('#playing-leaderboard').html(row2);
+				//revision
+				console.log(feedback.leaderboard);
 			}
 		});
 	}
@@ -2325,7 +2330,7 @@ $(document).ready(function() {
 			//case 9: show_sidebar();
 			//break;
 			// show powerups
-			case 16: show_powerups(), rage_state(); dialog_view();
+			case 16: show_powerups(), rage_state(); dialog_view(); leaderboard_view(1, 25);
 			break;
 			// show menu
 			case 9: modals_switch();
