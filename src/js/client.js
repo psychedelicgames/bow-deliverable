@@ -978,10 +978,14 @@ $(document).ready(function() {
 
 	//Devuelve los 50 principales
 	function leaderboard_view(online, size) {
+
+		//if player self developer mode on comenzar clock
+		//console logs para developer only
+
 		//enviamos las variables para node
-		var online = online;
-		var size = size;
-		console.log(online, size);
+		//var online = online;
+		//var size = size;
+		//console.log(online, size);
 		socket.emit('leaderboard-view', {online: online, size: size}, function(feedback) {
 			//hacer cosas con la información? o no hacer nada...
 			//feedback vuelve con información del node, muchas veces no debería de verse.
@@ -1014,6 +1018,8 @@ $(document).ready(function() {
 				console.log(feedback.leaderboard);
 			}
 		});
+
+		//if player self developer mode on finalizar clock
 	}
 
 	/************************************************************/
