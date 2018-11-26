@@ -230,10 +230,10 @@ $(document).ready(function() {
 	// var chatHeight = $('.kard.chat').innerHeight();
 	// $('.chat-display').height(chatHeight - 150);
 
-	// $(window).resize(function() {
-	// 	var chatHeight = $('.kard.chat').innerHeight();
-	// 	$('.chat-display').height(chatHeight - 150);
-	// });
+	$(window).resize(function() {
+		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 100);
+		$('.chat-display').height(chatSize);
+	});
 
 	/******************************************************/
 	/* Kards manager **************************************/
@@ -313,7 +313,6 @@ $(document).ready(function() {
 				ease: Elastic.easeInOut.config(1, 0.75),
 				force3D: true
 			});
-
 		}
 		else {
 			TweenMax.set('.menu-title', {
@@ -1277,7 +1276,7 @@ $(document).ready(function() {
 		socket.emit('dialogo-view', function(feedback) {
 			//si hay operaciones nuevas, informamos.
 			var conversaciones = feedback.dialogo
-			console.log(conversaciones);
+			// console.log(conversaciones);
 			
 			var i = 0;
 			while ( i < conversaciones.length) {
@@ -1287,12 +1286,8 @@ $(document).ready(function() {
 				variable += "</li>";
 				$(variable).appendTo('.small-chat-container .chat-display');
 				++i;
-				
 			}
-			var lis = $('.chat-display').children('li');
-			var alto = (lis.length * 19);
-			console.log(alto);
-			$('.chat-display').scrollTop(alto);
+			$('.small-chat-container .chat-display').scrollTop(1700);
 
 			//if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
 			//almacenamos el balance en balance_previo
@@ -2351,7 +2346,7 @@ $(document).ready(function() {
 			//case 9: show_sidebar();
 			//break;
 			// show powerups
-			case 16: show_powerups(), dialog_view(); leaderboard_view(1, 25);
+			case 16: show_powerups(); leaderboard_view(1, 25);
 			break;
 			// show menu
 			case 9: modals_switch();

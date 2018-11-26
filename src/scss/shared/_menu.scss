@@ -128,9 +128,9 @@ section.menu {
 	flex: 1;
 	background-color: #0f1315;
 	// align-items: stretch;
-	display: flex;
-	flex-direction: column;
-	padding-top: 40px;
+	// display: flex;
+	// flex-direction: column;
+	// padding-top: 40px;
 	// max-width: 370px;
 	min-width: 360px;
 	@include menu-right {
@@ -144,7 +144,8 @@ section.menu {
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#07090a', endColorstr='#0b0e10',GradientType=0 );
 		color: #fff;
 		display: flex;
-		padding: 13px 0 37px 15px;
+		padding: 13px 0 7px 15px;
+		height: 90px;
 		.image {
 			// display: inline-block;
 		}
@@ -154,7 +155,7 @@ section.menu {
 		}
 		.info {
 			padding-left: 20px;
-			height: 70px;
+			// height: 70px;
 			.name {
 				i {
 					display: inline-block;
@@ -195,16 +196,39 @@ section.menu {
 		}
 	}
 	.chat {
-		height: 90%;
+		height: calc(100% - 100px);
 		.kard-info {
+			overflow-y: hidden;
 			padding: 10px 25px;
-		}
-		.kard-info, .kard-body, .container {
-			height: 90%;
-			.row {
-				height: 90%;
+			.small-chat-container {
+				width: 100%;
+				.chat-display {
+					// max-height: 20vh;
+					overflow-y: auto;
+					min-width: 100%;
+					padding: 0px;
+					padding-bottom: 20px;
+					height: 52vh;
+					li {
+						list-style: none;
+						font-size: 13px;
+						span {
+							color: $color-one;
+						}
+					}
+				}
 			}
+				.chat-input {
+					font-size: 13px;
+					width: 100%;
+				}
 		}
+		// .kard-info, .kard-body, .container {
+		// 	height: 100%;
+		// 	.row {
+		// 		height: 100%;
+		// 	}
+		// }
 	}
 }
 
