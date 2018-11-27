@@ -22,9 +22,9 @@ section.menu {
 	display: none;
 	justify-content: space-around;
 	margin: 0 auto;
-	margin-top: 5%;
-	padding-top: 50px;
+	margin-top: 12vh;
 	position: relative;
+	background-color: #0b0f11;
 	// z-index: 200;
 	&.menu-on {
 		display: flex !important;
@@ -93,7 +93,7 @@ section.menu {
 				}
 				&.menu-active {
 					color: $color-one;
-					background-color: #111517;
+					background-color: #05090b;
 					border-left: 5px solid red;
 				}
 				i {
@@ -121,7 +121,14 @@ section.menu {
 	height: 100%;
 	min-width: 550px;
 	flex: 1.7;
-	background-color: #111517;
+	background-color: #0b0f11;
+    background: #0b0f11;
+    background: -moz-radial-gradient(30% 30%, ellipse cover, rgba(10,50,70,0.4) 0%, rgba(5,9,11,1) 100%);
+    background: -webkit-radial-gradient(30% 30%, ellipse cover, rgba(10,50,70,0.4) 0%,rgba(5,9,11,1) 100%);
+    background: radial-gradient(ellipse at 30% 30%, rgba(10,50,70,0.4) 0%,rgba(5,9,11,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a3246', endColorstr='#05090b',GradientType=1 );
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .menu-right {
 	// z-index: 200;
@@ -241,6 +248,7 @@ section.menu {
 	display: none;
 	height: 100%;
 	font-size: 13px;
+	// background-color: #0b0f11;
 	&.show {
 		position: relative;
 	}

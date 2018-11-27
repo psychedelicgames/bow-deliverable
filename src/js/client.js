@@ -243,7 +243,7 @@ $(document).ready(function() {
 		var elementClicked = this.getAttribute('href').split('#')[1];
 		modals_manager(elementClicked);
 	});
-
+	// funcion para levantar el menu
 	function modals_switch() {
 		if ( $('body').hasClass('playing')) {
 			TweenMax.to('.menu-overlay', 0.5, {
@@ -355,7 +355,7 @@ $(document).ready(function() {
 		}
 	}
 
-
+	// funcion para leer la url y levantar el menu que corresponde
 	function url_worker() {
 
 		// create array with all sections
@@ -383,6 +383,7 @@ $(document).ready(function() {
 		};
 	}
 
+	// funcion que maneja la columna central del menu, recibe una variable 'modal' desde varios lados.
 	function modals_manager(modal) {
 
 		$('*').removeClass('menu-active');
@@ -406,123 +407,19 @@ $(document).ready(function() {
 			$('*').removeClass('show');
 			$('#kard-' + modal).addClass('show');
 
-			// TweenMax.set('.kard-modal:not(.show)', {
-			// 	opacity: 1,
-			// 	display: 'block',
-			// 	scale: 1,
-			// 	top: '0vh',
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
-
-			// TweenMax.to('.kard-modal:not(.show)', 1, {
-			// 	opacity: 0,
-			// 	display: 'none',
-			// 	scale: 0.7,
-			// 	top: '130vh',
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
-
-			// TweenMax.set('.kard-modal.show', {
-			// 	opacity: 0,
-			// 	display: 'none',
-			// 	scale: 0.7,
-			// 	top: '-100vh',
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
-
-			// TweenMax.staggerTo('.kard-modal.show', 1, {
-			// 	opacity: 1,
-			// 	display: 'block',
-			// 	scale: 1,
-			// 	top: '0vh',
-			// 	delay: 0.2,
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
-
-			// TweenMax.set('.kard-modal:not(.show)', {
-			// 	opacity: 1,
-			// 	display: 'block',
-			// 	scale: 1,
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
 
 			TweenMax.to('.kard-modal:not(.show)', 0.5, {
 				opacity: 0,
 				display: 'none',
 			});
 
-			// TweenMax.set('.kard-modal.show', {
-			// 	opacity: 0,
-			// 	display: 'none',
-			// 	scale: 0.7,
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
-
 			TweenMax.staggerTo('.kard-modal.show', 0.7, {
 				opacity: 1,
 				display: 'block',
 				delay: 0.5,
 			});
-			// TweenMax.staggerTo('.kard-modal.show', 1, {
-			// 	opacity: 1,
-			// 	display: 'block',
-			// 	scale: 1,
-			// 	delay: 0.2,
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
-
-
 		}
-		// else if ( $('.kard-' + modal).hasClass('show') ) {
-		// 	console.log('la tiene' + modal);
-		// 	$('#kard-' + modal).removeClass('show');
-
-		// 	TweenMax.to('#kard-' + modal, 1, {
-		// 		opacity: 0,
-		// 		display: 'none',
-		// 		scale: 0,
-		// 		top: '130vh',
-		// 		ease: Elastic.easeOut.config(1, 0.75),
-		// 		force3D: true
-		// 	});
-		// 	// show_home();
-		// }
 	}
-
-	// $('#kard-new-user-resume').click(function() {
-	// 	$('#resume-container').css({'display': 'block'});
-	// 	$('#kard-new-user-resume').removeClass('unselected');
-	// 	$('#register-container').css({'display': 'none'});
-	// 	$('#kard-new-user-register').addClass('unselected');
-	// 	$('#alert-message-resume').text('');
-	// 	$('#alert-message-register').text('');
-	// });
-
-	// $('#kard-new-user-register').click(function() {
-	// 	$('#register-container').css({'display': 'block'});
-	// 	$('#kard-new-user-register').removeClass('unselected');
-	// 	$('#resume-container').css({'display': 'none'});
-	// 	$('#kard-new-user-resume').addClass('unselected');
-	// });
-	// $('#modal-new-user').on('hidden.bs.modal', function (e) {
-	// 	clear_modal_login();
-	// });
-
-	// 	// open modals ingame
-	// $('.show-modal-back-home').click(function() {
-	// 	$('*').modal('hide');
-	// 	$('#modal-back-home').modal('toggle');
-	// });
-	// $('#modal-back-home').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
