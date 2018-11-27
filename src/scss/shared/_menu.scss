@@ -378,12 +378,12 @@ section.menu {
 		position: absolute;
 		right: 0px;
 	}
-	.kard-subtitle-navigation {
-		font-family: 'BigNoodleTooOblique';
-		font-size: 24px;
-		text-transform: uppercase;
-		color: $color-white;
-		margin-bottom: 20px !important;
+	.kard-title {
+		// font-family: 'BigNoodleTooOblique';
+		// font-size: 24px;
+		// text-transform: uppercase;
+		// color: $color-white;
+		// margin-bottom: 20px !important;
 		.color-accent{
 			color: $color-one
 		}
@@ -391,23 +391,25 @@ section.menu {
 			color: $color-white;
 			filter: blur(0.7px);
 			opacity: 0.8;
-			margin-right: 15px;
+			margin:0 5%;
 			cursor: pointer;
+			font-size: 20px;
 		}
-		span:before  {
-			content: ">";
-			color: $color-one;
-			font-family: 'BigNoodleTooOblique';
-			font-size: 24px;
-			margin-right: 4px;
-			opacity: 0;
-		}
-		span.active:before  {
-			opacity: 1;
-		}
+		// span:before  {
+		// 	content: ">";
+		// 	color: $color-one;
+		// 	font-family: 'BigNoodleTooOblique';
+		// 	font-size: 24px;
+		// 	margin-right: 4px;
+		// 	opacity: 0;
+		// }
+		// span.active:before  {
+		// 	opacity: 1;
+		// }
 		span.active {
 			color: $color-one;
 			filter: blur(0);
+			font-size: 24px;
 		}
 	}
 
