@@ -93,7 +93,12 @@ section.menu {
 				}
 				&.menu-active {
 					color: $color-one;
-					background-color: #05090b;
+					background-color: #0b0f11;
+					background: #0c161c;
+					background: -moz-linear-gradient(left, #0c161c 0%, #05171e 100%);
+					background: -webkit-linear-gradient(left, #0c161c 0%,#05171e 100%);
+					background: linear-gradient(to right, #0c161c 0%,#05171e 100%);
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0c161c', endColorstr='#05171e',GradientType=1 );
 					border-left: 5px solid red;
 				}
 				i {
@@ -206,7 +211,7 @@ section.menu {
 		height: calc(100% - 100px);
 		.kard-info {
 			overflow-y: hidden;
-			padding: 10px 25px;
+			padding: 30px 25px;
 			.small-chat-container {
 				width: 100%;
 				.chat-display {
@@ -219,8 +224,21 @@ section.menu {
 					li {
 						list-style: none;
 						font-size: 13px;
-						span {
-							color: $color-one;
+						margin-bottom: 11px;
+						padding-left: 22px;
+						position: relative;
+						.fa-comment {
+							position: absolute;
+							left: 0px;
+							top: 2px;
+							color: #858788;
+						}
+						.chat-time {
+							// color: #858788;
+							// font-weight: bold;
+						}
+						.chat-name {
+							// color: #858788;
 						}
 					}
 				}
@@ -248,7 +266,7 @@ section.menu {
 	display: none;
 	height: 100%;
 	font-size: 13px;
-	// background-color: #0b0f11;
+	position: relative;
 	&.show {
 		position: relative;
 	}
@@ -408,10 +426,18 @@ section.menu {
 		}
 		.kard-title {
 			font-family: 'BigNoodleTooOblique';
-			font-size: 24px;
+			font-size: 25px;
 			margin-bottom: 10px !important;
 			text-transform: uppercase;
-			color: $color-one;
+			color: $color-white;
+			text-align: center;
+			border-top: 1px solid #18272d;
+			border-bottom: 1px solid #18272d;
+			padding: 5px 0px;
+			background: -moz-radial-gradient(center, ellipse cover, rgba(12,16,18,1) 0%, rgba(12,22,28,0) 100%);
+			background: -webkit-radial-gradient(center, ellipse cover, rgba(12,16,18,1) 0%,rgba(12,22,28,0) 100%);
+			background: radial-gradient(ellipse at center, rgba(12,16,18,1) 0%,rgba(12,22,28,0) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0c1012', endColorstr='#000c161c',GradientType=1 );
 			span {
 				margin-right: 10px;
 				cursor: pointer;

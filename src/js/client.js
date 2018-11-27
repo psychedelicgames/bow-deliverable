@@ -231,7 +231,7 @@ $(document).ready(function() {
 	// $('.chat-display').height(chatHeight - 150);
 
 	$(window).resize(function() {
-		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 100);
+		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 130);
 		$('.chat-display').height(chatSize);
 	});
 
@@ -262,43 +262,15 @@ $(document).ready(function() {
 		}
 		if ($('.menu').hasClass('menu-on')) {
 
-			TweenMax.set('.menu-title', {
-				opacity: 1,
-				scale: 1,
-				top: '0px',
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.to('.menu-title', 0.5, {
-				opacity: 0,
-				scale: 0.7,
-				top: '50px',
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-
-			TweenMax.set('.red-line img', {
-				opacity: 1,
-				width: '100%',
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.to('.red-line img', 0.5, {
-				opacity: 0.5,
-				width: '0%',
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-
 			TweenMax.set('.menu', {
 				opacity: 1,
 				scale: 1,
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true
+				left: "0%"
 			});
-			TweenMax.to('.menu', 0.5, {
+			TweenMax.to('.menu', 1, {
 				opacity: 0,
-				scale: 0.7,
+				scale: 1,
+				left: "-120%",
 				ease: Elastic.easeIn.config(1, 0.75),
 				force3D: true
 			});
@@ -315,38 +287,15 @@ $(document).ready(function() {
 			});
 		}
 		else {
-			TweenMax.set('.menu-title', {
-				opacity: 0,
-				scale: 0.7,
-				top: '50px',
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.to('.menu-title', 0.5, {
-				opacity: 1,
+			TweenMax.set('.menu', {
+				opacity:1,
 				scale: 1,
-				top: '0px',
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.set('.red-line img', {
-				opacity: 0.5,
-				width: '0%',
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.to('.red-line img', 0.5, {
-				opacity: 1,
-				width: '100%',
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.to('.menu', 0.1, {
-				opacity: 0,
-				className: '+=menu-on'
-			});
-			TweenMax.to('.menu', 0.5, {
+				className: '+=menu-on',
+				left: "120%"
+			});			
+			TweenMax.to('.menu', 1, {
 				delay: 0.1,
+				left: "0%",
 				opacity: 1,
 				scale: 1,
 				ease: Elastic.easeOut.config(1, 0.75),
@@ -407,16 +356,38 @@ $(document).ready(function() {
 			$('*').removeClass('show');
 			$('#kard-' + modal).addClass('show');
 
+			// intento de scroll 
+			// TweenMax.set('.kard-modal:not(.show)', {
+			// 	opacity: 1,
+			// 	top: '0%',
+			// });
+			// TweenMax.staggerTo('.kard-modal:not(.show)', 0.5, {
+			// 	opacity: 0,
+			// 	top: '-120%'
+			// });
+			// TweenMax.staggerTo('.kard-modal:not(.show)', 0.1, {
+			// 	delay: 0.5,
+			// 	display: 'none',
+			// });			
 
-			TweenMax.to('.kard-modal:not(.show)', 0.5, {
+			// TweenMax.set('.kard-modal.show', {
+			// 	opacity: 0,
+			// 	display: 'block',
+			// 	top: '120%',
+			// });
+			// TweenMax.staggerTo('.kard-modal.show', 0.5, {
+			// 	opacity: 1,
+			// 	top: '0%',
+			// });
+
+			TweenMax.to('.kard-modal:not(.show)', 0.2, {
 				opacity: 0,
 				display: 'none',
 			});
 
-			TweenMax.staggerTo('.kard-modal.show', 0.7, {
+			TweenMax.staggerTo('.kard-modal.show', 0.6, {
 				opacity: 1,
 				display: 'block',
-				delay: 0.5,
 			});
 		}
 	}
@@ -1177,14 +1148,19 @@ $(document).ready(function() {
 			
 			var i = 0;
 			while ( i < conversaciones.length) {
-				variable  = "<li class='dialog'>";
-				variable += '<span>' + conversaciones[i].username + ': </span>';
+				var time = conversaciones[i].creacion.split(" ");
+				var time2 = time[1].split(":");
+				variable  = "<li class='dialog x-fadeIn'><i class='fas fa-comment'></i>";
+				variable += '<span class="chat-time">' + (time2[0] + ':' + time2[1] + '</span>');
+				variable += ' <span class="chat-name">' + conversaciones[i].username + ': </span>';
 				variable += conversaciones[i].message;
 				variable += "</li>";
 				$(variable).appendTo('.small-chat-container .chat-display');
 				++i;
 			}
-			$('.small-chat-container .chat-display').scrollTop(1700);
+			$('.small-chat-container .chat-display').scrollTop(9000);
+			var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 130);
+			$('.chat-display').height(chatSize);
 
 			//if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
 			//almacenamos el balance en balance_previo

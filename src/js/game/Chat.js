@@ -47,7 +47,7 @@ Chat.prototype.init = function() {
 
   this.socket.on('dialogo-servidor-usuarios', bind(this, function(data) {
     //enviamos la información al canal
-    this.receiveMessage(data['name'], data['message'], data['message_class'], data['user_killer'], data['user_killed']);
+    this.receiveMessage(data['name'], data['creacion'], data['message'], data['message_class'], data['user_killer'], data['user_killed']);
   }));
 };
 
@@ -59,7 +59,7 @@ Chat.prototype.init = function() {
  * @param {boolean} isNotification Whether or not this message is an
  *   administrative notification.
  */
-Chat.prototype.receiveMessage = function(name, message, message_class, user_killer, user_killed) {
+Chat.prototype.receiveMessage = function(name, creacion, message, message_class, user_killer, user_killed) {
   /*
   name: players[i].name,
                 message:"has been killed by",
@@ -76,7 +76,7 @@ message: body.user.username,
 message_class: 'spawn'
 */
 console.log(message + ' ' + message_class);
-
+$('.small-chat-container .chat-display').scrollTop(9999*9000);
 if ( message_class == 'spawn') {
   variable  = "<li class='dialog'>";
   variable += '<span class="x-color-one">' + name + '</span> ';
@@ -111,15 +111,18 @@ else if ( message_class == 'killed') {
   $(variable).appendTo('.playing-chat-container .chat-display').delay(6500).queue(function() { $(this).remove(); });
 }
 else {
-  variable  = "<li class='dialog'>";
+  // var time = conversaciones[i].creacion.split(" ");
+  // var time2 = time[1].split(":");
+  variable  = "<li class='dialog'><i class='fas fa-comment'></i>";
+  // variable += '<span class="chat-time">' + (time2[0] + ':' + time2[1] + '</span>');
   variable += '<span>' + name + ': </span>';
   variable += message;
   variable += "</li>";
   $(variable).appendTo('.small-chat-container .chat-display');
   $(variable).appendTo('.playing-chat-container .chat-display').delay(6500).queue(function() { $(this).remove(); });
-  var lis = $('.chat-display').children('li');
-  var alto = (lis.length * 19);
-  $('.chat-display').scrollTop(alto);
+  // var lis = $('.chat-display').children('li');
+  // var alto = (lis.length * 19);
+  $('.small-chat-container .chat-display').scrollTop(9999*9000);
 
 }
 //calculamos los lis que lleva
@@ -151,7 +154,5 @@ Chat.prototype.sendMessage = function() {
   this.textElement.value = '';
   this.socket.emit('dialogo-usuario-servidor', username, password, message);
 
-  var lis = $('.chat-display').children('li');
-  var alto = (lis.length * 19);
-  $('.chat-display').scrollTop(alto);
+  $('.small-chat-container .chat-display').scrollTop(9999*9000);
 };
