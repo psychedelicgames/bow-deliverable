@@ -1159,7 +1159,7 @@ $(document).ready(function() {
 				++i;
 			}
 			$('.small-chat-container .chat-display').scrollTop(9000);
-			var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 130);
+			var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 150);
 			$('.chat-display').height(chatSize);
 
 			//if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }

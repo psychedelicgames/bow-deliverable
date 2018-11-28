@@ -219,7 +219,7 @@ section.menu {
 					overflow-y: auto;
 					min-width: 100%;
 					padding: 0px;
-					padding-bottom: 20px;
+					// padding-bottom: 20px;
 					height: 52vh;
 					li {
 						list-style: none;
@@ -246,6 +246,11 @@ section.menu {
 				.chat-input {
 					font-size: 13px;
 					width: 100%;
+					background-color: #0b0f11;
+					border: none;
+					height: 30px;
+					padding: 0 10px;
+					color: #fff;
 				}
 		}
 		// .kard-info, .kard-body, .container {
