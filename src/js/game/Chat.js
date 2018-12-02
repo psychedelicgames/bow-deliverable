@@ -75,7 +75,7 @@ name: " ",
 message: body.user.username,
 message_class: 'spawn'
 */
-console.log(message + ' ' + message_class);
+// console.log(message + ' ' + message_class);
 $('.small-chat-container .chat-display').scrollTop(9999*9000);
 if ( message_class == 'spawn') {
   variable  = "<li class='dialog'>";
@@ -113,7 +113,14 @@ else if ( message_class == 'killed') {
 else {
   // var time = conversaciones[i].creacion.split(" ");
   // var time2 = time[1].split(":");
-  variable  = "<li class='dialog'><i class='fas fa-comment'></i>";
+  var username = Cookies('user_username');
+  
+  if (name = username) {
+    variable  = "<li class='dialog'><i class='fas fa-comment x-color-one'></i>";  
+  }
+  else {
+    variable  = "<li class='dialog'><i class='fas fa-comment'></i>";
+  }
   // variable += '<span class="chat-time">' + (time2[0] + ':' + time2[1] + '</span>');
   variable += '<span>' + name + ': </span>';
   variable += message;
