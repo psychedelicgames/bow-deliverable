@@ -353,43 +353,38 @@ $(document).ready(function() {
 
 		// manage show and hide modals
 		if ( $('.kard-' + modal).css('display') == 'none' ) {
-			$('*').removeClass('show');
-			$('#kard-' + modal).addClass('show');
-
-			// intento de scroll 
-			// TweenMax.set('.kard-modal:not(.show)', {
-			// 	opacity: 1,
-			// 	top: '0%',
-			// });
-			// TweenMax.staggerTo('.kard-modal:not(.show)', 0.5, {
-			// 	opacity: 0,
-			// 	top: '-120%'
-			// });
-			// TweenMax.staggerTo('.kard-modal:not(.show)', 0.1, {
-			// 	delay: 0.5,
-			// 	display: 'none',
-			// });			
-
-			// TweenMax.set('.kard-modal.show', {
-			// 	opacity: 0,
-			// 	display: 'block',
-			// 	top: '120%',
-			// });
-			// TweenMax.staggerTo('.kard-modal.show', 0.5, {
-			// 	opacity: 1,
-			// 	top: '0%',
-			// });
-
-			TweenMax.to('.kard-modal:not(.show)', 0.2, {
-				opacity: 0,
-				display: 'none',
-			});
-
-			TweenMax.staggerTo('.kard-modal.show', 0.6, {
+			// take out the actual section
+			TweenMax.staggerTo('.kard-modal.show',1.2, {
 				opacity: 1,
-				display: 'block',
+				top: '100%',
+				ease: Elastic.easeOut.config(1, 1),
+				onComplete: outShow(),
 			});
+			TweenMax.staggerTo('.kard-modal.show', 0.1, {
+				display: 'none',
+				className: '-=show',
+			});
+
+			function outShow() {
+				// $('.kard-modal.show').css({'display': 'none'});
+				// $('*').removeClass('show');
+
+				// take in the selected section
+				TweenMax.set('#kard-' + modal  + '.kard-modal', {
+					opacity: 0,
+					top: '-100%',
+
+				});
+				TweenMax.staggerTo('#kard-' + modal  + '.kard-modal',1.2, {
+					opacity: 1,
+					top: '0%',
+					display: 'block',
+					ease: Elastic.easeOut.config(1, 1),
+					className: '+=show',
+				});
+			};
 		}
+		
 	}
 
 	/******************************************************/
@@ -1184,7 +1179,6 @@ $(document).ready(function() {
 				var time = conversaciones[i].creacion.split(" ");
 				var time2 = time[1].split(":");
 				
-				console.log(username + ' ' + conversaciones[i].username)
 				if (conversaciones[i].username == username) {
 					variable  = "<li class='dialog'><i class='fas fa-comment x-color-one'></i>";  
 				}
