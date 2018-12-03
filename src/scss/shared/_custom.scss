@@ -1,3 +1,22 @@
+html body .box {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  left: 50%;
+  margin: -50 0 0 -50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  -webkit-backface-visibility: hidden;
+  opacity: 0;
+  cursor: none;
+  z-index: 999999;
+}
+html body.arrow {
+  // background: url('http://lmgtfy.com/assets/mouse_arrow_windows_aero-b118000dc97d4558d6db021793acc613.png') no-repeat 0 0 transparent;
+  border-radius: 0;
+}
+
 #leaderboard {
 	display: none;
 }
@@ -142,6 +161,8 @@ section.header {
 ====================================== */
 table.table-leaderboard {
 	font-size: 13px !important;
+	text-decoration: none !important;
+	border-bottom: 1px solid $color-grey-dark;
 	thead {
 		display: block;
 	}
@@ -149,8 +170,32 @@ table.table-leaderboard {
 		display: block;
 		overflow-y: auto;
 	}
+	td, th {
+		border-color: $color-grey-dark;
+		a{
+			display: block;
+			color: lighten($color-grey-dark, 50);
+			cursor: pointer !important;
+			.fa-circle {
+				font-size: 8px;
+				color: lighten($color-grey-dark, 50);
+				margin-right: 2px;
+			}
+			&:hover span{
+				text-decoration: none;
+				color: $color-one !important;
+			}
+			&.transaction{
+				max-width: 300px;
+			}
+		}
+	}
+	thead th{
+		border:none;
+		color: $color-one;
+	}
 	tr td:nth-child(1) {
-		width: 10%;
+		width: 8%;
 	}
 	tr td:nth-child(2) {
 		width: 63%;
@@ -165,6 +210,7 @@ table.table-leaderboard {
 		width: 30%;
 	}
 }
+
 ul.playing-info {
 	font-family: 'BigNoodleTitling';
 	font-size: 20px;

@@ -1,6 +1,46 @@
 //comenzamos
 $(document).ready(function() {
 
+
+var $box = $('.box'),
+  inter = 30,
+  speed = 0;
+
+function moveBox(e) {
+  //TweenMax.killTweensOf();
+  $box.each(function(index, val) {
+   TweenLite.to($(this), 0.05, { css: { left: e.pageX, top: e.pageY},delay:0+(index/750)});
+  });
+}
+
+$(window).on('mousemove', moveBox);
+
+$box.each(function(index, val) {
+    index = index + 1;
+    TweenMax.set(
+      $(this),{
+        autoAlpha: 1 - (0.0333 * index),
+        delay:0
+      });
+  });
+  TweenMax.set(
+    $('.text:nth-child(30)'), {
+      autoAlpha: 1.5,
+      delay: 0
+    }
+  );
+
+//V2.0
+$('.pointer').mouseover(function(){
+  //console.log('cursor');
+  $box.addClass('arrow');
+});
+$('.circle').mouseover(function(){
+  //console.log('circle');
+  $box.removeClass('arrow');
+});
+
+
 	 //redefinimos array para añadir un random, lo vamos a usar...
 	 Array.prototype.rand = function () {
 	 	return this[Math.floor((Math.random()*this.length))];
@@ -353,6 +393,7 @@ $(document).ready(function() {
 
 		// manage show and hide modals
 		if ( $('.kard-' + modal).css('display') == 'none' ) {
+<<<<<<< HEAD
 			$('*').removeClass('show');
 			$('#kard-' + modal).addClass('show');
 
@@ -382,14 +423,40 @@ $(document).ready(function() {
 
 			TweenMax.to('.kard-modal:not(.show)', 0.2, {
 				opacity: 0,
+=======
+			// take out the actual section
+			TweenMax.staggerTo('.kard-modal.show',1.2, {
+				opacity: 1,
+				top: '100%',
+				ease: Elastic.easeOut.config(1, 1),
+				onComplete: outShow(),
+			});
+			TweenMax.staggerTo('.kard-modal.show', 0.1, {
+>>>>>>> 5c0c251e3b3d4369b59dffab65be99e1568855ad
 				display: 'none',
+				className: '-=show',
 			});
 
-			TweenMax.staggerTo('.kard-modal.show', 0.6, {
-				opacity: 1,
-				display: 'block',
-			});
+			function outShow() {
+				// $('.kard-modal.show').css({'display': 'none'});
+				// $('*').removeClass('show');
+
+				// take in the selected section
+				TweenMax.set('#kard-' + modal  + '.kard-modal', {
+					opacity: 0,
+					top: '-100%',
+
+				});
+				TweenMax.staggerTo('#kard-' + modal  + '.kard-modal',1.2, {
+					opacity: 1,
+					top: '0%',
+					display: 'block',
+					ease: Elastic.easeOut.config(1, 1),
+					className: '+=show',
+				});
+			};
 		}
+		
 	}
 
 	/******************************************************/
@@ -859,30 +926,62 @@ $(document).ready(function() {
 			if(feedback.leaderboard != null) {
 				var row = '';
 				for (var i = 0; i < feedback.leaderboard.length; ++i) {
-					row += '<tr>';
-					row += '<td># ' + i + '</td>';
-					row += '<td><a class="view_usermame">' + feedback.leaderboard[i]['username'] + '</a></td>';
-					row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
-					row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-					row += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
-					row += '</tr>';
+					if (feedback.leaderboard[i]['username'] == 'healco') {
+						// avoid healco
+					}
+					else {
+						row += '<tr>';
+						row += '<td># ' + i + '</td>';
+						if (feedback.leaderboard[i]['condicion'] == 'online') {
+							row += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else {
+							row += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						};
+						
+						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
+						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+						row += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
+						row += '</tr>';
+					}
 				}
 				//enviamos la información hacia ambos leaderboards
 				$('.leaderboard-content').html(row);
 				// $('#leaderboard').html(row);
-				var row2 = '';
-				for (var i = 0; i < feedback.leaderboard.length; ++i) {
-					row2 += '<tr>';
-					row2 += '<td># ' + i + '</td>';
-					row2 += '<td><a class="view_usermame">' + feedback.leaderboard[i]['username'] + '</a></td>';
-					row2 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
-					row2 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-					row2 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
-					row2 += '</tr>';
-				}
-				$('#playing-leaderboard').html(row2);
+				// var row2 = '';
+				// for (var i = 0; i < feedback.leaderboard.length; ++i) {
+				// 	row2 += '<tr>';
+				// 	row2 += '<td># ' + i + '</td>';
+				// 	row2 += '<td><a class="view_usermame">' + feedback.leaderboard[i]['username'] + '</a></td>';
+				// 	row2 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
+				// 	row2 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+				// 	row2 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
+				// 	row2 += '</tr>';
+				// }
+				// $('#playing-leaderboard').html(row2);
 				//revision
-				console.log(feedback.leaderboard);
+
+				var row3 = '';
+				for (var i = 0; i < 11; ++i) {
+					if (feedback.leaderboard[i]['username'] == 'healco') {
+						// avoid healco
+					}
+					else {
+						row3 += '<tr>';
+						row3 += '<td># ' + i + '</td>';
+						if (feedback.leaderboard[i]['condicion'] == 'online') {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						};
+						row3 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
+						row3 += '</tr>';
+					}
+				}
+				$('#table-online-players').html(row3);
 			}
 		});
 
@@ -1144,13 +1243,21 @@ $(document).ready(function() {
 		socket.emit('dialogo-view', function(feedback) {
 			//si hay operaciones nuevas, informamos.
 			var conversaciones = feedback.dialogo
+			var username = Cookies('user_username');
 			// console.log(conversaciones);
 
 			var i = 0;
 			while ( i < conversaciones.length) {
 				var time = conversaciones[i].creacion.split(" ");
 				var time2 = time[1].split(":");
-				variable  = "<li class='dialog x-fadeIn'><i class='fas fa-comment'></i>";
+				
+				if (conversaciones[i].username == username) {
+					variable  = "<li class='dialog'><i class='fas fa-comment x-color-one'></i>";  
+				}
+				else {
+					variable  = "<li class='dialog'><i class='fas fa-comment'></i>";
+				}
+				// variable  = "<li class='dialog x-fadeIn'><i class='fas fa-comment'></i>";
 				variable += '<span class="chat-time">' + (time2[0] + ':' + time2[1] + '</span>');
 				variable += ' <span class="chat-name">' + conversaciones[i].username + ': </span>';
 				variable += conversaciones[i].message;

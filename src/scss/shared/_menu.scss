@@ -126,6 +126,7 @@ section.menu {
 	height: 100%;
 	min-width: 550px;
 	flex: 1.7;
+	overflow: hidden;
 	background-color: #0b0f11;
     background: #0b0f11;
     background: -moz-radial-gradient(30% 30%, ellipse cover, rgba(10,50,70,0.4) 0%, rgba(5,9,11,1) 100%);
@@ -243,15 +244,15 @@ section.menu {
 					}
 				}
 			}
-				.chat-input {
-					font-size: 13px;
-					width: 100%;
-					background-color: #0b0f11;
-					border: none;
-					height: 30px;
-					padding: 0 10px;
-					color: #fff;
-				}
+			.chat-input {
+				font-size: 13px;
+				width: 100%;
+				background-color: #0b0f11;
+				border: none;
+				height: 30px;
+				padding: 0 10px;
+				color: #fff;
+			}
 		}
 		// .kard-info, .kard-body, .container {
 		// 	height: 100%;
@@ -497,13 +498,6 @@ section.menu {
 				}
 				td, th {
 					border-color: $color-grey-dark;
-					a{
-						display: block;
-						color: lighten($color-grey-dark, 50);
-						text-decoration: underline;
-						&:hover{text-decoration: none;}
-						&.transaction{max-width: 300px;}
-					}
 				}
 				thead th{
 					border:none;
