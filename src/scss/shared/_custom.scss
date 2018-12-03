@@ -1,22 +1,3 @@
-html body .box {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  top: 50%;
-  left: 50%;
-  margin: -50 0 0 -50px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
-  -webkit-backface-visibility: hidden;
-  opacity: 0;
-  cursor: none;
-  z-index: 999999;
-}
-html body.arrow {
-  // background: url('http://lmgtfy.com/assets/mouse_arrow_windows_aero-b118000dc97d4558d6db021793acc613.png') no-repeat 0 0 transparent;
-  border-radius: 0;
-}
-
 #leaderboard {
 	display: none;
 }
