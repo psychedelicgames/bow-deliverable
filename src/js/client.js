@@ -113,7 +113,7 @@ $('.circle').mouseover(function(){
 			if (p.x > w || p.y > h) { p.x = Math.random() * w; p.y = -20; }
 		}
 	}
-	setInterval(draw, 100);
+	setInterval(draw, 101);
 
 	/************************************************************/
 	/* serverswapper *******************************************/
@@ -456,7 +456,7 @@ $('.circle').mouseover(function(){
 				});
 			};
 		}
-		
+
 	}
 
 	/******************************************************/
@@ -938,7 +938,7 @@ $('.circle').mouseover(function(){
 						else {
 							row += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
 						};
-						
+
 						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
 						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
 						row += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
@@ -1250,9 +1250,9 @@ $('.circle').mouseover(function(){
 			while ( i < conversaciones.length) {
 				var time = conversaciones[i].creacion.split(" ");
 				var time2 = time[1].split(":");
-				
+
 				if (conversaciones[i].username == username) {
-					variable  = "<li class='dialog'><i class='fas fa-comment x-color-one'></i>";  
+					variable  = "<li class='dialog'><i class='fas fa-comment x-color-one'></i>";
 				}
 				else {
 					variable  = "<li class='dialog'><i class='fas fa-comment'></i>";
