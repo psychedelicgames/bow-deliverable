@@ -73,7 +73,7 @@ $(document).ready(function() {
 			if (p.x > w || p.y > h) { p.x = Math.random() * w; p.y = -20; }
 		}
 	}
-	setInterval(draw, 30);
+	setInterval(draw, 100);
 
 	/************************************************************/
 	/* serverswapper *******************************************/
@@ -292,7 +292,7 @@ $(document).ready(function() {
 				scale: 1,
 				className: '+=menu-on',
 				left: "120%"
-			});			
+			});
 			TweenMax.to('.menu', 1, {
 				delay: 0.1,
 				left: "0%",
@@ -356,7 +356,7 @@ $(document).ready(function() {
 			$('*').removeClass('show');
 			$('#kard-' + modal).addClass('show');
 
-			// intento de scroll 
+			// intento de scroll
 			// TweenMax.set('.kard-modal:not(.show)', {
 			// 	opacity: 1,
 			// 	top: '0%',
@@ -368,7 +368,7 @@ $(document).ready(function() {
 			// TweenMax.staggerTo('.kard-modal:not(.show)', 0.1, {
 			// 	delay: 0.5,
 			// 	display: 'none',
-			// });			
+			// });
 
 			// TweenMax.set('.kard-modal.show', {
 			// 	opacity: 0,
@@ -1145,7 +1145,7 @@ $(document).ready(function() {
 			//si hay operaciones nuevas, informamos.
 			var conversaciones = feedback.dialogo
 			// console.log(conversaciones);
-			
+
 			var i = 0;
 			while ( i < conversaciones.length) {
 				var time = conversaciones[i].creacion.split(" ");
@@ -1229,7 +1229,7 @@ $(document).ready(function() {
 			$('#shield-bar').empty();
 			//cargamos la barra de experiencia
 			// console.log((hub_usuario.rage - 1 ) * 100 + '%');
-			
+
 			//calculamos la salud perdida
 			// console.log(hub_usuario.rage);
 
