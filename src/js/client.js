@@ -73,11 +73,7 @@ $(document).ready(function() {
 			if (p.x > w || p.y > h) { p.x = Math.random() * w; p.y = -20; }
 		}
 	}
-<<<<<<< HEAD
-	setInterval(draw, 101);
-=======
 	setInterval(draw, 30);
->>>>>>> parent of 8b57925c... slower rain
 
 	/************************************************************/
 	/* serverswapper *******************************************/
@@ -357,37 +353,6 @@ $(document).ready(function() {
 
 		// manage show and hide modals
 		if ( $('.kard-' + modal).css('display') == 'none' ) {
-<<<<<<< HEAD
-			$('*').removeClass('show');
-			$('#kard-' + modal).addClass('show');
-
-			// intento de scroll 
-			// TweenMax.set('.kard-modal:not(.show)', {
-			// 	opacity: 1,
-			// 	top: '0%',
-			// });
-			// TweenMax.staggerTo('.kard-modal:not(.show)', 0.5, {
-			// 	opacity: 0,
-			// 	top: '-120%'
-			// });
-			// TweenMax.staggerTo('.kard-modal:not(.show)', 0.1, {
-			// 	delay: 0.5,
-			// 	display: 'none',
-			// });			
-
-			// TweenMax.set('.kard-modal.show', {
-			// 	opacity: 0,
-			// 	display: 'block',
-			// 	top: '120%',
-			// });
-			// TweenMax.staggerTo('.kard-modal.show', 0.5, {
-			// 	opacity: 1,
-			// 	top: '0%',
-			// });
-
-			TweenMax.to('.kard-modal:not(.show)', 0.2, {
-				opacity: 0,
-=======
 			// take out the actual section
 			TweenMax.staggerTo('.kard-modal.show',1.2, {
 				opacity: 1,
@@ -396,7 +361,6 @@ $(document).ready(function() {
 				onComplete: outShow(),
 			});
 			TweenMax.staggerTo('.kard-modal.show', 0.1, {
->>>>>>> 5c0c251e3b3d4369b59dffab65be99e1568855ad
 				display: 'none',
 				className: '-=show',
 			});
