@@ -342,6 +342,9 @@ Game.prototype.draw = function() {
     // Clear the canvas.
     this.drawing.clear();
 
+    //acá es donde queremos supervisar
+    stats.begin();
+
     //revisamos la condición de background,
     if (this.background_ready == 0) {
       //console.log('armando background, solo una vez');
@@ -449,6 +452,9 @@ Game.prototype.draw = function() {
           this.players[i]['health'],
           this.players[i]['powerups']['shield_powerup']);
     }
+
+    //finalizamos las mediciones
+    stats.end();
   }
 
    // console.timeEnd("framer");
