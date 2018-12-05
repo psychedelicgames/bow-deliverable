@@ -73,7 +73,7 @@ $(document).ready(function() {
 			if (p.x > w || p.y > h) { p.x = Math.random() * w; p.y = -20; }
 		}
 	}
-	setInterval(draw, 30);
+	setInterval(draw, 10);
 
 	/************************************************************/
 	/* serverswapper *******************************************/
