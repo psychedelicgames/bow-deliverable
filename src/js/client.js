@@ -348,7 +348,7 @@ $(document).ready(function() {
 
 		//for each modal
 		if (modal == 'online-players') { leaderboard_view(1, 25); }
-		//if (modal == 'online-players') { leaderboard_view(1, 25); }
+		if (modal == 'leaderboard') { leaderboard_view(0, 50); }
 		//if (modal == 'online-players') { leaderboard_view(1, 50); }
 		//if (modal == 'online-players') { leaderboard_view(1, 50); }
 		//so on...
@@ -888,6 +888,9 @@ $(document).ready(function() {
 						row3 += '<td># ' + i + '</td>';
 						if (feedback.leaderboard[i]['condicion'] == 'online') {
 							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else if (feedback.leaderboard[i]['condicion'] == 'limbo') {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-one"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
 						}
 						else {
 							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
