@@ -114,12 +114,12 @@ else {
   // var time = conversaciones[i].creacion.split(" ");
   // var time2 = time[1].split(":");
   var username = Cookies('user_username');
-  
-  if (name = username) {
-    variable  = "<li class='dialog'><i class='fas fa-comment x-color-one'></i>";  
+
+  if (name == username) {
+    variable = "<li class='dialog'><i class='fas fa-comment x-color-one'></i>";
   }
   else {
-    variable  = "<li class='dialog'><i class='fas fa-comment'></i>";
+    variable = "<li class='dialog'><i class='fas fa-comment'></i>";
   }
   // variable += '<span class="chat-time">' + (time2[0] + ':' + time2[1] + '</span>');
   variable += '<span>' + name + ': </span>';
