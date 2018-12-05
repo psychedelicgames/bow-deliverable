@@ -339,17 +339,19 @@ $(document).ready(function() {
 		$('.modal-manager.' + modal).addClass('menu-active');
 		$('.menu').addClass('menu-on');
 
-		// detect if user is logged to preload the info
+		//online users only
 		if (Cookies('user_online') == "True") {
 			user_balance_view();
 			user_overview();
-			if (modal == 'settings') {
-				user_mfa_show();
-			}
+			if (modal == 'settings') { user_mfa_show(); }
 		}
 
-		//pide usuarios offline, size: 50
-		leaderboard_view(0, 50);
+		//for each modal
+		if (modal == 'online-players') { leaderboard_view(1, 25); }
+		//if (modal == 'online-players') { leaderboard_view(1, 25); }
+		//if (modal == 'online-players') { leaderboard_view(1, 50); }
+		//if (modal == 'online-players') { leaderboard_view(1, 50); }
+		//so on...
 
 		// manage show and hide modals
 		if ( $('.kard-' + modal).css('display') == 'none' ) {
@@ -851,12 +853,12 @@ $(document).ready(function() {
 		socket.emit('leaderboard-view', {online: online, size: size}, function(feedback) {
 			//hacer cosas con la información? o no hacer nada...
 			//feedback vuelve con información del node, muchas veces no debería de verse.
+			//console.log(feedback);
 			if(feedback.leaderboard != null) {
+				//console.log('True');
 				var row = '';
 				for (var i = 0; i < feedback.leaderboard.length; ++i) {
-					if (feedback.leaderboard[i]['username'] == 'healco') {
-						// avoid healco
-					}
+					if (feedback.leaderboard[i]['username'] == 'healco') { continue; }
 					else {
 						row += '<tr>';
 						row += '<td># ' + i + '</td>';
@@ -866,33 +868,20 @@ $(document).ready(function() {
 						else {
 							row += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
 						};
-
 						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
 						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
 						row += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
 						row += '</tr>';
-					}
+						}
 				}
 				//enviamos la información hacia ambos leaderboards
 				$('.leaderboard-content').html(row);
-				// $('#leaderboard').html(row);
-				// var row2 = '';
-				// for (var i = 0; i < feedback.leaderboard.length; ++i) {
-				// 	row2 += '<tr>';
-				// 	row2 += '<td># ' + i + '</td>';
-				// 	row2 += '<td><a class="view_usermame">' + feedback.leaderboard[i]['username'] + '</a></td>';
-				// 	row2 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
-				// 	row2 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-				// 	row2 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
-				// 	row2 += '</tr>';
-				// }
-				// $('#playing-leaderboard').html(row2);
-				//revision
 
 				var row3 = '';
-				for (var i = 0; i < 11; ++i) {
+				for (var i = 0; i < feedback.leaderboard.length; ++i) {
+						//console.log(feedback);
 					if (feedback.leaderboard[i]['username'] == 'healco') {
-						// avoid healco
+						continue;
 					}
 					else {
 						row3 += '<tr>';
@@ -911,7 +900,7 @@ $(document).ready(function() {
 				}
 				$('#table-online-players').html(row3);
 			}
-		});
+		}); //cierre de sock
 
 		//if player self developer mode on finalizar clock
 	}
@@ -2254,7 +2243,7 @@ $(document).ready(function() {
 			//case 9: show_sidebar();
 			//break;
 			// show powerups
-			case 16: show_powerups(); leaderboard_view(1, 25);
+			case 16: show_powerups();
 			break;
 			// show menu
 			case 9: modals_switch();
@@ -2280,30 +2269,19 @@ $(document).ready(function() {
 	});
 
 	//Tabulador hodl
-	//$('#canvas').keydown(function(e) { if (e.which == 9) { e.preventDefault(); $('#sidebar').show(); } });
-	//Tabulador released
-	//$('#canvas').keyup(function(e){ if (e.which == 9) { e.preventDefault(); $('#sidebar').hide(); } });
+	/*
+	$('#canvas').keydown(function(e) { if (e.which == 9) { e.preventDefault(); $('#sidebar').show(); } });
+	Tabulador released
+	$('#canvas').keyup(function(e){ if (e.which == 9) { e.preventDefault(); $('#sidebar').hide(); } });
+	*/
 
 	/************************************************************/
-	/* super quick peaced funciones *****************************/
+	/* Clocks ***************************************************/
 
-	//corremos cashier_search cada 100ms
-	setInterval(function() {
-		//información
-		// console.log(socket.connected);
-		//para cualquier usuario
-		//leaderboard_view();
-		//developer info
-
-
-		//user is online
-		if (Cookies('user_online') == "True") { cashier_search(); }
-		if (game['self']) { player_hub(); developer_info(); }
-	}, 100);
-
-	setInterval(function() {
-		if (game['self']) { playing_footer(); }
-	}, 5000);
+	//a slow loop
+	setInterval(function() { if(Cookies('user_online') == "True") { cashier_search(); } }, 1000);
+	//a quick loop
+	setInterval(function() { if(game['self']) { player_hub(); developer_info(); playing_footer(); } }, 100);
 
 	/************************************************************/
 	/* clicks ***************************************************/
@@ -2326,7 +2304,7 @@ $(document).ready(function() {
 	$('#cashier_send').click(cashier_send);
 	$('#cashier_wire').click(cashier_wire);
 	$('#rescan_blockchain').click(cashier_search);
-	$('#show_leaderboard').click(leaderboard_view);
+	//$('#show_leaderboard').click(leaderboard_view);
 	$('#show_user_overview').click(user_overview);
 	$('.show_user_overview_solapa').click(user_overview);
 	$('.show_user_mfa_solapa').click(user_mfa_show);
