@@ -7,7 +7,6 @@ $(document).ready(function() {
 	 }
 
 	 //conservar como variable principal y hacer que se pueda remplazar desde el menu
-	 //es posible que requiera una función como 'serverswapper'
 	 var server = 'wss://clouds.bitofwar.com';
 
 	//definimos lo que hay que definir
@@ -74,9 +73,6 @@ $(document).ready(function() {
 		}
 	}
 	setInterval(draw, 10);
-
-	/************************************************************/
-	/* serverswapper *******************************************/
 
 
 	/************************************************************/
@@ -504,7 +500,7 @@ $(document).ready(function() {
 			$('.user_username').text(Cookies('user_username'));
 			$('.user_balance').text(Cookies('user_balance'));
 			//$('.user_balance_usd').text(Cookies('user_balance_usd'));
-			$('.user_address').val(Cookies('user_address'));
+			$('.user_address').text(Cookies('user_address'));
 			//cambiamos el view
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
@@ -890,7 +886,7 @@ $(document).ready(function() {
 							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
 						}
 						else if (feedback.leaderboard[i]['condicion'] == 'limbo') {
-							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-one"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
 						}
 						else {
 							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
@@ -1076,7 +1072,7 @@ $(document).ready(function() {
 				$('.user-kills').text(playing_info.kills);
 				$('.user-deaths').text(playing_info.deaths);
 				$('.user-spawns').text(playing_info.spawns);
-				$('.user-bits').text(playing_info.balance + ' BITS');
+				$('.user-bits').text(playing_info.balance);
 			}
 		}
 

@@ -3,41 +3,37 @@
 		<div class="kard">
 			<div class="kard-info">
 				<div class="kard-header">
-					<h5 class="kard-title cashier-tabs"><span class="active" data-tab-link="0">Cashier Deposits</span><span data-tab-link="1">Withdrawals</span><span data-tab-link="2">Send to user</span></h5>
+					<h5 class="kard-title cashier-tabs tab-title">Cashier
+							<ul>
+								<li class="active" data-tab-link="0">Cashier Deposits</li>
+								<li data-tab-link="1">Withdrawals</li>
+								<li data-tab-link="2">Send to user</li>
+							</ul>
+						</h5>
 				</div>
 				<div class="kard-body">
 					<div class="container">
 						<div class="custom-tabs">
-
+							<div class="x-padding-xs"></div>
 							{{!-- vamos cambiando --}}
-							<div id="kard-cashier-deposits" class="active" data-tab="1">
-								<div class="row">
-									<div class="col-12">
-										<p class="mb-4">
-											<b>3 confirmations required:</b> if you are sending bitcoin from a <a href="https://greenaddress.it" target="_blank">Green Address</a> your payment will be accepted inmediatly. Otherwise the system will require 3 confirmations before updating your balance.
-										</p>
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text">Game address</span>
-											</div>
-											<input type="text" class="user_address form-control" aria-label="user_address" readonly>
-											<div class="input-group-append">
-												<span id="cashier_copy_address" class="input-group-text"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy</span>
-											</div>										
-										</div>
-									</div>
-								</div>									
+							<div id="kard-cashier-deposits" class="active" data-tab="1">					
 								<div class="row">
 									<div class="col-xl-6">
 										<div id="qrcode_personal_address" class="img-fluid"></div>
 									</div>
-									<div class="col-xl-6">
-										<p><b>Rescan blockchain:</b> please remember we are still testing the game, therefore we kindly request you to re-scan the blockchain ocasionally to detect new transfers and sync with your balance.</p>
-
-										<p><b>Real time transactions:</b> please note that BOW uses personal SEGWIT enabled BTC addresses for each player, the address below is yours and only yours. Each action in the game will be also reflected and stored in the blockchain. This address is assosiated with your current user.</p>
+									<div class="col-xl-5">
+										<p class="mb-4">
+											Welcome to the cashier! from this section you can easily move your funds across your wallets, or transfer funds to your team and friends.<br><br>
+											Please remember that 3 confirmations are required before funds become available, if you wish to speed up this process, you can use a Green Address.
+										</p>
 									</div>
 								</div>
-							</div>								
+								<div class="row">
+									<div class="col-12">
+										<div class="user_address" data-toggle="tooltip" data-placement="bottom" title="this is your personal wallet"></div>
+									</div>
+								</div>								
+							</div>
 							{{!-- hasta aca --}}
 
 							{{!-- vamos cambiando --}}
