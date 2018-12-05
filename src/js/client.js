@@ -231,7 +231,7 @@ $(document).ready(function() {
 	// $('.chat-display').height(chatHeight - 150);
 
 	$(window).resize(function() {
-		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 100);
+		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 92);
 		$('.chat-display').height(chatSize);
 	});
 
@@ -1194,7 +1194,7 @@ $(document).ready(function() {
 				++i;
 			}
 			$('.small-chat-container .chat-display').scrollTop(9000);
-			var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 100);
+			var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 92);
 			$('.chat-display').height(chatSize);
 
 			//if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
@@ -1642,7 +1642,7 @@ $(document).ready(function() {
 			$('.user-kills').text(feedback.user.won);
 			$('.user-deaths').text(feedback.user.eliminado);
 			$('.user-spawns').text(feedback.user.spawns);
-			$('.user-bits').text(feedback.user.available_balance + ' BITS');
+			$('.user-bits').text(feedback.user.available_balance);
 
 		//populamos la tabla
 		if (feedback.xfers) {
