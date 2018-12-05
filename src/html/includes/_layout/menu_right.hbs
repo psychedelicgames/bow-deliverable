@@ -1,22 +1,23 @@
 <div class="menu-right">
 	{{!-- kar leaderboard --}}
 	<div class="avatar-container user-online">
-		<div class="image">
-			<img src="../img/avatar.png">
-		</div>
+		{{!-- 	<div class="image">
+				<img src="../img/avatar.png">
+			</div> --}}
 		<div class="info">
-			<div class="name">
-				{{!-- <i class="fas fa-user"></i> --}}<span class="username"></span>
-				{{!-- /  <i class="far fa-balance-scale x-color-green"></i><span class="user-bits"></span> --}}
-			</div>
-			<img class="line" src="../img/line-ll.png">
+{{!-- 			<div class="name">
+				<i class="fas fa-user"></i><span class="username"></span>
+				<i class="far fa-balance-scale x-color-green"></i><span class="user-bits"></span>
+			</div> --}}
+			{{!-- <img class="line" src="../img/line-ll.png"> --}}
 			<div class="stats">
 				<ul>
 					{{!-- <li data-toggle="tooltip" data-placement="bottom" title="status"><i class="fas fa-circle"></i><span class="user-status"></span></li> --}}
-					<li data-toggle="tooltip" data-placement="bottom" title="bits"><span class="user-bits x-color-green"></span></li>
-					{{!-- <li data-toggle="tooltip" data-placement="bottom" title="kills"><img src="./img/canvas/game/ui/kill-icon.png"><span class="user-kills"></span></li>
+					<li data-toggle="tooltip" data-placement="bottom" title="username" class="name"><i class="fas fa-user"></i><span class="username"></span></li>
+					<li data-toggle="tooltip" data-placement="bottom" title="kills"><img src="./img/canvas/game/ui/kill-icon.png"><span class="user-kills"></span></li>
 					<li data-toggle="tooltip" data-placement="bottom" title="deaths"><img src="./img/canvas/game/ui/death-icon.png"><span class="user-deaths"></span></li>
-					<li data-toggle="tooltip" data-placement="bottom" title="spawns"><img src="./img/canvas/game/ui/spawn-icon.png"><span class="user-spawns"></span></li> --}}
+					<li data-toggle="tooltip" data-placement="bottom" title="spawns"><i class="fas fa-sync-alt"></i><span class="user-spawns"></span></li>
+					<li data-toggle="tooltip" data-placement="bottom" title="bits"><i class="far fa-balance-scale"></i><span class="user-bits"></span></li>
 				</ul>
 			</div>
 		</div>
@@ -27,7 +28,9 @@
 			<div class="kard-body">
 				<div class="container">
 					<div class="row">
-						<!-- conversaciones -->
+						<div class="chat-title">
+							<i class="fas fa-comments"></i> Live chat
+						</div>
 						<div class="small-chat-container">
 							<ul class="chat-display">
 							</ul>
