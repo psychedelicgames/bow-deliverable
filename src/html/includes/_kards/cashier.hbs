@@ -4,12 +4,12 @@
 			<div class="kard-info">
 				<div class="kard-header">
 					<h5 class="kard-title cashier-tabs tab-title">Cashier
-							<ul>
-								<li class="active" data-tab-link="0">Cashier Deposits</li>
-								<li data-tab-link="1">Withdrawals</li>
-								<li data-tab-link="2">Send to user</li>
-							</ul>
-						</h5>
+						<ul>
+							<li class="active" data-tab-link="0">Deposits</li>
+							<li data-tab-link="1">Withdrawals</li>
+							<li data-tab-link="2">History</li>
+						</ul>
+					</h5>
 				</div>
 				<div class="kard-body">
 					<div class="container">
@@ -19,7 +19,7 @@
 							<div id="kard-cashier-deposits" class="active" data-tab="1">					
 								<div class="row">
 									<div class="col-xl-6">
-										<div id="qrcode_personal_address" class="img-fluid"></div>
+										<div id="qrcode_personal_address" class="img-fluid" data-toggle="tooltip" data-placement="bottom" title="scan this code and make a transfer from your phone"></div>
 									</div>
 									<div class="col-xl-5">
 										<p class="mb-4">
@@ -39,17 +39,52 @@
 							{{!-- vamos cambiando --}}
 							<div id="kard-cashier-withdrawals" data-tab="2">
 								<div class="row">						
-									<div class="col-12">
-										<p class="mb-4">
-											<b>Important:</b> your withdrawal will be sent from your personal game wallet, so you can send it to any address you may want. Your current balance is: <a class="user_balance"></a>. All your available balance will be sent.
-										</p>
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text">Destination address</span>
+									<div class="col-12 text-center">
+										<div class="form-custom">
+											<span>username:</span>
+											<div class="input-field">
+												<div class="icon"><i class="fas fa-user-plus"></i></div>
+												<input id="withdrawals-username" type="text" aria-label="username">
 											</div>
-											<input id="address_b" type="text" class="form-control" placeholder="Address" aria-label="address">
 										</div>
-										<button id="cashier_send" class="btn mb-3">Submit</button>
+										<div class="form-custom">
+											<span>password:</span>
+											<div class="input-field">
+												<div class="icon"><i class="fas fa-key"></i></div>
+												<input id="withdrawals-password" type="password" aria-label="withdrawals-password">
+											</div>
+										</div>
+										<div class="form-custom">
+											<span>available balance:</span>
+											<div class="input-field">
+												<div class="icon"><i class="far fa-balance-scale"></i></div>
+												<input id="withdrawals-available-balance" type="text" aria-label="withdrawals-available-balance">
+											</div>
+										</div>	
+										<div class="form-custom">
+											<span>withdrawal amount:</span>
+											<div class="input-field">
+												<div class="icon"><i class="fas fa-arrow-down color-one"></i></div>
+												<input id="withdrawals-amount" type="text" aria-label="withdrawals-amount" placeholder="0.00">
+											</div>
+										</div>	
+										<div class="form-custom">
+											<span>left in account:</span>
+											<div class="input-field">
+												<div class="icon"><i class="far fa-balance-scale"></i></div>
+												<input id="balance-left" type="text" aria-label="balance-left" placeholder="0.00">
+											</div>
+										</div>
+										<div class="form-custom">
+											<span>destination address:</span>
+											<div class="input-field">
+												<div class="icon"><i class="fas fa-wallet"></i></div>
+												<input id="address_b" type="text" aria-label="address_b">
+											</div>
+										</div>
+										<div class="border-div mt-4">								
+											<button id="cashier_send" class="btn">confirm withdrawal</button>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -59,28 +94,7 @@
 							<div id="kard-cashier-send" data-tab="3">
 								<div class="row">						
 									<div class="col-12">
-										<p class="mb-4">
-											<b>Send money to another player!</b> You can use this function to send money to another player by it's username, it could be a friend, part of your team, or used to send any kind of in game payments. <b>The legend says</b> a wise man called Merovingian may craft special weaponery for offers.
-										</p>
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text">Username</span>
-											</div>
-											<input id="wire_user_b" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
-										</div>
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text">Amount</span>
-											</div>
-											<input id="wire_value" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
-										</div>
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text">Information</span>
-											</div>
-											<input id="wire_message" type="text" class="form-control" placeholder="Who will recive?" aria-label="address">
-										</div>
-										<button id="cashier_wire" class="btn mb-3">Send</button>
+									
 									</div>
 								</div>
 							</div>

@@ -328,6 +328,19 @@ section.menu {
 		// .team-unit:last-child {
 		// 	border-bottom:0px;
 		// }
+		.team-unit-simple {
+			text-align: center;
+			font-family: 'BigNoodleTitling';
+			font-size: 19px;
+			color: #color-white;
+			span {
+				color: $color-one;	
+			}
+			div {
+				margin-bottom: 5px;
+			}
+			
+		}
 		.team-unit {
 			display: flex;
 			flex-direction: row;
@@ -391,8 +404,15 @@ section.menu {
 			margin-right: -40px;
 			margin-left: -20px;
 		}
-		.fa-balance-scale {
-			font-size: 18px;
+		.playing-info {
+			width:100%;
+			padding-left:0px;
+			li {
+				font-size: 18px;
+				img {
+					height: 14px;
+				}
+			}
 		}
 	}
 }
@@ -482,19 +502,29 @@ section.menu {
 			-ms-user-select: none !important;
 			user-select: none !important;
 			&.tab-title {
-				padding: 0px;
+				background-color: #0c1012;
+				padding: 5px;
+				text-align: left;
+			    padding-left: 10px;
 				ul {
 					font-size: 20px;
 					display: inline-block;
 					margin-bottom: 0px;
+					margin-left: -20px;
 					li:first-child {
-
+						border-left: solid 1px #181c1e;
 					}
 					li {
-						padding: 0 15px;
+						padding: 8px 15px;
 						list-style: none;
 						float: left;
-						border-right: solid 1px white;
+						border-right: solid 1px #181c1e;
+						height: 40px;
+						margin-bottom: -12px;
+						margin-top: -5px;
+						&.active {
+							background-color: #131a1c;
+						}
 					}
 				}
 			}

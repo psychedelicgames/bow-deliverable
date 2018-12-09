@@ -3,10 +3,16 @@
 	<div class="kard">
 		<div class="kard-info">
 			<div class="kard-header">
-				<h5 class="kard-title"><span class="active" data-tab-link="0">Settings</span><span data-tab-link="1">2FA</span></h5>
+				<h5 class="kard-title cashier-tabs tab-title">Settings
+						<ul>
+							<li class="active" data-tab-link="0">Options</li>
+							<li data-tab-link="1">2FA</li>
+						</ul>
+					</h5>
 			</div>
 			<div class="kard-body">
 				<div class="container">
+					<div class="x-padding-sm"></div>
 					<div class="custom-tabs">
 
 						{{!-- vamos cambiando --}}
@@ -85,11 +91,13 @@
 											</div>
 											<input id="user-mfa-code" type="text" class="form-control" placeholder="multifactor" aria-label="multifactor">
 										</div>
+										<div class="x-padding-xs"></div>
+										<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
 									</div>
 								</div>
-								<div class="kard-footer">
+							{{!-- 	<div class="kard-footer">
 									<button id="user-mfa-enable" type="button" class="btn btn-custom-one">submit</button>
-								</div>
+								</div> --}}
 							</div>
 						</div>
 						{{!-- hasta aca --}}

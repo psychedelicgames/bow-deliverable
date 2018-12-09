@@ -866,7 +866,16 @@ $(document).ready(function() {
 						};
 						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
 						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-						row += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
+						// row += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
+						row += '<td> falta api </td>';
+
+						if (feedback.leaderboard[i]['difference'] < 0) {
+							row += '<td><i class="fas fa-arrow-down x-color-one"></i> ' + (feedback.leaderboard[i]['difference'] * -1) + '</td>';
+						}
+						else {
+							row += '<td><i class="fas fa-arrow-up x-color-green"></i> ' + feedback.leaderboard[i]['difference'] + '</td>';
+						}
+
 						row += '</tr>';
 						}
 				}
@@ -893,6 +902,8 @@ $(document).ready(function() {
 						};
 						row3 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
 						row3 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+						// row3 += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
+						row3 += '<td> falta api </td>';
 						row3 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
 						row3 += '</tr>';
 					}
@@ -1663,7 +1674,7 @@ $(document).ready(function() {
 						row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';
 					}
 
-					row += '<td><a href="https://btc.com/' + feedback.xfers[i]['xid'] + '" target="_blank">' + feedback.xfers[i]['xid'] + '</a></td>';
+					row += '<td>' + feedback.xfers[i]['difference'] + '</td>';
 
 
 					//remplazamos en busqueda del simbolo '-'
@@ -1729,7 +1740,7 @@ $(document).ready(function() {
 						x: -20
 					},
 					xAxis: {
-						categories: 2,
+						categories: 0,
 						gridLineColor: 'transparent',
 					},
 					yAxis: {
@@ -1739,12 +1750,6 @@ $(document).ready(function() {
 					},
 					tooltip: {
 						headerFormat: ccc
-					},
-					legend: {
-						layout: 'vertical',
-						align: 'right',
-						verticalAlign: 'middle',
-						borderWidth: 0
 					},
 					series: [{
 						type: 'coloredline',
