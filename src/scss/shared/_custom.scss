@@ -14,6 +14,18 @@ body {
 	// background-position: top left;
 	// background-position-x: -10%;
 }
+.brand {
+    z-index: 190;
+    width: 100%;
+    position: absolute;
+    top: -5vw;
+    left: 0vw;
+    width: 50vw;
+    img {
+    	width: 100%;
+    	margin-left: -130px;
+    }
+}
 .border-div {
 	border-top: 1px solid #1e2325;
 	border-bottom: 1px solid #1e2325;

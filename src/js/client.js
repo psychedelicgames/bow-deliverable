@@ -315,15 +315,12 @@ $(document).ready(function() {
 		var url = $(location).attr('href').split('#')[1];
 		console.log(url);
 		if (url && ($.inArray(url, sections) >= 0)) {
-			$('*').removeClass('menu-active');
 			modals_manager(url);
 		}
 		else if (typeof url === 'undefined') {
-			$('*').removeClass('menu-active');
 			modals_manager('online-players');
-		}
+		}	
 		else {
-			$('*').removeClass('menu-active');
 			modals_manager('credits');
 		};
 	}
@@ -444,14 +441,13 @@ $(document).ready(function() {
 			if(feedback.advice == 'Low funds.') {
 					//Have a drone.
 					modals_manager('low-funds');
-					console.log('test');
 				}
 			//si no hizo cosas raras
 			if(feedback.advice == 'Welcome.') {
 				//cerramos el modal y realizamos operaciones gráficas.
 				// is_user_online();
 				$('#canvas-container').css({'display': 'block'});
-				$('.menu').removeClass('menu-on');
+				modals_switch();
 				$('.menu-overlay').attr('style','');
 				// cargamos el hub
 				player_hub();

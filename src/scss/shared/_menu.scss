@@ -15,17 +15,17 @@
 }
 section.menu {
 	z-index: 500;
-	height: 80vh;
+	height: 70vh;
 	width: 90vw;
 	max-width: 1200px;
 	max-height: 700px;
 	display: none;
 	justify-content: space-around;
 	margin: 0 auto;
-	margin-top: 12vh;
+	margin-top: 22vh;
 	position: relative;
 	background-color: #0b0f11;
-	// z-index: 200;
+	z-index: 200;
 	&.menu-on {
 		display: flex !important;
 		opacity: 1 !important;
@@ -232,7 +232,7 @@ section.menu {
 					min-width: 100%;
 					padding: 0 0 0 20px;
 					margin-bottom: 0px;
-					height: 40vh;
+					height: 80%;
 					li {
 						list-style: none;
 						font-size: 13px;
