@@ -345,6 +345,8 @@ $(document).ready(function() {
 		//for each modal
 		if (modal == 'online-players') { leaderboard_view(1, 25); }
 		if (modal == 'leaderboard') { leaderboard_view(0, 50); }
+		if (modal == 'cashier') { $('.kard-cashier [data-tab-link]').removeClass('active'); $('.kard-cashier [data-tab-link]:first-child').addClass('active'); $('.kard-cashier [data-tab]').removeClass('active'); $('#kard-cashier-deposits').addClass('active');}
+		if (modal == 'settings') { $('.kard-settings [data-tab-link]').removeClass('active'); $('.kard-settings [data-tab-link]:first-child').addClass('active'); $('.kard-settings [data-tab]').removeClass('active'); $('#kard-settings-ux').addClass('active');}
 		//if (modal == 'online-players') { leaderboard_view(1, 50); }
 		//if (modal == 'online-players') { leaderboard_view(1, 50); }
 		//so on...
