@@ -391,11 +391,26 @@ section.menu {
 			text-decoration: none !important;
 			color: $color-blue !important;
 		}
-		table {
-			tbody {
-				td:nth-child(2) {
-					width: 55%;
-				}
+		// table {
+		// 	tbody {
+		// 		td:nth-child(2) {
+		// 			width: 55%;
+		// 		}
+		// 	}
+		// }
+		.world-icon {
+			display: inline-block;
+			margin-right: 30px;
+		}
+		p {
+			display: inline-block;
+			width: 77%;
+			vertical-align: middle;
+			margin-right: 0px;
+		}
+		tbody {
+			.fa-circle {
+				color: #6b6b6b;
 			}
 		}
 	}

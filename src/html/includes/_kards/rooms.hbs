@@ -3,17 +3,19 @@
 	<div class="kard">
 		<div class="kard-info">
 			<div class="kard-header">
-				<h5 class="kard-title">Servers</h5>
+				<h5 class="kard-title">Servers & rooms</h5>
 			</div>
 			<div class="kard-body">
 				<div class="container">
+					<div class="x-padding-xs"></div>
 					<div class="row">
-						<div class="col-12">
+{{!-- 						<div class="col-12">
 							<h5 class="kard-subtitle mt-20">usa1.bitofwar.com</h5>
-						</div>
+						</div> --}}
 						<div class="col-12">
+							<img src="./img/world.png"/ class="world-icon">
 							<p>
-								You have differents rooms to play, where you can choose the prize for kill one enemy, or to loose when someone kill you.
+								From this section you can swap your connection to a different server. Each server has it’s unique location, players, latency and rules. Please be sure to know which one you’re connected to.
 							</p>
 						</div>
 					</div>
@@ -23,34 +25,54 @@
 							<thead>
 								<tr>
 									<th scope="col"></th>
-									<th scope="col">USA</th>
-									<th scope="col">cost/kill</th>
-									{{!-- <th scope="col">btc server</th>
-									<th scope="col">online</th>
-									<th scope="col">latency</th> --}}
+									<th scope="col">domain</th>
+									<th scope="col">bits per kill</th>
+									<th scope="col">spawn fee</th>
+									<th scope="col">online players</th>
+									<th scope="col">latency</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td><img src="./img/light-on.png"/></td>
+									<td><i class="fas fa-circle color-green"></i></td>
 									<td><a href="https://playground.bitofwar.com/">usa1.bitofwar.com</a></td>
 									<td>100 bits</td>
+									<td>5%</td>
+									<td>10</td>
+									<td>79ms</td>
 								</tr>
 								<tr>
-									<td><img src="./img/light-on.png"/></td>
+									<td><i class="fas fa-circle"></i></td>
 									<td><a href="https://playground.bitofwar.com/">usa2.bitofwar.com</a></td>
 									<td>1,000 bits</td>
+									<td>4%</td>
+									<td>12</td>
+									<td>80ms</td>
 								</tr>
 								<tr>
-									<td><img src="./img/light-on.png"/></td>
+									<td><i class="fas fa-circle"></i></td>
 									<td><a href="https://playground.bitofwar.com/">usa3.bitofwar.com</a></td>
 									<td>10,000 bits</td>
+									<td>3%</td>
+									<td>11</td>
+									<td>83ms</td>
 								</tr>
 								<tr>
-									<td><img src="./img/light-on.png"/></td>
+									<td><i class="fas fa-circle"></i></td>
 									<td><a href="https://playground.bitofwar.com/">usa4.bitofwar.com</a></td>
 									<td>100,000 bits</td>
+									<td>2%</td>
+									<td>10</td>
+									<td>52ms</td>
 								</tr>
+								<tr>	
+									<td><i class="fas fa-circle"></i></td>
+									<td><a href="https://playground.bitofwar.com/">usa5.bitofwar.com</a></td>
+									<td>1,000,000 bits</td>
+									<td>1%</td>
+									<td>8</td>
+									<td>37ms</td>
+								</tr>								
 							</tbody>
 						</table>
 						<!-- <table class="table table-sm">
