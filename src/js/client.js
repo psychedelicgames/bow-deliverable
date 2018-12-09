@@ -231,6 +231,12 @@ $(document).ready(function() {
 		$('.chat-display').height(chatSize);
 	});
 
+	// background body change
+	setInterval(function() {
+		var items = [1,2,3,4,5,6,7];
+		var item = items[Math.floor(Math.random()*items.length)];
+			$('body').attr({'style' : 'background-image: url("../img/menu-bgk/0' + item + '.png");'});
+	}, 5000);
 	/******************************************************/
 	/* Kards manager **************************************/
 

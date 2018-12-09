@@ -2,17 +2,15 @@
 	display: none;
 }
 body {
-	background-image: url("../img/bkg.jpg");
+	background-image: url("../img/menu-bgk/01.png");
 	background-size: cover;
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
 	box-sizing: border-box;
 	background-color: #3e3e3e;
-	// 	background-image: url("../img/logo-bkg.png");
-	// background-repeat: no-repeat;
-	// background-position: top left;
-	// background-position-x: -10%;
+	-webkit-transition: background-image 0.5s ease-in-out;
+	transition: background-image 0.5s ease-in-out;
 }
 .fa-circle {
 	font-size: 9px;
