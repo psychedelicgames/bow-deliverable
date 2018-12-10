@@ -237,6 +237,11 @@ $(document).ready(function() {
 		var item = items[Math.floor(Math.random()*items.length)];
 			$('body').attr({'style' : 'background-image: url("../img/menu-bgk/0' + item + '.png");'});
 	}, 5000);
+
+	// right column username size
+
+	$(".menu-right .avatar-container .username").text($(this).text().substr(0, 2)+'...');
+
 	/******************************************************/
 	/* Kards manager **************************************/
 
@@ -249,7 +254,7 @@ $(document).ready(function() {
 	function modals_switch() {
 		if ( $('body').hasClass('playing')) {
 			TweenMax.to('.menu-overlay', 0.5, {
-				css: {opacity:"1", display:"block"},
+				css: {opacity:"0.95", display:"block"},
 				ease: Elastic.easeInOut.config(1, 0.75),
 				force3D: true
 			});

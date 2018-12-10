@@ -65,14 +65,28 @@ section.menu {
 	min-width: 60px;
 	border-right: 1px solid #1e2325;
 	background-color: #0b0f11;
+	height: 100%;
+    overflow-y: auto;	
 	@include menu-left {
 		max-width: 60px;
 	}
+	@media screen and (max-height: 750px) {
+		ul {
+			padding-top: 20% !important;
+		}
+	}
+	@media screen and (max-height: 550px) {
+		ul {
+			padding-top: 2% !important;
+		}
+	}	
 	ul {
 		list-style: none;
 		padding: 0px;
-		margin-top: 40%;
+		padding-top: 40%;
 		border-top: 1px solid #14181a;
+			-webkit-transition: all 0.2s;
+				transition: all 0.2s;		
 		li {
 			a {
 				font-size: 14px;
@@ -184,8 +198,8 @@ section.menu {
 		ul {
 			margin-bottom: 0px !important;
 			padding: 0px;
-			// display:inline-block !important;
-			// flex: 1;
+			width: 120%;
+			overflow-x: auto;
 			li {
 				display: inline-block !important;
 				list-style: none;
