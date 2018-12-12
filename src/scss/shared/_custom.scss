@@ -1,6 +1,9 @@
 #leaderboard {
 	display: none;
 }
+.preload-stuff {
+	display: none;
+}
 body {
 	background-image: url("../img/menu-bgk/01.png");
 	background-size: cover;
@@ -16,6 +19,12 @@ body {
 	font-size: 9px;
 	// margin-right: 5px;
 }
+.kard-footer .btn-go-menu {
+	display: none;
+}
+.playing .kard-footer .btn-go-menu {
+	display: inline-block;
+}
 .brand {
     z-index: 190;
     width: 100%;
@@ -23,6 +32,8 @@ body {
     top: -5vw;
     left: 0vw;
     width: 50vw;
+    display: block;
+    opacity: 1;
     img {
     	width: 100%;
     	margin-left: -130px;

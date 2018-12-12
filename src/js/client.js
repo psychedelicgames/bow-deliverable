@@ -258,8 +258,6 @@ $(document).ready(function() {
 				ease: Elastic.easeInOut.config(1, 0.75),
 				force3D: true
 			});
-
-
 		} else {
 			TweenMax.to('.menu-overlay', 0.5, {
 				css: {opacity:"0", display:"none"},
@@ -268,6 +266,19 @@ $(document).ready(function() {
 			});
 		}
 		if ($('.menu').hasClass('menu-on')) {
+
+			TweenMax.set('.brand', {
+				opacity: 1,
+				scale: 1,
+				left: "0%"
+			});
+			TweenMax.to('.brand', 1, {
+				opacity: 0,
+				scale: 1,
+				left: "-120%",
+				ease: Elastic.easeIn.config(1, 0.75),
+				force3D: true
+			});
 
 			TweenMax.set('.menu', {
 				opacity: 1,
@@ -294,6 +305,19 @@ $(document).ready(function() {
 			});
 		}
 		else {
+			TweenMax.set('.brand', {
+				opacity:1,
+				scale: 1,
+				left: "-120%"
+			});
+			TweenMax.to('.brand', 1, {
+				delay: 0.1,
+				left: "0%",
+				opacity: 1,
+				scale: 1,
+				ease: Elastic.easeOut.config(1, 1),
+				force3D: true
+			});
 			TweenMax.set('.menu', {
 				opacity:1,
 				scale: 1,
@@ -460,6 +484,7 @@ $(document).ready(function() {
 				$('#canvas-container').css({'display': 'block'});
 				modals_switch();
 				$('.menu-overlay').attr('style','');
+				$('.brand').css({'display': 'none'});
 				// cargamos el hub
 				player_hub();
 				$(location).attr('href','#play');
@@ -876,7 +901,7 @@ $(document).ready(function() {
 						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
 						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
 						// row += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
-						row += '<td> falta api </td>';
+						row += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
 
 						if (feedback.leaderboard[i]['difference'] < 0) {
 							row += '<td><i class="fas fa-arrow-down x-color-one"></i> ' + (feedback.leaderboard[i]['difference'] * -1) + '</td>';
@@ -911,8 +936,8 @@ $(document).ready(function() {
 						};
 						row3 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
 						row3 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-						// row3 += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
-						row3 += '<td> falta api </td>';
+						row3 += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
+						// row3 += '<td> falta api </td>';
 						row3 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
 						row3 += '</tr>';
 					}
@@ -1201,7 +1226,7 @@ $(document).ready(function() {
 				$(variable).appendTo('.small-chat-container .chat-display');
 				++i;
 			}
-			$('.small-chat-container .chat-display').scrollTop(9000);
+			$('.small-chat-container .chat-display').scrollTop(99999);
 			var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 92);
 			$('.chat-display').height(chatSize);
 
@@ -1968,6 +1993,7 @@ $(document).ready(function() {
 		var previa = socket.disconnect();
 		previa.open();
 		$('#canvas-container').css({'display': 'none'});
+		$('.brand').css({'display': 'block'});
 		// $('.menu').addClass('menu-on');
 		KilledSequence(null, 'respawn');
 		$('#canvas').css({ 'filter': 'grayscale(0%) contrast(100%)','-webkit-filter': 'grayscale(0%) contrast(100%)'});
