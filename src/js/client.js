@@ -354,7 +354,7 @@ $(document).ready(function() {
 		}
 		else if (typeof url === 'undefined') {
 			modals_manager('online-players');
-		}	
+		}
 		else {
 			modals_manager('credits');
 		};
@@ -1112,12 +1112,28 @@ $(document).ready(function() {
 			if (game['self']) {
 				//clonamos gameself para referenciarlo más rápido
 				var playing_info = game['self'];
-				// injection footer info
-				$('.user-name').text(playing_info.name);
-				$('.user-kills').text(playing_info.kills);
-				$('.user-deaths').text(playing_info.deaths);
-				$('.user-spawns').text(playing_info.spawns);
-				$('.user-bits').text(playing_info.balance);
+
+				//
+				console.log(playing_info.name);
+				console.log(playing_info.kills);
+				console.log(playing_info.deaths);
+				console.log(playing_info.spawns);
+				console.log(playing_info.balance);
+				
+				//solo cambiar la información si no hay información, o si la información es nueva.
+				if ($('.user-name').text == null || $('.user-name').text != playing_info.name) { $('.user-name').text(playing_info.name); }
+				//var kills = $('.user-kills').text;
+				//console.log(kills.text);
+				//if ($('.user-name').text != playing_info.name ) { $('.user-name').text(playing_info.name); }
+				//if (kills.text !== playing_info.kills ) { console.log('vamos'); kills.text(playing_info.kills); }
+				//if ($('.user-deaths').text != playing_info.deaths ) { $('.user-deaths').text(playing_info.deaths); }
+				//if ($('.user-spawns').text != playing_info.spawns ) { $('.user-spawns').text(playing_info.spawns); }
+				//if ($('.user-bits').text != playing_info.balance ) { $('.user-bits').text(playing_info.balance); }
+				// $('.user-name').text(playing_info.name);
+				// $('.user-kills').text(playing_info.kills);
+				// $('.user-deaths').text(playing_info.deaths);
+				// $('.user-spawns').text(playing_info.spawns);
+				// $('.user-bits').text(playing_info.balance);
 			}
 		}
 
@@ -1659,6 +1675,7 @@ $(document).ready(function() {
 	/************************************************************/
 	/* Visualización del balance del propio usuario *************/
 
+	//en que posiciones corremos la funcion user_balance_view?
 	function user_balance_view() {
 		//loading
 		$('.user_balance_table').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
@@ -1666,16 +1683,21 @@ $(document).ready(function() {
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
 		var password = Cookies('user_password');
-		socket.emit('user-balance-view', { username: username, password: password }, function(feedback) {
-		//hacer cosas con la información? o no hacer nada... siempre dice done.
-		// console.log(feedback);
 
-		//cargamos el player battle info (kill, death, profit, spawns)
-			$('.user-name').text(feedback.user.username);
-			$('.user-kills').text(feedback.user.won);
-			$('.user-deaths').text(feedback.user.eliminado);
-			$('.user-spawns').text(feedback.user.spawns);
-			$('.user-bits').text(feedback.user.available_balance);
+		//emisión de información
+		socket.emit('user-balance-view', { username: username, password: password }, function(feedback) {
+
+
+			if ($('.user-name').text != feedback.user.username ) { $('.user-name').text(feedback.user.username); }
+			if ($('.user-kills').text != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
+			if ($('.user-deaths').text != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.eliminado); }
+			if ($('.user-spawns').text != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
+			if ($('.user-bits').text != feedback.user.available_balance ) { $('.user-bits').text(feedback.user.available_balance); }
+			// $('.user-name').text(feedback.user.username);
+			// $('.user-kills').text(feedback.user.won);
+			// $('.user-deaths').text(feedback.user.eliminado);
+			// $('.user-spawns').text(feedback.user.spawns);
+			// $('.user-bits').text(feedback.user.available_balance);
 
 		//populamos la tabla
 		if (feedback.xfers) {
