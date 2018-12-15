@@ -233,9 +233,9 @@ $(document).ready(function() {
 
 	// background body change
 	setInterval(function() {
-		var items = [1,2,3,4,5,6,7];
+		var items = [1,2,3];
 		var item = items[Math.floor(Math.random()*items.length)];
-			$('body').attr({'style' : 'background-image: url("../img/menu-bgk/0' + item + '.png");'});
+			$('body').attr({'style' : 'background-image: url("../img/menu/0' + item + '.png");'});
 	}, 5000);
 
 	// right column username size
@@ -366,7 +366,8 @@ $(document).ready(function() {
 		$('*').removeClass('menu-active');
 		$('.modal-manager.' + modal).addClass('menu-active');
 		$('.menu').addClass('menu-on');
-
+		sound_menu_click.currentTime = 0;
+		sound_menu_click.play();
 		//online users only
 		if (Cookies('user_online') == "True") {
 			user_balance_view();
@@ -651,6 +652,26 @@ $(document).ready(function() {
 	/************************************************************/
 	/* sonido ***************************************************/
 
+	//sound menu ambient
+	var sound_menu_ambient = document.createElement("audio");
+	sound_menu_ambient.src = "./audio/menu/ambient.mp3";
+	sound_menu_ambient.volume = 0.5;
+	sound_menu_ambient.autoPlay = true;
+	sound_menu_ambient.loop = true;
+	sound_menu_ambient.preLoad = false;
+	sound_menu_ambient.controls = false;
+	sound_menu_ambient.currentTime = 1;
+	sound_menu_ambient.play();
+
+	//sound menu click
+	var sound_menu_click = document.createElement("audio");
+	sound_menu_click.src = "./audio/menu/click.wav";
+	sound_menu_click.volume = 0.2;
+	sound_menu_click.autoPlay = false;
+	sound_menu_click.loop = false;
+	sound_menu_click.preLoad = true;
+	sound_menu_click.controls = false;
+
 	//Posiciones en segundos
 	var sound_bg_posiciones = [
 	0, 147, 383, 626, 830, 1075, 1332, 1524, 1777, 1968, 2246, 2524, 2766,
@@ -689,7 +710,7 @@ $(document).ready(function() {
 
 	function preload() {
 		//preload sounds
-		// console.log('corriendo preloader...');
+		console.log('corriendo preloader...');
 		//envamos las variables para node
 		socket.emit('preload', function(feedback) {
 
@@ -701,6 +722,8 @@ $(document).ready(function() {
 			sounds.load(['./audio/ammo/common.mp3']);
 			sounds.load(['./audio/ammo/quick.mp3']);
 			sounds.load(['./audio/ammo/fork.mp3']);
+
+			
 
 			//sound preloader harm
 			feedback.harm.forEach( function(file) {
