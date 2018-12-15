@@ -515,6 +515,7 @@ $(document).ready(function() {
 		$('#canvas-container').css({'display': 'block'});
 		$('#home').css({'display': 'none'});
 		$('.player-hub').css({'display': 'none'});
+		$('body').addClass('playing');
 		// focus sobre el canvas
 		$('#canvas').focus();
 		// comienza el game
@@ -1139,11 +1140,11 @@ $(document).ready(function() {
 				var playing_info = game['self'];
 
 				//
-				console.log(playing_info.name);
-				console.log(playing_info.kills);
-				console.log(playing_info.deaths);
-				console.log(playing_info.spawns);
-				console.log(playing_info.balance);
+				// console.log(playing_info.name);
+				// console.log(playing_info.kills);
+				// console.log(playing_info.deaths);
+				// console.log(playing_info.spawns);
+				// console.log(playing_info.balance);
 				
 				//solo cambiar la información si no hay información, o si la información es nueva.
 				if ($('.user-name').text == null || $('.user-name').text != playing_info.name) { $('.user-name').text(playing_info.name); }
@@ -2041,6 +2042,7 @@ $(document).ready(function() {
 		var previa = socket.disconnect();
 		previa.open();
 		$('#canvas-container').css({'display': 'none'});
+		$('body').removeClass('playing');
 		$('.brand').css({'display': 'block'});
 		// $('.menu').addClass('menu-on');
 		KilledSequence(null, 'respawn');
