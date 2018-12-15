@@ -496,6 +496,7 @@ $(document).ready(function() {
 				//comienza el game
 				game.animate();
 				//lanzamos música de fondo
+				sound_menu_ambient.pause();
 				sound_bg.play();
 				$('#canvas').focus();
 				//sonido respawn al azar
@@ -521,6 +522,7 @@ $(document).ready(function() {
 		// marcamos al usuario online
 		// is_user_online();
 		// lanzamos música de fondo
+		sound_menu_ambient.pause();
 		sound_bg.play();
 	}
 	$('.drone-respawn').click(drone_respawn);
@@ -2034,6 +2036,7 @@ $(document).ready(function() {
 		sounds['./audio/buzz.mp3'].pause();
 		//la musica
 		sound_bg.pause();
+		sound_menu_ambient.play();
 		//desenchufamos al usuario,
 		var previa = socket.disconnect();
 		previa.open();
