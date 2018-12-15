@@ -42,7 +42,7 @@ body::-webkit-scrollbar-thumb {
  *::-webkit-scrollbar {
     width: 2px;
 }
-*:not(.selectable, p) {
+*:not(.selectable) {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -59,14 +59,14 @@ img {
 	-ms-user-select: none;
 	user-select: none;
 }
-// a, h1, h2, h3, h4, h6, p {
-// 	-webkit-touch-callout: all !important;
-// 	-webkit-user-select: all !important;
-// 	-khtml-user-select: all !important;
-// 	-moz-user-select: all !important;
-// 	-ms-user-select: all !important;
-// 	user-select: all !important;
-// }
+.selectable, p, .chat-display li, .chat-display li span {
+	-webkit-touch-callout: all !important;
+	-webkit-user-select: all !important;
+	-khtml-user-select: all !important;
+	-moz-user-select: all !important;
+	-ms-user-select: all !important;
+	user-select: all !important;
+}
 input {
 	-webkit-touch-callout: all !important;
 	-webkit-user-select: all !important;
