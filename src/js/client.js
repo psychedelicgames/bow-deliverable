@@ -1759,12 +1759,13 @@ $(document).ready(function() {
 		//emisión de información
 		socket.emit('user-balance-view', { username: username, password: password }, function(feedback) {
 
-
+			console.log(feedback);
 			if ($('.user-name').text != feedback.user.username ) { $('.user-name').text(feedback.user.username); }
 			if ($('.user-kills').text != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
 			if ($('.user-deaths').text != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.eliminado); }
 			if ($('.user-spawns').text != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
 			if ($('.user-bits').text != feedback.user.available_balance ) { $('.user-bits').text(feedback.user.available_balance); }
+			if ($('.user-profit').text != feedback.user.difference ) { $('.user-profit').text(feedback.user.difference); }
 			// $('.user-name').text(feedback.user.username);
 			// $('.user-kills').text(feedback.user.won);
 			// $('.user-deaths').text(feedback.user.eliminado);
