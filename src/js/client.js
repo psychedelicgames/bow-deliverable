@@ -381,7 +381,7 @@ $(document).ready(function() {
 		//for each modal
 		if (modal == 'online-players') { leaderboard_view(1, 25); }
 		if (modal == 'leaderboard') { leaderboard_view(0, 50); }
-		if (modal == 'cashier') { $('.kard-cashier [data-tab-link]').removeClass('active'); $('.kard-cashier [data-tab-link]:first-child').addClass('active'); $('.kard-cashier [data-tab]').removeClass('active'); $('#kard-cashier-deposits').addClass('active');}
+		if (modal == 'cashier') { $('#withdrawals-available-balance').val(Cookies('user_balance')); $('.kard-cashier [data-tab-link]').removeClass('active'); $('.kard-cashier [data-tab-link]:first-child').addClass('active'); $('.kard-cashier [data-tab]').removeClass('active'); $('#kard-cashier-deposits').addClass('active');}
 		if (modal == 'settings') { $('.kard-settings [data-tab-link]').removeClass('active'); $('.kard-settings [data-tab-link]:first-child').addClass('active'); $('.kard-settings [data-tab]').removeClass('active'); $('#kard-settings-ux').addClass('active');}
 		//if (modal == 'online-players') { leaderboard_view(1, 50); }
 		//if (modal == 'online-players') { leaderboard_view(1, 50); }
@@ -1016,19 +1016,26 @@ $(document).ready(function() {
 
 
 	/************************************************************/
-	/* cashier/send *********************************************/
+	/* cashier/withdrawals **************************************/
 
-	//Envía el dinero al usuario a su dirección personal
+	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
+		console.log('caca');
+		var balance = Cookies('user_balance');
+		var amount = $('#withdrawals-amount').val();
+		$('#withdrawals-balance-left').val(balance - amount);
+	});
+
+	//Send bits to address
 	function cashier_send() {
 		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		var address = $('#address_hacia').val();
+		var username = $('#withdrawals-username').val();
+		var password = $('#withdrawals-password').val();
+		var address = $('#withdrawals-amount').val();
+
 		//envamos las variables para node
 		socket.emit('cashier-send', { username: username, password: password, address: address }, function(feedback) {
-		//hacer cosas con la información? o no hacer nada...
-		//feedback vuelve con información del node, muchas veces no debería de verse.
 		showAlert(feedback.advice, 'yellow');
+		console.log(feedback.advice);
 	});
 	}
 
@@ -2431,7 +2438,7 @@ $(document).ready(function() {
 	$('#name-submit').click(user_login);
 	$('#name-create').click(user_new);
 
-	$('#cashier_send').click(cashier_send);
+	$('#withdrawals_send').click(cashier_send);
 	$('#cashier_wire').click(cashier_wire);
 	$('#rescan_blockchain').click(cashier_search);
 	//$('#show_leaderboard').click(leaderboard_view);
