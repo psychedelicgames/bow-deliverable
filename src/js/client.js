@@ -1018,8 +1018,8 @@ $(document).ready(function() {
 	/************************************************************/
 	/* cashier/withdrawals **************************************/
 
+	//
 	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
-		console.log('caca');
 		var balance = Cookies('user_balance');
 		var amount = $('#withdrawals-amount').val();
 		$('#withdrawals-balance-left').val(balance - amount);
