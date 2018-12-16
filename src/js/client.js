@@ -1018,7 +1018,7 @@ $(document).ready(function() {
 	/************************************************************/
 	/* cashier/withdrawals **************************************/
 
-	//
+	//Update balance left when amount input change
 	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
 		var balance = Cookies('user_balance');
 		var amount = $('#withdrawals-amount').val();
