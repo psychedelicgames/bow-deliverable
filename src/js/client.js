@@ -1750,7 +1750,7 @@ $(document).ready(function() {
 	//en que posiciones corremos la funcion user_balance_view?
 	function user_balance_view() {
 		//loading
-		$('.user_balance_table').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
+		// $('.user_balance_table').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
 
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
@@ -1810,13 +1810,14 @@ $(document).ready(function() {
 					var difference_sum = feedback.xfers[i]['difference_sum'];
 					var raw_difference_sum = difference_sum.replace("-", "");
 
+					row += '<td>' + raw_difference_sum + '</td>';
 
-					if (feedback.xfers[i]['difference_sum'] < 0) {
-						row += '<td><i class="far fa-minus x-color-one"></i> ' + raw_difference_sum + '</td>';
-					}
-					else {
-						row += '<td><i class="far fa-plus x-color-green"></i> ' + raw_difference_sum + '</td>';
-					}
+					// if (feedback.xfers[i]['difference_sum'] < 0) {
+					// 	row += '<td><i class="far fa-minus x-color-one"></i> ' + raw_difference_sum + '</td>';
+					// }
+					// else {
+					// 	row += '<td><i class="far fa-plus x-color-green"></i> ' + raw_difference_sum + '</td>';
+					// }
 
 					// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
 					row += '</tr>';
@@ -1893,7 +1894,7 @@ $(document).ready(function() {
 				//enviamos la información hacia la tabla user balance
 
 				$('.user_balance_table').html(row);
-				$('.user_balance_table .fa-spinner').remove();
+				// $('.user_balance_table .fa-spinner').remove();
 			};
 		});
 
