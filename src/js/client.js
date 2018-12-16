@@ -114,6 +114,9 @@ $(document).ready(function() {
 						//Cookies.set('user_balance_usd', feedback.user.balance_usd);
 						Cookies.set('user_address', feedback.user.address);
 						Cookies.set('user_online', 'True');
+						Cookies.set('music_playing', 'True');
+						Cookies.set('music_menu', 'True');
+						Cookies.set('playing_rain', 'True');
 						//escondemos el modal
 						// modals_manager('online-players');
 						//marcamos al usuario online
@@ -1001,10 +1004,16 @@ $(document).ready(function() {
 	}
 
 	//habilitamos la funcion de copy para el address en el modal cashier
-	$('#cashier_copy_address').click(function() {
-		$('.user_address').select();
-		document.execCommand('copy');
+	$('#user_address_copy').click(function() {
+		var dummy = document.createElement("input");
+	    document.body.appendChild(dummy);
+	    dummy.value = $('#user_address_cashier').text();
+	    dummy.select();
+	    document.execCommand("copy");
+	    document.body.removeChild(dummy);
+	    showAlert('address copied on your clipboard','yellow');
 	})
+
 
 	/************************************************************/
 	/* cashier/send *********************************************/

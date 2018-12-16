@@ -306,6 +306,19 @@ section.menu {
 
 	}
 	&.kard-cashier {
+		.fa-copy {
+			float: right;
+			font-size: 17px;
+			line-height: 41px;
+			cursor: pointer;
+			transition: all 0.1s;
+			transform: scale(1);
+		}
+		.fa-copy:active {
+			color: $color-one;
+			transition: all 0.1s;
+			transform: scale(1.1);
+		}
 		.user_address {
 			font-family: 'BigNoodleTooOblique';
 			font-size: 20px;
