@@ -509,7 +509,8 @@ $(document).ready(function() {
 				game.animate();
 				//lanzamos música de fondo
 				sound_menu_ambient.pause();
-				sound_bg.play();
+				// sound_bg.play();
+				manage_music_playing();
 				$('#canvas').focus();
 				//sonido respawn al azar
 				rand = sounds_spawn.rand(); sounds[rand].play();
@@ -1284,20 +1285,18 @@ $(document).ready(function() {
 		if (Cookies('music_playing') == 'on') { 
 			$('.music-settings-switch').removeClass('fal fa-square');
 			$('.music-settings-switch').addClass('fal fa-check-square');
-			sound_bg.pause();
-			sound_bg.volume = 0;
-			// $('.music-settings-switch').html('<i class="fal fa-square"></i>');
-			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
-		}
-		else if (Cookies('music_playing') == 'off'){
-			$('.music-settings-switch').removeClass('fal fa-check-square');
-			$('.music-settings-switch').addClass('fal fa-square');
 			if ($('body').hasClass('playing')) {
 				sound_bg.play();
 			}
 			sound_bg.volume = 0.2;
-			// $('.music-settings-switch').html('<i class="fal fa-check-square"></i>');
 			$('.btn-music').html('<i class="fas fa-volume-up"></i>');
+		}
+		else if (Cookies('music_playing') == 'off'){
+			$('.music-settings-switch').removeClass('fal fa-check-square');
+			$('.music-settings-switch').addClass('fal fa-square');
+			sound_bg.pause();
+			sound_bg.volume = 0;
+			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 		}
 	};
 		// switch action
