@@ -113,10 +113,11 @@ $(document).ready(function() {
 						Cookies.set('user_balance', feedback.user.available_balance);
 						//Cookies.set('user_balance_usd', feedback.user.balance_usd);
 						Cookies.set('user_address', feedback.user.address);
-						Cookies.set('user_online', 'True');
-						Cookies.set('music_playing', 'True');
-						Cookies.set('music_menu', 'True');
-						Cookies.set('playing_rain', 'True');
+						Cookies.set('user_online', 'on');
+						Cookies.set('developer_info', 'off');
+						Cookies.set('music_playing', 'on');
+						Cookies.set('music_menu', 'on');
+						Cookies.set('playing_rain', 'on');
 						//escondemos el modal
 						// modals_manager('online-players');
 						//marcamos al usuario online
@@ -152,7 +153,7 @@ $(document).ready(function() {
 		var pass = $('#pass-input').val();
 		var mfa_code = $('#mfa-code-input').val();
 		var nonce = (new Date()).getTime();
-		$('#name-prompt-container').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
+		// $('#name-prompt-container').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
 		//enviamos la información al server
 		socket.emit('user-login', { name: name, pass: pass, mfa_code: mfa_code, nonce: nonce }, function(feedback) {
 			//revision, acá ya poseemos la info del usuario en el browser
@@ -180,6 +181,14 @@ $(document).ready(function() {
 				//Cookies.set('user_balance_usd', feedback.user.balance_usd);
 				Cookies.set('user_address', feedback.user.address);
 				Cookies.set('user_online', 'True');
+				manage_developer_info();
+				manage_rain();
+				manage_music_playing();	
+				manage_music_menu();
+
+				// disparar una funciona para que evalue con las cookies los valores de las settings
+
+
 				//marcamos al usuario online
 				// modals_manager('online-players');
 				$(location).attr('href', '#online-players');
@@ -1209,75 +1218,152 @@ $(document).ready(function() {
 	/************************************************************/
 	/* settings funciones ***************************************/
 
-	$('#developer-switch').click(function() {
-		// developer mode
-		if ($('#developer-switch').hasClass('fal fa-square')) {
+
+	function manage_developer_info() {
+		//grab from cookies
+		if (Cookies('developer_info') == 'on') { 
 			$('#developer-switch').removeClass('fal fa-square');
 			$('#developer-switch').addClass('fal fa-check-square');
 			$('#developer-mode').css({display: 'block'});
 		}
-		else {
+		else if (Cookies('developer_info') == 'off'){
 			$('#developer-switch').removeClass('fal fa-check-square');
 			$('#developer-switch').addClass('fal fa-square');
 			$('#developer-mode').css({display: 'none'});
+		}
+	};
+	// switch action
+	$('#developer-switch').click(function() { 
+		if (Cookies('developer_info') == 'off') {
+			$('#developer-switch').removeClass('fal fa-square');
+			$('#developer-switch').addClass('fal fa-check-square');
+			$('#developer-mode').css({display: 'block'});
+			Cookies.set('developer_info', 'on');
+		}
+		else if (Cookies('developer_info') == 'on') {
+			$('#developer-switch').removeClass('fal fa-check-square');
+			$('#developer-switch').addClass('fal fa-square');
+			$('#developer-mode').css({display: 'none'});
+			Cookies.set('developer_info', 'off');
 		};
-	});
-	$('.btn-dev-on-off').click(function() {
-		$('#developer-mode').toggleClass('active');
-		$('.btn-dev-on-off').toggleClass('x-color-one');
-		$('#canvas').focus();
-	});
+	});	
 
-	$('#rain-switch').click(function() {
-		// show rain
-		if ($('#rain-switch').hasClass('fal fa-square')) {
+
+	function manage_rain() {
+		//grab from cookies
+		if (Cookies('playing_rain') == 'on') { 
 			$('#rain-switch').removeClass('fal fa-square');
 			$('#rain-switch').addClass('fal fa-check-square');
 			$('#canvas_02').css({display: 'block'});
 		}
-		else {
+		else if (Cookies('playing_rain') == 'off'){
 			$('#rain-switch').removeClass('fal fa-check-square');
 			$('#rain-switch').addClass('fal fa-square');
 			$('#canvas_02').css({display: 'none'});
+		}
+	};
+	// switch action
+	$('#rain-switch').click(function() { 
+		if (Cookies('playing_rain') == 'off') {
+			$('#rain-switch').removeClass('fal fa-square');
+			$('#rain-switch').addClass('fal fa-check-square');
+			$('#canvas_02').css({display: 'block'});
+			Cookies.set('playing_rain', 'on');
+		}
+		else if (Cookies('playing_rain') == 'on') {
+			$('#rain-switch').removeClass('fal fa-check-square');
+			$('#rain-switch').addClass('fal fa-square');
+			$('#canvas_02').css({display: 'none'});
+			Cookies.set('playing_rain', 'off');
 		};
-	});
+	});	
 
-	$('.music-settings-switch').click(function() {
-		// play - pause music
-		if ( sound_bg.volume > 0 ) {
+
+	function manage_music_playing() {
+			//grab from cookies
+		if (Cookies('music_playing') == 'on') { 
+			$('.music-settings-switch').removeClass('fal fa-square');
+			$('.music-settings-switch').addClass('fal fa-check-square');
 			sound_bg.pause();
 			sound_bg.volume = 0;
-			$(this).html('<i class="fal fa-square"></i>');
+			// $('.music-settings-switch').html('<i class="fal fa-square"></i>');
 			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 		}
-		else if ( sound_bg.volume == 0 ) {
+		else if (Cookies('music_playing') == 'off'){
+			$('.music-settings-switch').removeClass('fal fa-check-square');
+			$('.music-settings-switch').addClass('fal fa-square');
 			if ($('body').hasClass('playing')) {
 				sound_bg.play();
 			}
 			sound_bg.volume = 0.2;
-			$(this).html('<i class="fal fa-check-square"></i>');
+			// $('.music-settings-switch').html('<i class="fal fa-check-square"></i>');
 			$('.btn-music').html('<i class="fas fa-volume-up"></i>');
 		}
+	};
+		// switch action
+	$('.music-settings-switch').click(function() { 
+		if (Cookies('music_playing') == 'off') {
+			$('.music-settings-switch').removeClass('fal fa-square');
+			$('.music-settings-switch').addClass('fal fa-check-square');
+			if ($('body').hasClass('playing')) {
+				sound_bg.play();
+			}
+			sound_bg.volume = 0.2;
+			$('.btn-music').html('<i class="fas fa-volume-up"></i>');			
+			Cookies.set('music_playing', 'on');
+		}
+		else if (Cookies('music_playing') == 'on') {
+			$('.music-settings-switch').removeClass('fal fa-check-square');
+			$('.music-settings-switch').addClass('fal fa-square');
+			sound_bg.pause();
+			sound_bg.volume = 0;
+			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
+			Cookies.set('music_playing', 'off');
+		};
 	});
 
-	$('.menu-music-settings-switch').click(function() {
-		// play - pause music
-		if ( sound_menu_ambient.volume > 0 ) {
-			sound_menu_ambient.pause();
-			sound_menu_ambient.volume = 0;
-			$(this).html('<i class="fal fa-square"></i>');
+	
+	function manage_music_menu() {
+			//grab from cookies
+		if (Cookies('music_menu') == 'on') { 
+			$('.menu-music-settings-switch').removeClass('fal fa-square');
+			$('.menu-music-settings-switch').addClass('fal fa-check-square');
+			sound_bg.pause();
+			sound_bg.volume = 0;
+			
 			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 		}
-		else if ( sound_menu_ambient.volume == 0 ) {
+		else if (Cookies('music_menu') == 'off'){
+			$('.menu-music-settings-switch').removeClass('fal fa-check-square');
+			$('.menu-music-settings-switch').addClass('fal fa-square');
+			if ($('body').hasClass('playing')) {
+				sound_bg.play();
+			}
+			sound_bg.volume = 0.5;
+		}
+	};
+	
+		// switch action
+	$('.menu-music-settings-switch').click(function() { 
+		if (Cookies('music_menu') == 'off') {
+			$('.menu-music-settings-switch').removeClass('fal fa-square');
+			$('.menu-music-settings-switch').addClass('fal fa-check-square');
 			if ($('body').hasClass('playing')) {
 				sound_menu_ambient.pause();
 			}
 			sound_menu_ambient.play();
-			sound_menu_ambient.volume = 0.5;
-			$(this).html('<i class="fal fa-check-square"></i>');
-			$('.btn-music').html('<i class="fas fa-volume-up"></i>');
+			sound_menu_ambient.volume = 0.5;		
+			Cookies.set('music_menu', 'on');
 		}
+		else if (Cookies('music_menu') == 'on') {
+			$('.menu-music-settings-switch').removeClass('fal fa-check-square');
+			$('.menu-music-settings-switch').addClass('fal fa-square');
+			sound_menu_ambient.pause();
+			sound_menu_ambient.volume = 0;
+			Cookies.set('music_menu', 'off');
+		};
 	});
+
 
 	/************************************************************/
 	/* Pedir conversaciones previas *****************************/
@@ -1759,7 +1845,7 @@ $(document).ready(function() {
 		//emisión de información
 		socket.emit('user-balance-view', { username: username, password: password }, function(feedback) {
 
-			console.log(feedback);
+			// console.log(feedback);
 			if ($('.user-name').text != feedback.user.username ) { $('.user-name').text(feedback.user.username); }
 			if ($('.user-kills').text != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
 			if ($('.user-deaths').text != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.eliminado); }
@@ -2458,6 +2544,10 @@ $(document).ready(function() {
 	//puede quedar al final
 	is_user_online();
 	dialog_view();
+	manage_developer_info();
+	manage_rain();
+	manage_music_playing();	
+	manage_music_menu();
 
 	// modals_manager('online-players');
 
