@@ -264,86 +264,92 @@ $(document).ready(function() {
 	});
 	// funcion para levantar el menu
 	function modals_switch() {
-		if ( $('body').hasClass('playing')) {
-			TweenMax.to('.menu-overlay', 0.5, {
-				css: {opacity:"0.95", display:"block"},
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-		} else {
-			TweenMax.to('.menu-overlay', 0.5, {
-				css: {opacity:"0", display:"none"},
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
-		}
-		if ($('.menu').hasClass('menu-on')) {
 
-			TweenMax.set('.brand', {
-				opacity: 1,
-				scale: 1,
-				left: "0%"
-			});
-			TweenMax.to('.brand', 1, {
-				opacity: 0,
-				scale: 1,
-				left: "-120%",
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true
-			});
-
-			TweenMax.set('.menu', {
-				opacity: 1,
-				scale: 1,
-				left: "0%"
-			});
-			TweenMax.to('.menu', 1, {
-				opacity: 0,
-				scale: 1,
-				left: "-120%",
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.to('.menu', 0.1, {
-				delay: 0.5,
-				className: '-=menu-on'
-			});
-
-			TweenMax.to('.menu-overlay', 0.5, {
-				delay: 0.5,
-				css: {opacity:"0", display:"none"},
-				ease: Elastic.easeInOut.config(1, 0.75),
-				force3D: true
-			});
+		if ($('input').is(":focus")) {
+			return
 		}
 		else {
-			TweenMax.set('.brand', {
-				opacity:1,
-				scale: 1,
-				left: "-120%"
-			});
-			TweenMax.to('.brand', 1, {
-				delay: 0.1,
-				left: "0%",
-				opacity: 1,
-				scale: 1,
-				ease: Elastic.easeOut.config(1, 1),
-				force3D: true
-			});
-			TweenMax.set('.menu', {
-				opacity:1,
-				scale: 1,
-				className: '+=menu-on',
-				left: "120%"
-			});
-			TweenMax.to('.menu', 1, {
-				delay: 0.1,
-				left: "0%",
-				opacity: 1,
-				scale: 1,
-				ease: Elastic.easeOut.config(1, 0.75),
-				force3D: true
-			});
+			if ( $('body').hasClass('playing')) {
+				TweenMax.to('.menu-overlay', 0.5, {
+					css: {opacity:"0.95", display:"block"},
+					ease: Elastic.easeInOut.config(1, 0.75),
+					force3D: true
+				});
+			} else {
+				TweenMax.to('.menu-overlay', 0.5, {
+					css: {opacity:"0", display:"none"},
+					ease: Elastic.easeInOut.config(1, 0.75),
+					force3D: true
+				});
+			}
+			if ($('.menu').hasClass('menu-on')) {
+
+				TweenMax.set('.brand', {
+					opacity: 1,
+					scale: 1,
+					left: "0%"
+				});
+				TweenMax.to('.brand', 1, {
+					opacity: 0,
+					scale: 1,
+					left: "-120%",
+					ease: Elastic.easeIn.config(1, 0.75),
+					force3D: true
+				});
+
+				TweenMax.set('.menu', {
+					opacity: 1,
+					scale: 1,
+					left: "0%"
+				});
+				TweenMax.to('.menu', 1, {
+					opacity: 0,
+					scale: 1,
+					left: "-120%",
+					ease: Elastic.easeIn.config(1, 0.75),
+					force3D: true
+				});
+				TweenMax.to('.menu', 0.1, {
+					delay: 0.5,
+					className: '-=menu-on'
+				});
+
+				TweenMax.to('.menu-overlay', 0.5, {
+					delay: 0.5,
+					css: {opacity:"0", display:"none"},
+					ease: Elastic.easeInOut.config(1, 0.75),
+					force3D: true
+				});
+			}
+			else {
+				TweenMax.set('.brand', {
+					opacity:1,
+					scale: 1,
+					left: "-120%"
+				});
+				TweenMax.to('.brand', 1, {
+					delay: 0.1,
+					left: "0%",
+					opacity: 1,
+					scale: 1,
+					ease: Elastic.easeOut.config(1, 1),
+					force3D: true
+				});
+				TweenMax.set('.menu', {
+					opacity:1,
+					scale: 1,
+					className: '+=menu-on',
+					left: "120%"
+				});
+				TweenMax.to('.menu', 1, {
+					delay: 0.1,
+					left: "0%",
+					opacity: 1,
+					scale: 1,
+					ease: Elastic.easeOut.config(1, 0.75),
+					force3D: true
+				});
+			}
 		}
 	}
 
