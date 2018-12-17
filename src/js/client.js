@@ -677,7 +677,8 @@ $(document).ready(function() {
 	sound_menu_ambient.preLoad = false;
 	sound_menu_ambient.controls = false;
 	sound_menu_ambient.currentTime = 1;
-	sound_menu_ambient.play();
+	
+	
 
 	//sound menu click
 	var sound_menu_click = document.createElement("audio");
@@ -691,7 +692,7 @@ $(document).ready(function() {
 	//sound menu tabs
 	var sound_menu_tabs = document.createElement("audio");
 	sound_menu_tabs.src = "./audio/menu/tabs.wav";
-	sound_menu_tabs.volume = 0.1;
+	sound_menu_tabs.volume = 0.02;
 	sound_menu_tabs.autoPlay = false;
 	sound_menu_tabs.loop = false;
 	sound_menu_tabs.preLoad = true;
@@ -2170,7 +2171,7 @@ $(document).ready(function() {
 		sounds['./audio/buzz.mp3'].pause();
 		//la musica
 		sound_bg.pause();
-		sound_menu_ambient.play();
+		manage_music_menu();
 		//desenchufamos al usuario,
 		var previa = socket.disconnect();
 		previa.open();
@@ -2548,7 +2549,8 @@ $(document).ready(function() {
 	manage_music_playing();	
 	manage_music_menu();
 
-	// modals_manager('online-players');
+	// a la espera de chris
+	setTimeout(function() { sound_menu_ambient.play();}, 1000);
 
 	//mandamos helpers
 //   tippy('.helpers', {
