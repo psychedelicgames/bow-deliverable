@@ -503,7 +503,7 @@ $(document).ready(function() {
 				$('#canvas-container').css({'display': 'block'});
 				modals_switch();
 				$('.menu-overlay').attr('style','');
-				$('.brand').css({'display': 'none'});
+				// $('.brand').css({'display': 'none'});
 				// cargamos el hub
 				player_hub();
 				$(location).attr('href','#play');
@@ -2177,7 +2177,14 @@ $(document).ready(function() {
 		sounds['./audio/buzz.mp3'].pause();
 		//la musica
 		sound_bg.pause();
-		manage_music_menu();
+		if (Cookies('music_menu') == 'on'){
+			$('.menu-music-settings-switch').removeClass('fal fa-check-square');
+			$('.menu-music-settings-switch').addClass('fal fa-square');
+			if ($('body').hasClass('playing')) {
+				sound_menu_ambient.play();
+			}
+			sound_menu_ambient.volume = 0.5;
+		};
 		//desenchufamos al usuario,
 		var previa = socket.disconnect();
 		previa.open();
