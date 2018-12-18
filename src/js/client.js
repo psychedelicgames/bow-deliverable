@@ -183,7 +183,7 @@ $(document).ready(function() {
 				Cookies.set('user_online', 'True');
 				manage_developer_info();
 				manage_rain();
-				manage_music_playing();	
+				manage_music_playing();
 				manage_music_menu();
 
 				// disparar una funciona para que evalue con las cookies los valores de las settings
@@ -683,8 +683,8 @@ $(document).ready(function() {
 	sound_menu_ambient.preLoad = false;
 	sound_menu_ambient.controls = false;
 	sound_menu_ambient.currentTime = 1;
-	
-	
+
+
 
 	//sound menu click
 	var sound_menu_click = document.createElement("audio");
@@ -702,7 +702,7 @@ $(document).ready(function() {
 	sound_menu_tabs.autoPlay = false;
 	sound_menu_tabs.loop = false;
 	sound_menu_tabs.preLoad = true;
-	sound_menu_tabs.controls = false;	
+	sound_menu_tabs.controls = false;
 
 	//Posiciones en segundos
 	var sound_bg_posiciones = [
@@ -755,7 +755,7 @@ $(document).ready(function() {
 			sounds.load(['./audio/ammo/quick.mp3']);
 			sounds.load(['./audio/ammo/fork.mp3']);
 
-			
+
 
 			//sound preloader harm
 			feedback.harm.forEach( function(file) {
@@ -1187,7 +1187,7 @@ $(document).ready(function() {
 				// console.log(playing_info.deaths);
 				// console.log(playing_info.spawns);
 				// console.log(playing_info.balance);
-				
+
 				//solo cambiar la información si no hay información, o si la información es nueva.
 				if ($('.user-name').text == null || $('.user-name').text != playing_info.name) { $('.user-name').text(playing_info.name); }
 				//var kills = $('.user-kills').text;
@@ -1229,7 +1229,7 @@ $(document).ready(function() {
 
 	function manage_developer_info() {
 		//grab from cookies
-		if (Cookies('developer_info') == 'on') { 
+		if (Cookies('developer_info') == 'on') {
 			$('#developer-switch').removeClass('fal fa-square');
 			$('#developer-switch').addClass('fal fa-check-square');
 			$('#developer-mode').css({display: 'block'});
@@ -1241,7 +1241,7 @@ $(document).ready(function() {
 		}
 	};
 	// switch action
-	$('#developer-switch').click(function() { 
+	$('#developer-switch').click(function() {
 		if (Cookies('developer_info') == 'off') {
 			$('#developer-switch').removeClass('fal fa-square');
 			$('#developer-switch').addClass('fal fa-check-square');
@@ -1254,12 +1254,12 @@ $(document).ready(function() {
 			$('#developer-mode').css({display: 'none'});
 			Cookies.set('developer_info', 'off');
 		};
-	});	
+	});
 
 
 	function manage_rain() {
 		//grab from cookies
-		if (Cookies('playing_rain') == 'on') { 
+		if (Cookies('playing_rain') == 'on') {
 			$('#rain-switch').removeClass('fal fa-square');
 			$('#rain-switch').addClass('fal fa-check-square');
 			$('#canvas_02').css({display: 'block'});
@@ -1271,7 +1271,7 @@ $(document).ready(function() {
 		}
 	};
 	// switch action
-	$('#rain-switch').click(function() { 
+	$('#rain-switch').click(function() {
 		if (Cookies('playing_rain') == 'off') {
 			$('#rain-switch').removeClass('fal fa-square');
 			$('#rain-switch').addClass('fal fa-check-square');
@@ -1284,12 +1284,12 @@ $(document).ready(function() {
 			$('#canvas_02').css({display: 'none'});
 			Cookies.set('playing_rain', 'off');
 		};
-	});	
+	});
 
 
 	function manage_music_playing() {
 			//grab from cookies
-		if (Cookies('music_playing') == 'on') { 
+		if (Cookies('music_playing') == 'on') {
 			$('.music-settings-switch').removeClass('fal fa-square');
 			$('.music-settings-switch').addClass('fal fa-check-square');
 			if ($('body').hasClass('playing')) {
@@ -1307,7 +1307,7 @@ $(document).ready(function() {
 		}
 	};
 		// switch action
-	$('.music-settings-switch').click(function() { 
+	$('.music-settings-switch').click(function() {
 		if (Cookies('music_playing') == 'off') {
 			$('.music-settings-switch').removeClass('fal fa-square');
 			$('.music-settings-switch').addClass('fal fa-check-square');
@@ -1315,7 +1315,7 @@ $(document).ready(function() {
 				sound_bg.play();
 			}
 			sound_bg.volume = 0.2;
-			$('.btn-music').html('<i class="fas fa-volume-up"></i>');			
+			$('.btn-music').html('<i class="fas fa-volume-up"></i>');
 			Cookies.set('music_playing', 'on');
 		}
 		else if (Cookies('music_playing') == 'on') {
@@ -1328,15 +1328,15 @@ $(document).ready(function() {
 		};
 	});
 
-	
+
 	function manage_music_menu() {
 			//grab from cookies
-		if (Cookies('music_menu') == 'on') { 
+		if (Cookies('music_menu') == 'on') {
 			$('.menu-music-settings-switch').removeClass('fal fa-square');
 			$('.menu-music-settings-switch').addClass('fal fa-check-square');
 			sound_bg.pause();
 			sound_bg.volume = 0;
-			
+
 			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 		}
 		else if (Cookies('music_menu') == 'off'){
@@ -1348,9 +1348,9 @@ $(document).ready(function() {
 			sound_bg.volume = 0.5;
 		}
 	};
-	
+
 		// switch action
-	$('.menu-music-settings-switch').click(function() { 
+	$('.menu-music-settings-switch').click(function() {
 		if (Cookies('music_menu') == 'off') {
 			$('.menu-music-settings-switch').removeClass('fal fa-square');
 			$('.menu-music-settings-switch').addClass('fal fa-check-square');
@@ -1358,7 +1358,7 @@ $(document).ready(function() {
 				sound_menu_ambient.pause();
 			}
 			sound_menu_ambient.play();
-			sound_menu_ambient.volume = 0.5;		
+			sound_menu_ambient.volume = 0.5;
 			Cookies.set('music_menu', 'on');
 		}
 		else if (Cookies('music_menu') == 'on') {
@@ -1841,8 +1841,6 @@ $(document).ready(function() {
 
 	//en que posiciones corremos la funcion user_balance_view?
 	function user_balance_view() {
-		//loading
-		// $('.user_balance_table').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
 
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
@@ -1854,15 +1852,10 @@ $(document).ready(function() {
 			// console.log(feedback);
 			if ($('.user-name').text != feedback.user.username ) { $('.user-name').text(feedback.user.username); }
 			if ($('.user-kills').text != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
-			if ($('.user-deaths').text != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.eliminado); }
+			if ($('.user-deaths').text != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.lose); }
 			if ($('.user-spawns').text != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
 			if ($('.user-bits').text != feedback.user.available_balance ) { $('.user-bits').text(feedback.user.available_balance); }
 			if ($('.user-profit').text != feedback.user.difference ) { $('.user-profit').text(feedback.user.difference); }
-			// $('.user-name').text(feedback.user.username);
-			// $('.user-kills').text(feedback.user.won);
-			// $('.user-deaths').text(feedback.user.eliminado);
-			// $('.user-spawns').text(feedback.user.spawns);
-			// $('.user-bits').text(feedback.user.available_balance);
 
 		//populamos la tabla
 		if (feedback.xfers) {
@@ -2563,7 +2556,7 @@ $(document).ready(function() {
 	dialog_view();
 	manage_developer_info();
 	manage_rain();
-	manage_music_playing();	
+	manage_music_playing();
 	manage_music_menu();
 
 	// a la espera de chris
