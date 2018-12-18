@@ -1882,6 +1882,9 @@ $(document).ready(function() {
 					if (feedback.xfers[i]['condicion'] == 'confirmado') {
 						row += '<td><i class="fas fa-check"></i></td>';
 					}
+					else if (feedback.xfers[i]['condicion'] == 'esperando') {
+						row += '<td><i class="fas fa-check x-color-yellow"></i></td>';
+					}					
 					else {
 						row += '<td></td>';
 					}
@@ -1895,14 +1898,14 @@ $(document).ready(function() {
 						row += '<td><i class="fas fa-arrow-up x-color-green"></i>' + feedback.xfers[i]['difference'] + '</td>';
 					}
 
-					row += '<td>' + feedback.xfers[i]['difference'] + '</td>';
+					row += '<td>' + feedback.xfers[i]['difference_sum'] + '</td>';
 
 
 					//remplazamos en busqueda del simbolo '-'
-					var difference_sum = feedback.xfers[i]['difference_sum'];
-					var raw_difference_sum = difference_sum.replace("-", "");
+					// var difference_sum = feedback.xfers[i]['difference_sum'];
+					// var raw_difference_sum = difference_sum.replace("-", "");
 
-					row += '<td>' + raw_difference_sum + '</td>';
+					row += '<td>falta api</td>';
 
 					// if (feedback.xfers[i]['difference_sum'] < 0) {
 					// 	row += '<td><i class="far fa-minus x-color-one"></i> ' + raw_difference_sum + '</td>';
@@ -1918,6 +1921,7 @@ $(document).ready(function() {
 				var aaa = [];
 				var bbb = [];
 				var ccc = [];
+				lineacolor = '#89D926';
 
 				for (var i = 0; i < feedback.xfers.length; ++i) {
 					//realiazamos la inversion

@@ -118,10 +118,12 @@ input:focus, input:active {
 }
 
 /* ======================================
-	Background Colors
+   Colors
 
 ====================================== */
-
+.x-color-yellow {
+	color: $color-yellow !important;
+}
 
 /* ======================================
 	Animations
