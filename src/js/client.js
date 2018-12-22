@@ -10,98 +10,43 @@ $(document).ready(function() {
 	 var server = 'wss://clouds.bitofwar.com';
 
 	//definimos lo que hay que definir
-	var socket = io(server);
+	var socket = io(server); //hello
 	var game = Game.create(socket, document.getElementById('canvas'), document.getElementById('leaderboard'));
 	var chat = Chat.create(socket, $('.chat-display'), document.getElementById('chat-input'));
 	var userStatus = "offline";
 
-	// console.log(socket);
 	Input.applyEventHandlers(document.getElementById('canvas'));
 	Input.addMouseTracker(document.getElementById('canvas'));
-
-	/************************************************************/
-	/* canvas foreground: lluvia ********************************/
-
-	/*mandamos la lluvia acá nomás*/
-	var canvas = document.getElementById('canvas_02');
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-
-	var ctx = canvas.getContext('2d');
-	var w = canvas.width;
-	var h = canvas.height;
-	ctx.strokeStyle = 'rgba(174,194,224,0.5)';
-	ctx.lineWidth = 1;
-	ctx.lineCap = 'round';
-
-	//máximo de lluvia
-	var init = [];
-	var maxParts = 50;
-	for (var a = 0; a < maxParts; a++) {
-		init.push({
-			x: Math.random() * w,
-			y: Math.random() * h,
-			l: Math.random() * 1,
-			xs: -4 + Math.random() * 4 + 2,
-			ys: Math.random() * 10 + 10
-		})
-	}
-
-	var particles = [];
-	for (var b = 0; b < maxParts; b++) { particles[b] = init[b]; }
-
-	//creamos la lluvia
-	function draw() {
-		ctx.clearRect(0, 0, w, h);
-		for (var c = 0; c < particles.length; c++) {
-			var p = particles[c];
-			ctx.beginPath();
-			ctx.moveTo(p.x, p.y);
-			ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
-			ctx.stroke();
-		}
-		move();
-	}
-
-	//movemos la lluvia
-	function move() {
-		for (var b = 0; b < particles.length; b++) {
-			var p = particles[b];
-			p.x += p.xs;
-			p.y += p.ys;
-			if (p.x > w || p.y > h) { p.x = Math.random() * w; p.y = -20; }
-		}
-	}
-	setInterval(draw, 10);
 
 
 	/************************************************************/
 	/* New user register ****************************************/
 
 	function user_new() {
-		//buscamos las variables que queremos del dom
+		//asociamos variables
 		var email = $('#user-new-email').val();
 		var username = $('#user-new-username').val();
 		var password = $('#user-new-password').val();
 		var nonce = (new Date()).getTime();
-		//envamos las variables para node
+
+		//enviamos un comunicado al servidor con las variables asociadas
 		socket.emit('user-new', { email: email, username: username, password: password }, function(feedback) {
-			//hacer cosas con la información? o no hacer nada...
-			//si el usuario no es válido
-			if(feedback.advice != 'Welcome.') {
-				clear_modal_login()
-				$('#alert-message-register').text(feedback.advice);
-			}
+
+			//not possible to create user
+			if(feedback.advice != 'Welcome.') { $('#alert-message-register').text(feedback.advice); }
+
+			//user create success
 			if(feedback.advice == 'Welcome.') {
-				//enviamos la información al server
+
+				//abrimos sock de acceso (enviamos un segundo pedido accediendo con el nuevo usuario y password).
 				socket.emit('user-login', { name: username, pass: password, nonce: nonce }, function(feedback) {
-					//revision, acá ya poseemos la info del usuario en el browser
-					//si el usuario no es válido
+
+					//rare case
 					if(feedback.advice == 'Invalid username or password.') {
 						clear_modal_login()
-						$('#alert-message-resume').text('User or password invalid');
+						$('#alert-message-register').text(feedback.advice);
 					}
-					//si el usuario es válido
+					//everything ok
 					else {
 						showAlert('Welcome ' + username, 'yellow');
 						clear_modal_login();
@@ -111,132 +56,237 @@ $(document).ready(function() {
 						Cookies.set('user_username', feedback.user.username);
 						Cookies.set('user_password', feedback.user.password);
 						Cookies.set('user_balance', feedback.user.available_balance);
-						//Cookies.set('user_balance_usd', feedback.user.balance_usd);
 						Cookies.set('user_address', feedback.user.address);
-						Cookies.set('user_online', 'on');
+						Cookies.set('user_logued', 'True');
 						Cookies.set('developer_info', 'off');
 						Cookies.set('music_playing', 'on');
 						Cookies.set('music_menu', 'on');
 						Cookies.set('playing_rain', 'on');
-						//escondemos el modal
-						// modals_manager('online-players');
-						//marcamos al usuario online
-						is_user_online();
+						menu_manager('cashier');
+						user_status();
+						user_stats();
 					}
-				})
+				}); //cerramos el sock de acceso (user/access)
 			};
-		})
+		}); //cerramos sock de creación de usuario
 	}
-
-	/************************************************************/
-	/* creacion de password *************************************/
-
-	//función muy simple para crear un password digno
-	function cookpassword() {
-		var chars = "abcdefhklmnopqrsuvwxyz!ABCDEFGHJKMNOP23457890";
-		var pass = "";
-		for (var x = 0; x < 12; x++) { var i = Math.floor(Math.random() * chars.length); pass += chars.charAt(i); }
-		$('#user-new-password').val(pass);
-		return pass;
-	}
-	// corremos la funcional del password cuando se abre el modal
-	$("#modal-new-user").on('shown.bs.modal', function ()  { cookpassword(); });
 
 
 	/************************************************************/
-	/* Acceso de usuario ****************************************/
+	/* User login ***********************************************/
 
 	function user_login() {
-		//revisamos
-		//leemos la información del form.
+		//fill with the input variables
 		var name = $('#name-input').val();
 		var pass = $('#pass-input').val();
 		var mfa_code = $('#mfa-code-input').val();
 		var nonce = (new Date()).getTime();
-		// $('#name-prompt-container').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
-		//enviamos la información al server
+
 		socket.emit('user-login', { name: name, pass: pass, mfa_code: mfa_code, nonce: nonce }, function(feedback) {
-			//revision, acá ya poseemos la info del usuario en el browser
-			//si el usuario no es válido
+
+			//if user or password invalid
 			if(feedback.advice == 'Invalid username or password.') {
 				clear_modal_login()
 				$('#alert-message-resume').text('User or password invalid');
-				//console.log(feedback.advice);
 			}
-			//en caso de que haya MFA y sea inválido
+			//if 2fa is invalid
 			else if(feedback.advice == 'Invalid MFA.') {
 				clear_modal_login()
 				$('#alert-message-resume').text('Invalid MFA.');
-				// console.log(feedback.advice);
 			}
-			//si el usuario es válido
+			//if user is valid
 			else {
 				clear_modal_login();
-				//armamos las cookies
+				//set up cookies
 				Cookies.set('user_id', feedback.user.id);
 				Cookies.set('user_email', feedback.user.email);
 				Cookies.set('user_username', feedback.user.username);
 				Cookies.set('user_password', feedback.user.password);
 				Cookies.set('user_balance', feedback.user.available_balance);
-				//Cookies.set('user_balance_usd', feedback.user.balance_usd);
 				Cookies.set('user_address', feedback.user.address);
-				Cookies.set('user_online', 'True');
-				manage_developer_info();
-				manage_rain();
-				manage_music_playing();
-				manage_music_menu();
+				Cookies.set('user_logued', 'True');
+				Cookies.set('developer_info', 'off');
+				Cookies.set('music_playing', 'on');
+				Cookies.set('music_menu', 'on');
+				Cookies.set('playing_rain', 'on');
 
-				// disparar una funciona para que evalue con las cookies los valores de las settings
-
-
-				//marcamos al usuario online
-				// modals_manager('online-players');
-				$(location).attr('href', '#online-players');
-				is_user_online();
-
+				//send to online players menu
+				menu_manager('online-players');
+				//set user status
+				user_status();
+				user_stats();
 			}
 		})
 		return false;
 	};
 
+	//detect "enter key" on password input field to login
+	$.fn.pressEnter = function(fn) {  
+	    return this.each(function() {  
+	        $(this).bind('enterPress', fn);
+	        $(this).keyup(function(e){
+	            if(e.keyCode == 13)
+	            {
+	              $(this).trigger("enterPress");
+	            }
+	        })
+		});  
+	}; 
+	$('#pass-input').pressEnter(function(){user_login();})
+
 
 	/************************************************************/
-	/* Reordenar el modal ***************************************/
+	/* Recuperacion de password *********************************/
+
+	function recover_pass() {
+		var email = $('#email-recover-input').val();
+		socket.emit('recover-pass', { email: email }, function(feedback) {
+		})
+	}
+
+
+	/************************************************************/
+	/* Procesa la información necesaria para crear el MFA *******/
+
+	function user_mfa_show() {
+		//search from cookies
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+
+		socket.emit('user-mfa', { username: username, password: password }, function(feedback) {
+
+			//build qr information
+			var informacion = 'otpauth://totp/' + username + '?secret=' + feedback.mfa.recover + '&issuer=www.bitofwar.com';
+			//qr creation
+			$('#qrcode_mfa').text('');
+			$('#qrcode_mfa').qrcode(informacion);
+			//info recover_code
+			$('#user-mfa-recover').text('');
+			$('#user-mfa-recover').text(feedback.mfa.recover);
+		})
+	}
+
+
+	/************************************************************/
+	/* Procesa la información necesaria para crear el MFA *******/
+
+	function user_mfa_enable() {
+		//search from cookies
+		var username = $('#2fa-username').val();
+		var password = $('#2fa-password').val();
+		var password = forge_sha256(password);
+		var mfa_recover = $('#user-mfa-recover').text();
+		var mfa_code = $('#user-mfa-code').val();
+		socket.emit('user-mfa-enable', { username: username, password: password, mfa_recover: mfa_recover, mfa_code: mfa_code }, function(feedback) {
+			//hacer cosas con la información? o no hacer nada... siempre dice done.
+			// console.log(feedback);
+			//generador de QR
+			//$('#qrcode_mfa').qrcode(feedback.mfa.recover_code);
+			//informamos el recover_code
+			//$('#user-mfa-recover-code').val(feedback.mfa.recover_code);
+		})
+	}
+
+
+	/************************************************************/
+	/* Cerramos la sesión ***************************************/
+
+	function session_close() {
+		sounds['./audio/cardio.mp3'].pause();
+		sounds['./audio/buzz.mp3'].pause();
+		sound_bg.pause();
+		//user disconnect
+		var previa = socket.disconnect();
+		previa.open();
+		//eliminamos las cookies que creamos con el login
+		Cookies.expire('user_id');
+		Cookies.expire('user_email');
+		Cookies.expire('user_username');
+		Cookies.expire('user_password');
+		Cookies.expire('user_balance');
+		Cookies.expire('user_balance_usd');
+		Cookies.expire('user_logued');
+		Cookies.expire('user_address');
+		Cookies.expire('developer_info');
+		Cookies.expire('music_playing');
+		Cookies.expire('music_menu');
+		Cookies.expire('playing_rain');
+		$(location).attr('href', '#new-user');
+		user_status();
+	}
+
+
+	/************************************************************/
+	/* Clear modal register *************************************/
 
 	function clear_modal_login() {
-		$('#alert-message').empty();
-		$('#resume-container :input').val('');
-		$('#register-container :input').val('');
-		$('#name-prompt-container .fa-spinner').remove();
+		$('#kard-new-user input').val('');
 	};
-	// $('#close-login').click(clear_modal_login);
-	//$('#name-form').submit(user_login);
+
+
+	/************************************************************/
+	/* Usuario online & offline f-user_status *******************/
+
+	function user_status() {
+		console.log(Cookies('user_logued'))
+		if (Cookies('user_logued') == "True") {
+
+			// user_stats();
+			//change on the ui
+			$(".user-online").css({ "display": "inherit" });
+			$(".user-offline").css({ "display": "none" });
+			$('body').addClass('user-logged');
+
+			if ($('body').hasClass('playing')) {
+				$('.btn-respawn').css({'display': 'none'});	
+			}
+			else {
+				$('.btn-respawn').css({'display': 'inline-block'});
+			}
+
+			//build qr
+			$('#qrcode_personal_address').text('');
+			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
+		}
+		else {			
+			//change on the ui
+			$(".user-online").css({ "display": "none" });
+			$(".user-offline").css({ "display": "inherit" });
+			$('.btn-respawn').css({'display': 'none'});
+			//send user to new-user kard
+			menu_manager('new-user');
+		}
+	}
+
+
+	/************************************************************/
+	/* User stats info f-user_stats *****************************/
+
+	function user_stats() {
+		
+		//only if user is logged
+		if (Cookies('user_logued') == "True") {
+				
+			//search on cookies
+			var username = Cookies('user_username');
+			var password = Cookies('user_password');
+
+			//send to node
+			socket.emit('user-balance-view', { username: username, password: password }, function(feedback) {
+				if ($('.user-name').text() != feedback.user.username ) { $('.user-name').text(feedback.user.username); }
+				if ($('.user-address').text() != feedback.user.address ) { $('.user-address').text(feedback.user.address); }
+				if ($('.user-kills').text() != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
+				if ($('.user-deaths').text() != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.lose); }
+				if ($('.user-spawns').text() != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
+				if ($('.user-bits').text() != feedback.user.available_balance ) { $('.user-bits').text(feedback.user.available_balance); }
+				if ($('.user-profit').text() != feedback.user.difference ) { $('.user-profit').text(feedback.user.difference); }
+				if ($('.user-status').text() != feedback.user.condicion ) { $('.user-status').text(feedback.user.condicion); }
+			});
+		}
+	}
 
 	/******************************************************/
-	/* Fill home screen************************************/
-	// function home_layout() {
-
-	// 	show_home();
-
-	// }
-
-	// function show_home() {
-
-	// 	if ( (Cookies('user_online') == "True") && ($('#home').css('display') == 'block')) {
-	// 		user_balance_view();
-	// 		leaderboard_view();
-	// 		$('*').modal('hide');
-	// 		$('#modal-home-logged').modal('show');
-	// 	}
-	// 	else {
-	// 		console.log('cccc');
-	// 	}
-	// }
-
-	/******************************************************/
-	/* Interface composer UI ******************************/
-	// var chatHeight = $('.kard.chat').innerHeight();
-	// $('.chat-display').height(chatHeight - 150);
+	/* Interface composer UI f-interfarce *****************/
 
 	$(window).resize(function() {
 		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 92);
@@ -250,110 +300,46 @@ $(document).ready(function() {
 			$('body').attr({'style' : 'background-image: url("../img/menu/0' + item + '.png");'});
 	}, 5000);
 
-	// right column username size
-
-	$(".menu-right .avatar-container .username").text($(this).text().substr(0, 2)+'...');
 
 	/******************************************************/
-	/* Kards manager **************************************/
+	/* Menu kard's triggers *******************************/
 
 	// track which section tab clicked
-	$('.modal-manager').click(function() {
+	$('.menu-manager').click(function() {
 		var elementClicked = this.getAttribute('href').split('#')[1];
-		modals_manager(elementClicked);
+		menu_manager(elementClicked);
 	});
-	// funcion para levantar el menu
-	function modals_switch() {
 
-		if ($('input').is(":focus")) {
-			return
+
+	/******************************************************/
+	/* Open/close menu f-menu_switch **********************/
+
+	// menu switch function
+	function menu_switch() {
+		
+		if ($('.menu').hasClass('menu-on')) {
+			// $('.header').focus();
+			TweenMax.set('.brand', {opacity: 1, scale: 1, left: "0%"});
+			TweenMax.to('.brand', 1, {opacity: 0, scale: 1, left: "-120%", ease: Elastic.easeIn.config(1, 0.75), force3D: true });
+			TweenMax.set('.menu', {opacity: 1, scale: 1, left: "0%"});
+			TweenMax.to('.menu', 1, {opacity: 0, scale: 1, left: "-120%", ease: Elastic.easeIn.config(1, 0.75), force3D: true });
+			TweenMax.to('.menu', 0.1, {delay: 0.5, className: '-=menu-on'});
 		}
-		else {
-			if ( $('body').hasClass('playing')) {
-				TweenMax.to('.menu-overlay', 0.5, {
-					css: {opacity:"0.95", display:"block"},
-					ease: Elastic.easeInOut.config(1, 0.75),
-					force3D: true
-				});
-			} else {
-				TweenMax.to('.menu-overlay', 0.5, {
-					css: {opacity:"0", display:"none"},
-					ease: Elastic.easeInOut.config(1, 0.75),
-					force3D: true
-				});
-			}
-			if ($('.menu').hasClass('menu-on')) {
-
-				TweenMax.set('.brand', {
-					opacity: 1,
-					scale: 1,
-					left: "0%"
-				});
-				TweenMax.to('.brand', 1, {
-					opacity: 0,
-					scale: 1,
-					left: "-120%",
-					ease: Elastic.easeIn.config(1, 0.75),
-					force3D: true
-				});
-
-				TweenMax.set('.menu', {
-					opacity: 1,
-					scale: 1,
-					left: "0%"
-				});
-				TweenMax.to('.menu', 1, {
-					opacity: 0,
-					scale: 1,
-					left: "-120%",
-					ease: Elastic.easeIn.config(1, 0.75),
-					force3D: true
-				});
-				TweenMax.to('.menu', 0.1, {
-					delay: 0.5,
-					className: '-=menu-on'
-				});
-
-				TweenMax.to('.menu-overlay', 0.5, {
-					delay: 0.5,
-					css: {opacity:"0", display:"none"},
-					ease: Elastic.easeInOut.config(1, 0.75),
-					force3D: true
-				});
-			}
-			else {
-				TweenMax.set('.brand', {
-					opacity:1,
-					scale: 1,
-					left: "-120%"
-				});
-				TweenMax.to('.brand', 1, {
-					delay: 0.1,
-					left: "0%",
-					opacity: 1,
-					scale: 1,
-					ease: Elastic.easeOut.config(1, 1),
-					force3D: true
-				});
-				TweenMax.set('.menu', {
-					opacity:1,
-					scale: 1,
-					className: '+=menu-on',
-					left: "120%"
-				});
-				TweenMax.to('.menu', 1, {
-					delay: 0.1,
-					left: "0%",
-					opacity: 1,
-					scale: 1,
-					ease: Elastic.easeOut.config(1, 0.75),
-					force3D: true
-				});
-			}
+		else { //open menu
+			$('.header').focus();
+			user_stats();
+			TweenMax.set('.brand', {opacity:1, scale: 1, left: "-120%"});
+			TweenMax.to('.brand', 1, {delay: 0.1, left: "0%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
+			TweenMax.set('.menu', {opacity:1, scale: 1, className: '+=menu-on', left: "120%"});
+			TweenMax.to('.menu', 1, {delay: 0.1, left: "0%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
 		}
 	}
 
-	// funcion para leer la url y levantar el menu que corresponde
+
+	/******************************************************/
+	/* Url worker f-url_worker ****************************/
+	
+	// read the url and send to menu_manager
 	function url_worker() {
 
 		// create array with all sections
@@ -365,45 +351,68 @@ $(document).ready(function() {
 		});
 
 		// check url to manage menu
-		var url = $(location).attr('href').split('#')[1];
-		console.log(url);
+		var url = location.hash.split('#')[1];
+
+		//fill user stats if necessary
+		user_stats();
+
 		if (url && ($.inArray(url, sections) >= 0)) {
-			modals_manager(url);
+			menu_manager(url);
 		}
 		else if (typeof url === 'undefined') {
-			modals_manager('online-players');
+			menu_manager('leaderboard');
 		}
 		else {
-			modals_manager('credits');
+			menu_manager('credits');
 		};
 	}
 
-	// funcion que maneja la columna central del menu, recibe una variable 'modal' desde varios lados.
-	function modals_manager(modal) {
 
+	/******************************************************/
+	/* Menu manager  f-menu_manager ***********************/
+
+	// function that manage the center of the menu
+	function menu_manager(kard) {
+		console.log('kard seclected: ' + kard);
+
+		location.hash = ('#' + kard);
 		$('*').removeClass('menu-active');
-		$('.modal-manager.' + modal).addClass('menu-active');
+		$('.menu-manager.' + kard).addClass('menu-active');
 		$('.menu').addClass('menu-on');
 		sound_menu_click.currentTime = 0;
 		sound_menu_click.play();
-		//online users only
-		if (Cookies('user_online') == "True") {
-			user_balance_view();
-			user_overview();
-			if (modal == 'settings') { user_mfa_show(); }
+
+		//for each kard
+		if (kard == 'leaderboard') { 
+			leaderboard_view(0, 50); 
 		}
-
-		//for each modal
-		if (modal == 'online-players') { leaderboard_view(1, 25); }
-		if (modal == 'leaderboard') { leaderboard_view(0, 50); }
-		if (modal == 'cashier') { $('#withdrawals-available-balance').val(Cookies('user_balance')); $('.kard-cashier [data-tab-link]').removeClass('active'); $('.kard-cashier [data-tab-link]:first-child').addClass('active'); $('.kard-cashier [data-tab]').removeClass('active'); $('#kard-cashier-deposits').addClass('active');}
-		if (modal == 'settings') { $('.kard-settings [data-tab-link]').removeClass('active'); $('.kard-settings [data-tab-link]:first-child').addClass('active'); $('.kard-settings [data-tab]').removeClass('active'); $('#kard-settings-ux').addClass('active');}
-		//if (modal == 'online-players') { leaderboard_view(1, 50); }
-		//if (modal == 'online-players') { leaderboard_view(1, 50); }
-		//so on...
-
-		// manage show and hide modals
-		if ( $('.kard-' + modal).css('display') == 'none' ) {
+		if (kard == 'cashier') { 
+			$('#withdrawals-available-balance').val(Cookies('user_balance'));
+			$('.kard-cashier [data-tab-link]').removeClass('active');
+			$('.kard-cashier [data-tab-link]:first-child').addClass('active');
+			$('.kard-cashier [data-tab]').removeClass('active');
+			$('#kard-cashier-deposits').addClass('active');
+		}
+		if (kard == 'settings') { 
+			user_mfa_show();
+			$('.kard-settings [data-tab-link]').removeClass('active');
+			$('.kard-settings [data-tab-link]:first-child').addClass('active');
+			$('.kard-settings [data-tab]').removeClass('active');
+			$('#kard-settings-ux').addClass('active');
+		}
+		if (kard == 'balance') { 
+			user_balance_view();
+		}
+		if (kard == 'profile') { 
+			user_overview();
+		}
+		if (kard == 'online-players') {
+			user_status();
+			leaderboard_view(1, 25);
+		}
+		
+		// manage show and hide kards
+		if ( $('.kard-' + kard).css('display') == 'none' ) {
 			// take out the actual section
 			TweenMax.staggerTo('.kard-modal.show',1.2, {
 				opacity: 1,
@@ -417,16 +426,12 @@ $(document).ready(function() {
 			});
 
 			function outShow() {
-				// $('.kard-modal.show').css({'display': 'none'});
-				// $('*').removeClass('show');
-
 				// take in the selected section
-				TweenMax.set('#kard-' + modal  + '.kard-modal', {
+				TweenMax.set('#kard-' + kard  + '.kard-modal', {
 					opacity: 0,
 					top: '-100%',
-
 				});
-				TweenMax.staggerTo('#kard-' + modal  + '.kard-modal',1.2, {
+				TweenMax.staggerTo('#kard-' + kard  + '.kard-modal',1.2, {
 					opacity: 1,
 					top: '0%',
 					display: 'block',
@@ -435,8 +440,55 @@ $(document).ready(function() {
 				});
 			};
 		}
-
 	}
+
+
+	/******************************************************/
+	/* Función de respawn *********************************/
+
+	function respawn() {
+		//search on cookies
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+
+		socket.emit('user-spawn', { name: username, pass: password}, function(feedback) {
+			//check user invalid
+			if(feedback.advice == 'Invalid username or password.') {
+				showAlert(feedback.advice, 'red');
+			}
+			//if user already online
+			if(feedback.advice == 'You are online already.') {
+				showAlert(feedback.advice, 'yellow');
+			}
+			//if uswer low funds
+			if(feedback.advice == 'Low funds.') {
+					menu_manager('low-funds');
+				}
+			//everything ok
+			if(feedback.advice == 'Welcome.') {
+
+				$('#canvas-container').css({'display': 'block'});
+				$('body').addClass('playing');
+				$('.btn-respawn').css({'display': 'none'});
+				$('.powerups-info .title span').text('5');
+				
+				menu_switch();
+				player_hub();
+				
+				//start game
+				$(location).attr('href','#play');
+				game.animate();
+				//sounds
+				sound_menu_ambient.pause();
+				manage_music_playing();
+				$('#canvas').focus();
+				
+				//respawn sounds
+				rand = sounds_spawn.rand(); sounds[rand].play();
+			}
+		});
+	};
+
 
 	/******************************************************/
 	/* Ingame respawn *************************************/
@@ -444,171 +496,45 @@ $(document).ready(function() {
 	function ingame_respawn() {
 
 		player_id = game['self']['id'];
-		// console.log(player_id);
 
 		socket.emit('ingame-respawn', {player_id : player_id}, function(feedback) {
-		//hacer cosas con la información? o no hacer nada... siempre dice done.
-		// console.log(feedback);
-		//leemos feedback para salir del asyn
-		if(feedback == 'respawn_ok') {
-			KilledSequence(null, 'respawn');
-			$('.menu').removeClass('menu-on');
-			sound_bg.play();
-			$('#canvas').css({ 'filter': 'inherit'});
-			$('#canvas').focus();
-			//sonido respawn al azar
-			rand = sounds_spawn.rand(); sounds[rand].play();
-			//completamos el grafico de forma cabeza
-			user_balance_view();
-			$('.powerups-info .title span').text('5');
-		}
-		//prevención de doble respawn desde server.
-		if(feedback == 'respawn_fail') { alert(feedback); }
-	});
 
+			if(feedback == 'respawn_ok') {
+				KilledSequence(null, 'respawn');
+				menu_switch();
+				sound_bg.play();
+				$('#canvas').css({ 'filter': 'inherit'});
+				$('#canvas').focus();
+
+				rand = sounds_spawn.rand(); sounds[rand].play();
+				$('.powerups-info .title span').text('5');
+			}
+			//prevention fail respawn
+			if(feedback == 'respawn_fail') { alert(feedback); }
+		});
 	}
 
-	/******************************************************/
-	/* Función de respawn *********************************/
-
-	function respawn() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		//revisamos
-		//hacemos el respawn
-		socket.emit('user-spawn', { name: username, pass: password}, function(feedback) {
-			//revision, acá ya poseemos la info del usuario en el browser
-			//revisamos si el usuario es inválido:
-			if(feedback.advice == 'Invalid username or password.') {
-				showAlert(feedback.advice, 'red');
-				// console.log(feedback.advice);
-				// alert(feedback.advice);
-			}
-			//revisamos si el usuario ya anda online:
-			if(feedback.advice == 'You are online already.') {
-				showAlert(feedback.advice, 'yellow');
-				// console.log(feedback.advice);
-				// alert(feedback.advice);
-			}
-			//revisamos si el usuario dispone de dinero
-			if(feedback.advice == 'Low funds.') {
-					//Have a drone.
-					modals_manager('low-funds');
-				}
-			//si no hizo cosas raras
-			if(feedback.advice == 'Welcome.') {
-				//cerramos el modal y realizamos operaciones gráficas.
-				// is_user_online();
-				$('#canvas-container').css({'display': 'block'});
-				modals_switch();
-				$('.menu-overlay').attr('style','');
-				// $('.brand').css({'display': 'none'});
-				// cargamos el hub
-				player_hub();
-				$(location).attr('href','#play');
-				$('body').addClass('playing');
-				//completamos el grafico de forma cabeza
-				user_balance_view();
-				$('.powerups-info .title span').text('5');
-				//comienza el game
-				game.animate();
-				//lanzamos música de fondo
-				sound_menu_ambient.pause();
-				// sound_bg.play();
-				manage_music_playing();
-				$('#canvas').focus();
-				//sonido respawn al azar
-				rand = sounds_spawn.rand(); sounds[rand].play();
-			}
-		});
-	};
 
 	/******************************************************/
 	/* Respawn with a drone *******************************/
 
 	function drone_respawn() {
 		showAlert('Low founds for a tank! Have a drone.', 'red');
-		// cerramos el modal y realizamos operaciones gráficas.
-		$('.menu').removeClass('menu-on');
+
+		menu_switch()
 		$('#canvas-container').css({'display': 'block'});
 		$('#home').css({'display': 'none'});
 		$('.player-hub').css({'display': 'none'});
 		$('body').addClass('playing');
-		// focus sobre el canvas
+		
 		$('#canvas').focus();
-		// comienza el game
+		// start game
 		game.animate();
-		// marcamos al usuario online
-		// is_user_online();
-		// lanzamos música de fondo
 		sound_menu_ambient.pause();
 		sound_bg.play();
 	}
 	$('.drone-respawn').click(drone_respawn);
 
-
-	/************************************************************/
-	/* Usuario online & offline *********************************/
-
-	function is_user_online() {
-		if (Cookies('user_online') == "True") {
-			//mandamos la información a la UI.
-			$('.user_username').text(Cookies('user_username'));
-			$('.user_balance').text(Cookies('user_balance'));
-			//$('.user_balance_usd').text(Cookies('user_balance_usd'));
-			$('.user_address').text(Cookies('user_address'));
-			//cambiamos el view
-			$(".user-online").css({ "display": "inherit" });
-			$(".user-offline").css({ "display": "none" });
-			$('body').addClass('user-logged');
-			//armamos el QR con su dirección
-			$('#qrcode_personal_address').text('');
-			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
-			$('*').removeClass('menu-active');
-			url_worker();
-
-		}
-		else {
-			$(".user-online").css({ "display": "none" });
-			$(".user-offline").css({ "display": "inherit" });
-			$('*').removeClass('menu-active');
-			// modals_manager('new-user');
-			// $(location).attr('href', '#new-user');
-			url_worker();
-		};
-	};
-
-
-	/************************************************************/
-	/* Playing rage notification ********************************/
-
-	function rage_state() {
-		$('#action-container span').text('massive rage unleashed');
-		TweenMax.set("#action-container", {
-			opacity: 0,
-			className: '+=rage active',
-		});
-
-		TweenMax.staggerTo("#action-container", 1, {
-			opacity: 1,
-			delay: 0.2,
-			ease: Elastic.easeOut.config(1, 0.75),
-			force3D: true
-		});
-
-		TweenMax.staggerTo("#action-container", 1, {
-			opacity: 0,
-			delay: 2.9,
-			ease: Elastic.easeOut.config(1, 0.75),
-			force3D: true
-		});
-		TweenMax.staggerTo("#action-container", 1, {
-			className: '-=rage active',
-			delay: 3.9
-		});
-		$('.rage-line').addClass('on-rage');
-	}
 
 	/************************************************************/
 	/* Playing big notifications ********************************/
@@ -742,8 +668,6 @@ $(document).ready(function() {
 
 	function preload() {
 		//preload sounds
-		console.log('corriendo preloader...');
-		//envamos las variables para node
 		socket.emit('preload', function(feedback) {
 
 			//los predefinidos
@@ -754,8 +678,6 @@ $(document).ready(function() {
 			sounds.load(['./audio/ammo/common.mp3']);
 			sounds.load(['./audio/ammo/quick.mp3']);
 			sounds.load(['./audio/ammo/fork.mp3']);
-
-
 
 			//sound preloader harm
 			feedback.harm.forEach( function(file) {
@@ -817,13 +739,11 @@ $(document).ready(function() {
 
 	//quizás debería sacarse
 	function alinear_sonido() {
-		console.log('Sonidos armados');
+		// console.log('Sonidos armados');
 	}
 
 	/************************************************************/
-	/* feedback *************************************************/
-
-	//Envía el feedback del usuario hacia el servidor
+	/* feedback function ****************************************/
 
 	function send_feedback() {
 
@@ -834,7 +754,6 @@ $(document).ready(function() {
 			user_feedback:          $('#user_feedback').val()
 		};
 
-		//envamos las variables para node
 		socket.emit('feedback', params, function(feedback) {
 			//devolvemos la información
 			showAlert(feedback.advice, 'yellow');
@@ -1226,7 +1145,6 @@ $(document).ready(function() {
 	/************************************************************/
 	/* settings funciones ***************************************/
 
-
 	function manage_developer_info() {
 		//grab from cookies
 		if (Cookies('developer_info') == 'on') {
@@ -1242,6 +1160,7 @@ $(document).ready(function() {
 	};
 	// switch action
 	$('#developer-switch').click(function() {
+		
 		if (Cookies('developer_info') == 'off') {
 			$('#developer-switch').removeClass('fal fa-square');
 			$('#developer-switch').addClass('fal fa-check-square');
@@ -1253,7 +1172,7 @@ $(document).ready(function() {
 			$('#developer-switch').addClass('fal fa-square');
 			$('#developer-mode').css({display: 'none'});
 			Cookies.set('developer_info', 'off');
-		};
+		}
 	});
 
 
@@ -1272,6 +1191,7 @@ $(document).ready(function() {
 	};
 	// switch action
 	$('#rain-switch').click(function() {
+		console.log(Cookies('playing_rain'));
 		if (Cookies('playing_rain') == 'off') {
 			$('#rain-switch').removeClass('fal fa-square');
 			$('#rain-switch').addClass('fal fa-check-square');
@@ -1283,7 +1203,7 @@ $(document).ready(function() {
 			$('#rain-switch').addClass('fal fa-square');
 			$('#canvas_02').css({display: 'none'});
 			Cookies.set('playing_rain', 'off');
-		};
+		}
 	});
 
 
@@ -1325,7 +1245,7 @@ $(document).ready(function() {
 			sound_bg.volume = 0;
 			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 			Cookies.set('music_playing', 'off');
-		};
+		}
 	});
 
 
@@ -1367,17 +1287,12 @@ $(document).ready(function() {
 			sound_menu_ambient.pause();
 			sound_menu_ambient.volume = 0;
 			Cookies.set('music_menu', 'off');
-		};
+		}
 	});
 
 
 	/************************************************************/
 	/* Pedir conversaciones previas *****************************/
-
-	//recomendaciones de la función:
-	//sería recomendable correrlo solo una vez, en la carga inicial.
-	//realizar las modificaciones en la función que sean necesarias,
-	//a fin de almacenar la información
 
 	function dialog_view() {
 		//envamos las variables para node
@@ -1428,7 +1343,6 @@ $(document).ready(function() {
 	/* cashier/search *******************************************/
 
 	//Busca nuevas operaciones del usuario
-
 	function cashier_search() {
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
@@ -1458,7 +1372,6 @@ $(document).ready(function() {
 		// hide player hub when mouse hover
 		var bottomX = 410;
 		var bottomY = window.innerHeight - 220;
-
 
 		$('#canvas').on( "mousemove", function( event ) {
 			if (event.pageX < bottomX && event.pageY > bottomY) {
@@ -1702,17 +1615,6 @@ $(document).ready(function() {
 		}
 	}
 
-	/************************************************************/
-	/* Recuperacion de password *********************************/
-
-	function recover_pass() {
-		//dispara el pedido de recuperación hacia el server.
-		var email = $('#email-recover-input').val();
-		socket.emit('recover-pass', { email: email }, function(feedback) {
-		//hacer cosas con la información? o no hacer nada... siempre dice done.
-		//console.log(feedback);
-	})
-	}
 
 	/************************************************************/
 	/* Eliminación de usuario ***********************************/
@@ -1735,6 +1637,7 @@ $(document).ready(function() {
 		})
 	}
 
+
 	/************************************************************/
 	/* Visualización de propio usuario **************************/
 
@@ -1748,7 +1651,6 @@ $(document).ready(function() {
 		$('.username').text(username);
 
 		socket.emit('user-overview', { username: username, password: password }, function(feedback) {
-		//hacer cosas con la información? o no hacer nada... siempre dice done.
 			// console.log(feedback);
 
 			// populamos email y password
@@ -1877,7 +1779,7 @@ $(document).ready(function() {
 					}
 					else if (feedback.xfers[i]['condicion'] == 'esperando') {
 						row += '<td><i class="fas fa-check x-color-yellow"></i></td>';
-					}					
+					}
 					else {
 						row += '<td></td>';
 					}
@@ -1989,49 +1891,6 @@ $(document).ready(function() {
 
 	}
 
-	/************************************************************/
-	/* Procesa la información necesaria para crear el MFA *******/
-
-	function user_mfa_show() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		socket.emit('user-mfa', { username: username, password: password }, function(feedback) {
-			//hacer cosas con la información? o no hacer nada... siempre dice done.
-			// console.log(feedback);
-			//armamos la información para el QR
-			var informacion = 'otpauth://totp/' + username + '?secret=' + feedback.mfa.recover + '&issuer=www.bitofwar.com';
-			//creamos el QR
-			$('#qrcode_mfa').text('');
-			$('#qrcode_mfa').qrcode(informacion);
-			//informamos el recover_code
-			$('#user-mfa-recover').text('');
-			$('#user-mfa-recover').text(feedback.mfa.recover);
-		})
-	}
-
-	/************************************************************/
-	/* Procesa la información necesaria para crear el MFA *******/
-
-	function user_mfa_enable() {
-		//clear a los previos si los hay, no me funciona... revisar.
-		//$('#qrcode_mfa').val();
-		//$('#user-mfa-recover-code').val();
-		//buscamos las variables de cookies
-		var username = $('#2fa-username').val();
-		var password = $('#2fa-password').val();
-		var password = forge_sha256(password);
-		var mfa_recover = $('#user-mfa-recover').text();
-		var mfa_code = $('#user-mfa-code').val();
-		socket.emit('user-mfa-enable', { username: username, password: password, mfa_recover: mfa_recover, mfa_code: mfa_code }, function(feedback) {
-			//hacer cosas con la información? o no hacer nada... siempre dice done.
-			// console.log(feedback);
-			//generador de QR
-			//$('#qrcode_mfa').qrcode(feedback.mfa.recover_code);
-			//informamos el recover_code
-			//$('#user-mfa-recover-code').val(feedback.mfa.recover_code);
-		})
-	}
 
 	/************************************************************/
 	/* Devuelve la información de un usuario cualquiera ********/
@@ -2137,49 +1996,25 @@ $(document).ready(function() {
 	// 	$('#slide-tab').removeClass('slide-open');
 	// }
 
-	/************************************************************/
-	/* Cerramos la sesión ***************************************/
-
-	function session_close() {
-		//asumo que la función de fadein será así...
-		// $('.respawn-container').fadeIn(500);
-		//sacamos los sonidos
-		sounds['./audio/cardio.mp3'].pause();
-		sounds['./audio/buzz.mp3'].pause();
-		//la musica
-		sound_bg.pause();
-		//desenchufamos al usuario,
-		var previa = socket.disconnect();
-		//console.log(previa);
-		previa.open();
-		//eliminamos las cookies que creamos con el login
-		Cookies.expire('user_id');
-		Cookies.expire('user_email');
-		Cookies.expire('user_username');
-		Cookies.expire('user_password');
-		Cookies.expire('user_balance');
-		Cookies.expire('user_balance_usd');
-		Cookies.expire('user_online');
-		Cookies.expire('user_address');
-		$(location).attr('href', '#new-user');
-		is_user_online();
-	}
 
 	/************************************************************/
 	/* Volver a casa ********************************************/
 
 	function go_home() {
-		//sacamos los sonidos
+		//sounds off
 		sounds['./audio/cardio.mp3'].pause();
 		sounds['./audio/buzz.mp3'].pause();
-		//la musica
 		sound_bg.pause();
+
+		//checking if menu ambient music will be on/off
 		if (Cookies('music_menu') == 'on'){
 			$('.menu-music-settings-switch').removeClass('fal fa-check-square');
 			$('.menu-music-settings-switch').addClass('fal fa-square');
+			
 			if ($('body').hasClass('playing')) {
 				sound_menu_ambient.play();
 			}
+
 			sound_menu_ambient.volume = 0.5;
 		};
 		//desenchufamos al usuario,
@@ -2191,9 +2026,10 @@ $(document).ready(function() {
 		// $('.menu').addClass('menu-on');
 		KilledSequence(null, 'respawn');
 		$('#canvas').css({ 'filter': 'grayscale(0%) contrast(100%)','-webkit-filter': 'grayscale(0%) contrast(100%)'});
+		$('.btn-respawn').css({'display': 'inline-block'});
 		$(location).attr('href', '#online-players');
-		// modals_manager('online-players');
-		is_user_online();
+		// menu_manager('online-players');
+		user_status();
 	}
 
 	/************************************************************/
@@ -2480,9 +2316,6 @@ $(document).ready(function() {
 			// show powerups
 			case 16: show_powerups();
 			break;
-			// show menu
-			case 9: modals_switch();
-			break;
 			//salimos del handler
 			default: return;
 		}
@@ -2490,18 +2323,76 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
-//se añade a fin de cerrar el menú
-	$('body').keydown(function(e) {
-		switch(e.which) {
-			// show menu
-			case 9: modals_switch();
-			break;
-			//salimos del handler
-			default: return;
+	// menu key
+	
+		$('body').keydown(function(e) {
+			switch(e.which) {
+				// show menu
+				case 17: menu_switch();
+				break;
+				//exit handler
+				default: return;
+			}
+			e.preventDefault();
+		});
+	
+
+
+	/************************************************************/
+	/* canvas foreground: Rain **********************************/
+
+	/*create rain*/
+	var canvas = document.getElementById('canvas_02');
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+
+	var ctx = canvas.getContext('2d');
+	var w = canvas.width;
+	var h = canvas.height;
+	ctx.strokeStyle = 'rgba(174,194,224,0.5)';
+	ctx.lineWidth = 1;
+	ctx.lineCap = 'round';
+
+	//máximo de lluvia
+	var init = [];
+	var maxParts = 50;
+	for (var a = 0; a < maxParts; a++) {
+		init.push({
+			x: Math.random() * w,
+			y: Math.random() * h,
+			l: Math.random() * 1,
+			xs: -4 + Math.random() * 4 + 2,
+			ys: Math.random() * 10 + 10
+		})
+	}
+
+	var particles = [];
+	for (var b = 0; b < maxParts; b++) { particles[b] = init[b]; }
+
+	//creamos la lluvia
+	function draw() {
+		ctx.clearRect(0, 0, w, h);
+		for (var c = 0; c < particles.length; c++) {
+			var p = particles[c];
+			ctx.beginPath();
+			ctx.moveTo(p.x, p.y);
+			ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+			ctx.stroke();
 		}
-		//prevenimos las convencionales
-		e.preventDefault();
-	});
+		move();
+	}
+
+	//movemos la lluvia
+	function move() {
+		for (var b = 0; b < particles.length; b++) {
+			var p = particles[b];
+			p.x += p.xs;
+			p.y += p.ys;
+			if (p.x > w || p.y > h) { p.x = Math.random() * w; p.y = -20; }
+		}
+	}
+	setInterval(draw, 10);
+
 
 	//Tabulador hodl
 	/*
@@ -2514,7 +2405,7 @@ $(document).ready(function() {
 	/* Clocks ***************************************************/
 
 	//a slow loop
-	setInterval(function() { if(Cookies('user_online') == "True") { cashier_search(); } }, 1000);
+	setInterval(function() { if(Cookies('user_logued') == "True") { cashier_search(); } }, 1000);
 	//a quick loop
 	setInterval(function() { if(game['self']) { player_hub(); developer_info(); playing_footer(); } }, 100);
 
@@ -2526,9 +2417,6 @@ $(document).ready(function() {
 	$(document).on('click', '.view_usermame', function() { user_view($(this).html()); });
 
 	// click actions
-	// refresh password on modal new user
-	$('#refresh-password').click(cookpassword);
-
 	$('.btn-disconnect').click(session_close);
 	$('.btn-go-menu').click(go_home);
 	$('#recover-password').click(recover_pass);
@@ -2552,7 +2440,8 @@ $(document).ready(function() {
 	$('#send-feedback').click(send_feedback);
 
 	//puede quedar al final
-	is_user_online();
+	url_worker();
+	user_status();
 	dialog_view();
 	manage_developer_info();
 	manage_rain();
