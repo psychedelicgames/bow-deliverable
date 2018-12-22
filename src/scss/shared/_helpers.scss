@@ -96,6 +96,40 @@ input:focus, input:active {
 	outline-color: inherit !important;
 	box-shadow: none !important;
 }
+
+.special-input {
+	font-family: 'BigNoodleTitling';
+	font-size: 18px;
+	text-transform: uppercase;
+	text-align: center;
+	border-top: 1px solid #18272d;
+	padding: 5px 0px;
+	span {
+		color: #999999;
+		font-size: 18px !important;
+		width: 80px !important;
+	}
+	input {
+		color: #fff !important;
+		width: 100%;
+	}
+	.icon {
+		border-left: 1px solid #333;
+	    padding-left: 12px;
+	    i {
+	    	color: #f89a29;
+	    }
+	}
+	.input-field {
+		width: 82% !important;
+		border: 0px !important;
+		font-family: 'BigNoodleTitling' !important;
+		font-size: 18px !important;
+	}
+}
+.special-input + .special-input {
+	border-bottom: 1px solid #18272d;
+}
 /* ======================================
 	Padding blocks div
 

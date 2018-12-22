@@ -52,6 +52,19 @@
 		$('.rage-line').addClass('on-rage');
 	}
 
+	//Devuelve la información para hacer display
+	function cashier_view() {
+		//buscamos las variables de cookies
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+		//envamos las variables para node
+		socket.emit('cashier-view', { username: username, password: password }, function(feedback) {
+		//hacer cosas con la información? o no hacer nada...
+		//feedback vuelve con información del node, muchas veces no debería de verse.
+		//console.log(feedback);
+	});
+	}
+
 
 	/******************************************************/
 	/* Open/close menu f-menu_switch **********************/

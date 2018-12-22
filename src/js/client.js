@@ -228,10 +228,7 @@ $(document).ready(function() {
 	/* Usuario online & offline f-user_status *******************/
 
 	function user_status() {
-		console.log(Cookies('user_logued'))
 		if (Cookies('user_logued') == "True") {
-
-			// user_stats();
 			//change on the ui
 			$(".user-online").css({ "display": "inherit" });
 			$(".user-offline").css({ "display": "none" });
@@ -255,7 +252,9 @@ $(document).ready(function() {
 			$('.btn-respawn').css({'display': 'none'});
 			//send user to new-user kard
 			menu_manager('new-user');
+			Cookies.set('user_logued', 'False');
 		}
+		console.log(Cookies('user_logued'))
 	}
 
 
@@ -300,6 +299,12 @@ $(document).ready(function() {
 			$('body').attr({'style' : 'background-image: url("../img/menu/0' + item + '.png");'});
 	}, 5000);
 
+	var brand_top = $('.brand').offset().top;
+	var brand_height = $('.brand').height();
+	var menu_top = $('.menu').offset().top;
+	var brand_position = (menu_top - (brand_height / 2) - 15);
+	$('.brand').css({'top': brand_position});
+	console.log(brand_position);
 
 	/******************************************************/
 	/* Menu kard's triggers *******************************/
@@ -313,25 +318,41 @@ $(document).ready(function() {
 
 	/******************************************************/
 	/* Open/close menu f-menu_switch **********************/
-
+	var brand_top = $('.brand').offset().top;
 	// menu switch function
 	function menu_switch() {
-		
-		if ($('.menu').hasClass('menu-on')) {
+
+		if ($('.menu').hasClass('menu-on')) {			
 			// $('.header').focus();
-			TweenMax.set('.brand', {opacity: 1, scale: 1, left: "0%"});
-			TweenMax.to('.brand', 1, {opacity: 0, scale: 1, left: "-120%", ease: Elastic.easeIn.config(1, 0.75), force3D: true });
-			TweenMax.set('.menu', {opacity: 1, scale: 1, left: "0%"});
-			TweenMax.to('.menu', 1, {opacity: 0, scale: 1, left: "-120%", ease: Elastic.easeIn.config(1, 0.75), force3D: true });
-			TweenMax.to('.menu', 0.1, {delay: 0.5, className: '-=menu-on'});
+			TweenMax.set('.brand', {opacity: 1, scale: 1, top: brand_top});
+			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, left: "-120%", ease: Expo.easeIn });
+
+			TweenMax.set('.menu', {opacity: 1, scale: 1, top: "22%"});
+			TweenMax.to('.menu', 0.1, {boxShadow: "0 0 0 #000", ease: Expo.easeIn});
+
+			TweenMax.set('.menu-left', {opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}});
+			TweenMax.to('.menu-left', 0.38, {delay:0.2, opacity: 1, scale: 0.5, css:{position: 'relative', left: '20%'}, ease: Expo.easeOut});
+
+			TweenMax.set('.menu-right', {opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}});
+			TweenMax.to('.menu-right', 0.3, {delay:0.2, opacity: 1, scale: 0.5, css:{position: 'relative', left: '-35%'}, ease: Expo.easeOut});
+
+			TweenMax.to('.menu', 0.4, {delay:0.2, opacity: 0, className: '-=menu-on', scale: 0.5, top: "110%", ease: Expo.easeIn });
 		}
 		else { //open menu
 			$('.header').focus();
 			user_stats();
-			TweenMax.set('.brand', {opacity:1, scale: 1, left: "-120%"});
-			TweenMax.to('.brand', 1, {delay: 0.1, left: "0%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
-			TweenMax.set('.menu', {opacity:1, scale: 1, className: '+=menu-on', left: "120%"});
-			TweenMax.to('.menu', 1, {delay: 0.1, left: "0%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
+			TweenMax.set('.brand', {opacity:1, scale: 0.5, left: "-120%"});
+			TweenMax.to('.brand', 1, {delay: 0.7, top: brand_top, left: "0%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
+
+			TweenMax.set('.menu', {opacity:1, scale: 0.5, className: '+=menu-on', top: "110%"});
+			TweenMax.to('.menu', 0.7, {top: "22%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
+			TweenMax.to('.menu', 0.3, {delay: 0.84, boxShadow: "0 3px 140px #000", ease: Expo.easeOut});
+
+			TweenMax.set('.menu-left', {delay: 0.3, opacity: 1, scale: 0.5, css:{position: 'relative', left: '22%'}});
+			TweenMax.to('.menu-left', 0.5, {delay: 0.38, opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}, ease: Expo.easeOut});
+
+			TweenMax.set('.menu-right', {delay: 0.26, opacity: 1, scale: 0.5, css:{position: 'relative', left: '-35%'}});
+			TweenMax.to('.menu-right', 0.5, {delay: 0.26, opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}, ease: Expo.easeOut});
 		}
 	}
 
@@ -383,6 +404,9 @@ $(document).ready(function() {
 		sound_menu_click.play();
 
 		//for each kard
+		if (kard == 'new-user') { 
+			$('#name-input').focus();
+		}		
 		if (kard == 'leaderboard') { 
 			leaderboard_view(0, 50); 
 		}
@@ -414,37 +438,20 @@ $(document).ready(function() {
 		// manage show and hide kards
 		if ( $('.kard-' + kard).css('display') == 'none' ) {
 			// take out the actual section
-			TweenMax.staggerTo('.kard-modal.show',1.2, {
-				opacity: 1,
-				top: '100%',
-				ease: Elastic.easeOut.config(1, 1),
-				onComplete: outShow(),
-			});
-			TweenMax.staggerTo('.kard-modal.show', 0.1, {
-				display: 'none',
-				className: '-=show',
-			});
+			TweenMax.staggerTo('.kard-modal.show',1.2, {opacity: 1, top: '100%', ease: Elastic.easeOut.config(1, 1), onComplete: outShow(), });
+			TweenMax.staggerTo('.kard-modal.show', 0.1, {display: 'none', className: '-=show', });
 
 			function outShow() {
 				// take in the selected section
-				TweenMax.set('#kard-' + kard  + '.kard-modal', {
-					opacity: 0,
-					top: '-100%',
-				});
-				TweenMax.staggerTo('#kard-' + kard  + '.kard-modal',1.2, {
-					opacity: 1,
-					top: '0%',
-					display: 'block',
-					ease: Elastic.easeOut.config(1, 1),
-					className: '+=show',
-				});
+				TweenMax.set('#kard-' + kard  + '.kard-modal', {opacity: 0, top: '-100%', });
+				TweenMax.staggerTo('#kard-' + kard  + '.kard-modal',1.2, {opacity: 1, top: '0%', display: 'block', ease: Elastic.easeOut.config(1, 1), className: '+=show', });
 			};
 		}
 	}
 
 
 	/******************************************************/
-	/* Función de respawn *********************************/
+	/* Spawn function f-respawn ***************************/
 
 	function respawn() {
 		//search on cookies
@@ -491,7 +498,7 @@ $(document).ready(function() {
 
 
 	/******************************************************/
-	/* Ingame respawn *************************************/
+	/* Ingame respawn f-ingame-respawn ********************/
 
 	function ingame_respawn() {
 
@@ -502,7 +509,7 @@ $(document).ready(function() {
 			if(feedback == 'respawn_ok') {
 				KilledSequence(null, 'respawn');
 				menu_switch();
-				sound_bg.play();
+				manage_music_playing();
 				$('#canvas').css({ 'filter': 'inherit'});
 				$('#canvas').focus();
 
@@ -516,11 +523,10 @@ $(document).ready(function() {
 
 
 	/******************************************************/
-	/* Respawn with a drone *******************************/
+	/* Respawn with a drone f-drone ***********************/
 
 	function drone_respawn() {
 		showAlert('Low founds for a tank! Have a drone.', 'red');
-
 		menu_switch()
 		$('#canvas-container').css({'display': 'block'});
 		$('#home').css({'display': 'none'});
@@ -531,7 +537,7 @@ $(document).ready(function() {
 		// start game
 		game.animate();
 		sound_menu_ambient.pause();
-		sound_bg.play();
+		manage_music_playing();
 	}
 	$('.drone-respawn').click(drone_respawn);
 
@@ -542,42 +548,145 @@ $(document).ready(function() {
 	function show_upper_message(info) {
 		$('#action-container span').html(info);
 
-		TweenMax.set("#action-container", {
-			opacity: 0,
-			className: '+=active',
-			left: '0%',
-			top: '2vw',
-			scale: 3,
-			textShadow:"0px 0px 0px rgba(0,0,0,0.3)",
-		});
-
-		TweenMax.staggerTo("#action-container", 1, {
-			scale: 1,
-			opacity: 1,
-			textShadow:"0px 0px 0px rgba(0,0,0,0.3)",
-			ease: Elastic.easeOut.config(1, 0.75),
-			force3D: true
-		});
-
-		TweenMax.staggerTo("#action-container", 0.6, {
-			textShadow:"5px 5px 10px rgba(0,0,0,0.3)",
-			delay: 0.4
-		});
-
-		TweenMax.staggerTo("#action-container", 1, {
-			scale: 0,
-			opacity: 0,
-			textShadow:"0px 0px 0px rgba(0,0,0,0.3)",
-			delay: 0.9,
-			ease: Elastic.easeIn.config(1, 0.75),
-			force3D: true
-		});
-		TweenMax.staggerTo("#action-container", 0.5, {
-			className: '-=active',
-			delay: 2.6
-		});
+		TweenMax.set("#action-container", {opacity: 0, className: '+=active', left: '0%', top: '2vw', scale: 3, textShadow:"0px 0px 0px rgba(0,0,0,0.3)", });
+		TweenMax.staggerTo("#action-container", 1, {scale: 1, opacity: 1, textShadow:"0px 0px 0px rgba(0,0,0,0.3)", ease: Elastic.easeOut.config(1, 0.75), force3D: true });
+		TweenMax.staggerTo("#action-container", 0.6, {textShadow:"5px 5px 10px rgba(0,0,0,0.3)", delay: 0.4 });
+		TweenMax.staggerTo("#action-container", 1, {scale: 0, opacity: 0, textShadow:"0px 0px 0px rgba(0,0,0,0.3)", delay: 0.9, ease: Elastic.easeIn.config(1, 0.75), force3D: true });
+		TweenMax.staggerTo("#action-container", 0.5, {className: '-=active', delay: 2.6 });
 		// $('#action-container').removeClass(rage);
 	}
+
+
+
+	/************************************************************/
+	/* leaderboard/view *****************************************/
+
+	//get the first 50 users
+	function leaderboard_view(online, size) {
+
+		socket.emit('leaderboard-view', {online: online, size: size}, function(feedback) {
+
+			if(feedback.leaderboard != null) {
+
+				var row = '';
+				for (var i = 0; i < feedback.leaderboard.length; ++i) {
+					if (feedback.leaderboard[i]['username'] == 'healco') { continue; }
+					else {
+						row += '<tr>';
+						row += '<td># ' + i + '</td>';
+						if (feedback.leaderboard[i]['condicion'] == 'online') {
+							row += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else {
+							row += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						};
+						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
+						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+						// row += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
+						row += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
+
+						if (feedback.leaderboard[i]['difference'] < 0) {
+							row += '<td><i class="fas fa-arrow-down x-color-one"></i> ' + (feedback.leaderboard[i]['difference'] * -1) + '</td>';
+						}
+						else {
+							row += '<td><i class="fas fa-arrow-up x-color-green"></i> ' + feedback.leaderboard[i]['difference'] + '</td>';
+						}
+						row += '</tr>';
+					}
+				}
+				//enviamos la información hacia ambos leaderboards
+				$('.leaderboard-content').html(row);
+
+				var row3 = '';
+				for (var i = 0; i < feedback.leaderboard.length; ++i) {
+					if (feedback.leaderboard[i]['username'] == 'healco') {
+						continue;
+					}
+					else {
+						row3 += '<tr>';
+						row3 += '<td># ' + i + '</td>';
+						if (feedback.leaderboard[i]['condicion'] == 'online') {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else if (feedback.leaderboard[i]['condicion'] == 'limbo') {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						};
+						row3 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
+						row3 += '</tr>';
+					}
+				}
+				$('#table-online-players').html(row3);
+			}
+		});
+	}
+
+	/************************************************************/
+	/* cashier/view *********************************************/
+
+	//habilitamos la funcion de copy para el address en el modal cashier
+	$('#user_address_copy').click(function() {
+		var dummy = document.createElement("input");
+	    document.body.appendChild(dummy);
+	    dummy.value = $('#user_address_cashier').text();
+	    dummy.select();
+	    document.execCommand("copy");
+	    document.body.removeChild(dummy);
+	    showAlert('address copied on your clipboard','yellow');
+	})
+
+
+	/************************************************************/
+	/* cashier/withdrawals **************************************/
+
+	//Update balance left when amount input change
+	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
+		var balance = Cookies('user_balance');
+		var amount = $('#withdrawals-amount').val();
+		$('#withdrawals-balance-left').val(balance - amount);
+	});
+
+	//Send bits to address
+	function cashier_send() {
+		//buscamos las variables de cookies
+		var username = $('#withdrawals-username').val();
+		var password = $('#withdrawals-password').val();
+		var address = $('#withdrawals-amount').val();
+
+		//envamos las variables para node
+		socket.emit('cashier-send', { username: username, password: password, address: address }, function(feedback) {
+			showAlert(feedback.advice, 'yellow');
+			console.log(feedback.advice);
+		});
+	}
+
+
+	/************************************************************/
+	/* cashier/wire *********************************************/
+
+	//Envía dinero de un usuario a un segundo, funciona con nombres de usuario
+	//Por lo que solo puede ser usado para operaciones locales.
+	function cashier_wire() {
+		//buscamos las variables de cookies
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+		var user_b = $('#wire_user_b').val();
+		var value = $('#wire_value').val();
+		var message = $('#wire_message').val();
+
+		//envamos las variables para node
+		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
+		//hacer cosas con la información? o no hacer nada...
+		//feedback vuelve con información del node, muchas veces no debería de verse.
+		showAlert(feedback.advice, 'yellow');
+	});
+	}
+
 
 	/************************************************************/
 	/* advices **************************************************/
@@ -597,8 +706,9 @@ $(document).ready(function() {
 	//remplazamos
 	$('#spawn_random_advice').text(spawn_random_advice);
 
+
 	/************************************************************/
-	/* sonido ***************************************************/
+	/* Sounds ***************************************************/
 
 	//sound menu ambient
 	var sound_menu_ambient = document.createElement("audio");
@@ -609,8 +719,6 @@ $(document).ready(function() {
 	sound_menu_ambient.preLoad = false;
 	sound_menu_ambient.controls = false;
 	sound_menu_ambient.currentTime = 1;
-
-
 
 	//sound menu click
 	var sound_menu_click = document.createElement("audio");
@@ -647,6 +755,7 @@ $(document).ready(function() {
 	sound_bg.preLoad = true;
 	sound_bg.controls = true;
 	sound_bg.currentTime = sound_bg_posicion;
+
 
 	/************************************************************/
 	/* sound preloader ******************************************/
@@ -747,11 +856,10 @@ $(document).ready(function() {
 
 	function send_feedback() {
 
-		//nueva forma de enviar variables
 		var params =  {
-			username:               Cookies('user_username'),
-			password:               Cookies('user_password'),
-			user_feedback:          $('#user_feedback').val()
+			username: Cookies('user_username'),
+			password: Cookies('user_password'),
+			user_feedback: $('#user_feedback').val()
 		};
 
 		socket.emit('feedback', params, function(feedback) {
@@ -841,171 +949,14 @@ $(document).ready(function() {
 		}
 	});
 
-	/************************************************************/
-	/* leaderboard/view *****************************************/
-
-	//Devuelve los 50 principales
-	function leaderboard_view(online, size) {
-
-		//if player self developer mode on comenzar clock
-		//console logs para developer only
-
-		//enviamos las variables para node
-		//var online = online;
-		//var size = size;
-		//console.log(online, size);
-		socket.emit('leaderboard-view', {online: online, size: size}, function(feedback) {
-			//hacer cosas con la información? o no hacer nada...
-			//feedback vuelve con información del node, muchas veces no debería de verse.
-			//console.log(feedback);
-			if(feedback.leaderboard != null) {
-				//console.log('True');
-				var row = '';
-				for (var i = 0; i < feedback.leaderboard.length; ++i) {
-					if (feedback.leaderboard[i]['username'] == 'healco') { continue; }
-					else {
-						row += '<tr>';
-						row += '<td># ' + i + '</td>';
-						if (feedback.leaderboard[i]['condicion'] == 'online') {
-							row += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						}
-						else {
-							row += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						};
-						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
-						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-						// row += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
-						row += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
-
-						if (feedback.leaderboard[i]['difference'] < 0) {
-							row += '<td><i class="fas fa-arrow-down x-color-one"></i> ' + (feedback.leaderboard[i]['difference'] * -1) + '</td>';
-						}
-						else {
-							row += '<td><i class="fas fa-arrow-up x-color-green"></i> ' + feedback.leaderboard[i]['difference'] + '</td>';
-						}
-
-						row += '</tr>';
-						}
-				}
-				//enviamos la información hacia ambos leaderboards
-				$('.leaderboard-content').html(row);
-
-				var row3 = '';
-				for (var i = 0; i < feedback.leaderboard.length; ++i) {
-						//console.log(feedback);
-					if (feedback.leaderboard[i]['username'] == 'healco') {
-						continue;
-					}
-					else {
-						row3 += '<tr>';
-						row3 += '<td># ' + i + '</td>';
-						if (feedback.leaderboard[i]['condicion'] == 'online') {
-							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						}
-						else if (feedback.leaderboard[i]['condicion'] == 'limbo') {
-							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						}
-						else {
-							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						};
-						row3 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
-						row3 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-						row3 += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
-						// row3 += '<td> falta api </td>';
-						row3 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
-						row3 += '</tr>';
-					}
-				}
-				$('#table-online-players').html(row3);
-			}
-		}); //cierre de sock
-
-		//if player self developer mode on finalizar clock
-	}
 
 	/************************************************************/
-	/* cashier/view *********************************************/
-
-	//Devuelve la información para hacer display
-	function cashier_view() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		//envamos las variables para node
-		socket.emit('cashier-view', { username: username, password: password }, function(feedback) {
-		//hacer cosas con la información? o no hacer nada...
-		//feedback vuelve con información del node, muchas veces no debería de verse.
-		//console.log(feedback);
-	});
-	}
-
-	//habilitamos la funcion de copy para el address en el modal cashier
-	$('#user_address_copy').click(function() {
-		var dummy = document.createElement("input");
-	    document.body.appendChild(dummy);
-	    dummy.value = $('#user_address_cashier').text();
-	    dummy.select();
-	    document.execCommand("copy");
-	    document.body.removeChild(dummy);
-	    showAlert('address copied on your clipboard','yellow');
-	})
-
-
-	/************************************************************/
-	/* cashier/withdrawals **************************************/
-
-	//Update balance left when amount input change
-	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
-		var balance = Cookies('user_balance');
-		var amount = $('#withdrawals-amount').val();
-		$('#withdrawals-balance-left').val(balance - amount);
-	});
-
-	//Send bits to address
-	function cashier_send() {
-		//buscamos las variables de cookies
-		var username = $('#withdrawals-username').val();
-		var password = $('#withdrawals-password').val();
-		var address = $('#withdrawals-amount').val();
-
-		//envamos las variables para node
-		socket.emit('cashier-send', { username: username, password: password, address: address }, function(feedback) {
-		showAlert(feedback.advice, 'yellow');
-		console.log(feedback.advice);
-	});
-	}
-
-	/************************************************************/
-	/* cashier/wire *********************************************/
-
-	//Envía dinero de un usuario a un segundo, funciona con nombres de usuario
-	//Por lo que solo puede ser usado para operaciones locales.
-	function cashier_wire() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		var user_b = $('#wire_user_b').val();
-		var value = $('#wire_value').val();
-		var message = $('#wire_message').val();
-
-		//envamos las variables para node
-		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
-		//hacer cosas con la información? o no hacer nada...
-		//feedback vuelve con información del node, muchas veces no debería de verse.
-		showAlert(feedback.advice, 'yellow');
-	});
-	}
-
-	/************************************************************/
-	/* funciones developer **************************************/
+	/* Developer table info f-developer_info ********************/
 
 	function developer_info() {
 
-	//asumo que si lo ponemos en un if vamos a alivianar la carga del cpu y ram.
-	//no considero necesario correr los foreach ni armar el cuadro si el usuario no lo ve.
 		if ($('#developer-switch').hasClass('fa-check-square') || $('.btn-dev-on-off').hasClass('x-color-one')) {
 
-			// populamos
 			var developer_self = '';
 			$.each( game['self'], function( key, value ) {
 				developer_self += '<tr>';
@@ -1013,7 +964,7 @@ $(document).ready(function() {
 				developer_self += '<td>' + value + '</td>';
 				developer_self += '</tr>';
 			});
-			//enviamos la información hacia la tabla user overview
+
 			$('#developer_self').html(developer_self);
 
 			// populamos
@@ -1041,10 +992,10 @@ $(document).ready(function() {
 				developer_powerups += '</tr>';
 			});
 
-			//enviamos la información hacia la tabla user overview
 			$('#developer_powerups').html(developer_powerups);
 		};
 	};
+
 
 	/************************************************************/
 	/* playing footer info **************************************/
@@ -1069,26 +1020,6 @@ $(document).ready(function() {
 		}
 	});
 
-	// it's sound enable?
-	if ( sound_bg.volume > 0 ) {
-		$('.btn-music').html('<i class="fas fa-volume-up"></i>');
-	}
-	else if ( sound_bg.volume == 0 ) {
-		$('.btn-music').html('<i class="fas fa-volume-off"></i>');
-	}
-	// sound enable btn
-	$('.btn-music').click(function() {
-		if ( sound_bg.volume > 0 ) {
-			sound_bg.pause();
-			sound_bg.volume = 0;
-			$(this).html('<i class="fas fa-volume-off"></i>');
-		}
-		else if ( sound_bg.volume == 0 ) {
-			sound_bg.play();
-			sound_bg.volume = 0.2;
-			$(this).html('<i class="fas fa-volume-up"></i>');
-		}
-	});
 
 	/************************************************************/
 	/* Playing footer function **********************************/
@@ -1143,7 +1074,7 @@ $(document).ready(function() {
 
 
 	/************************************************************/
-	/* settings funciones ***************************************/
+	/* settings funciones f-settings ****************************/
 
 	function manage_developer_info() {
 		//grab from cookies
@@ -1162,16 +1093,12 @@ $(document).ready(function() {
 	$('#developer-switch').click(function() {
 		
 		if (Cookies('developer_info') == 'off') {
-			$('#developer-switch').removeClass('fal fa-square');
-			$('#developer-switch').addClass('fal fa-check-square');
-			$('#developer-mode').css({display: 'block'});
 			Cookies.set('developer_info', 'on');
+			manage_developer_info();
 		}
 		else if (Cookies('developer_info') == 'on') {
-			$('#developer-switch').removeClass('fal fa-check-square');
-			$('#developer-switch').addClass('fal fa-square');
-			$('#developer-mode').css({display: 'none'});
 			Cookies.set('developer_info', 'off');
+			manage_developer_info();
 		}
 	});
 
@@ -1191,18 +1118,13 @@ $(document).ready(function() {
 	};
 	// switch action
 	$('#rain-switch').click(function() {
-		console.log(Cookies('playing_rain'));
 		if (Cookies('playing_rain') == 'off') {
-			$('#rain-switch').removeClass('fal fa-square');
-			$('#rain-switch').addClass('fal fa-check-square');
-			$('#canvas_02').css({display: 'block'});
 			Cookies.set('playing_rain', 'on');
+			manage_rain();
 		}
 		else if (Cookies('playing_rain') == 'on') {
-			$('#rain-switch').removeClass('fal fa-check-square');
-			$('#rain-switch').addClass('fal fa-square');
-			$('#canvas_02').css({display: 'none'});
 			Cookies.set('playing_rain', 'off');
+			manage_rain();
 		}
 	});
 
@@ -1226,25 +1148,15 @@ $(document).ready(function() {
 			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 		}
 	};
-		// switch action
-	$('.music-settings-switch').click(function() {
+	// switch action
+	$('.music-settings-switch, .btn-music').click(function() {
 		if (Cookies('music_playing') == 'off') {
-			$('.music-settings-switch').removeClass('fal fa-square');
-			$('.music-settings-switch').addClass('fal fa-check-square');
-			if ($('body').hasClass('playing')) {
-				sound_bg.play();
-			}
-			sound_bg.volume = 0.2;
-			$('.btn-music').html('<i class="fas fa-volume-up"></i>');
 			Cookies.set('music_playing', 'on');
+			manage_music_playing();
 		}
 		else if (Cookies('music_playing') == 'on') {
-			$('.music-settings-switch').removeClass('fal fa-check-square');
-			$('.music-settings-switch').addClass('fal fa-square');
-			sound_bg.pause();
-			sound_bg.volume = 0;
-			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
 			Cookies.set('music_playing', 'off');
+			manage_music_playing();
 		}
 	});
 
@@ -1254,39 +1166,32 @@ $(document).ready(function() {
 		if (Cookies('music_menu') == 'on') {
 			$('.menu-music-settings-switch').removeClass('fal fa-square');
 			$('.menu-music-settings-switch').addClass('fal fa-check-square');
-			sound_bg.pause();
-			sound_bg.volume = 0;
 
-			$('.btn-music').html('<i class="fas fa-volume-off"></i>');
+			sound_menu_ambient.volume = 0.5;
+			if ($('body').hasClass('playing')) {
+				sound_menu_ambient.pause();
+			}
+			else {
+				sound_menu_ambient.play();
+			}
 		}
 		else if (Cookies('music_menu') == 'off'){
 			$('.menu-music-settings-switch').removeClass('fal fa-check-square');
 			$('.menu-music-settings-switch').addClass('fal fa-square');
-			if ($('body').hasClass('playing')) {
-				sound_bg.play();
-			}
-			sound_bg.volume = 0.5;
+			sound_menu_ambient.pause();
 		}
 	};
 
 		// switch action
 	$('.menu-music-settings-switch').click(function() {
 		if (Cookies('music_menu') == 'off') {
-			$('.menu-music-settings-switch').removeClass('fal fa-square');
-			$('.menu-music-settings-switch').addClass('fal fa-check-square');
-			if ($('body').hasClass('playing')) {
-				sound_menu_ambient.pause();
-			}
-			sound_menu_ambient.play();
-			sound_menu_ambient.volume = 0.5;
 			Cookies.set('music_menu', 'on');
+			manage_music_menu();
+			
 		}
 		else if (Cookies('music_menu') == 'on') {
-			$('.menu-music-settings-switch').removeClass('fal fa-check-square');
-			$('.menu-music-settings-switch').addClass('fal fa-square');
-			sound_menu_ambient.pause();
-			sound_menu_ambient.volume = 0;
 			Cookies.set('music_menu', 'off');
+			manage_music_menu();
 		}
 	});
 
@@ -2007,16 +1912,7 @@ $(document).ready(function() {
 		sound_bg.pause();
 
 		//checking if menu ambient music will be on/off
-		if (Cookies('music_menu') == 'on'){
-			$('.menu-music-settings-switch').removeClass('fal fa-check-square');
-			$('.menu-music-settings-switch').addClass('fal fa-square');
-			
-			if ($('body').hasClass('playing')) {
-				sound_menu_ambient.play();
-			}
-
-			sound_menu_ambient.volume = 0.5;
-		};
+		
 		//desenchufamos al usuario,
 		var previa = socket.disconnect();
 		previa.open();
@@ -2029,6 +1925,7 @@ $(document).ready(function() {
 		$('.btn-respawn').css({'display': 'inline-block'});
 		$(location).attr('href', '#online-players');
 		// menu_manager('online-players');
+		manage_music_menu();
 		user_status();
 	}
 

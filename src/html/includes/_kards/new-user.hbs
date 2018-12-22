@@ -2,44 +2,9 @@
 <div id="kard-new-user" class="kard-modal kard-new-user">
 	<div class="kard">
 		<div class="kard-info f-fadeIn">
-			<div class="kard-header">
-				<h5 class="kard-title">Create New Profile</h5>
-			</div>
+
 			<div class="kard-body">
 				<div class="container-fluid">
-					<div class="row new-user">
-						<div class="col-6">
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
-								</div>
-								<input id="user-new-username" type="text" class="form-control" placeholder="Username" aria-label="Username" tabindex="1">
-							</div>
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
-								</div>
-								<input id="user-new-password" type="password" class="form-control" placeholder="Password" aria-label="Password" tabindex="2">
-							{{!-- 	<div class="input-group-append">
-									<span class="input-group-text" id="refresh-password"><i class="fas fa-sync"></i></span>
-								</div> --}}
-							</div>
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
-								</div>
-								<input id="user-new-email" type="text" class="form-control" placeholder="Email" aria-label="Email" tabindex="3">
-							</div>
-							<span id="alert-message-register" class="text-alert font-small"></span>
-						</div>
-						<div class="col-6">
-							<p>
-								Email is optional: you don't need to assosiate an email to create a new account. However, accounts withour email don’t have any password recovery options.
-							</p>
-							<button id="name-create" type="button" class="btn btn-custom-one" style="width:100%;" tabindex="4">create account</button>
-						</div>
-					</div>
-					<div class="x-padding-sm"></div>
 					<div class="kard-header">
 						<h5 class="kard-title">Resume</h5>
 					</div>
@@ -49,13 +14,13 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
 								</div>
-								<input id="name-input" type="text" class="form-control" placeholder="Username" aria-label="Username" tabindex="5">
+								<input id="name-input" type="text" class="form-control" placeholder="Username" aria-label="Username" tabindex="1">
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-lock-alt"></i></span>
 								</div>
-								<input id="mfa-code-input" type="text" class="form-control" placeholder="2FA (if enabled)" aria-label="2FA (if enabled)" tabindex="7">
+								<input id="mfa-code-input" type="text" class="form-control" placeholder="2FA (if enabled)" aria-label="2FA (if enabled)" tabindex="3">
 							</div>
 							<span id="alert-message-resume" class="text-alert font-small"></span>
 						</div>
@@ -64,9 +29,45 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input id="pass-input" type="password" class="form-control" placeholder="Password" aria-label="Password" tabindex="6">
+								<input id="pass-input" type="password" class="form-control" placeholder="Password" aria-label="Password" tabindex="2">
 							</div>
-							<button id="name-submit" type="button" class="btn btn-black" style="width:100%;" tabindex="8">log in</button>							
+							<button id="name-submit" type="button" class="btn btn-black" style="width:100%;" tabindex="4">log in</button>							
+						</div>
+					</div>
+					<div class="x-padding-sm"></div>
+					<div class="kard-header">
+						<h5 class="kard-title">Create New Profile</h5>
+					</div>					
+					<div class="row new-user">
+						<div class="col-6">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+								</div>
+								<input id="user-new-username" type="text" class="form-control" placeholder="Username" aria-label="Username" tabindex="5">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input id="user-new-password" type="password" class="form-control" placeholder="Password" aria-label="Password" tabindex="6">
+							{{!-- 	<div class="input-group-append">
+									<span class="input-group-text" id="refresh-password"><i class="fas fa-sync"></i></span>
+								</div> --}}
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+								</div>
+								<input id="user-new-email" type="text" class="form-control" placeholder="Email" aria-label="Email" tabindex="7">
+							</div>
+							<span id="alert-message-register" class="text-alert font-small"></span>
+						</div>
+						<div class="col-6">
+							<p>
+								Email is optional: you don't need to assosiate an email to create a new account. However, accounts withour email don’t have any password recovery options.
+							</p>
+							<button id="name-create" type="button" class="btn btn-custom-one" style="width:100%;" tabindex="8">create account</button>
 						</div>
 					</div>
 				</div>

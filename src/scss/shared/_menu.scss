@@ -19,15 +19,19 @@ section.menu {
 	width: 90vw;
 	max-width: 1200px;
 	max-height: 700px;
-	display: none;
+	display: flex;
 	justify-content: space-around;
 	margin: 0 auto;
-	margin-top: 22vh;
-	position: relative;
-	background-color: #0b0f11;
-	z-index: 200;
+	// margin-top: 22vh;
+	// position: relative;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 22%;
+	box-shadow: 0 3px 140px #000;
+	// background-color: #0b0f11;
+	z-index: 210;
 	&.menu-on {
-		display: flex !important;
 		opacity: 1 !important;
 		pointer-events:all !important;
 	}
@@ -66,7 +70,8 @@ section.menu {
 	border-right: 1px solid #1e2325;
 	background-color: #0b0f11;
 	height: 100%;
-    overflow-y: auto;	
+    overflow-y: auto;
+    z-index: 201;
 	@include menu-left {
 		max-width: 60px;
 	}
@@ -137,16 +142,10 @@ section.menu {
 	flex: 1.7;
 	overflow: hidden;
 	background-color: #121719;
-    // background: #0b0f11;
-    // background: -moz-radial-gradient(30% 30%, ellipse cover, rgba(10,50,70,0.4) 0%, rgba(5,9,11,1) 100%);
-    // background: -webkit-radial-gradient(30% 30%, ellipse cover, rgba(10,50,70,0.4) 0%,rgba(5,9,11,1) 100%);
-    // background: radial-gradient(ellipse at 30% 30%, rgba(10,50,70,0.4) 0%,rgba(5,9,11,1) 100%);
-    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a3246', endColorstr='#05090b',GradientType=1 );
-    // background-size: cover;
-    // background-repeat: no-repeat;
+	z-index: 202;
 }
 .menu-right {
-	// z-index: 200;
+	z-index: 201;
 	flex: 1;
 	background-color: #0f1315;
 	border-left: 1px solid #1e2325;
@@ -333,6 +332,16 @@ section.menu {
 			background: -webkit-radial-gradient(center, ellipse cover, rgba(12,16,18,1) 0%,rgba(12,22,28,0) 100%);
 			background: radial-gradient(ellipse at center, rgba(12,16,18,1) 0%,rgba(12,22,28,0) 100%);
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0c1012', endColorstr='#000c161c',GradientType=1 );
+		}
+		.info-extra {
+			line-height: 30px;
+			span {
+				display: inline-block;
+			}
+			div {
+				float: right;
+				display: inline-block;
+			}
 		}
 	}
 	&.kard-new-user {
