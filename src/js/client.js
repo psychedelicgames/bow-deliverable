@@ -325,7 +325,7 @@ $(document).ready(function() {
 		if ($('.menu').hasClass('menu-on')) {
 			// $('.header').focus();
 			TweenMax.set('.brand', {opacity: 1, scale: 1, top: brand_top});
-			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, top: "0%", ease: Expo.easeIn });
+			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, display: "none", top: "0%", ease: Expo.easeIn });
 
 			TweenMax.set('.menu', {opacity: 1, scale: 1, top: "22%"});
 			TweenMax.to('.menu', 0.1, {boxShadow: "0 0 0 #000", ease: Expo.easeIn});
@@ -341,7 +341,7 @@ $(document).ready(function() {
 		else { //open menu
 			$('.header').focus();
 			user_stats();
-			TweenMax.set('.brand', {delay: 0.9, opacity:1, scale: 0.5, top: "20%"});
+			TweenMax.set('.brand', {delay: 0.9, opacity:1, scale: 0.5, top: "20%", display: "block",});
 			TweenMax.to('.brand', 1, {delay: 0.9, top: brand_top, opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
 
 			TweenMax.set('.menu', {opacity:1, scale: 0.5, className: '+=menu-on', top: "110%"});
@@ -477,7 +477,7 @@ $(document).ready(function() {
 				$('#canvas-container').css({'display': 'block'});
 				$('body').addClass('playing');
 				$('.btn-respawn').css({'display': 'none'});
-				$('.powerups-info .title span').text('5');
+				$('.powerups-info .title span').text('3');
 
 				menu_switch();
 				player_hub();
@@ -508,7 +508,6 @@ $(document).ready(function() {
 
 			if(feedback == 'respawn_ok') {
 				KilledSequence(null, 'respawn');
-				menu_switch();
 				manage_music_playing();
 				$('#canvas').css({ 'filter': 'inherit'});
 				$('#canvas').focus();
