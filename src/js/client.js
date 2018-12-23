@@ -325,7 +325,7 @@ $(document).ready(function() {
 		if ($('.menu').hasClass('menu-on')) {
 			// $('.header').focus();
 			TweenMax.set('.brand', {opacity: 1, scale: 1, top: brand_top});
-			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, left: "-120%", ease: Expo.easeIn });
+			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, top: "0%", ease: Expo.easeIn });
 
 			TweenMax.set('.menu', {opacity: 1, scale: 1, top: "22%"});
 			TweenMax.to('.menu', 0.1, {boxShadow: "0 0 0 #000", ease: Expo.easeIn});
@@ -341,8 +341,8 @@ $(document).ready(function() {
 		else { //open menu
 			$('.header').focus();
 			user_stats();
-			TweenMax.set('.brand', {opacity:1, scale: 0.5, left: "-120%"});
-			TweenMax.to('.brand', 1, {delay: 0.7, top: brand_top, left: "0%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
+			TweenMax.set('.brand', {delay: 0.9, opacity:1, scale: 0.5, top: "20%"});
+			TweenMax.to('.brand', 1, {delay: 0.9, top: brand_top, opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
 
 			TweenMax.set('.menu', {opacity:1, scale: 0.5, className: '+=menu-on', top: "110%"});
 			TweenMax.to('.menu', 0.7, {top: "22%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
@@ -2105,33 +2105,15 @@ $(document).ready(function() {
 					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '50') {
-					rand = sounds_order_2.rand(); sounds[rand].play();
-					show_upper_message('There’s nothing faster than Assassin MK1!');
-					powerup_counter	('order_power_2');
-					$('.powerups-container').removeClass('active');
-				}
-				if(keydown == '51') {
-					rand = sounds_order_3.rand(); sounds[rand].play();
-					show_upper_message('Vladof relics 1.0  more bullets, more kills!');
-					powerup_counter	('order_power_3');
-					$('.powerups-container').removeClass('active');
-				}
-				if(keydown == '52') {
 					rand = sounds_order_4.rand(); sounds[rand].play();
 					show_upper_message('You are 1.666 times lighter with Moonwalk!');
 					powerup_counter	('order_power_4');
 					$('.powerups-container').removeClass('active');
 				}
-				if(keydown == '53') {
+				if(keydown == '51') {
 					rand = sounds_order_5.rand(); sounds[rand].play();
 					show_upper_message('The Slow company loves you.');
 					powerup_counter	('order_power_5');
-					$('.powerups-container').removeClass('active');
-				}
-				if(keydown == '54') {
-					rand = sounds_order_6.rand(); sounds[rand].play(); console.log(rand);
-					show_upper_message("Providing healing. We're killing you slowly");
-					powerup_counter	('order_power_6');
 					$('.powerups-container').removeClass('active');
 				}
 			}
@@ -2160,18 +2142,18 @@ $(document).ready(function() {
 		order_power('51');
 		$('#canvas').focus();
 	});
-	$('#order_power_4').click(function() {
-		order_power('52');
-		$('#canvas').focus();
-	});
-	$('#order_power_5').click(function() {
-		order_power('53');
-		$('#canvas').focus();
-	});
-	$('#order_power_6').click(function() {
-		order_power('54');
-		$('#canvas').focus();
-	});
+	// $('#order_power_4').click(function() {
+	// 	order_power('52');
+	// 	$('#canvas').focus();
+	// });
+	// $('#order_power_5').click(function() {
+	// 	order_power('53');
+	// 	$('#canvas').focus();
+	// });
+	// $('#order_power_6').click(function() {
+	// 	order_power('54');
+	// 	$('#canvas').focus();
+	// });
 
 
 /************************************************************/

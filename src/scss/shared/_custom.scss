@@ -30,13 +30,15 @@ body {
     width: 100%;
     position: absolute;
     top: -5vw;
-    left: 0vw;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     width: 50vw;
     display: block;
     opacity: 1;
     img {
     	width: 100%;
-    	margin-left: -130px;
+    	margin-left: -80px;
     	max-width: 720px;
     }
 }
