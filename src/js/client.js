@@ -384,7 +384,7 @@ $(document).ready(function() {
 			menu_manager('leaderboard');
 		}
 		else {
-			menu_manager('credits');
+			menu_manager('leaderboard');
 		};
 	}
 
