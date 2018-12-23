@@ -121,8 +121,8 @@ $(document).ready(function() {
 	};
 
 	//detect "enter key" on password input field to login
-	$.fn.pressEnter = function(fn) {  
-	    return this.each(function() {  
+	$.fn.pressEnter = function(fn) {
+	    return this.each(function() {
 	        $(this).bind('enterPress', fn);
 	        $(this).keyup(function(e){
 	            if(e.keyCode == 13)
@@ -130,8 +130,8 @@ $(document).ready(function() {
 	              $(this).trigger("enterPress");
 	            }
 	        })
-		});  
-	}; 
+		});
+	};
 	$('#pass-input').pressEnter(function(){user_login();})
 
 
@@ -235,7 +235,7 @@ $(document).ready(function() {
 			$('body').addClass('user-logged');
 
 			if ($('body').hasClass('playing')) {
-				$('.btn-respawn').css({'display': 'none'});	
+				$('.btn-respawn').css({'display': 'none'});
 			}
 			else {
 				$('.btn-respawn').css({'display': 'inline-block'});
@@ -245,7 +245,7 @@ $(document).ready(function() {
 			$('#qrcode_personal_address').text('');
 			$('#qrcode_personal_address').qrcode(Cookies('user_address'));
 		}
-		else {			
+		else {
 			//change on the ui
 			$(".user-online").css({ "display": "none" });
 			$(".user-offline").css({ "display": "inherit" });
@@ -262,10 +262,10 @@ $(document).ready(function() {
 	/* User stats info f-user_stats *****************************/
 
 	function user_stats() {
-		
+
 		//only if user is logged
 		if (Cookies('user_logued') == "True") {
-				
+
 			//search on cookies
 			var username = Cookies('user_username');
 			var password = Cookies('user_password');
@@ -322,7 +322,7 @@ $(document).ready(function() {
 	// menu switch function
 	function menu_switch() {
 
-		if ($('.menu').hasClass('menu-on')) {			
+		if ($('.menu').hasClass('menu-on')) {
 			// $('.header').focus();
 			TweenMax.set('.brand', {opacity: 1, scale: 1, top: brand_top});
 			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, left: "-120%", ease: Expo.easeIn });
@@ -359,7 +359,7 @@ $(document).ready(function() {
 
 	/******************************************************/
 	/* Url worker f-url_worker ****************************/
-	
+
 	// read the url and send to menu_manager
 	function url_worker() {
 
@@ -404,37 +404,37 @@ $(document).ready(function() {
 		sound_menu_click.play();
 
 		//for each kard
-		if (kard == 'new-user') { 
+		if (kard == 'new-user') {
 			$('#name-input').focus();
-		}		
-		if (kard == 'leaderboard') { 
-			leaderboard_view(0, 50); 
 		}
-		if (kard == 'cashier') { 
+		if (kard == 'leaderboard') {
+			leaderboard_view(0, 50);
+		}
+		if (kard == 'cashier') {
 			$('#withdrawals-available-balance').val(Cookies('user_balance'));
 			$('.kard-cashier [data-tab-link]').removeClass('active');
 			$('.kard-cashier [data-tab-link]:first-child').addClass('active');
 			$('.kard-cashier [data-tab]').removeClass('active');
 			$('#kard-cashier-deposits').addClass('active');
 		}
-		if (kard == 'settings') { 
+		if (kard == 'settings') {
 			user_mfa_show();
 			$('.kard-settings [data-tab-link]').removeClass('active');
 			$('.kard-settings [data-tab-link]:first-child').addClass('active');
 			$('.kard-settings [data-tab]').removeClass('active');
 			$('#kard-settings-ux').addClass('active');
 		}
-		if (kard == 'balance') { 
+		if (kard == 'balance') {
 			user_balance_view();
 		}
-		if (kard == 'profile') { 
+		if (kard == 'profile') {
 			user_overview();
 		}
 		if (kard == 'online-players') {
 			user_status();
 			leaderboard_view(1, 25);
 		}
-		
+
 		// manage show and hide kards
 		if ( $('.kard-' + kard).css('display') == 'none' ) {
 			// take out the actual section
@@ -478,10 +478,10 @@ $(document).ready(function() {
 				$('body').addClass('playing');
 				$('.btn-respawn').css({'display': 'none'});
 				$('.powerups-info .title span').text('5');
-				
+
 				menu_switch();
 				player_hub();
-				
+
 				//start game
 				$(location).attr('href','#play');
 				game.animate();
@@ -489,7 +489,7 @@ $(document).ready(function() {
 				sound_menu_ambient.pause();
 				manage_music_playing();
 				$('#canvas').focus();
-				
+
 				//respawn sounds
 				rand = sounds_spawn.rand(); sounds[rand].play();
 			}
@@ -532,7 +532,7 @@ $(document).ready(function() {
 		$('#home').css({'display': 'none'});
 		$('.player-hub').css({'display': 'none'});
 		$('body').addClass('playing');
-		
+
 		$('#canvas').focus();
 		// start game
 		game.animate();
@@ -675,15 +675,17 @@ $(document).ready(function() {
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
 		var password = Cookies('user_password');
-		var user_b = $('#wire_user_b').val();
-		var value = $('#wire_value').val();
-		var message = $('#wire_message').val();
+		var user_b = $('#send_funds_username').val();
+		var value = $('#send_funds_amount').val();
+		//se podría incluír un message
+		var message = null;
 
 		//envamos las variables para node
 		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
 		//hacer cosas con la información? o no hacer nada...
 		//feedback vuelve con información del node, muchas veces no debería de verse.
-		showAlert(feedback.advice, 'yellow');
+		//showAlert(feedback.advice, 'yellow');
+		console.log(feedback);
 	});
 	}
 
@@ -1091,7 +1093,7 @@ $(document).ready(function() {
 	};
 	// switch action
 	$('#developer-switch').click(function() {
-		
+
 		if (Cookies('developer_info') == 'off') {
 			Cookies.set('developer_info', 'on');
 			manage_developer_info();
@@ -1187,7 +1189,7 @@ $(document).ready(function() {
 		if (Cookies('music_menu') == 'off') {
 			Cookies.set('music_menu', 'on');
 			manage_music_menu();
-			
+
 		}
 		else if (Cookies('music_menu') == 'on') {
 			Cookies.set('music_menu', 'off');
@@ -1912,7 +1914,7 @@ $(document).ready(function() {
 		sound_bg.pause();
 
 		//checking if menu ambient music will be on/off
-		
+
 		//desenchufamos al usuario,
 		var previa = socket.disconnect();
 		previa.open();
@@ -2221,7 +2223,7 @@ $(document).ready(function() {
 	});
 
 	// menu key
-	
+
 		$('body').keydown(function(e) {
 			switch(e.which) {
 				// show menu
@@ -2232,7 +2234,7 @@ $(document).ready(function() {
 			}
 			e.preventDefault();
 		});
-	
+
 
 
 	/************************************************************/
@@ -2322,7 +2324,7 @@ $(document).ready(function() {
 	$('#name-create').click(user_new);
 
 	$('#withdrawals_send').click(cashier_send);
-	$('#cashier_wire').click(cashier_wire);
+	$('#send_funds_send').click(cashier_wire);
 	$('#rescan_blockchain').click(cashier_search);
 	//$('#show_leaderboard').click(leaderboard_view);
 	$('#show_user_overview').click(user_overview);
