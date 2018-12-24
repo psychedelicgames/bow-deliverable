@@ -19,6 +19,333 @@ $(document).ready(function() {
 	Input.addMouseTracker(document.getElementById('canvas'));
 
 
+/************************************************************/
+	/* Sounds ***************************************************/
+
+	//sound menu ambient
+	var sound_menu_ambient = document.createElement("audio");
+	sound_menu_ambient.src = "./audio/menu/ambient.mp3";
+	sound_menu_ambient.volume = 0.5;
+	sound_menu_ambient.autoPlay = true;
+	sound_menu_ambient.loop = true;
+	sound_menu_ambient.preLoad = false;
+	sound_menu_ambient.controls = false;
+	sound_menu_ambient.currentTime = 1;
+
+	//sound menu click
+	var sound_menu_click = document.createElement("audio");
+	sound_menu_click.src = "./audio/menu/click.wav";
+	sound_menu_click.volume = 0.2;
+	sound_menu_click.autoPlay = false;
+	sound_menu_click.loop = false;
+	sound_menu_click.preLoad = true;
+	sound_menu_click.controls = false;
+
+	//sound menu tabs
+	var sound_menu_tabs = document.createElement("audio");
+	sound_menu_tabs.src = "./audio/menu/tabs.wav";
+	sound_menu_tabs.volume = 0.02;
+	sound_menu_tabs.autoPlay = false;
+	sound_menu_tabs.loop = false;
+	sound_menu_tabs.preLoad = true;
+	sound_menu_tabs.controls = false;
+
+	//Posiciones en segundos
+	var sound_bg_posiciones = [
+	0, 147, 383, 626, 830, 1075, 1332, 1524, 1777, 1968, 2246, 2524, 2766,
+	2990, 3216, 3286, 3461, 3702, 3857, 4090, 4326, 4580, 4845, 5143
+	];
+
+	//selección al azar
+	var sound_bg_posicion = sound_bg_posiciones[Math.floor(Math.random() * sound_bg_posiciones.length)];
+
+	//on playing music
+	var sound_bg = document.createElement("audio");
+	sound_bg.src = "./audio/full.mp3";
+	sound_bg.volume = 0.2;
+	sound_bg.autoPlay = false;
+	sound_bg.preLoad = true;
+	sound_bg.controls = true;
+	sound_bg.currentTime = sound_bg_posicion;
+
+
+	/************************************************************/
+	/* sound preloader ******************************************/
+
+	//espacios para sonidos
+	var sounds_harm = [];
+	var sounds_dies = [];
+	var sounds_eliminacion = [];
+	var sounds_spawn = [];
+	var sounds_order_1 = [];
+	var sounds_order_2 = [];
+	var sounds_order_3 = [];
+	var sounds_order_4 = [];
+	var sounds_order_5 = [];
+	var sounds_order_6 = [];
+
+
+	//sounds.whenLoaded = alinear_sonido;
+
+	function preload() {
+		//preload sounds
+		socket.emit('preload', function(feedback) {
+
+			//los predefinidos
+			sounds.load(['./audio/coins.mp3']);
+			sounds.load(['./audio/cardio.mp3']);
+			sounds.load(['./audio/buzz.mp3']);
+			//sonidos de munición
+			sounds.load(['./audio/ammo/common.mp3']);
+			sounds.load(['./audio/ammo/quick.mp3']);
+			sounds.load(['./audio/ammo/fork.mp3']);
+
+			//sound preloader harm
+			feedback.harm.forEach( function(file) {
+				sounds.load([ './audio/harm/' + file ]);
+				sounds_harm.push('./audio/harm/' + file);
+			});
+			//sound preloader dies
+			feedback.dies.forEach( function(file) {
+				sounds.load([ './audio/dies/' + file ]);
+				sounds_dies.push('./audio/dies/' + file);
+			});
+			//sound preloader dies
+			feedback.eliminacion.forEach( function(file) {
+				sounds.load([ './audio/eliminacion/' + file ]);
+				sounds_eliminacion.push('./audio/eliminacion/' + file);
+			});
+			//sound preloader spawn
+			feedback.spawn.forEach( function(file) {
+				sounds.load([ './audio/spawn/' + file ]);
+				sounds_spawn.push('./audio/spawn/' + file);
+			});
+			//sound preloader powers 1
+			feedback.order_1.forEach( function(file) {
+				sounds.load([ './audio/powers/1/' + file ]);
+				sounds_order_1.push('./audio/powers/1/' + file);
+			});
+			//sound preloader powers 2
+			feedback.order_2.forEach( function(file) {
+				sounds.load([ './audio/powers/2/' + file ]);
+				sounds_order_2.push('./audio/powers/2/' + file);
+			});
+			//sound preloader powers 3
+			feedback.order_3.forEach( function(file) {
+				sounds.load([ './audio/powers/3/' + file ]);
+				sounds_order_3.push('./audio/powers/3/' + file);
+			});
+			//sound preloader powers 4
+			feedback.order_4.forEach( function(file) {
+				sounds.load([ './audio/powers/4/' + file ]);
+				sounds_order_4.push('./audio/powers/4/' + file);
+			});
+			//sound preloader powers 5
+			feedback.order_5.forEach( function(file) {
+				sounds.load([ './audio/powers/5/' + file ]);
+				sounds_order_5.push('./audio/powers/5/' + file);
+			});
+			//sound preloader powers 6
+			feedback.order_6.forEach( function(file) {
+				sounds.load([ './audio/powers/6/' + file ]);
+				sounds_order_6.push('./audio/powers/6/' + file);
+			});
+			//inicializados
+			sounds.whenLoaded = alinear_sonido;
+		});
+	}
+
+	//corremos preload
+	preload();
+	//quizás debería sacarse
+	function alinear_sonido() {
+	}
+
+	//money sound
+	function sound_coins() {
+		sounds['./audio/coins.mp3'].play()
+	}
+
+
+	/******************************************************/
+	/* Interface composer UI f-interfarce *****************/
+
+	$(window).resize(function() {
+		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 92);
+		$('.chat-display').height(chatSize);
+	});
+
+	// background body change
+	setInterval(function() {
+		var items = [1,2,3];
+		var item = items[Math.floor(Math.random()*items.length)];
+			$('body').attr({'style' : 'background-image: url("../img/menu/0' + item + '.png");'});
+	}, 5000);
+
+	var brand_top = $('.brand').offset().top;
+	var brand_height = $('.brand').height();
+	var menu_top = $('.menu').offset().top;
+	var brand_position = (menu_top - (brand_height / 2) - 15);
+	$('.brand').css({'top': brand_position});
+	
+	$(window).click(function(e) {	
+		// close menu if click outside    
+	    if (menu_status == 'on') { 
+	    	if (e.target.id == 'body' || e.target.id == 'canvas' || e.target.id == 'canvas_02') {menu_switch('off')};
+	    }
+	});
+
+
+	/******************************************************/
+	/* Menu kard's triggers *******************************/
+
+	// track which section tab clicked
+	$('.menu-manager').click(function() {
+		var elementClicked = this.getAttribute('href').split('#')[1];
+		menu_manager(elementClicked);
+	});
+
+
+	/******************************************************/
+	/* Open/close menu f-menu_switch **********************/
+	var brand_top = $('.brand').offset().top;
+	var menu_status = 'on';
+	// menu switch function
+	function menu_switch(state) {
+
+		if ( menu_status == 'on' || (state == 'off')) {
+			TweenMax.set('.brand', {opacity: 1, scale: 1, top: brand_top});
+			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, display: "none", top: "0%", ease: Expo.easeIn });
+
+			TweenMax.set('.menu', {opacity: 1, scale: 1, top: "22%"});
+			TweenMax.to('.menu', 0.1, {boxShadow: "0 0 0 #000", ease: Expo.easeIn});
+
+			TweenMax.set('.menu-left', {opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}});
+			TweenMax.to('.menu-left', 0.38, {delay:0.2, opacity: 1, scale: 0.5, css:{position: 'relative', left: '20%'}, ease: Expo.easeOut});
+
+			TweenMax.set('.menu-right', {opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}});
+			TweenMax.to('.menu-right', 0.3, {delay:0.2, opacity: 1, scale: 0.5, css:{position: 'relative', left: '-35%'}, ease: Expo.easeOut});
+
+			TweenMax.to('.menu', 0.4, {delay:0.2, opacity: 0, className: '-=menu-on', scale: 0.5, top: "110%", ease: Expo.easeIn });
+
+			menu_status = 'off';
+		}
+		else { //open menu
+			user_stats();
+			TweenMax.set('.brand', {delay: 0.9, opacity:1, scale: 0.5, top: "20%", display: "block",});
+			TweenMax.to('.brand', 1, {delay: 0.9, top: brand_top, opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
+
+			TweenMax.set('.menu', {opacity:1, scale: 0.5, className: '+=menu-on', top: "110%"});
+			TweenMax.to('.menu', 0.7, {top: "22%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
+			TweenMax.to('.menu', 0.3, {delay: 0.84, boxShadow: "0 3px 140px #000", ease: Expo.easeOut});
+
+			TweenMax.set('.menu-left', {delay: 0.3, opacity: 1, scale: 0.5, css:{position: 'relative', left: '22%'}});
+			TweenMax.to('.menu-left', 0.5, {delay: 0.38, opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}, ease: Expo.easeOut});
+
+			TweenMax.set('.menu-right', {delay: 0.26, opacity: 1, scale: 0.5, css:{position: 'relative', left: '-35%'}});
+			TweenMax.to('.menu-right', 0.5, {delay: 0.26, opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}, ease: Expo.easeOut});
+
+			menu_status = 'on';
+		}
+	}
+
+
+	/******************************************************/
+	/* Url worker f-url_worker ****************************/
+
+	// read the url and send to menu_manager
+	function url_worker() {
+
+		// create array with all sections
+		var sections = [];
+
+		$('.menu-left ul li a').each(function() {
+			var thisSection = $( this ).attr('href').split('#')[1];
+			sections.push(thisSection);
+		});
+
+		// check url to manage menu
+		var url = location.hash.split('#')[1];
+
+		//fill user stats if necessary
+		user_stats();
+
+		if (url && ($.inArray(url, sections) >= 0)) {
+			menu_manager(url);
+		}
+		else if (typeof url === 'undefined') {
+			menu_manager('leaderboard');
+		}
+		else {
+			menu_manager('leaderboard');
+		};
+	}
+
+
+	/******************************************************/
+	/* Menu manager  f-menu_manager ***********************/
+
+	// function that manage the center of the menu
+	function menu_manager(kard) {
+
+		// if menu is not open
+		if (menu_status == 'off') { menu_switch('on');};
+
+		location.hash = ('#' + kard);
+		$('*').removeClass('menu-active');
+		$('.menu-manager.' + kard).addClass('menu-active');
+		$('.menu').addClass('menu-on');
+		sound_menu_click.currentTime = 0;
+		sound_menu_click.play();
+
+		//for each kard
+		if (kard == 'new-user') {
+			$('#name-input').focus();
+		}
+		if (kard == 'leaderboard') {
+			leaderboard_view(0, 50);
+		}
+		if (kard == 'cashier') {
+			$('#withdrawals-available-balance').val(Cookies('user_balance'));
+			$('.kard-cashier [data-tab-link]').removeClass('active');
+			$('.kard-cashier [data-tab-link]:first-child').addClass('active');
+			$('.kard-cashier [data-tab]').removeClass('active');
+			$('#kard-cashier-deposits').addClass('active');
+		}
+		if (kard == 'settings') {
+			user_mfa_show();
+			$('.kard-settings [data-tab-link]').removeClass('active');
+			$('.kard-settings [data-tab-link]:first-child').addClass('active');
+			$('.kard-settings [data-tab]').removeClass('active');
+			$('#kard-settings-ux').addClass('active');
+		}
+		if (kard == 'balance') {
+			user_balance_view();
+		}
+		if (kard == 'profile') {
+			user_overview();
+			if (Cookies('user-email')) {var email = Cookies('user-email');$('#user_email_edit').attr({'placeholder': email});} else {$('#user_email_edit').attr({'placeholder': 'add email'});}
+		}
+		if (kard == 'online-players') {
+			user_status();
+			leaderboard_view(1, 25);
+		}
+
+		// manage show and hide kards
+		if ( $('.kard-' + kard).css('display') == 'none' ) {
+			// take out the actual section
+			TweenMax.staggerTo('.kard-modal.show',1.2, {opacity: 1, top: '100%', ease: Elastic.easeOut.config(1, 1), onComplete: outShow(), });
+			TweenMax.staggerTo('.kard-modal.show', 0.1, {display: 'none', className: '-=show', });
+
+			function outShow() {
+				// take in the selected section
+				TweenMax.set('#kard-' + kard  + '.kard-modal', {opacity: 0, top: '-100%', });
+				TweenMax.staggerTo('#kard-' + kard  + '.kard-modal',1.2, {opacity: 1, top: '0%', display: 'block', ease: Elastic.easeOut.config(1, 1), className: '+=show', });
+			};
+		}
+	}
+
+
 	/************************************************************/
 	/* New user register ****************************************/
 
@@ -254,7 +581,6 @@ $(document).ready(function() {
 			menu_manager('new-user');
 			Cookies.set('user_logued', 'False');
 		}
-		console.log(Cookies('user_logued'))
 	}
 
 
@@ -274,6 +600,7 @@ $(document).ready(function() {
 			socket.emit('user-balance-view', { username: username, password: password }, function(feedback) {
 				if ($('.user-name').text() != feedback.user.username ) { $('.user-name').text(feedback.user.username); }
 				if ($('.user-address').text() != feedback.user.address ) { $('.user-address').text(feedback.user.address); }
+				if ($('.user-email').text() != feedback.user.email ) { $('.user-email').text(feedback.user.email); }
 				if ($('.user-kills').text() != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
 				if ($('.user-deaths').text() != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.lose); }
 				if ($('.user-spawns').text() != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
@@ -284,172 +611,156 @@ $(document).ready(function() {
 		}
 	}
 
-	/******************************************************/
-	/* Interface composer UI f-interfarce *****************/
 
-	$(window).resize(function() {
-		var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 92);
-		$('.chat-display').height(chatSize);
-	});
+	/************************************************************/
+	/* cashier/search *******************************************/
 
-	// background body change
-	setInterval(function() {
-		var items = [1,2,3];
-		var item = items[Math.floor(Math.random()*items.length)];
-			$('body').attr({'style' : 'background-image: url("../img/menu/0' + item + '.png");'});
-	}, 5000);
-
-	var brand_top = $('.brand').offset().top;
-	var brand_height = $('.brand').height();
-	var menu_top = $('.menu').offset().top;
-	var brand_position = (menu_top - (brand_height / 2) - 15);
-	$('.brand').css({'top': brand_position});
-	console.log(brand_position);
-
-	/******************************************************/
-	/* Menu kard's triggers *******************************/
-
-	// track which section tab clicked
-	$('.menu-manager').click(function() {
-		var elementClicked = this.getAttribute('href').split('#')[1];
-		menu_manager(elementClicked);
-	});
-
-
-	/******************************************************/
-	/* Open/close menu f-menu_switch **********************/
-	var brand_top = $('.brand').offset().top;
-	// menu switch function
-	function menu_switch(state) {
-
-		if ($('.menu').hasClass('menu-on') || (state == 'off')) {
-			// $('.header').focus();
-			TweenMax.set('.brand', {opacity: 1, scale: 1, top: brand_top});
-			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, display: "none", top: "0%", ease: Expo.easeIn });
-
-			TweenMax.set('.menu', {opacity: 1, scale: 1, top: "22%"});
-			TweenMax.to('.menu', 0.1, {boxShadow: "0 0 0 #000", ease: Expo.easeIn});
-
-			TweenMax.set('.menu-left', {opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}});
-			TweenMax.to('.menu-left', 0.38, {delay:0.2, opacity: 1, scale: 0.5, css:{position: 'relative', left: '20%'}, ease: Expo.easeOut});
-
-			TweenMax.set('.menu-right', {opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}});
-			TweenMax.to('.menu-right', 0.3, {delay:0.2, opacity: 1, scale: 0.5, css:{position: 'relative', left: '-35%'}, ease: Expo.easeOut});
-
-			TweenMax.to('.menu', 0.4, {delay:0.2, opacity: 0, className: '-=menu-on', scale: 0.5, top: "110%", ease: Expo.easeIn });
-		}
-		else { //open menu
-			$('.header').focus();
-			user_stats();
-			TweenMax.set('.brand', {delay: 0.9, opacity:1, scale: 0.5, top: "20%", display: "block",});
-			TweenMax.to('.brand', 1, {delay: 0.9, top: brand_top, opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 1), force3D: true });
-
-			TweenMax.set('.menu', {opacity:1, scale: 0.5, className: '+=menu-on', top: "110%"});
-			TweenMax.to('.menu', 0.7, {top: "22%", opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
-			TweenMax.to('.menu', 0.3, {delay: 0.84, boxShadow: "0 3px 140px #000", ease: Expo.easeOut});
-
-			TweenMax.set('.menu-left', {delay: 0.3, opacity: 1, scale: 0.5, css:{position: 'relative', left: '22%'}});
-			TweenMax.to('.menu-left', 0.5, {delay: 0.38, opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}, ease: Expo.easeOut});
-
-			TweenMax.set('.menu-right', {delay: 0.26, opacity: 1, scale: 0.5, css:{position: 'relative', left: '-35%'}});
-			TweenMax.to('.menu-right', 0.5, {delay: 0.26, opacity: 1, scale: 1, css:{position: 'relative', left: '0%'}, ease: Expo.easeOut});
-		}
-	}
-
-
-	/******************************************************/
-	/* Url worker f-url_worker ****************************/
-
-	// read the url and send to menu_manager
-	function url_worker() {
-
-		// create array with all sections
-		var sections = [];
-
-		$('.menu-left ul li a').each(function() {
-			var thisSection = $( this ).attr('href').split('#')[1];
-			sections.push(thisSection);
+	//Busca nuevas operaciones del usuario
+	function cashier_search() {
+		//buscamos las variables de cookies
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+		//envamos las variables para node
+		socket.emit('cashier-search', { username: username, password: password }, function(feedback) {
+			//si hay operaciones nuevas, informamos.
+			if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
+			//almacenamos el balance en balance_previo
+			var balance_previo = $('.user_balance').html();
+			//console.log(balance_previo, feedback.user.available_balance);
+			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
+			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
+			//refrescamos el balance del usuario
+			$('.user_balance').text(feedback.user.available_balance);
+			//modificamos la cookie
+			if(feedback.user.available_balance != Cookies('user_balance')) { Cookies.set('user_balance', feedback.user.available_balance); }
 		});
+	};
 
-		// check url to manage menu
-		var url = location.hash.split('#')[1];
 
-		//fill user stats if necessary
-		user_stats();
+	/************************************************************/
+	/* cashier/view *********************************************/
 
-		if (url && ($.inArray(url, sections) >= 0)) {
-			menu_manager(url);
-		}
-		else if (typeof url === 'undefined') {
-			menu_manager('leaderboard');
-		}
-		else {
-			menu_manager('leaderboard');
-		};
+	//habilitamos la funcion de copy para el address en el modal cashier
+	$('#user_address_copy').click(function() {
+		var dummy = document.createElement("input");
+	    document.body.appendChild(dummy);
+	    dummy.value = $('#user_address_cashier').text();
+	    dummy.select();
+	    document.execCommand("copy");
+	    document.body.removeChild(dummy);
+	    showAlert('address copied on your clipboard','yellow');
+	})
+
+
+	/************************************************************/
+	/* cashier/withdrawals **************************************/
+
+	//Update balance left when amount input change
+	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
+		var balance = Cookies('user_balance');
+		var amount = $('#withdrawals-amount').val();
+		$('#withdrawals-balance-left').val(balance - amount);
+	});
+
+	//Send bits to address
+	function cashier_send() {
+		//buscamos las variables de cookies
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+		var address = $('#withdrawals-amount').val();
+
+		//envamos las variables para node
+		socket.emit('cashier-send', { username: username, password: password, address: address }, function(feedback) {
+			showAlert(feedback.advice, 'yellow');
+			console.log(feedback.advice);
+		});
 	}
 
 
-	/******************************************************/
-	/* Menu manager  f-menu_manager ***********************/
+	/************************************************************/
+	/* cashier/wire *********************************************/
 
-	// function that manage the center of the menu
-	function menu_manager(kard) {
-		console.log('kard seclected: ' + kard);
+	// Send funds between users, must be used like @username
+	function cashier_wire() {
 
-		// if menu is not open
-		if ($('.menu').hasClass('menu-on')) {} else { menu_switch('on');};
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
+		var user_b = $('#send_funds_username').val();
+		var value = $('#send_funds_amount').val();
+		//se podría incluír un message
+		var message = null;
 
-		location.hash = ('#' + kard);
-		$('*').removeClass('menu-active');
-		$('.menu-manager.' + kard).addClass('menu-active');
-		$('.menu').addClass('menu-on');
-		sound_menu_click.currentTime = 0;
-		sound_menu_click.play();
+		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
+			console.log(feedback);
+		});
+	}
 
-		//for each kard
-		if (kard == 'new-user') {
-			$('#name-input').focus();
-		}
-		if (kard == 'leaderboard') {
-			leaderboard_view(0, 50);
-		}
-		if (kard == 'cashier') {
-			$('#withdrawals-available-balance').val(Cookies('user_balance'));
-			$('.kard-cashier [data-tab-link]').removeClass('active');
-			$('.kard-cashier [data-tab-link]:first-child').addClass('active');
-			$('.kard-cashier [data-tab]').removeClass('active');
-			$('#kard-cashier-deposits').addClass('active');
-		}
-		if (kard == 'settings') {
-			user_mfa_show();
-			$('.kard-settings [data-tab-link]').removeClass('active');
-			$('.kard-settings [data-tab-link]:first-child').addClass('active');
-			$('.kard-settings [data-tab]').removeClass('active');
-			$('#kard-settings-ux').addClass('active');
-		}
-		if (kard == 'balance') {
-			user_balance_view();
-		}
-		if (kard == 'profile') {
-			user_overview();
-		}
-		if (kard == 'online-players') {
-			user_status();
-			leaderboard_view(1, 25);
-		}
+	/************************************************************/
+	/* leaderboard/view *****************************************/
 
-		// manage show and hide kards
-		if ( $('.kard-' + kard).css('display') == 'none' ) {
-			// take out the actual section
-			TweenMax.staggerTo('.kard-modal.show',1.2, {opacity: 1, top: '100%', ease: Elastic.easeOut.config(1, 1), onComplete: outShow(), });
-			TweenMax.staggerTo('.kard-modal.show', 0.1, {display: 'none', className: '-=show', });
+	//get the first 50 users
+	function leaderboard_view(online, size) {
 
-			function outShow() {
-				// take in the selected section
-				TweenMax.set('#kard-' + kard  + '.kard-modal', {opacity: 0, top: '-100%', });
-				TweenMax.staggerTo('#kard-' + kard  + '.kard-modal',1.2, {opacity: 1, top: '0%', display: 'block', ease: Elastic.easeOut.config(1, 1), className: '+=show', });
-			};
-		}
+		socket.emit('leaderboard-view', {online: online, size: size}, function(feedback) {
+
+			if(feedback.leaderboard != null) {
+
+				var row = '';
+				for (var i = 0; i < feedback.leaderboard.length; ++i) {
+					if (feedback.leaderboard[i]['username'] == 'healco') { continue; }
+					else {
+						row += '<tr>';
+						row += '<td># ' + i + '</td>';
+						if (feedback.leaderboard[i]['condicion'] == 'online') {
+							row += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else {
+							row += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						};
+						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
+						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+						// row += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
+						row += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
+
+						if (feedback.leaderboard[i]['difference'] < 0) {
+							row += '<td><i class="fas fa-arrow-down x-color-one"></i> ' + (feedback.leaderboard[i]['difference'] * -1) + '</td>';
+						}
+						else {
+							row += '<td><i class="fas fa-arrow-up x-color-green"></i> ' + feedback.leaderboard[i]['difference'] + '</td>';
+						}
+						row += '</tr>';
+					}
+				}
+				//enviamos la información hacia ambos leaderboards
+				$('.leaderboard-content').html(row);
+
+				var row3 = '';
+				for (var i = 0; i < feedback.leaderboard.length; ++i) {
+					if (feedback.leaderboard[i]['username'] == 'healco') {
+						continue;
+					}
+					else {
+						row3 += '<tr>';
+						row3 += '<td># ' + i + '</td>';
+						if (feedback.leaderboard[i]['condicion'] == 'online') {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else if (feedback.leaderboard[i]['condicion'] == 'limbo') {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						}
+						else {
+							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
+						};
+						row3 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
+						row3 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
+						row3 += '</tr>';
+					}
+				}
+				$('#table-online-players').html(row3);
+			}
+		});
 	}
 
 
@@ -559,139 +870,6 @@ $(document).ready(function() {
 	}
 
 
-
-	/************************************************************/
-	/* leaderboard/view *****************************************/
-
-	//get the first 50 users
-	function leaderboard_view(online, size) {
-
-		socket.emit('leaderboard-view', {online: online, size: size}, function(feedback) {
-
-			if(feedback.leaderboard != null) {
-
-				var row = '';
-				for (var i = 0; i < feedback.leaderboard.length; ++i) {
-					if (feedback.leaderboard[i]['username'] == 'healco') { continue; }
-					else {
-						row += '<tr>';
-						row += '<td># ' + i + '</td>';
-						if (feedback.leaderboard[i]['condicion'] == 'online') {
-							row += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						}
-						else {
-							row += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						};
-						row += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
-						row += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-						// row += '<td>' + feedback.leaderboard[i]['spawn'] + '</td>';
-						row += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
-
-						if (feedback.leaderboard[i]['difference'] < 0) {
-							row += '<td><i class="fas fa-arrow-down x-color-one"></i> ' + (feedback.leaderboard[i]['difference'] * -1) + '</td>';
-						}
-						else {
-							row += '<td><i class="fas fa-arrow-up x-color-green"></i> ' + feedback.leaderboard[i]['difference'] + '</td>';
-						}
-						row += '</tr>';
-					}
-				}
-				//enviamos la información hacia ambos leaderboards
-				$('.leaderboard-content').html(row);
-
-				var row3 = '';
-				for (var i = 0; i < feedback.leaderboard.length; ++i) {
-					if (feedback.leaderboard[i]['username'] == 'healco') {
-						continue;
-					}
-					else {
-						row3 += '<tr>';
-						row3 += '<td># ' + i + '</td>';
-						if (feedback.leaderboard[i]['condicion'] == 'online') {
-							row3 += '<td><a class="view_usermame"><i class="fas fa-circle x-color-green"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						}
-						else if (feedback.leaderboard[i]['condicion'] == 'limbo') {
-							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						}
-						else {
-							row3 += '<td><a class="view_usermame"><i class="fas fa-circle"></i> <span>' + feedback.leaderboard[i]['username'] + '</span></a></td>';
-						};
-						row3 += '<td>' + feedback.leaderboard[i]['won'] + '</td>';
-						row3 += '<td>' + feedback.leaderboard[i]['lose'] + '</td>';
-						row3 += '<td>' + feedback.leaderboard[i]['spawns'] + '</td>';
-						row3 += '<td>' + feedback.leaderboard[i]['difference'] + '</td>';
-						row3 += '</tr>';
-					}
-				}
-				$('#table-online-players').html(row3);
-			}
-		});
-	}
-
-	/************************************************************/
-	/* cashier/view *********************************************/
-
-	//habilitamos la funcion de copy para el address en el modal cashier
-	$('#user_address_copy').click(function() {
-		var dummy = document.createElement("input");
-	    document.body.appendChild(dummy);
-	    dummy.value = $('#user_address_cashier').text();
-	    dummy.select();
-	    document.execCommand("copy");
-	    document.body.removeChild(dummy);
-	    showAlert('address copied on your clipboard','yellow');
-	})
-
-
-	/************************************************************/
-	/* cashier/withdrawals **************************************/
-
-	//Update balance left when amount input change
-	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
-		var balance = Cookies('user_balance');
-		var amount = $('#withdrawals-amount').val();
-		$('#withdrawals-balance-left').val(balance - amount);
-	});
-
-	//Send bits to address
-	function cashier_send() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		var address = $('#withdrawals-amount').val();
-
-		//envamos las variables para node
-		socket.emit('cashier-send', { username: username, password: password, address: address }, function(feedback) {
-			showAlert(feedback.advice, 'yellow');
-			console.log(feedback.advice);
-		});
-	}
-
-
-	/************************************************************/
-	/* cashier/wire *********************************************/
-
-	//Envía dinero de un usuario a un segundo, funciona con nombres de usuario
-	//Por lo que solo puede ser usado para operaciones locales.
-	function cashier_wire() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		var user_b = $('#send_funds_username').val();
-		var value = $('#send_funds_amount').val();
-		//se podría incluír un message
-		var message = null;
-
-		//envamos las variables para node
-		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
-		//hacer cosas con la información? o no hacer nada...
-		//feedback vuelve con información del node, muchas veces no debería de verse.
-		//showAlert(feedback.advice, 'yellow');
-		console.log(feedback);
-	});
-	}
-
-
 	/************************************************************/
 	/* advices **************************************************/
 
@@ -712,150 +890,6 @@ $(document).ready(function() {
 
 
 	/************************************************************/
-	/* Sounds ***************************************************/
-
-	//sound menu ambient
-	var sound_menu_ambient = document.createElement("audio");
-	sound_menu_ambient.src = "./audio/menu/ambient.mp3";
-	sound_menu_ambient.volume = 0.5;
-	sound_menu_ambient.autoPlay = true;
-	sound_menu_ambient.loop = true;
-	sound_menu_ambient.preLoad = false;
-	sound_menu_ambient.controls = false;
-	sound_menu_ambient.currentTime = 1;
-
-	//sound menu click
-	var sound_menu_click = document.createElement("audio");
-	sound_menu_click.src = "./audio/menu/click.wav";
-	sound_menu_click.volume = 0.2;
-	sound_menu_click.autoPlay = false;
-	sound_menu_click.loop = false;
-	sound_menu_click.preLoad = true;
-	sound_menu_click.controls = false;
-
-	//sound menu tabs
-	var sound_menu_tabs = document.createElement("audio");
-	sound_menu_tabs.src = "./audio/menu/tabs.wav";
-	sound_menu_tabs.volume = 0.02;
-	sound_menu_tabs.autoPlay = false;
-	sound_menu_tabs.loop = false;
-	sound_menu_tabs.preLoad = true;
-	sound_menu_tabs.controls = false;
-
-	//Posiciones en segundos
-	var sound_bg_posiciones = [
-	0, 147, 383, 626, 830, 1075, 1332, 1524, 1777, 1968, 2246, 2524, 2766,
-	2990, 3216, 3286, 3461, 3702, 3857, 4090, 4326, 4580, 4845, 5143
-	];
-
-	//selección al azar
-	var sound_bg_posicion = sound_bg_posiciones[Math.floor(Math.random() * sound_bg_posiciones.length)];
-
-	//sonido de fondo, debería de correr solo cuando is playin'
-	var sound_bg = document.createElement("audio");
-	sound_bg.src = "./audio/full.mp3";
-	sound_bg.volume = 0.2;
-	sound_bg.autoPlay = false;
-	sound_bg.preLoad = true;
-	sound_bg.controls = true;
-	sound_bg.currentTime = sound_bg_posicion;
-
-
-	/************************************************************/
-	/* sound preloader ******************************************/
-
-	//espacios para sonidos
-	var sounds_harm = [];
-	var sounds_dies = [];
-	var sounds_eliminacion = [];
-	var sounds_spawn = [];
-	var sounds_order_1 = [];
-	var sounds_order_2 = [];
-	var sounds_order_3 = [];
-	var sounds_order_4 = [];
-	var sounds_order_5 = [];
-	var sounds_order_6 = [];
-
-
-	//sounds.whenLoaded = alinear_sonido;
-
-	function preload() {
-		//preload sounds
-		socket.emit('preload', function(feedback) {
-
-			//los predefinidos
-			sounds.load(['./audio/coins.mp3']);
-			sounds.load(['./audio/cardio.mp3']);
-			sounds.load(['./audio/buzz.mp3']);
-			//sonidos de munición
-			sounds.load(['./audio/ammo/common.mp3']);
-			sounds.load(['./audio/ammo/quick.mp3']);
-			sounds.load(['./audio/ammo/fork.mp3']);
-
-			//sound preloader harm
-			feedback.harm.forEach( function(file) {
-				sounds.load([ './audio/harm/' + file ]);
-				sounds_harm.push('./audio/harm/' + file);
-			});
-			//sound preloader dies
-			feedback.dies.forEach( function(file) {
-				sounds.load([ './audio/dies/' + file ]);
-				sounds_dies.push('./audio/dies/' + file);
-			});
-			//sound preloader dies
-			feedback.eliminacion.forEach( function(file) {
-				sounds.load([ './audio/eliminacion/' + file ]);
-				sounds_eliminacion.push('./audio/eliminacion/' + file);
-			});
-			//sound preloader spawn
-			feedback.spawn.forEach( function(file) {
-				sounds.load([ './audio/spawn/' + file ]);
-				sounds_spawn.push('./audio/spawn/' + file);
-			});
-			//sound preloader powers 1
-			feedback.order_1.forEach( function(file) {
-				sounds.load([ './audio/powers/1/' + file ]);
-				sounds_order_1.push('./audio/powers/1/' + file);
-			});
-			//sound preloader powers 2
-			feedback.order_2.forEach( function(file) {
-				sounds.load([ './audio/powers/2/' + file ]);
-				sounds_order_2.push('./audio/powers/2/' + file);
-			});
-			//sound preloader powers 3
-			feedback.order_3.forEach( function(file) {
-				sounds.load([ './audio/powers/3/' + file ]);
-				sounds_order_3.push('./audio/powers/3/' + file);
-			});
-			//sound preloader powers 4
-			feedback.order_4.forEach( function(file) {
-				sounds.load([ './audio/powers/4/' + file ]);
-				sounds_order_4.push('./audio/powers/4/' + file);
-			});
-			//sound preloader powers 5
-			feedback.order_5.forEach( function(file) {
-				sounds.load([ './audio/powers/5/' + file ]);
-				sounds_order_5.push('./audio/powers/5/' + file);
-			});
-			//sound preloader powers 6
-			feedback.order_6.forEach( function(file) {
-				sounds.load([ './audio/powers/6/' + file ]);
-				sounds_order_6.push('./audio/powers/6/' + file);
-			});
-			//inicializados
-			sounds.whenLoaded = alinear_sonido;
-		});
-	}
-
-	//corremos preload
-	preload();
-
-	//quizás debería sacarse
-	function alinear_sonido() {
-		// console.log('Sonidos armados');
-	}
-
-	/************************************************************/
 	/* feedback function ****************************************/
 
 	function send_feedback() {
@@ -871,6 +905,7 @@ $(document).ready(function() {
 			showAlert(feedback.advice, 'yellow');
 		});
 	}
+
 
 	/************************************************************/
 	/* recepción de información desde el server *****************/
@@ -1233,44 +1268,9 @@ $(document).ready(function() {
 			$('.small-chat-container .chat-display').scrollTop(99999);
 			var chatSize = $('.menu-right').height() - ( $('.avatar-container').height() + $('.chat-input').height() + 92);
 			$('.chat-display').height(chatSize);
-
-			//if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
-			//almacenamos el balance en balance_previo
-			//var balance_previo = $('.user_balance').html();
-			//console.log(balance_previo, feedback.user.available_balance);
-			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
-			//if(feedback.user.available_balance > balance_previo) { sound_coins(); }
-			//refrescamos el balance del usuario
-			//$('.user_balance').text(feedback.user.available_balance);
-			//modificamos la cookie
-			//if(feedback.user.available_balance != Cookies('user_balance')) { Cookies.set('user_balance', feedback.user.available_balance); }
 		});
 	};
 
-
-	/************************************************************/
-	/* cashier/search *******************************************/
-
-	//Busca nuevas operaciones del usuario
-	function cashier_search() {
-		//buscamos las variables de cookies
-		var username = Cookies('user_username');
-		var password = Cookies('user_password');
-		//envamos las variables para node
-		socket.emit('cashier-search', { username: username, password: password }, function(feedback) {
-			//si hay operaciones nuevas, informamos.
-			if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
-			//almacenamos el balance en balance_previo
-			var balance_previo = $('.user_balance').html();
-			//console.log(balance_previo, feedback.user.available_balance);
-			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
-			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
-			//refrescamos el balance del usuario
-			$('.user_balance').text(feedback.user.available_balance);
-			//modificamos la cookie
-			if(feedback.user.available_balance != Cookies('user_balance')) { Cookies.set('user_balance', feedback.user.available_balance); }
-		});
-	};
 
 	/************************************************************/
 	/* Nos encargamos del Player Hub ****************************/
@@ -1291,45 +1291,17 @@ $(document).ready(function() {
 			}
 		});
 
-		//esperamos la presencia de game
+		// if game 
 		if (game['self']) {
-			//clonamos gameself para referenciarlo más rápido
 			var hub_usuario = game['self'];
 			$('#health-bar').empty();
 			$('#shield-bar').empty();
-			//cargamos la barra de experiencia
-			// console.log((hub_usuario.rage - 1 ) * 100 + '%');
-
-			//calculamos la salud perdida
-			// console.log(hub_usuario.rage);
-
-			// user rage --------------------> OFF
-			// $('#progress-bar-rage').css({width: (hub_usuario.rage - 1 ) * 100 + '%'});
-			// if (hub_usuario.rage >= 2 && rage_informed == 0) {
-			// 	rage_state();
-			// 	rage_informed = 1;
-			// };
-			// if (hub_usuario.rage < 2) {
-			// 	rage_informed = 0;
-			// 	$('.rage-line').removeClass('on-rage');
-			// };
 
 			var emptyHealth = 20 - hub_usuario.health;
 			//salud
 			for (var i = 0; i < hub_usuario.health; ++i) {
 				$('#health-bar').append('<li></li>');
 			}
-			// rage
-			// $('#progress-bar-bitcoin').attr('width': hub_usuario.rage);
-
-			// TweenMax.set("#progress-bar-bitcoin", {
-			// 	width: hub_usuario.rage,
-			// });
-			// TweenMax.staggerTo("#action-container", 1, {
-			// 	width: hub_usuario.rage,
-			// 	ease: Elastic.easeOut.config(1, 0.75),
-			// 	force3D: true
-			// });
 
 			// manejamos el ambiente segun la vida
 			a = (7 / hub_usuario.health) * 100;
@@ -1364,6 +1336,7 @@ $(document).ready(function() {
 
 	}
 
+
 	/************************************************************/
 	/* Anuncios *************************************************/
 
@@ -1383,6 +1356,7 @@ $(document).ready(function() {
 		},5000);
 	}
 
+
 	/************************************************************/
 	/* Someone killed *******************************************/
 
@@ -1400,6 +1374,7 @@ $(document).ready(function() {
 		}
 	}));
 
+
 	/************************************************************/
 	/* KilledSequence *******************************************/
 
@@ -1409,99 +1384,29 @@ $(document).ready(function() {
 
 		if (action == 'kill') {
 			$('#action-container span').html(info);
-			TweenMax.set("#action-container", {
-				opacity: 0,
-				className: '+=active',
-				top: '2vw',
-				scale: 1,
-				textShadow: "0px 0px 0px rgba(0,0,0,0)"
-			});
-			TweenMax.set("#action-container", {
-				className: '-=rage',
-			});
-			TweenMax.staggerTo("#action-container", 1, {
-				scale: 1.7,
-				opacity: 1,
-				delay: 0.2,
-				ease: Elastic.easeOut.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.staggerTo("#action-container", 0.6, {
-				textShadow: "5px 5px 10px rgba(0,0,0,0.5)",
-				ease: Elastic.easeOut.config(1, 0.75),
-				delay: 0.4
-			});
-			TweenMax.staggerTo("#action-container", 1, {
-				scale: 0,
-				opacity: 0,
-				textShadow: "0px 0px 0px rgba(0,0,0,0)",
-				delay: 0.7,
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true
-			});
+			TweenMax.set("#action-container", {opacity: 0, className: '+=active', top: '2vw', scale: 1, textShadow: "0px 0px 0px rgba(0,0,0,0)"});
+			TweenMax.set("#action-container", {className: '-=rage', });
+			TweenMax.staggerTo("#action-container", 1, {scale: 1.7, opacity: 1, delay: 0.2, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
+			TweenMax.staggerTo("#action-container", 0.6, {textShadow: "5px 5px 10px rgba(0,0,0,0.5)", ease: Elastic.easeOut.config(1, 0.75), delay: 0.4 });
+			TweenMax.staggerTo("#action-container", 1, {scale: 0, opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)", delay: 0.7, ease: Elastic.easeIn.config(1, 0.75), force3D: true });
 		}
 		if (action == 'die') {
 			$('#action-container span').html(info);
-			TweenMax.set("#action-container", {
-				opacity: 0,
-				className: '+=active',
-				top: '2vw',
-				scale: 1,
-				textShadow: "0px 0px 0px rgba(0,0,0,0)"
-			});
-			TweenMax.set("#action-container", {
-				className: '-=rage',
-			});
-			TweenMax.set(".canvas-overlay", {
-				opacity: 0,
-			});
-			TweenMax.set(aarray, {
-				opacity: 0,
-				top: '22vw',
-				scale: 3,
-				textShadow:"0px 0px 0px rgba(0,0,0,0.5)",
-			});
+			TweenMax.set("#action-container", {opacity: 0, className: '+=active', top: '2vw', scale: 1, textShadow: "0px 0px 0px rgba(0,0,0,0)"});
+			TweenMax.set("#action-container", {className: '-=rage', });
+			TweenMax.set(".canvas-overlay", {opacity: 0, });
+			TweenMax.set(aarray, {opacity: 0, top: '22vw', scale: 3, textShadow:"0px 0px 0px rgba(0,0,0,0.5)", });
 
-			TweenMax.staggerTo(aarray, 1, {
-				scale: 1,
-				opacity: 1,
-				top: '22vw',
-				textShadow:"0px 0px 0px rgba(0,0,0,0.5)",
-				delay: 0.2,
-				ease: Elastic.easeOut.config(1, 0.75),
-				force3D: true
-			});
-			TweenMax.staggerTo(".canvas-overlay", 0.2, {
-				opacity: 1,
-				delay: 0.1
-			});
+			TweenMax.staggerTo(aarray, 1, {scale: 1, opacity: 1, top: '22vw', textShadow:"0px 0px 0px rgba(0,0,0,0.5)", delay: 0.2, ease: Elastic.easeOut.config(1, 0.75), force3D: true });
+			TweenMax.staggerTo(".canvas-overlay", 0.2, {opacity: 1, delay: 0.1 });
 
-			TweenMax.staggerTo(aarray, 2, {
-				textShadow:"5px 5px 10px rgba(0,0,0,0.5)",
-				delay: 0.4,
-				onComplete: layer200('off')
-			});
+			TweenMax.staggerTo(aarray, 2, {textShadow:"5px 5px 10px rgba(0,0,0,0.5)", delay: 0.4, onComplete: layer200('off') });
 		}
 		if (action == 'respawn') {
-			TweenMax.set(".canvas-overlay", {
-				opacity: 1
-			});
-			TweenMax.set(aarray, {
-				opacity: 1,
-			});
-			TweenMax.staggerTo(aarray, 1, {
-				scale: 0,
-				opacity: 0,
-				delay: 0,
-				ease: Elastic.easeIn.config(1, 0.75),
-				force3D: true,
-				onComplete: layer200('on')
-			});
-			TweenMax.staggerTo(".canvas-overlay", 1, {
-				opacity: 0,
-				ease: Elastic.easeIn.config(1, 0.75),
-				delay: 0
-			});
+			TweenMax.set(".canvas-overlay", {opacity: 1 });
+			TweenMax.set(aarray, {opacity: 1, });
+			TweenMax.staggerTo(aarray, 1, {scale: 0, opacity: 0, delay: 0, ease: Elastic.easeIn.config(1, 0.75), force3D: true, onComplete: layer200('on') });
+			TweenMax.staggerTo(".canvas-overlay", 1, {opacity: 0, ease: Elastic.easeIn.config(1, 0.75), delay: 0 });
 
 			$('#canvas').focus();
 		}
@@ -1526,17 +1431,14 @@ $(document).ready(function() {
 
 
 	/************************************************************/
-	/* Eliminación de usuario ***********************************/
-
-	//función para eliminar un usuario especificado por el usuario.
+	/* User elimination f-user_del ******************************/
 
 	function user_del(param) {
 		//buscamos las variables de cookies
 		var username = $('#del_user_username').val();
 		var password = $('#del_user_password').val();
-		//enviamos el pedido
+
 		socket.emit('user-del', { username: username, password: password }, function(feedback) {
-			//hacer cosas con la información? o no hacer nada... siempre dice done.
 			//comunicamos al usuario
 			showAlert(feedback.advice, 'yellow');
 			//revisamos si lo elimino
@@ -1552,7 +1454,7 @@ $(document).ready(function() {
 
 	function user_overview() {
 		//loading
-		$('#user-overview').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
+		// $('#user-overview').append($('<span>').addClass('fa fa-2x fa-spinner fa-pulse'));
 
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
@@ -1560,33 +1462,24 @@ $(document).ready(function() {
 		$('.username').text(username);
 
 		socket.emit('user-overview', { username: username, password: password }, function(feedback) {
-			// console.log(feedback);
 
 			// populamos email y password
 			$('#user_overview_email').val(feedback.user.email);
 			$('#user_overview_password').val(feedback.user.password);
 
-			//habilitamos para editar email
-			$('#user_overview_email_edit').click(function() {
-				$('#user_overview_email').removeAttr('disabled');
-				$('#user_overview_email').focus();
-				$('#user_overview_email').val('');
-			});
+			// //habilitamos para editar email
+			// $('#user_overview_email_edit').click(function() {
+			// 	$('#user_overview_email').removeAttr('disabled');
+			// 	$('#user_overview_email').focus();
+			// 	$('#user_overview_email').val('');
+			// });
 
-			//habilitamos para editar passowrd
-			$('#user_overview_password_edit').click(function() {
-				$('#user_overview_password').removeAttr('disabled');
-				$('#user_overview_password').focus();
-				$('#user_overview_password').val('');
-			});
-
-			// acomodamos el modal cuando se cierra
-			$('#modal-user').on('hidden.bs.modal', function () {
-				$('#user_overview_email').val(feedback.user.email);
-				$('#user_overview_password').val(feedback.user.password);
-				$('#user_overview_email').attr('disabled', 'disabled');
-				$('#user_overview_password').attr('disabled', 'disabled');
-			});
+			// //habilitamos para editar passowrd
+			// $('#user_overview_password_edit').click(function() {
+			// 	$('#user_overview_password').removeAttr('disabled');
+			// 	$('#user_overview_password').focus();
+			// 	$('#user_overview_password').val('');
+			// });
 
 			// populamos el nombre en el parrafo
 			$('#username_text').text(feedback.user.username + '!');
@@ -1606,43 +1499,35 @@ $(document).ready(function() {
 			row += '<tr>';
 			row += '<td><b>Enemies killed</b></td>';
 			row += '<td>' + feedback.user.won + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>Deaths</b></td>';
 			row += '<td>' + feedback.user.lose + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>Profits</b></td>';
 			row += '<td>' + feedback.user.difference + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>Available Balance</b></td>';
 			row += '<td>' + feedback.user.available_balance + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>Pending received balance</b></td>';
 			row += '<td>' + feedback.user.pending_received_balance + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>Spawns</b></td>';
 			row += '<td>' + feedback.user.spawns + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>Condition</b></td>';
 			row += '<td>' + feedback.user.condicion + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>Personal address:</b></td>';
 			row += '<td>' + feedback.user.address + '</td>';
-			row += '</tr>';
-			row += '<tr>';
+			row += '</tr><tr>';
 			row += '<td><b>User since:</b></td>';
 			row += '<td>' + feedback.user.creacion + '</td>';
 			row += '</tr>';
 
 			//enviamos la información hacia la tabla user overview
 			$('#user_statistics').html(row);
-			$('#user-overview .fa-spinner').remove();
+			// $('#user-overview .fa-spinner').remove();
 		})
 	}
 
@@ -1692,7 +1577,6 @@ $(document).ready(function() {
 					else {
 						row += '<td></td>';
 					}
-
 					row += '<td>' + row_reason + '</td>';
 
 					if (feedback.xfers[i]['difference'] < 0) {
@@ -1751,10 +1635,6 @@ $(document).ready(function() {
 
 				}
 
-				// console.log(aaa);
-
-				//console.log(construccion);
-
 				//armamos las Lineas
 				$('.drawlines').each(function(){
 					var chart = new Highcharts.Chart({
@@ -1805,109 +1685,46 @@ $(document).ready(function() {
 	/* Devuelve la información de un usuario cualquiera ********/
 
 	function user_view(userClicked) {
-
-		//que onda
-		//console.log(game['self']);
-		//console.log(game['self']['powerups']);
-
 		//buscamos las variables de cookies
 		var username = userClicked;
 		socket.emit('user-view', { username: username}, function(feedback) {
-		//hacer cosas con la información? o no hacer nada... siempre dice done.
-		// populamos
-		var row = '';
-		row += '<tr>';
-		row += '<td><b>Username</b></td>';
-		row += '<td>' + feedback.user.username + '</td>';
-		row += '</tr>';
-		row += '<tr>';
-		row += '<td><b>Enemies killed</b></td>';
-		row += '<td>' + feedback.user.won + '</td>';
-		row += '</tr>';
-		row += '<tr>';
-		row += '<td><b>Deaths</b></td>';
-		row += '<td>' + feedback.user.lose + '</td>';
-		row += '</tr>';
-		row += '<tr>';
-		row += '<td><b>Profits</b></td>';
-		row += '<td>' + feedback.user.difference + '</td>';
-		row += '</tr>';;
-		row += '<tr>';
-		row += '<td><b>Condition</b></td>';
-		row += '<td>' + feedback.user.condicion + '</td>';
-		row += '</tr>';
-		row += '<tr>';
-		row += '<td><b>Personal address:</b></td>';
-		row += '<td>' + feedback.user.address + '</td>';
-		row += '</tr>';
-		row += '<tr>';
-		row += '<td><b>User since:</b></td>';
-		row += '<td>' + feedback.user.creacion + '</td>';
-		row += '</tr>';
+			// populamos
+			var row = '';
+			row += '<tr>';
+			row += '<td><b>Username</b></td>';
+			row += '<td>' + feedback.user.username + '</td>';
+			row += '</tr><tr>';
+			row += '<td><b>Enemies killed</b></td>';
+			row += '<td>' + feedback.user.won + '</td>';
+			row += '</tr><tr>';
+			row += '<td><b>Deaths</b></td>';
+			row += '<td>' + feedback.user.lose + '</td>';
+			row += '</tr><tr>';
+			row += '<td><b>Profits</b></td>';
+			row += '<td>' + feedback.user.difference + '</td>';
+			row += '</tr>';;
+			row += '<tr>';
+			row += '<td><b>Condition</b></td>';
+			row += '<td>' + feedback.user.condicion + '</td>';
+			row += '</tr><tr>';
+			row += '<td><b>Personal address:</b></td>';
+			row += '<td>' + feedback.user.address + '</td>';
+			row += '</tr><tr>';
+			row += '<td><b>User since:</b></td>';
+			row += '<td>' + feedback.user.creacion + '</td>';
+			row += '</tr>';
 
-		//enviamos la información hacia la tabla user overview
-		$('#user_x_overview').html(row);
+			//enviamos la información hacia la tabla user overview
+			$('#user_x_overview').html(row);
 
-		//abrimos el modal
-		$("#modal-x-user").modal("show");
-	})
+			//abrimos el modal
+			$("#modal-x-user").modal("show");
+		});
 	}
 
-	/************************************************************/
-	/* User log (top of the sidebar) ****************************/
-
-	// function user_log() {
-	// 	//buscamos las variables de cookies
-	// 	var username = Cookies('user_username');
-	// 	var password = Cookies('user_password');
-
-	// 	socket.emit('user-overview', { username: username, password: password }, function(feedback) {
-
-	// 		// populamos
-	// 		$('#username_log').text('@' + username);
-
-	// 		var row = '';
-	// 		row += '<tr>';
-	// 		row += '<td>you have killed: ' + feedback.user.won + '</td>';
-	// 		row += '</tr>';
-	// 		row += '<tr>';
-	// 		row += '<td>you have been killed: ' + feedback.user.lose + '</td>';
-	// 		row += '</tr>';
-	// 		row += '<tr>';
-	// 		row += '<td>balance is: ' + feedback.user.available_balance + '</td>';
-	// 		row += '</tr>';
-	// 		//row += '<tr>';
-	// 		//row += '<td>balance in dollars: ' + feedback.user.balance_usd + '</td>';
-	// 		//row += '</tr>';
-
-	// 		//enviamos la información hacia la tabla user overview
-	// 		$('#user-log').html(row);
-	// 		$('#user-log-playing').html(row);
-	// 		// $('*').modal('hide');
-	// 	})
-	// }
-
 
 	/************************************************************/
-	/* Slide tab ************************************************/
-
-	// funcion para ocultar o mostar el slide tab
-	// function show_sidebar() { $('#sidebar').toggleClass('slide-open'); };
-	// //calculamos windowsW
-	// var windowsW = $(window).width();
-	// //condicionales dependiendo de windowsW
-	// if (windowsW > 750) {
-	// 	$('#sidebar').addClass('slide-open');
-	// 	$('#slide-tab').addClass('slide-open');
-	// }
-	// else {
-	// 	$('#sidebar').removeClass('slide-open');
-	// 	$('#slide-tab').removeClass('slide-open');
-	// }
-
-
-	/************************************************************/
-	/* Volver a casa ********************************************/
+	/* Go home f-go_home ****************************************/
 
 	function go_home() {
 		//sounds off
@@ -1915,129 +1732,19 @@ $(document).ready(function() {
 		sounds['./audio/buzz.mp3'].pause();
 		sound_bg.pause();
 
-		//checking if menu ambient music will be on/off
-
 		//desenchufamos al usuario,
 		var previa = socket.disconnect();
 		previa.open();
 		$('#canvas-container').css({'display': 'none'});
 		$('body').removeClass('playing');
 		$('.brand').css({'display': 'block'});
-		// $('.menu').addClass('menu-on');
 		KilledSequence(null, 'respawn');
 		$('#canvas').css({ 'filter': 'grayscale(0%) contrast(100%)','-webkit-filter': 'grayscale(0%) contrast(100%)'});
 		$('.btn-respawn').css({'display': 'inline-block'});
-		$(location).attr('href', '#online-players');
-		// menu_manager('online-players');
+		menu_manager('online-players');
 		manage_music_menu();
 		user_status();
 	}
-
-	/************************************************************/
-	/* Modals open & close **************************************/
-
-
-
-	// $('.show-modal-balance').click(function() {
-
-	// 	if ( $('.modal-balance').not('.show') ) {
-	// 		user_balance_view();
-	// 		$('*').modal('hide');
-	// 		$('#modal-balance').modal('show');
-	// 	}
-	// 	else {
-	// 		$('#modal-balance').modal('hide');
-	// 		show_home();
-	// 	}
-	// });
-	// $('#modal-balance').on('shown.bs.modal', function (e) {
-	// 	$('body').addClass('modal-open');
-	// });
-	// $('#modal-balance').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
-	// $('.show-modal-settings').click(function() {
-	// 	$('*').modal('hide');
-	// 	$('#modal-settings').modal('toggle').delay(500);
-	// });
-	// $('#modal-settings').on('show.bs.modal', function (e) {
-	// 	user_mfa_show();
-	// 	$('#modal-settings .modal-info').height(530);
-	// 	$('body').addClass('modal-open');
-	// });
-	// $('#modal-settings').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
-	// $('.show-modal-disconnect').click(function() {
-	// 	$('*').modal('hide');
-	// 	$('#modal-disconnect').modal('toggle');
-	// });
-	// $('#modal-disconnect').on('shown.bs.modal', function (e) {
-	// 	$('body').addClass('modal-open');
-	// });
-	// $('#modal-disconnect').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
-	// $('.show-modal-rooms').click(function() {
-	// 	$('*').modal('hide');
-	// 	$('#modal-rooms').modal('toggle');
-	// 	$('body').addClass('modal-open');
-	// });
-	// $('#modal-rooms').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
-	// $('.show-modal-login').click(function() {
-	// 	$('*').modal('hide');
-	// 	$('#modal-new-user').modal('toggle');
-	// 	$('body').addClass('modal-open');
-	// });
-
-	// $('.show-modal-online-players').click(function() {
-	// 	$('*').modal('hide');
-	// 	$('#modal-online-players').modal('toggle');
-	// 	$('body').addClass('modal-open');
-	// });
-	// $('#modal-online-players').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
-	// $('.show-modal-leaderboard').click(function() {
-	// 	leaderboard_view();
-	// 	$('*').modal('hide');
-	// 	$('#modal-leaderboard').modal('toggle');
-	// 	$('body').addClass('modal-open');
-	// });
-	// $('#modal-leaderboard').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
-	// $('.show-modal-cashier').click(function() {
-	// 	$('*').modal('hide');
-	// 	// show_home('#modal-cashier');
-	// 	$('#modal-cashier').modal('toggle');
-	// 	$('body').addClass('modal-open');
-	// });
-	// $('#modal-cashier').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
-	// $('.open-cashier-btn').click(function() {
-	// 	$('*').modal('hide');
-	// 	$('#modal-cashier').modal('show');
-	// });
-	// $('.show-modal-credits').click(function() {
-	// 	$('*').modal('hide');
-	// 	// show_home('#modal-credits');
-	// 	$('#modal-credits').modal('show');
-	// });
-	// $('#modal-credits').on('hidden.bs.modal', function (e) {
-	// 	show_home();
-	// });
-
 
 
 	/************************************************************/
@@ -2057,13 +1764,6 @@ $(document).ready(function() {
 		$('#'+ contentId).addClass('active');
 	});
 
-	/************************************************************/
-	/* price up! ************************************************/
-
-	// function push_price_up(order) {
-	// 	$('#' + order + ' .price-pop').animate({top: '-20px', opacity: '1'}, "fast").delay( 800 );
-	// 	$('#' + order + ' .price-pop').animate({top: '10px', opacity: '0'}, "slow");
-	// }
 
 	/************************************************************/
 	/* powerup counter and info! ********************************/
@@ -2082,24 +1782,20 @@ $(document).ready(function() {
 	}
 
 	/************************************************************/
-	/* Comprar powerups! ****************************************/
+	/* Use powerups! f-order_power ******************************/
 
 	function order_power(keydown) {
 		keydown = keydown;
-		//no es necesario enviar siempre el usuario y password
-		//node puede sacar esa información usando el sock.id
-		//envamos las variables para node
+
 		socket.emit('comprar-power', {keydown}, function(feedback) {
-			//refrescamos el balance del usuario
+			//not more powerups
 			if(feedback.advice == 'no_orders_remaining') {
 				showAlert('All upgrades used', 'red');
 				$('.powerups-container').removeClass('active');
 			}
-			//si la compra salió bien.
+			//if everything ok
 			else {
-				//refrescamos el balance del usuario
-				//$('.user_balance').text(feedback.user.available_balance);
-				//randomización de sonidos desde array
+				//random sounds
 				if(keydown == '49') {
 					rand = sounds_order_1.rand(); sounds[rand].play();
 					show_upper_message('A good shield when is needed.');
@@ -2122,15 +1818,9 @@ $(document).ready(function() {
 		});
 	}
 
+
 	/************************************************************/
-	/* Lineas ***************************************************/
-
-//No anda porque cayó Ghub
-
-
-
-/************************************************************/
-/* Compra de powerups con el mouse **************************/
+	/* Compra de powerups con el mouse **************************/
 
 	$('#order_power_1').click(function() {
 		order_power('49');
@@ -2144,81 +1834,47 @@ $(document).ready(function() {
 		order_power('51');
 		$('#canvas').focus();
 	});
-	// $('#order_power_4').click(function() {
-	// 	order_power('52');
-	// 	$('#canvas').focus();
-	// });
-	// $('#order_power_5').click(function() {
-	// 	order_power('53');
-	// 	$('#canvas').focus();
-	// });
-	// $('#order_power_6').click(function() {
-	// 	order_power('54');
-	// 	$('#canvas').focus();
-	// });
 
 
-/************************************************************/
-/* Quickboards **********************************************/
+	/************************************************************/
+	/* Quickboards **********************************************/
 
 	//onkeydown
 	$('#canvas').keydown(function(e) {
 
-		//información on keydown.
-		// if (Cookies('user_username') == "developer") { developer_info(); }
-
 		switch(e.which) {
-			//'1' para comprar 'shield'
+			//'1' buy shield
 			case 49:
 			order_power(e.which);
 			break;
-			//'2' para comprar 'quickfire'
+			//'2' buy speed
 			case 50:
 			order_power(e.which);
 			break;
-			//'3' para comprar 'peacemaker'
+			//'3' buy slowco
 			case 51:
 			order_power(e.which);
 			break;
-			//'4' para comprar 'moonwalker'
-			case 52:
-			order_power(e.which);
-			break;
-			//'5' slowco
-			case 53:
-			order_power(e.which);
-			break;
-			//'6' healco
-			case 54:
-			order_power(e.which);
-			break;
-			//añadir sunflower, añadir laser
-			//'Tab' para abrir sidebar
-			//case 9: show_sidebar();
-			//break;
-			// show powerups
+			// show poweups
 			case 16: show_powerups();
 			break;
-			//salimos del handler
+			//exit handler
 			default: return;
 		}
-		//prevenimos las convencionales
 		e.preventDefault();
 	});
 
 	// menu key
-
-		$('body').keydown(function(e) {
-			switch(e.which) {
-				// show menu
-				case 17: menu_switch();
-				break;
-				//exit handler
-				default: return;
-			}
-			e.preventDefault();
-		});
-
+	$('body').keydown(function(e) {
+		switch(e.which) {
+			// show menu
+			case 17: menu_switch();
+			break;
+			//exit handler
+			default: return;
+		}
+		e.preventDefault();
+	});
 
 
 	/************************************************************/
@@ -2277,20 +1933,14 @@ $(document).ready(function() {
 	setInterval(draw, 10);
 
 
-	//Tabulador hodl
-	/*
-	$('#canvas').keydown(function(e) { if (e.which == 9) { e.preventDefault(); $('#sidebar').show(); } });
-	Tabulador released
-	$('#canvas').keyup(function(e){ if (e.which == 9) { e.preventDefault(); $('#sidebar').hide(); } });
-	*/
-
 	/************************************************************/
-	/* Clocks ***************************************************/
+	/* Clocks loops *********************************************/
 
 	//a slow loop
 	setInterval(function() { if(Cookies('user_logued') == "True") { cashier_search(); } }, 1000);
 	//a quick loop
 	setInterval(function() { if(game['self']) { player_hub(); developer_info(); playing_footer(); } }, 100);
+
 
 	/************************************************************/
 	/* clicks ***************************************************/
@@ -2309,14 +1959,9 @@ $(document).ready(function() {
 
 	$('#withdrawals_send').click(cashier_send);
 	$('#send_funds_send').click(cashier_wire);
-	$('#rescan_blockchain').click(cashier_search);
-	//$('#show_leaderboard').click(leaderboard_view);
-	$('#show_user_overview').click(user_overview);
-	$('.show_user_overview_solapa').click(user_overview);
-	$('.show_user_mfa_solapa').click(user_mfa_show);
+
 	$('#user-mfa-enable').click(user_mfa_enable);
-	$('.show_user_balance').click(user_balance_view);
-	//$('#show_user_overview').click(user_del);
+
 	$('#del-user').click(user_del);
 	$('.btn-respawn').click(respawn);
 	$('#ingame_respawn').click(ingame_respawn);
@@ -2331,25 +1976,4 @@ $(document).ready(function() {
 	manage_music_playing();
 	manage_music_menu();
 
-	// a la espera de chris
-	setTimeout(function() { sound_menu_ambient.play();}, 1000);
-
-	//mandamos helpers
-//   tippy('.helpers', {
-//   delay: 100,
-//   arrow: true,
-//   arrowType: 'round',
-//   size: 'large',
-//   duration: 500,
-//   animation: 'scale'
-// })
-
-/************************************************************/
-/* sonidos **************************************************/
-
-	//dinero
-	function sound_coins() {
-		sounds['./audio/coins.mp3'].play()
-	}
-//finalizamos
 });

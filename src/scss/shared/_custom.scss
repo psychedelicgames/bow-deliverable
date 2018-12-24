@@ -4,14 +4,17 @@
 .preload-stuff {
 	display: none;
 }
+html {
+	height: 100vh;
+	width: 100vw;
+}
 body {
 	background-image: url("../img/menu/01.png");
 	background-size: cover;
 	overflow: hidden;
-	height: 100%;
-	width: 100%;
+	height: 100vh;
+	width: 100vw;
 	box-sizing: border-box;
-background-repeat: no-repeat;
 	background-color: #3e3e3e;
 	-webkit-transition: background-image 0.5s ease-in-out;
 	transition: background-image 0.5s ease-in-out;
@@ -19,12 +22,6 @@ background-repeat: no-repeat;
 .fa-circle {
 	font-size: 9px;
 	// margin-right: 5px;
-}
-.kard-footer .btn-go-menu {
-	display: none;
-}
-.playing .kard-footer .btn-go-menu {
-	display: inline-block;
 }
 .brand {
     z-index: 190;

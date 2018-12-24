@@ -3,34 +3,60 @@
 	<div class="kard">
 		<div class="kard-info">
 			<div class="kard-header">
-				<h5 class="kard-title">Profile</h5>
+				<h5 class="kard-title">Edit profile</h5>
 			</div>			
 			<div class="kard-body">
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
-							<p class="mb-2">
+							<p class="mb-4 mt-3">
 								<b>Hey <span id="username_text"><span>!</b> This is your personal user panel, from this section you can view your user information, change your email address and password.
 							</p>
-							<div class="input-group mb-3">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-4">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 								</div>
-								<input id="user_overview_email" type="text" class="form-control" aria-label="username" disabled>
-								<div class="input-group-append">
-									<span id="user_overview_email_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
-								</div>										
+								<input id="user_email_edit" type="text" class="form-control" aria-label="username">
 							</div>
 							<div class="input-group mb-4">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input id="user_overview_email_edit" type="password" class="form-control" placeholder="password" aria-label="password" disabled>
-								<div class="input-group-append">
-									<span id="user_overview_password_edit" class="input-group-text"><i class="fal fa-edit"></i></span>
-								</div>
+								<input id="user_password_edit_check" type="password" class="form-control" placeholder="password" aria-label="password">
 							</div>
-							<table class="table table-striped" class="user-statistics">
+						</div>
+						<div class="col">
+							<div class="input-group mb-4">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="far fa-key"></i></span>
+								</div>
+								<input id="user_password_new" type="password" class="form-control" placeholder="new password (optional)" aria-label="new password">
+							</div>	
+							<div class="input-group mb-4">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="far fa-key"></i></span>
+								</div>
+								<input id="user_password_new_check" type="password" class="form-control" placeholder="repeat new password" aria-label="new check password">
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-center">
+							<span id="alert-edit-profile" class="text-alert font-small mb-2"></span>
+							<button type="button" class="btn btn-edit-profile">save changes</button>
+						</div>
+					</div>
+					<div class="x-padding-sm"></div>
+					<div class="row">
+						<div class="col">
+							<div class="kard-header">
+								<h5 class="kard-title">Numbers</h5>
+						</div>
+							<table class="table table-striped" class="user-statistics mt-3">
 								<tbody id="user_statistics">
 									<!-- user overview -->
 								</tbody>

@@ -459,8 +459,23 @@ section.menu {
 			}
 		}
 	}
-}
+	&.kard-disconnect {
 
+	}
+}
+// kard disconnect buttons
+.kard-footer .btn-go-menu {
+	display: none;
+}
+.playing .kard-footer .btn-go-menu {
+	display: inline-block;
+}
+.kard-footer .btn-disconnect {
+	display: inline-block;
+}
+.playing .kard-footer .btn-disconnect {
+	display: none;
+}
 // .kard:nth-child(2) .red-line {
 //     top: -13px!important;
 // }
