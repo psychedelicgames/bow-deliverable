@@ -996,6 +996,8 @@ $(document).ready(function() {
 
 		if ($('#developer-switch').hasClass('fa-check-square') || $('.btn-dev-on-off').hasClass('x-color-one')) {
 
+			
+
 			var developer_self = '';
 			$.each( game['self'], function( key, value ) {
 				developer_self += '<tr>';
@@ -1069,13 +1071,6 @@ $(document).ready(function() {
 			if (game['self']) {
 				//clonamos gameself para referenciarlo más rápido
 				var playing_info = game['self'];
-
-				//
-				// console.log(playing_info.name);
-				// console.log(playing_info.kills);
-				// console.log(playing_info.deaths);
-				// console.log(playing_info.spawns);
-				// console.log(playing_info.balance);
 
 				//solo cambiar la información si no hay información, o si la información es nueva.
 				if ($('.user-name').text == null || $('.user-name').text != playing_info.name) { $('.user-name').text(playing_info.name); }
@@ -1552,7 +1547,7 @@ $(document).ready(function() {
 			if ($('.user-spawns').text != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
 			if ($('.user-bits').text != feedback.user.available_balance ) { $('.user-bits').text(feedback.user.available_balance); }
 			if ($('.user-profit').text != feedback.user.difference ) { $('.user-profit').text(feedback.user.difference); }
-
+			console.log(feedback);
 		//populamos la tabla
 		if (feedback.xfers) {
 			var row = '';
