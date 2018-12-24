@@ -320,9 +320,9 @@ $(document).ready(function() {
 	/* Open/close menu f-menu_switch **********************/
 	var brand_top = $('.brand').offset().top;
 	// menu switch function
-	function menu_switch() {
+	function menu_switch(state) {
 
-		if ($('.menu').hasClass('menu-on')) {
+		if ($('.menu').hasClass('menu-on') || (state == 'off')) {
 			// $('.header').focus();
 			TweenMax.set('.brand', {opacity: 1, scale: 1, top: brand_top});
 			TweenMax.to('.brand', 0.3, {opacity: 0, scale: 0.5, display: "none", top: "0%", ease: Expo.easeIn });
@@ -395,6 +395,9 @@ $(document).ready(function() {
 	// function that manage the center of the menu
 	function menu_manager(kard) {
 		console.log('kard seclected: ' + kard);
+
+		// if menu is not open
+		if ($('.menu').hasClass('menu-on')) {} else { menu_switch('on');};
 
 		location.hash = ('#' + kard);
 		$('*').removeClass('menu-active');
