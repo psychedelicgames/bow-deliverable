@@ -653,8 +653,8 @@ $(document).ready(function() {
 	//Send bits to address
 	function cashier_send() {
 		//buscamos las variables de cookies
-		var username = $('#withdrawals-username').val();
-		var password = $('#withdrawals-password').val();
+		var username = Cookies('user_username');
+		var password = Cookies('user_password');
 		var address = $('#withdrawals-amount').val();
 
 		//envamos las variables para node
