@@ -1863,8 +1863,8 @@ $(document).ready(function() {
 	$('body').keydown(function(e) {
 		switch(e.which) {
 			// show menu
-			case 17: menu_switch();
-			break;
+			// case 17: menu_switch();
+			// break;
 			//exit handler
 			default: return;
 		}
