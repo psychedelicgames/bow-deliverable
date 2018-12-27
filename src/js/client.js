@@ -702,6 +702,7 @@ $(document).ready(function() {
 				$('#send_funds_amount').val('');
 				$('#send_funds_username').val('');
 				$('#alert-message-send-funds').text('');
+				user_stats();
 			}
 			else if (feedback.advice == 'Invalid user_b.') {
 				$('#alert-message-send-funds').text('Invalid destination user');
