@@ -737,6 +737,12 @@ $(document).ready(function() {
 			$('.requested-send-funds').text($('#send_funds_amount').val());
 			var balance = ($('.user-balance').html() - $('#send_funds_amount').val());
 			$('#send_funds-balance-left').text(balance);
+			if ($('#send_funds-balance-left').text() < 0) {
+				$('#send_funds_send').addClass('btn-disabled');
+			}
+			else {
+				$('#send_funds_send').removeClass('btn-disabled');
+			}
 	})
 
 
