@@ -635,7 +635,7 @@ $(document).ready(function() {
 			//refrescamos el balance del usuario
 			if (feedback.user.available_balance != balance_previo) {
 				//refrescamos la UI
-				$('#user_balance').html(feedback.user.available_balance);
+				$('#user-balance').text(feedback.user.available_balance);
 				//refrescamos la cookie
 				Cookies.set('user_balance', feedback.user.available_balance);
 			}
