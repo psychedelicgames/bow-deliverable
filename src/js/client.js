@@ -674,6 +674,7 @@ $(document).ready(function() {
 	/* cashier/withdrawals **************************************/
 
 	//Send bits to address
+var status = 'empty';
 	function cashier_send() {
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
@@ -681,39 +682,61 @@ $(document).ready(function() {
 		var address = $('#withdrawals_send_address').val();
 		var value = $('#withdrawals-amount').val();
 
-	$('#alert-message-withdrawals').text('');
-		//envamos las variables para node
-		socket.emit('cashier-send', { username: username, password: password, value: value, address: address, confirm: confirm }, function(feedback) {
-			console.log(feedback);
-			$('#withdrawals-available-balance').text();
-			$('#alert-message-withdrawals').text();
-			//en caso de que la operación sea aprobada
-			if (feedback.advice == 'allowed') {
-				//informamos
-				showAlert(feedback.advice, 'yellow');
-				//remplazar los campos
-				$('#withdrawals-available-balance').text(feedback.operacion.available_funds * 1000000);
-				$('#withdrawals-final_xfer_funds').text(feedback.operacion.final_xfer_funds * 1000000);
-				$('#withdrawals-required-fees').text(feedback.operacion.required_fees * 1000000);
-				$('#withdrawals-specified-funds').text(feedback.operacion.specified_funds * 1000000);
-				$('#withdrawals-specified-funds-minus-fees').text(feedback.operacion.specified_funds_minus_fees * 1000000);
-				$('#withdrawals-balance-left').text(feedback.operacion.remaning_balance * 1000000);
-				$('#withdrawals_send').text('confirm withdrawal');
+		if (status == 'verified') {
+			return;
+		}
+		else {
+			status = 'verify';
+		}
 
+		$('#alert-message-withdrawals').text('');
 
-			}
-			//en caso de que la operación no sea aprobada
-			else { $('#alert-message-withdrawals').text(feedback.advice); }
-		});
+		// nos fijamos que verifique
+		console.log(status);
+		if (status == 'verify') {
+			socket.emit('cashier-send', { username: username, password: password, value: value, address: address, confirm: confirm }, function(feedback) {
+				$('#withdrawals-available-balance').text();
+				$('#alert-message-withdrawals').text();
+				//en caso de que la operación sea aprobada
+				if (feedback.advice == 'allowed') {
+
+					//remplazar los campos
+					$('#withdrawals-available-balance').text(feedback.operacion_empowered.available_funds);
+					$('#withdrawals-final_xfer_funds').text(feedback.operacion_empowered.final_xfer_funds);
+					$('#withdrawals-required-fees').text(feedback.operacion_empowered.required_fees);
+					$('#withdrawals-specified-funds').text(feedback.operacion_empowered.specified_funds);
+					$('#withdrawals-specified-funds-minus-fees').text(feedback.operacion_empowered.specified_funds_minus_fees);
+					$('#withdrawals-balance-left').text(feedback.operacion_empowered.remaning_balance);
+					$('#withdrawals_send').text('confirm withdrawal');
+					status = 'verified';
+				}
+				//en caso de que la operación no sea aprobada
+				else { $('#alert-message-withdrawals').text(feedback.advice); }
+			});
+		}
+		else if (status == 'verified') { // si ya verifico
+			socket.emit('cashier-send', { username: username, password: password, value: value, address: address, confirm: 1 }, function(feedback) {
+				$('#withdrawals-available-balance').text();
+				$('#alert-message-withdrawals').text();
+				//en caso de que la operación sea aprobada
+				if (feedback.advice == 'allowed') {
+					//informamos
+					showAlert(feedback.advice, 'yellow');
+					//remplazar los campos
+					$('#withdrawals-available-balance').text(feedback.operacion_empowered.available_funds);
+					$('#withdrawals-final_xfer_funds').text(feedback.operacion_empowered.final_xfer_funds);
+					$('#withdrawals-required-fees').text(feedback.operacion_empowered.required_fees);
+					$('#withdrawals-specified-funds').text(feedback.operacion_empowered.specified_funds);
+					$('#withdrawals-specified-funds-minus-fees').text(feedback.operacion_empowered.specified_funds_minus_fees);
+					$('#withdrawals-balance-left').text(feedback.operacion_empowered.remaning_balance);
+
+					status = 'empty';
+				}
+				//en caso de que la operación no sea aprobada
+				else { $('#alert-message-withdrawals').text(feedback.advice); }
+			});
+		}
 	}
-
-
-	// available_funds: "0.00232145"
-	// final_xfer_funds: "0.00232145"
-	// remaning_balance: "0.00000000"
-	// required_fees: "0.00000000"
-	// specified_funds: "0.00232145"
-	// specified_funds_minus_fees: "0.00232145"
 
 
 	/************************************************************/
