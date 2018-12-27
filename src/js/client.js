@@ -631,7 +631,7 @@ $(document).ready(function() {
 			//revision
 			console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
-			if(feedback.user.available_balance > balance_previo) { sound_coins(); showAlert(feedback.advice, 'yellow'); }
+			if(feedback.user.available_balance > balance_previo) { sound_coins(); showAlert(feedback.advice, 'yellow');	 }
 			//refrescamos el balance del usuario
 			if (feedback.user.available_balance != balance_previo) {
 				//refrescamos la UI
@@ -721,6 +721,12 @@ $(document).ready(function() {
 			}
 		});
 	}
+	// update requestesd funds
+	$('#send_funds_username').keyup(function(e){
+			$('.requested-send-funds').text($('#send_funds_amount').val());
+			var balance = ($('.user-balance').html() - $('#send_funds_amount').val());
+			$('#send_funds-balance-left').text(balance);
+	})
 
 
 	/************************************************************/
