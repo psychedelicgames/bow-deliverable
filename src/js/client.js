@@ -625,11 +625,11 @@ $(document).ready(function() {
 			//si hay operaciones nuevas, informamos.
 			if(feedback.advice != 'success') { showAlert(feedback.advice, 'yellow'); }
 			//revisión
-			console.log(feedback);
+			// console.log(feedback);
 			//almacenamos el balance en balance_previo
 			var balance_previo = $('#user-balance').html();
 			//revision
-			console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
+			// console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
 			if(feedback.user.available_balance > balance_previo) {
 				//calculamos la diferencia de balance
@@ -710,7 +710,7 @@ $(document).ready(function() {
 		$('#alert-message-send-funds').text('');
 
 		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
-			console.log(feedback.advice);
+
 			if (feedback.advice == 'success') {
 				showAlert('Transfer success', 'yellow')
 				$('#send_funds_amount').val('');
