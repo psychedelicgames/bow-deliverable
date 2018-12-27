@@ -631,8 +631,19 @@ $(document).ready(function() {
 			//revision
 			console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
-			if(feedback.user.available_balance > balance_previo) { sound_coins(); showAlert(feedback.advice, 'yellow'); }
-			//refrescamos el balance del usuario
+			if(feedback.user.available_balance > balance_previo) {
+				//calculamos la diferencia de balance
+				var balance_difference = feedback.user.available_balance - balance_previo
+				//informamos la diferencia de balance
+				showAlert(
+					'| Previous balance: ' + balance_previo +
+					'| New balance: ' + feedback.user.available_balance +
+					'| Balance change: ' + balance_difference
+				);
+				//corremos el sonido de monedas
+				sound_coins();
+			}
+			//en caso de ser necesario refrescamos el balance del usuario
 			if (feedback.user.available_balance != balance_previo) {
 				//refrescamos la UI
 				$('#user-balance').text(feedback.user.available_balance);
