@@ -187,10 +187,10 @@ $(document).ready(function() {
 	var menu_top = $('.menu').offset().top;
 	var brand_position = (menu_top - (brand_height / 2) - 15);
 	$('.brand').css({'top': brand_position});
-	
-	$(window).click(function(e) {	
-		// close menu if click outside    
-	    if (menu_status == 'on') { 
+
+	$(window).click(function(e) {
+		// close menu if click outside
+	    if (menu_status == 'on') {
 	    	if (e.target.id == 'body' || e.target.id == 'canvas' || e.target.id == 'canvas_02') {menu_switch('off')};
 	    }
 	});
@@ -623,10 +623,13 @@ $(document).ready(function() {
 		//envamos las variables para node
 		socket.emit('cashier-search', { username: username, password: password }, function(feedback) {
 			//si hay operaciones nuevas, informamos.
-			if(feedback.advice != null) { showAlert(feedback.advice, 'yellow'); }
+			if(feedback.advice != 'success') { showAlert(feedback.advice, 'yellow'); }
+			//revisión
+			console.log(feedback);
 			//almacenamos el balance en balance_previo
-			var balance_previo = $('.user_balance').html();
-			//console.log(balance_previo, feedback.user.available_balance);
+			var balance_previo = $('.user-bits').html();
+			//revision
+			console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
 			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
 			//refrescamos el balance del usuario
@@ -694,7 +697,7 @@ $(document).ready(function() {
 
 		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
 			console.log(feedback.advice);
-			if (feedback.advice == 'Success.') {
+			if (feedback.advice == 'success') {
 				showAlert('Transfer success', 'yellow')
 				$('#send_funds_amount').val('');
 				$('#send_funds_username').val('');
@@ -1017,7 +1020,7 @@ $(document).ready(function() {
 
 		if ($('#developer-switch').hasClass('fa-check-square') || $('.btn-dev-on-off').hasClass('x-color-one')) {
 
-			
+
 
 			var developer_self = '';
 			$.each( game['self'], function( key, value ) {
@@ -1307,7 +1310,7 @@ $(document).ready(function() {
 			}
 		});
 
-		// if game 
+		// if game
 		if (game['self']) {
 			var hub_usuario = game['self'];
 			$('#health-bar').empty();
