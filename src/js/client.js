@@ -733,7 +733,7 @@ $(document).ready(function() {
 		});
 	}
 	// update requestesd funds
-	$('#send_funds_username').keyup(function(e){
+	$('#send_funds_amount').keyup(function(e){
 			$('.requested-send-funds').text($('#send_funds_amount').val());
 			var balance = ($('.user-balance').html() - $('#send_funds_amount').val());
 			$('#send_funds-balance-left').text(balance);
