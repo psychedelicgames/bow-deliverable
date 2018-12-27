@@ -636,11 +636,7 @@ $(document).ready(function() {
 				//calculamos la diferencia de balance
 				var balance_difference = feedback.user.available_balance - balance_previo
 				//informamos la diferencia de balance
-				showAlert(
-					'| Previous balance: ' + balance_previo +
-					'| New balance: ' + feedback.user.available_balance +
-					'| Balance change: ' + balance_difference
-				);
+				showAlert('Previous balance: ' + balance_previo + ' New balance: ' + feedback.user.available_balance + ' Balance change: ' + balance_difference);
 				//corremos el sonido de monedas
 				sound_coins();
 			}
@@ -651,6 +647,9 @@ $(document).ready(function() {
 				//refrescamos la cookie
 				Cookies.set('user_balance', feedback.user.available_balance);
 			}
+			//refrescamos la información del balance en espera
+			//@@revisar
+			//$('#user-pending-received-balance').html(feedback.user.pending_received_balance);
 		});
 	};
 
