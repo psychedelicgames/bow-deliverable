@@ -690,10 +690,31 @@ $(document).ready(function() {
 		//se podría incluír un message
 		var message = null;
 
+		$('#alert-message-send-funds').text('');
+
 		socket.emit('cashier-wire', { username: username, password: password, user_b: user_b, value: value, message: message}, function(feedback) {
-			console.log(feedback);
+			console.log(feedback.advice);
+			if (feedback.advice == 'Success.') {
+				showAlert('Transfer success', 'yellow')
+				$('#send_funds_amount').val('');
+				$('#send_funds_username').val('');
+				$('#alert-message-send-funds').text('');
+			}
+			else if (feedback.advice == 'Invalid user_b.') {
+				$('#alert-message-send-funds').text('Invalid destination user');
+			}
+			else if (feedback.advice == 'Please define username.') {
+				$('#alert-message-send-funds').text('Please define destination user.');
+			}
+			else if (feedback.advice == 'Please define value.') {
+				$('#alert-message-send-funds').text('Please define a value');
+			}
+			else if (feedback.advice == 'Low funds.') {
+				$('#alert-message-send-funds').text('Low funds.');
+			}
 		});
 	}
+
 
 	/************************************************************/
 	/* leaderboard/view *****************************************/
