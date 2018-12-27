@@ -672,28 +672,28 @@ $(document).ready(function() {
 	/************************************************************/
 	/* cashier/withdrawals **************************************/
 
-	//Update balance left when amount input change
-	$('#withdrawals-amount').keyup(function cashier_withdrawals_amount_input() {
-		var balance = Cookies('user_balance');
-		var amount = $('#withdrawals-amount').val();
-		$('#withdrawals-balance-left').val(balance - amount);
-	});
-
 	//Send bits to address
 	function cashier_send() {
 		//buscamos las variables de cookies
 		var username = Cookies('user_username');
 		var password = Cookies('user_password');
-		var address = $('#withdrawals-amount').val();
+		var address = $('#withdrawals_send_address').val();
+		var value = $('#withdrawals-amount').val();
 
 		//envamos las variables para node
-		socket.emit('cashier-send', { username: username, password: password, address: address }, function(feedback) {
+		socket.emit('cashier-send', { username: username, password: password, value: value, address: address, confirm: confirm }, function(feedback) {
 			showAlert(feedback.advice, 'yellow');
-			console.log(feedback.advice);
+			console.log(feedback);
 		});
 	}
 
 
+	// available_funds: "0.00232145"
+	// final_xfer_funds: "0.00232145"
+	// remaning_balance: "0.00000000"
+	// required_fees: "0.00000000"
+	// specified_funds: "0.00232145"
+	// specified_funds_minus_fees: "0.00232145"
 	/************************************************************/
 	/* cashier/wire *********************************************/
 
