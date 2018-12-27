@@ -311,6 +311,7 @@ $(document).ready(function() {
 			$('.kard-cashier [data-tab-link]:first-child').addClass('active');
 			$('.kard-cashier [data-tab]').removeClass('active');
 			$('#kard-cashier-deposits').addClass('active');
+			$('#withdrawals_send').text('verify withdrawal');
 		}
 		if (kard == 'settings') {
 			user_mfa_show();
@@ -680,10 +681,29 @@ $(document).ready(function() {
 		var address = $('#withdrawals_send_address').val();
 		var value = $('#withdrawals-amount').val();
 
+	$('#alert-message-withdrawals').text('');
 		//envamos las variables para node
 		socket.emit('cashier-send', { username: username, password: password, value: value, address: address, confirm: confirm }, function(feedback) {
-			showAlert(feedback.advice, 'yellow');
 			console.log(feedback);
+			$('#withdrawals-available-balance').text();
+			$('#alert-message-withdrawals').text();
+			//en caso de que la operación sea aprobada
+			if (feedback.advice == 'allowed') {
+				//informamos
+				showAlert(feedback.advice, 'yellow');
+				//remplazar los campos
+				$('#withdrawals-available-balance').text(feedback.operacion.available_funds * 1000000);
+				$('#withdrawals-final_xfer_funds').text(feedback.operacion.final_xfer_funds * 1000000);
+				$('#withdrawals-required-fees').text(feedback.operacion.required_fees * 1000000);
+				$('#withdrawals-specified-funds').text(feedback.operacion.specified_funds * 1000000);
+				$('#withdrawals-specified-funds-minus-fees').text(feedback.operacion.specified_funds_minus_fees * 1000000);
+				$('#withdrawals-balance-left').text(feedback.operacion.remaning_balance * 1000000);
+				$('#withdrawals_send').text('confirm withdrawal');
+
+
+			}
+			//en caso de que la operación no sea aprobada
+			else { $('#alert-message-withdrawals').text(feedback.advice); }
 		});
 	}
 
@@ -694,6 +714,8 @@ $(document).ready(function() {
 	// required_fees: "0.00000000"
 	// specified_funds: "0.00232145"
 	// specified_funds_minus_fees: "0.00232145"
+
+
 	/************************************************************/
 	/* cashier/wire *********************************************/
 
