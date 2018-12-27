@@ -627,15 +627,18 @@ $(document).ready(function() {
 			//revisión
 			console.log(feedback);
 			//almacenamos el balance en balance_previo
-			var balance_previo = $('.user-balance').html();
+			var balance_previo = $('#user-balance').html();
 			//revision
 			console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
 			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
 			//refrescamos el balance del usuario
-			$('.user_balance').text(feedback.user.available_balance);
-			//modificamos la cookie
-			if(feedback.user.available_balance != Cookies('user_balance')) { Cookies.set('user_balance', feedback.user.available_balance); }
+			if (feedback.user.available_balance != balance_previo) {
+				//refrescamos la UI
+				$('#user_balance').html(feedback.user.available_balance);
+				//refrescamos la cookie
+				Cookies.set('user_balance', feedback.user.available_balance);
+			}
 		});
 	};
 
