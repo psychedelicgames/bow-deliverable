@@ -739,9 +739,11 @@ $(document).ready(function() {
 			$('#send_funds-balance-left').text(balance);
 			if ($('#send_funds-balance-left').text() < 0) {
 				$('#send_funds_send').addClass('btn-disabled');
+				$('#send_funds-balance-left').css({'color': 'red'});
 			}
 			else {
 				$('#send_funds_send').removeClass('btn-disabled');
+				$('#send_funds-balance-left').css({'color': 'white'});
 			}
 	})
 
