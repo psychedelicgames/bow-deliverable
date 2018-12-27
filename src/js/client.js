@@ -631,7 +631,7 @@ $(document).ready(function() {
 			//revision
 			console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
-			if(feedback.user.available_balance > balance_previo) { sound_coins(); }
+			if(feedback.user.available_balance > balance_previo) { sound_coins(); showAlert(feedback.advice, 'yellow'); }
 			//refrescamos el balance del usuario
 			if (feedback.user.available_balance != balance_previo) {
 				//refrescamos la UI
