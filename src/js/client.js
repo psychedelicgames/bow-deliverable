@@ -604,7 +604,7 @@ $(document).ready(function() {
 				if ($('.user-kills').text() != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
 				if ($('.user-deaths').text() != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.lose); }
 				if ($('.user-spawns').text() != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
-				if ($('.user-bits').text() != feedback.user.available_balance ) { $('.user-bits').text(feedback.user.available_balance); }
+				if ($('.user-balance').text() != feedback.user.available_balance ) { $('.user-balance').text(feedback.user.available_balance); }
 				if ($('.user-profit').text() != feedback.user.difference ) { $('.user-profit').text(feedback.user.difference); }
 				if ($('.user-status').text() != feedback.user.condicion ) { $('.user-status').text(feedback.user.condicion); }
 			});
@@ -627,7 +627,7 @@ $(document).ready(function() {
 			//revisión
 			console.log(feedback);
 			//almacenamos el balance en balance_previo
-			var balance_previo = $('.user-bits').html();
+			var balance_previo = $('.user-balance').html();
 			//revision
 			console.log('balance previo: ' + balance_previo + 'balance de db:  ' +  feedback.user.available_balance);
 			//si el balance nuevo es mayor a balance_previo, hacemos ruido de monedas
@@ -1104,12 +1104,12 @@ $(document).ready(function() {
 				//if (kills.text !== playing_info.kills ) { console.log('vamos'); kills.text(playing_info.kills); }
 				//if ($('.user-deaths').text != playing_info.deaths ) { $('.user-deaths').text(playing_info.deaths); }
 				//if ($('.user-spawns').text != playing_info.spawns ) { $('.user-spawns').text(playing_info.spawns); }
-				//if ($('.user-bits').text != playing_info.balance ) { $('.user-bits').text(playing_info.balance); }
+				//if ($('.user-balance').text != playing_info.balance ) { $('.user-balance').text(playing_info.balance); }
 				// $('.user-name').text(playing_info.name);
 				// $('.user-kills').text(playing_info.kills);
 				// $('.user-deaths').text(playing_info.deaths);
 				// $('.user-spawns').text(playing_info.spawns);
-				// $('.user-bits').text(playing_info.balance);
+				// $('.user-balance').text(playing_info.balance);
 			}
 		}
 
@@ -1569,7 +1569,7 @@ $(document).ready(function() {
 			if ($('.user-kills').text != feedback.user.won ) { $('.user-kills').text(feedback.user.won); }
 			if ($('.user-deaths').text != feedback.user.eliminado ) { $('.user-deaths').text(feedback.user.lose); }
 			if ($('.user-spawns').text != feedback.user.spawns ) { $('.user-spawns').text(feedback.user.spawns); }
-			if ($('.user-bits').text != feedback.user.available_balance ) { $('.user-bits').text(feedback.user.available_balance); }
+			if ($('.user-balance').text != feedback.user.available_balance ) { $('.user-balance').text(feedback.user.available_balance); }
 			if ($('.user-profit').text != feedback.user.difference ) { $('.user-profit').text(feedback.user.difference); }
 			console.log(feedback);
 		//populamos la tabla
