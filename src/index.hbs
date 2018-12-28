@@ -1,145 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<script src="./js/socket.io.min.js"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link rel="icon" type="image/png" href="./img/favicon.png">
+	<head>
+		<script src="./js/socket.io.min.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" type="image/png" href="./img/favicon.png">
 
-	<title>Bit of War</title>
+		<title>Bit of War</title>
 
-	<link rel="stylesheet" href="./css/main.css">
-	<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/main.css">
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
 
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="" crossorigin="anonymous">
 
-	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
 
-	<!-- playground.bitofwar.com -->
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-49488235-14"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'UA-49488235-14');
-	</script>
+		<!-- playground.bitofwar.com -->
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-49488235-14"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-49488235-14');
+		</script>
+	</head>
+	<body id="body" oncontextmenu="return false">
+		<div class="preload-stuff">
+			<img src="../img/menu/01.png">
+			<img src="../img/menu/02.png">
+			<img src="../img/menu/03.png">
+		</div>
+		{{!-- header include --}}
 
-</head>
-<body id="body" oncontextmenu="return false">
-	<div class="preload-stuff">
-		<img src="../img/menu/01.png">
-		<img src="../img/menu/02.png">
-		<img src="../img/menu/03.png">
-	</div>
-	{{!-- header include --}}
-	<!-- inicializamos sequencer acá -->
-	<script type="module">
+		{{!-- interface include --}}
+		{{> includes/_layout/header }}
+		{{> includes/_layout/ui }}
 
-			//usamos ES6 para incluir la clase
-			import Sequencer from './js/sequencer/sequencer.js';
+		{{!-- menu --}}
+		<div class="brand"><img src="./img/brand_hd.png"></div>
+		<section id="menu" class="menu">
+			{{> includes/_layout/menu_left }}
+			<div class="menu-center">
+				{{!-- kards include --}}
+				{{> includes/_kards/new-user }}
+				{{> includes/_kards/disconnect }}
+				{{> includes/_kards/back-home }}
+				{{> includes/_kards/online-players }}
+				{{> includes/_kards/rooms }}
+				{{> includes/_kards/settings }}
+				{{> includes/_kards/profile }}
+				{{> includes/_kards/user-balance }}
+				{{> includes/_kards/leaderboard }}
+				{{> includes/_kards/cashier }}
+				{{> includes/_kards/template }}
+				{{!-- {{> includes/_kards/credits }} --}}
+				{{> includes/_kards/balance }}
+				{{> includes/_kards/feedback }}
+			</div>
+			{{> includes/_layout/menu_right }}
+		</section>
+		<div class="menu-overlay"></div>
 
-			//considerar remplazar el nombre en caso de que haya más.
-			const av_fire = Sequencer.make({
-				canvas           : document.getElementById('av_fire'),
-				from             : './img/canvas/avs/av_fire/focus_av_final_000.png',
-				to               : './img/canvas/avs/av_fire/focus_av_final_029.png',
-				playMode         : "auto",
-					//direction        : "-x",
-					//scaleMode        : "cover",
-					//showLoadedImages : false,
-					//hiDPI            : true,
-					//imageLoad        : function(e){ console.log("[id: " + e.id + "] " + e.count + "/" + e.total); },
-					//queueComplete    : function(e){ console.log(e); }
-				});
+		{{!-- game itself --}}
+		<section id="canvas-container" class="canvas-container">
+			<div class="canvas-overlay"></div>
+			{{> includes/_canvas-ui/player-hub }}
+			{{> includes/_canvas-ui/powerups-container }}
+			{{> includes/_canvas-ui/playing-info }}
+			<!-- <div class="canvas-effects"><img src="/public/img/game/ui/screen-broken1.svg"></div> -->
+			<canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
+			<canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
+		</section>
+		
+		<div id="leaderboard"></div>
+		{{!-- {{> includes/_layout/footer }} --}}
 
-			av_fire.size(500, 300);
-
-			</script>
-
-			{{!-- interface include --}}
-			{{> includes/_layout/header }}
-			{{> includes/_layout/ui }}
-
-			{{!-- menu --}}
-			<div class="brand"><img src="./img/brand_hd.png"></div>
-			<section id="menu" class="menu">
-				{{> includes/_layout/menu_left }}
-				<div class="menu-center">
-					{{!-- kards include --}}
-					{{> includes/_kards/new-user }}
-					{{> includes/_kards/disconnect }}
-					{{> includes/_kards/back-home }}
-					{{> includes/_kards/online-players }}
-					{{> includes/_kards/rooms }}
-					{{> includes/_kards/settings }}
-					{{> includes/_kards/profile }}
-					{{> includes/_kards/user-balance }}
-					{{> includes/_kards/leaderboard }}
-					{{> includes/_kards/cashier }}
-					{{> includes/_kards/template }}
-					{{!-- {{> includes/_kards/credits }} --}}
-					{{> includes/_kards/balance }}
-					{{> includes/_kards/feedback }}
-				</div>
-				{{> includes/_layout/menu_right }}
-			</section>
-			<div class="menu-overlay"></div>
-
-			{{!-- game itself --}}
-			<section id="canvas-container" class="canvas-container">
-				<div class="canvas-overlay"></div>
-				{{> includes/_canvas-ui/player-hub }}
-				{{> includes/_canvas-ui/powerups-container }}
-				{{> includes/_canvas-ui/playing-info }}
-				<!-- <div class="canvas-effects"><img src="/public/img/game/ui/screen-broken1.svg"></div> -->
-				<canvas id="canvas_02" class="canvas active" style="z-index: 2; pointer-events: none; position: relative;"></canvas>
-				<canvas id="canvas" class="canvas" style="z-index: 1"></canvas>
-			</section>
-			
-			<div id="leaderboard"></div>
-			{{!-- {{> includes/_layout/footer }} --}}
-	
 		<!-- Bootstrap core JavaScript
-			================================================== -->
-			<!-- Placed at the end of the document so the pages load faster -->
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
 
 
-			<!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-			<script src="https://code.highcharts.com/highcharts.js"></script>
-			<script src="https://code.highcharts.com/modules/treemap.js"></script>
-			<script src="https://blacklabel.github.io/multicolor_series/js/multicolor_series.js"></script>
-			<!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
-			<script src="./js/shared/Constants.js"></script>
-			<script src="./js/shared/Util.js"></script>
-			<script src="./js/shared/base.js"></script>
-			<script src="./js/game/Chat.js"></script>
-			<script src="./js/game/Drawing.js"></script>
-			<script src="./js/game/Stats.js"></script>
-			<!-- mersa -->
-			<script>
-				//armamos los mecanismos de supervisión.
-			  var stats = new Stats();
-				stats.showPanel(1);
-				document.getElementById('developer-mode').appendChild( stats.dom );
-			</script>
-			<script src="./js/game/Game.js"></script>
-			<script src="./js/game/Input.js"></script>
-			<script src="./js/game/Leaderboard.js"></script>
-			<script src="./js/game/ViewPort.js"></script>
-			<script src="./js/cookies.min.js"></script>
-			<script src="./js/sound.js"></script>
-			<script src="./js/forge-sha256.min.js"></script>
+		<!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/treemap.js"></script>
+		<script src="https://blacklabel.github.io/multicolor_series/js/multicolor_series.js"></script>
+		<!-- sería recomendable remover el CDN de acá, considerar que va a ser packeado para desk -->
+		<script src="./js/shared/Constants.js"></script>
+		<script src="./js/shared/Util.js"></script>
+		<script src="./js/shared/base.js"></script>
+		<script src="./js/game/Chat.js"></script>
+		<script src="./js/game/Drawing.js"></script>
+		<script src="./js/game/Stats.js"></script>
+		<!-- mersa -->
+		<script>
+			//armamos los mecanismos de supervisión.
+		  var stats = new Stats();
+			stats.showPanel(1);
+			document.getElementById('developer-mode').appendChild( stats.dom );
+		</script>
+		<script src="./js/game/Game.js"></script>
+		<script src="./js/game/Input.js"></script>
+		<script src="./js/game/Leaderboard.js"></script>
+		<script src="./js/game/ViewPort.js"></script>
+		<script src="./js/cookies.min.js"></script>
+		<script src="./js/sound.js"></script>
+		<script src="./js/forge-sha256.min.js"></script>
 
-			<script src="./js/jquery-3.3.1.min.js"></script>
-			<script src="./js/qrcode.js"></script>
-			<script src="./js/client.js"></script>
-			<script src="./js/popper.min.js"></script>
-			<script src="./js/bootstrap.min.js"></script>
-			<script type="text/javascript" src="./js/main.js"></script>
-		</body>
-		</html>
+		<script src="./js/jquery-3.3.1.min.js"></script>
+		<script src="./js/qrcode.js"></script>
+		<script src="./js/client.js"></script>
+		<script src="./js/popper.min.js"></script>
+		<script src="./js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./js/main.js"></script>
+	</body>
+</html>

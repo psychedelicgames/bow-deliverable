@@ -1387,15 +1387,6 @@ $(document).ready(function() {
 			c = (7 - hub_usuario.health + 100);
 			$('#canvas').css({ 'filter': 'grayscale(' + b + '%) contrast(' + c + '%)','-webkit-filter': 'grayscale(' + b + '%) contrast(' + c + '%)'});
 
-			//av en llamas
-			if (hub_usuario.health <= 5 ) {
-				$('#av_fire').css({opacity: '1'})
-				$('#av_plain').css({opacity: '0'})
-			}
-			else {
-				$('#av_plain').css({opacity: '1'})
-				$('#av_fire').css({opacity: '0'})
-			}
 			//hacer sonido de explosion
 			if (hub_usuario.health <= 0 ) {
 				//hacer sonido de explosion
