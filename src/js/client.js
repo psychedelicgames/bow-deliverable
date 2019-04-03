@@ -1872,17 +1872,35 @@ $(document).ready(function() {
 					$('.powerups-container').removeClass('active');
 				}
 				if(keydown == '50') {
+					rand = sounds_order_2.rand(); sounds[rand].play();
+					show_upper_message('There’s nothing faster than Assassin MK1!');
+					powerup_counter	('order_power_2');
+					$('.powerups-container').removeClass('active');
+				}
+				if(keydown == '51') {
+					rand = sounds_order_3.rand(); sounds[rand].play();
+					show_upper_message('Vladof relics 1.0  more bullets, more kills!');
+					powerup_counter	('order_power_3');
+					$('.powerups-container').removeClass('active');
+				}
+				if(keydown == '52') {
 					rand = sounds_order_4.rand(); sounds[rand].play();
 					show_upper_message('You are 1.666 times lighter with Moonwalk!');
 					powerup_counter	('order_power_4');
 					$('.powerups-container').removeClass('active');
 				}
-				if(keydown == '51') {
+				if(keydown == '53') {
 					rand = sounds_order_5.rand(); sounds[rand].play();
 					show_upper_message('The Slow company loves you.');
 					powerup_counter	('order_power_5');
 					$('.powerups-container').removeClass('active');
 				}
+				if(keydown == '54') {
+					rand = sounds_order_6.rand(); sounds[rand].play(); console.log(rand);
+					show_upper_message("Providing healing. We're killing you slowly");
+					powerup_counter	('order_power_6');
+					$('.powerups-container').removeClass('active');
+				}			
 			}
 		});
 	}
@@ -1903,6 +1921,18 @@ $(document).ready(function() {
 		order_power('51');
 		$('#canvas').focus();
 	});
+	$('#order_power_4').click(function() {
+		order_power('52');
+		$('#canvas').focus();
+	});
+	$('#order_power_5').click(function() {
+		order_power('53');
+		$('#canvas').focus();
+	});
+	$('#order_power_6').click(function() {
+		order_power('54');
+		$('#canvas').focus();
+	});
 
 
 	/************************************************************/
@@ -1912,18 +1942,30 @@ $(document).ready(function() {
 	$('#canvas').keydown(function(e) {
 
 		switch(e.which) {
-			//'1' buy shield
+			//'1' para comprar 'shield'
 			case 49:
 			order_power(e.which);
 			break;
-			//'2' buy speed
+			//'2' para comprar 'quickfire'
 			case 50:
 			order_power(e.which);
 			break;
-			//'3' buy slowco
+			//'3' para comprar 'peacemaker'
 			case 51:
 			order_power(e.which);
 			break;
+			//'4' para comprar 'moonwalker'
+			case 52:
+			order_power(e.which);
+			break;
+			//'5' slowco
+			case 53:
+			order_power(e.which);
+			break;
+			//'6' healco
+			case 54:
+			order_power(e.which);
+			break;		
 			// show poweups
 			case 16: show_powerups();
 			break;
