@@ -7,7 +7,7 @@ $(document).ready(function() {
 	 }
 
 	 //conservar como variable principal y hacer que se pueda remplazar desde el menu
-	 var server = 'wss://clouds.bitofwar.com';
+	 var server = 'wss://127.0.0.1';
 
 	//definimos lo que hay que definir
 	var socket = io(server); //hello
@@ -28,9 +28,10 @@ $(document).ready(function() {
 	sound_menu_ambient.volume = 0.5;
 	sound_menu_ambient.autoPlay = true;
 	sound_menu_ambient.loop = true;
-	sound_menu_ambient.preLoad = false;
+	sound_menu_ambient.preLoad = true;
 	sound_menu_ambient.controls = false;
-	sound_menu_ambient.currentTime = 1;
+
+	sound_menu_ambient.play();
 
 	//sound menu click
 	var sound_menu_click = document.createElement("audio");
@@ -1900,7 +1901,7 @@ $(document).ready(function() {
 					show_upper_message("Providing healing. We're killing you slowly");
 					powerup_counter	('order_power_6');
 					$('.powerups-container').removeClass('active');
-				}			
+				}
 			}
 		});
 	}
@@ -1965,7 +1966,7 @@ $(document).ready(function() {
 			//'6' healco
 			case 54:
 			order_power(e.which);
-			break;		
+			break;
 			// show poweups
 			case 16: show_powerups();
 			break;
