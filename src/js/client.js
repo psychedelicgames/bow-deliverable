@@ -7,7 +7,7 @@ $(document).ready(function() {
 	 }
 
 	 //conservar como variable principal y hacer que se pueda remplazar desde el menu
-	 var server = 'wss://127.0.0.1';
+	 var server = 'wss://clouds.bitofwar.com';
 
 	//definimos lo que hay que definir
 	var socket = io(server); //hello
@@ -1387,6 +1387,16 @@ $(document).ready(function() {
 			b = a - 100;
 			c = (7 - hub_usuario.health + 100);
 			$('#canvas').css({ 'filter': 'grayscale(' + b + '%) contrast(' + c + '%)','-webkit-filter': 'grayscale(' + b + '%) contrast(' + c + '%)'});
+			
+			//av en llamas
+			if (hub_usuario.health <= 5 ) {
+				$('#av_fire').css({opacity: '1'})
+				$('#av_plain').css({opacity: '0'})
+			}
+			else {
+				$('#av_plain').css({opacity: '1'})
+				$('#av_fire').css({opacity: '0'})
+			}
 
 			//hacer sonido de explosion
 			if (hub_usuario.health <= 0 ) {
