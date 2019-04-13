@@ -1673,7 +1673,7 @@ $(document).ready(function() {
 					// var difference_sum = feedback.xfers[i]['difference_sum'];
 					// var raw_difference_sum = difference_sum.replace("-", "");
 
-					row += '<td>falta api</td>';
+					//row += '<td>falta api</td>';
 
 					// if (feedback.xfers[i]['difference_sum'] < 0) {
 					// 	row += '<td><i class="far fa-minus x-color-one"></i> ' + raw_difference_sum + '</td>';
@@ -1682,7 +1682,7 @@ $(document).ready(function() {
 					// 	row += '<td><i class="far fa-plus x-color-green"></i> ' + raw_difference_sum + '</td>';
 					// }
 
-					// row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
+					//row += '<td>' + feedback.xfers[i]['creacion'] + '</td>';
 					row += '</tr>';
 				}
 				// console.log(row);
