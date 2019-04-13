@@ -875,7 +875,7 @@ $(document).ready(function() {
 				$('#canvas-container').css({'display': 'block'});
 				$('body').addClass('playing');
 				$('.btn-respawn').css({'display': 'none'});
-				$('.powerups-info .title span').text('3');
+				$('.powerups-info .title span').text('5');
 
 				menu_switch();
 				player_hub();

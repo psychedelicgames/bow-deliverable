@@ -21,7 +21,7 @@ Drawing.HP_MISSING_COLOR      = '#FF0000';
 Drawing.SHIELD_COLOR          = '#26C6D9';
 Drawing.SHIELD_MISSING_COLOR  = '#BEF8FF';
 Drawing.BASE_IMG_URL          = '/img/canvas/';
-Drawing.TILE_SIZE             = 2500;
+Drawing.TILE_SIZE             = 2000;
 
 /************************************************************/
 /* Localizamos las imágenes a usar **************************/
@@ -40,7 +40,7 @@ Drawing.IMG_SRCS = {
   'ammo_regular':           '/img/canvas/game/ammo/regular.png',
   'ammo_healco_care':       '/img/canvas/game/ammo/healco_care.png',
   'ammo_slowco_frozen':     '/img/canvas/game/ammo/slowco_frozen.png',
-  'tile':                   '/img/canvas/full_map_02.png',
+  'tile':                   '/img/canvas/general-map.jpg',
   'shotgun_powerup':        '/img/canvas/shotgun_powerup.png',
   'speedboost_powerup':     '/img/canvas/speedboost_powerup.png',
   'rapidfire_powerup':      '/img/canvas/rapidfire_powerup.png',
