@@ -12,13 +12,13 @@ function Constants() {
 // WORLD and CANVAS constants should mirror those in the client side. All values are in pixels.
 
 Constants.WORLD_MIN = 0;
-Constants.WORLD_MAX = 2500;
+Constants.WORLD_MAX = 2000;
 
 //el padding se usa para no poner cosas cerca de los bordes
 Constants.WORLD_PADDING = 30;
 
-Constants.CANVAS_WIDTH = 2500;
-Constants.CANVAS_HEIGHT = 2500;
+Constants.CANVAS_WIDTH = 2000;
+Constants.CANVAS_HEIGHT = 2000;
 
 //creo que es recomendable no modificar acá, parece en vano anclarlo.
 Constants.VISIBILITY_THRESHOLD_X = (Constants.CANVAS_WIDTH / 2) + 25
